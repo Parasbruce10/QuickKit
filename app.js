@@ -25,11 +25,17 @@ const Header = ({ title, theme, toggleTheme }) => {
 
 // 2. The Engine (Main Body)
 const Content = () => {
-    const defaultParagraph = "The swift dynamics of asynchronous JavaScript engines enable scalable architectures. Modern web frameworks construct beautiful pixel-perfect user experiences with high performance execution and optimized state propagation schemes across client applications worldwide.";
+    // Har level ke liye alag text setup (Easy, Medium, Hard)
+    const levelParagraphs = {
+        1: "The quick brown fox jumps over the lazy dog every single day. Programming is a very fun activity that can help you build wonderful web utilities easily. You should practice typing regularly to improve your overall speed and accuracy metrics.",
+        2: "Modern web development frameworks construct beautiful pixel perfect user experiences with high performance execution. Optimizing local state propagation schemes across client applications worldwide guarantees zero network latency. Developers must engineer clean component architectures to scale their digital applications smoothly over time.",
+        3: "The swift dynamics of asynchronous JavaScript runtime engines enable highly scalable web architectures. Compiling pure client-side interactivity layers on top of modular frameworks completely bypasses standard handshake intervals. This enforces cryptographic cross-origin isolation pipelines, securing sensitive user workspace configurations efficiently."
+    };
 
     // Core Engine States
     const [promptText, setPromptText] = useState('');
-    const [activeParagraph, setActiveParagraph] = useState(defaultParagraph);
+    // Pehle level ka dynamic default text load hoga
+    const [activeParagraph, setActiveParagraph] = useState(levelParagraphs[1]);
     const [inputValue, setInputValue] = useState('');
 
     // Timer & Flow States
@@ -50,15 +56,17 @@ const Content = () => {
     const timerIntervalRef = useRef(null);
 
     // Dynamic Paragraph Generator from Search Input
+    // Dynamic Paragraph Generator from Search Input
     const handlePromptChange = (event) => {
         const val = event.target.value;
         setPromptText(val);
         if (val.trim() === '') {
-            setActiveParagraph(defaultParagraph);
+            setActiveParagraph(levelParagraphs[currentLevel]); // Level ke mutabiq reload hoga
         } else {
             setActiveParagraph(val);
         }
-        resetTest();
+        // Agar aapke code mein resetTest error de raha ho to yahan startLevel(currentLevel) use kar sakte hain
+        startLevel(currentLevel); 
     };
 
     // Main Countdown Matrix
@@ -136,10 +144,13 @@ const Content = () => {
 
     // Reset Machine
     // Level Flow & Reset Machines
+    // Level Flow & Reset Machines
     const startLevel = (lvl) => {
         clearInterval(timerIntervalRef.current);
         setInputValue('');
-        setTimeLeft(levelsConfig[lvl].time); // Level ke hisaab se time set hoga
+        setPromptText(''); // Custom prompt text clear ho jaye taake automatic level text load ho
+        setActiveParagraph(levelParagraphs[lvl]); // Dynamic prompt logic apply yahan ho rahi hai
+        setTimeLeft(levelsConfig[lvl].time); 
         setIsTestRunning(false);
         setIsFinished(false);
         setTimeout(() => {
