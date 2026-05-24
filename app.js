@@ -33,7 +33,15 @@ const Content = () => {
     const [inputValue, setInputValue] = useState('');
 
     // Timer & Flow States
-    const [timeLeft, setTimeLeft] = useState(60);
+    // Timer, Flow & Level States
+    const levelsConfig = {
+        1: { time: 60, targetWords: 30 },
+        2: { time: 45, targetWords: 25 },
+        3: { time: 30, targetWords: 20 }
+    };
+    
+    const [currentLevel, setCurrentLevel] = useState(1);
+    const [timeLeft, setTimeLeft] = useState(levelsConfig[1].time);
     const [isTestRunning, setIsTestRunning] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
 
@@ -90,18 +98,16 @@ const Content = () => {
 
     // Ultimate Performance Metrics Calculations
     // Ultimate Performance Metrics Calculations
+    // Ultimate Performance Metrics Calculations
     const calculateFinalStats = () => {
-        const timeSpentInMinutes = (60 - timeLeft) / 60 || 1 / 60; // Safe mathematical escape
+        const timeSpentInMinutes = (levelsConfig[currentLevel].time - timeLeft) / 60 || 1 / 60; 
         const totalCharactersTyped = inputValue.length;
 
-        // WPM Calculation (5 characters = 1 word standard formula)
         const computedWpm = Math.round((totalCharactersTyped / 5) / timeSpentInMinutes);
 
-        // Accuracy Evaluation Based on Target Paragraph
         let correctHits = 0;
         let totalErrors = 0;
 
-        // Loop through everything typed to match with paragraph string precision
         for (let i = 0; i < totalCharactersTyped; i++) {
             if (inputValue[i] === activeParagraph[i]) {
                 correctHits++;
@@ -110,32 +116,57 @@ const Content = () => {
             }
         }
 
-        // Percentage calculations directly linked to user interaction profile
         const computedAccuracy = totalCharactersTyped > 0
             ? Math.round((correctHits / totalCharactersTyped) * 100)
             : 100;
+
+        // NAYA LOGIC: Sahe words count karne ke liye (5 chars = 1 word)
+        const correctWordsTyped = Math.floor(correctHits / 5);
 
         return {
             wpm: computedWpm,
             accuracy: computedAccuracy,
             errors: totalErrors,
-            totalKeys: totalCharactersTyped
+            totalKeys: totalCharactersTyped,
+            correctWords: correctWordsTyped // Yi naya pass kia hy
         };
     };
 
-    const stats = calculateFinalStats();
+    
 
     // Reset Machine
-    const resetTest = () => {
+    // Level Flow & Reset Machines
+    const startLevel = (lvl) => {
         clearInterval(timerIntervalRef.current);
         setInputValue('');
-        setTimeLeft(60);
+        setTimeLeft(levelsConfig[lvl].time); // Level ke hisaab se time set hoga
         setIsTestRunning(false);
         setIsFinished(false);
         setTimeout(() => {
             if (inputRef.current) inputRef.current.focus();
         }, 50);
     };
+
+    const handleNextLevel = () => {
+        const nextLvl = currentLevel + 1;
+        setCurrentLevel(nextLvl);
+        startLevel(nextLvl);
+    };
+
+    const handleRetry = () => {
+        startLevel(currentLevel);
+    };
+
+    const handleRestartGame = () => {
+        setCurrentLevel(1);
+        startLevel(1);
+    };
+    
+    // Status Trackers
+    const stats = calculateFinalStats();
+    const currentConfig = levelsConfig[currentLevel];
+    const isPassed = stats.correctWords >= currentConfig.targetWords;
+    const isGameWon = isPassed && currentLevel === 3;
 
     // Characters Highlighter Parser
     const renderedText = activeParagraph.split('').map((char, index) => {
@@ -162,7 +193,7 @@ const Content = () => {
                     e('input', {
                         type: 'text',
                         className: 'prompt-input-field',
-                        placeholder: 'Start Writing You will get your result after 60 Second',
+                        placeholder: `Target: Type ${currentConfig.targetWords} words in ${currentConfig.time} seconds to clear Level ${currentLevel}!`,
                         value: promptText,
                         onChange: handlePromptChange,
                         disabled: isTestRunning
@@ -194,9 +225,25 @@ const Content = () => {
             ),
 
             // SCREEN 2: HIGH-END METRIC RESULTS BREAKDOWN
+            // SCREEN 2: HIGH-END METRIC RESULTS BREAKDOWN
             isFinished && e('div', { className: 'result-card' },
-                e('h2', { className: 'result-title' }, '⚡ Test Completed! Your Performance Score'),
+                
+                // Dynamic Title Pass/Fail ke hisaab se
+                e('h2', { 
+                    className: 'result-title', 
+                    style: { color: isGameWon ? '#22c55e' : (isPassed ? '#00f5ff' : '#ef4444') } 
+                }, 
+                    isGameWon ? '🏆 You Won The Game! Master Typist!' :
+                    isPassed ? `⚡ Level ${currentLevel} Passed!` :
+                    `❌ Level ${currentLevel} Failed!`
+                ),
 
+                // Target Words Message
+                e('p', { style: { textAlign: 'center', color: '#94a3b8', marginBottom: '20px' } }, 
+                    `You typed ${stats.correctWords} correct words. (Target was ${currentConfig.targetWords})`
+                ),
+
+                // Result Grid (Ye waise hi rahega)
                 e('div', { className: 'result-grid' },
                     e('div', { className: 'result-box' },
                         e('div', { className: 'res-val cyan' }, stats.wpm),
@@ -212,7 +259,12 @@ const Content = () => {
                     )
                 ),
 
-                e('button', { className: 'action-btn', onClick: resetTest }, 'Try Again')
+                // Conditional Buttons Level ke mutabiq
+                e('div', { style: { display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '20px' } },
+                    (!isPassed) && e('button', { className: 'action-btn', onClick: handleRetry }, '🔄 Retry Level'),
+                    (isPassed && !isGameWon) && e('button', { className: 'action-btn', onClick: handleNextLevel }, '➡️ Next Level'),
+                    (isGameWon) && e('button', { className: 'action-btn', onClick: handleRestartGame }, '🔄 Play Again')
+                )
             )
         )
     );
