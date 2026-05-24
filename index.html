@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickKit</title>
+     
+    <!-- Favicon — sab browsers ke liye -->
+<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+<link rel="icon" type="image/png" sizes="96x96" href="logo.png">
+<link rel="icon" type="image/png" sizes="192x192" href="logo.png">
+
+<!-- Apple iPhone/iPad home screen icon -->
+<link rel="apple-touch-icon" sizes="180x180" href="logo.png">
+<link rel="apple-touch-icon" sizes="152x152" href="logo.png">
+<link rel="apple-touch-icon" sizes="144x144" href="logo.png">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#060608">
+
+<!-- Windows tile -->
+<meta name="msapplication-TileImage" content="logo.png">
+<meta name="msapplication-TileColor" content="#060608">
+
+<!-- Android Chrome -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="QuickKit">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="module" src="app.js"></script>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered successfully!', reg))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
