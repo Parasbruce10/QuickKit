@@ -845,6 +845,38 @@ const Home = ({ navigate }) => {
                 )
             )
         ),
+        // Card 4
+                e('div', { className: 'classic-detail-card classic-delay-4' },
+                    e('div', { className: 'classic-card-header' },
+                        e('div', { className: 'classic-icon-box' }, '⌨️'),
+                        e('h3', { className: 'classic-card-title' }, 'Tactile Typing Experience')
+                    ),
+                    e('p', { className: 'classic-card-text' }, 
+                        'Typing should be a sensory experience. Our environment is designed to complement the satisfying, rhythmic flow of a mechanical keyboard. Every keystroke is registered with ultra-low latency, ensuring your raw speed is measured with absolute precision.'
+                    )
+                ),
+
+                // Card 5
+                e('div', { className: 'classic-detail-card classic-delay-5' },
+                    e('div', { className: 'classic-card-header' },
+                        e('div', { className: 'classic-icon-box' }, '🌐'),
+                        e('h3', { className: 'classic-card-title' }, 'Edge-Optimized Deployment')
+                    ),
+                    e('p', { className: 'classic-card-text' }, 
+                        'Built for the modern web. The underlying architecture is perfectly configured for seamless live deployments on high-performance edge networks like Vercel. This guarantees instantaneous global access and unparalleled uptime.'
+                    )
+                ),
+
+                // Card 6
+                e('div', { className: 'classic-detail-card classic-delay-6' },
+                    e('div', { className: 'classic-card-header' },
+                        e('div', { className: 'classic-icon-box' }, '🛠️'),
+                        e('h3', { className: 'classic-card-title' }, 'Native Editor Environment')
+                    ),
+                    e('p', { className: 'classic-card-text' }, 
+                        'Engineered for developers who live in their code editors. With a workspace that feels as fluid and responsive as VS Code, QuickKit provides advanced local utilities—like real-time file extraction and text editing workflows—without ever breaking your focus.'
+                    )
+                ),
 
             // ── CTA BANNER ──
             e('div', { className: 'cta-banner' },
