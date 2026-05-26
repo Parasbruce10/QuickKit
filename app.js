@@ -290,20 +290,57 @@ const BioWriter = () => {
     const [generatedBio, setGeneratedBio] = useState('');
 
     const handleGenerate = () => {
-        // Dono fields check karega agar khali hain to generate nahi karega
         if (!userName.trim() || !field.trim()) return;
 
-        // Name aur Field ke hisaab se premium aur stylish bio templates
-        const templates = [
-            `✨ Hey, I'm ${userName}! A creative ${field} crafting digital experiences, solving complex problems, and turning ideas into reality. Let's build something extraordinary! 🚀`,
-            `⚡ Driven. Innovative. Passionate. I am ${userName}, a professional ${field} specializing in delivering high-impact solutions and pushing industry boundaries. 💼`,
-            `🎯 Meet ${userName} — A dedicated ${field} blending technical expertise with out-of-the-box thinking to architect next-gen workflows. Always learning, always evolving. 🔥`,
-            `🌟 Minimalist mindset, maximalist results. I'm ${userName}, working as a ${field}. Focused on growth, design aesthetics, and seamless user experiences. 🛠️`
+        // User ke input ko lowercase mein convert kar rahe hain taake matching aasani se ho sake
+        const professionLower = field.trim().toLowerCase();
+
+        // 1. MEDICAL / DOCTOR FIELD TEMPLATES
+        const doctorTemplates = [
+            `🩺 Healthcare Professional | My name is ${userName} and I am a dedicated ${field}. Committed to patient care, medical excellence, and clinical innovation. Transforming healthcare with empathy and precision. 🌟`,
+            `✨ Driven by healing, guided by science. I'm ${userName}, a professional ${field}. Specializing in diagnostics, medical research, and compassionate patient wellness. 🏥`
         ];
 
-        // Randomly ek stylish bio select karega
-        const randomBio = templates[Math.floor(Math.random() * templates.length)];
-        setGeneratedBio(randomBio);
+        // 2. ENGINEERING FIELD TEMPLATES
+        const engineeringTemplates = [
+            `🛠️ Problem Solver & Innovator | I am ${userName}, an analytical ${field}. Turning blueprints into reality, optimizing complex machinery, and architecting sustainable infrastructural designs. 🚀`,
+            `⚙️ Engineering the future, one project at a time. My name is ${userName}, working as an enthusiastic ${field}. Focused on technical precision, structural systems, and cutting-edge mechanisms. 📐`
+        ];
+
+        // 3. BBA / BUSINESS / MANAGEMENT FIELD TEMPLATES
+        const businessTemplates = [
+            `📊 Strategist & Business Leader | Hello! I'm ${userName}, a sharp ${field}. Driving corporate growth, optimizing financial models, managing cross-functional assets, and scaling market performance. 📈`,
+            `💼 Corporate Mindset | I am ${userName}, working in the field of ${field}. Specializing in brand management, operations strategy, data analytics, and entrepreneurial leadership. 🎯`
+        ];
+
+        // 4. DEVELOPMENT / CODING FIELD TEMPLATES
+        const developerTemplates = [
+            `💻 Full-Stack Architecture | I'm ${userName}, a high-performance ${field}. Turning complex logic into fluid browser tabs, writing scalable microservices, and debugging the web. ⚡`,
+            `🚀 Digital Craftsman | My name is ${userName}, a creative ${field}. Building responsive interfaces, working locally with ultra-low latency frameworks, and pushing pixels to production. 🎨`
+        ];
+
+        // 5. GENERAL / FALLBACK TEMPLATES (Agar user koi alag field dale to ye chalega)
+        const generalTemplates = [
+            `✨ Creative Mind | Hey, I'm ${userName}! A passionate ${field} crafting impactful workflows, solving complex problems, and turning ideas into reality. Let's collaborate! 🚀`,
+            `🎯 Professional Profile | Driven. Innovative. Dedicated. I am ${userName}, specializing as a ${field} with a focus on operational efficiency and out-of-the-box thinking. 🔥`
+        ];
+
+        // Dynamic Field Matching System
+        let selectedTemplates = generalTemplates; // Default sets to general
+
+        if (professionLower.includes('doctor') || professionLower.includes('medical') || professionLower.includes('mbbs') || professionLower.includes('nurse')) {
+            selectedTemplates = doctorTemplates;
+        } else if (professionLower.includes('engineer') || professionLower.includes('mechanical') || professionLower.includes('civil') || professionLower.includes('electrical')) {
+            selectedTemplates = engineeringTemplates;
+        } else if (professionLower.includes('bba') || professionLower.includes('business') || professionLower.includes('manager') || professionLower.includes('finance') || professionLower.includes('marketing')) {
+            selectedTemplates = businessTemplates;
+        } else if (professionLower.includes('developer') || professionLower.includes('coder') || professionLower.includes('programmer') || professionLower.includes('software') || professionLower.includes('web')) {
+            selectedTemplates = developerTemplates;
+        }
+
+        // Selected list se randomly ek premium variations picking logic
+        const finalBio = selectedTemplates[Math.floor(Math.random() * selectedTemplates.length)];
+        setGeneratedBio(finalBio);
     };
 
     return e('main', { className: 'main-content' },
