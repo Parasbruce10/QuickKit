@@ -45,7 +45,7 @@ const Content = () => {
         2: { time: 45, targetWords: 25 },
         3: { time: 30, targetWords: 20 }
     };
-    
+
     const [currentLevel, setCurrentLevel] = useState(1);
     const [timeLeft, setTimeLeft] = useState(levelsConfig[1].time);
     const [isTestRunning, setIsTestRunning] = useState(false);
@@ -66,7 +66,7 @@ const Content = () => {
             setActiveParagraph(val);
         }
         // Agar aapke code mein resetTest error de raha ho to yahan startLevel(currentLevel) use kar sakte hain
-        startLevel(currentLevel); 
+        startLevel(currentLevel);
     };
 
     // Main Countdown Matrix
@@ -108,7 +108,7 @@ const Content = () => {
     // Ultimate Performance Metrics Calculations
     // Ultimate Performance Metrics Calculations
     const calculateFinalStats = () => {
-        const timeSpentInMinutes = (levelsConfig[currentLevel].time - timeLeft) / 60 || 1 / 60; 
+        const timeSpentInMinutes = (levelsConfig[currentLevel].time - timeLeft) / 60 || 1 / 60;
         const totalCharactersTyped = inputValue.length;
 
         const computedWpm = Math.round((totalCharactersTyped / 5) / timeSpentInMinutes);
@@ -140,7 +140,7 @@ const Content = () => {
         };
     };
 
-    
+
 
     // Reset Machine
     // Level Flow & Reset Machines
@@ -150,7 +150,7 @@ const Content = () => {
         setInputValue('');
         setPromptText(''); // Custom prompt text clear ho jaye taake automatic level text load ho
         setActiveParagraph(levelParagraphs[lvl]); // Dynamic prompt logic apply yahan ho rahi hai
-        setTimeLeft(levelsConfig[lvl].time); 
+        setTimeLeft(levelsConfig[lvl].time);
         setIsTestRunning(false);
         setIsFinished(false);
         setTimeout(() => {
@@ -172,7 +172,7 @@ const Content = () => {
         setCurrentLevel(1);
         startLevel(1);
     };
-    
+
     // Status Trackers
     const stats = calculateFinalStats();
     const currentConfig = levelsConfig[currentLevel];
@@ -238,19 +238,19 @@ const Content = () => {
             // SCREEN 2: HIGH-END METRIC RESULTS BREAKDOWN
             // SCREEN 2: HIGH-END METRIC RESULTS BREAKDOWN
             isFinished && e('div', { className: 'result-card' },
-                
+
                 // Dynamic Title Pass/Fail ke hisaab se
-                e('h2', { 
-                    className: 'result-title', 
-                    style: { color: isGameWon ? '#22c55e' : (isPassed ? '#00f5ff' : '#ef4444') } 
-                }, 
+                e('h2', {
+                    className: 'result-title',
+                    style: { color: isGameWon ? '#22c55e' : (isPassed ? '#00f5ff' : '#ef4444') }
+                },
                     isGameWon ? '🏆 You Won The Game! Master Typist!' :
-                    isPassed ? `⚡ Level ${currentLevel} Passed!` :
-                    `❌ Level ${currentLevel} Failed!`
+                        isPassed ? `⚡ Level ${currentLevel} Passed!` :
+                            `❌ Level ${currentLevel} Failed!`
                 ),
 
                 // Target Words Message
-                e('p', { style: { textAlign: 'center', color: '#94a3b8', marginBottom: '20px' } }, 
+                e('p', { style: { textAlign: 'center', color: '#94a3b8', marginBottom: '20px' } },
                     `You typed ${stats.correctWords} correct words. (Target was ${currentConfig.targetWords})`
                 ),
 
@@ -689,16 +689,59 @@ const ContactUs = () => {
 // --- NEW: Premium Home Component with Typewriter ---
 const Home = ({ navigate }) => {
     const [typedText, setTypedText] = useState('');
-    const fullText = "Premium digital utilities to supercharge your daily workflow.";
+    
+    // Aapki website se related 3 professional lines jo loop mein chalengi
+    const typewriterLines = [
+        "Premium digital utilities to supercharge your daily workflow.",
+        "Test your typing speed with real-time advanced precision metrics.",
+        "Evaluate password strength and generate aesthetic bios locally."
+    ];
 
     useEffect(() => {
-        let i = 0;
-        const timer = setInterval(() => {
-            setTypedText(fullText.slice(0, i + 1));
-            i++;
-            if (i >= fullText.length) clearInterval(timer);
-        }, 50);
-        return () => clearInterval(timer);
+        let lineIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 60; // Type karne ki speed
+
+        const handleType = () => {
+            const currentLine = typewriterLines[lineIndex];
+
+            if (!isDeleting) {
+                // Characters ko screen par add karna
+                setTypedText(currentLine.slice(0, charIndex + 1));
+                charIndex++;
+
+                // Agar poori line type ho jaye
+                if (charIndex === currentLine.length) {
+                    typingSpeed = 2000; // Poori line likhne ke baad 2 seconds ka pause
+                    isDeleting = true;
+                } else {
+                    typingSpeed = 60;
+                }
+            } else {
+                // Characters ko erase/delete karna
+                setTypedText(currentLine.slice(0, charIndex - 1));
+                charIndex--;
+
+                // Agar saari line delete ho jaye
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    // Agli line par move karna, agar last line ho to wapas 1st line par jana (Loop)
+                    lineIndex = (lineIndex + 1) % typewriterLines.length;
+                    typingSpeed = 500; // Nayi line shuru hone se pehle thora sa pause
+                } else {
+                    typingSpeed = 30; // Erase thora tez hoga
+                }
+            }
+
+            setTimeout(handleType, typingSpeed);
+        };
+
+        // Typewriter effect ko start karna
+        const timerId = setTimeout(handleType, typingSpeed);
+        
+        // Cleanup mechanism
+        return () => clearTimeout(timerId);
     }, []);
 
     return e('main', { className: 'main-content' },
@@ -715,10 +758,10 @@ const Home = ({ navigate }) => {
                 e('div', { style: { display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' } },
                     e('button', { className: 'action-btn', onClick: () => navigate('typingtester') }, '🚀 Start Typing Test'),
                     // Updated Learn More Button with Glow Class
-                e('button', { 
-                    className: 'learn-more-btn', 
-                    onClick: () => navigate('about') 
-                }, 'Learn More')
+                    e('button', {
+                        className: 'learn-more-btn',
+                        onClick: () => navigate('about')
+                    }, 'Learn More')
                 ),
 
                 // Stats Row
@@ -789,94 +832,94 @@ const Home = ({ navigate }) => {
                 )
             ),
             // --- NEW: Ultra-Premium Additional Details Section with Images & Flow ---
-        e('div', { className: 'detail-row-container' },
-            
-            // Row 1: Architecture (Image Left, Text Right)
-            e('div', { className: 'detail-row animate-fade-up delay-1' },
-                e('div', { className: 'detail-image-side' },
-                    e('img', { 
-                        className: 'detail-img-graphic', 
-                        src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80', 
-                        alt: 'Next-Gen Architecture Graphic' 
-                    })
+            e('div', { className: 'detail-row-container' },
+
+                // Row 1: Architecture (Image Left, Text Right)
+                e('div', { className: 'detail-row animate-fade-up delay-1' },
+                    e('div', { className: 'detail-image-side' },
+                        e('img', {
+                            className: 'detail-img-graphic',
+                            src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+                            alt: 'Next-Gen Architecture Graphic'
+                        })
+                    ),
+                    e('div', { className: 'detail-text-side' },
+                        e('div', { className: 'step-number' }, '01'),
+                        e('h3', { className: 'step-title', style: { fontSize: '1.8rem', marginTop: '10px', background: 'linear-gradient(135deg, #ffffff, #94a3b8)', WebkitBackgroundClip: 'text', color: 'transparent' } }, 'Next-Gen Asynchronous Architecture'),
+                        e('p', { className: 'step-desc', style: { fontSize: '1rem', lineHeight: '1.8', marginTop: '15px' } },
+                            'QuickKit is engineered from the ground up using highly optimized asynchronous runtime loop execution engines. By compiling pure client-side interactivity layers on top of modular structural frameworks, the application completely bypasses standard handshake intervals, guaranteeing zero network latency and seamless browser thread execution.'
+                        )
+                    )
                 ),
-                e('div', { className: 'detail-text-side' },
-                    e('div', { className: 'step-number' }, '01'),
-                    e('h3', { className: 'step-title', style: { fontSize: '1.8rem', marginTop: '10px', background: 'linear-gradient(135deg, #ffffff, #94a3b8)', WebkitBackgroundClip: 'text', color: 'transparent' } }, 'Next-Gen Asynchronous Architecture'),
-                    e('p', { className: 'step-desc', style: { fontSize: '1rem', lineHeight: '1.8', marginTop: '15px' } }, 
-                        'QuickKit is engineered from the ground up using highly optimized asynchronous runtime loop execution engines. By compiling pure client-side interactivity layers on top of modular structural frameworks, the application completely bypasses standard handshake intervals, guaranteeing zero network latency and seamless browser thread execution.'
+
+                // Row 2: Data Isolation (Text Left, Image Right - Reverse)
+                e('div', { className: 'detail-row reverse animate-fade-up delay-2' },
+                    e('div', { className: 'detail-image-side' },
+                        e('img', {
+                            className: 'detail-img-graphic',
+                            src: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=800&q=80',
+                            alt: 'Data Security Graphic'
+                        })
+                    ),
+                    e('div', { className: 'detail-text-side' },
+                        e('div', { className: 'step-number' }, '02'),
+                        e('h3', { className: 'step-title', style: { fontSize: '1.8rem', marginTop: '10px', background: 'linear-gradient(135deg, #ffffff, #94a3b8)', WebkitBackgroundClip: 'text', color: 'transparent' } }, 'Absolute End-to-End Data Isolation'),
+                        e('p', { className: 'step-desc', style: { fontSize: '1rem', lineHeight: '1.8', marginTop: '15px' } },
+                            'Unlike typical cloud-reliant utilities that quietly capture your continuous keystrokes, newly generated biographies, or highly sensitive password phrases onto backend cloud arrays, QuickKit enforces cryptographic local cross-origin isolation pipelines. Your personal workspace configurations operate entirely within your sandbox container.'
+                        )
+                    )
+                ),
+
+                // Row 3: Interface Design (Image Left, Text Right)
+                e('div', { className: 'detail-row animate-fade-up delay-2' },
+                    e('div', { className: 'detail-image-side' },
+                        e('img', {
+                            className: 'detail-img-graphic',
+                            src: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80',
+                            alt: 'UI Layer Graphic'
+                        })
+                    ),
+                    e('div', { className: 'detail-text-side' },
+                        e('div', { className: 'step-number' }, '03'),
+                        e('h3', { className: 'step-title', style: { fontSize: '1.8rem', marginTop: '10px', background: 'linear-gradient(135deg, #ffffff, #94a3b8)', WebkitBackgroundClip: 'text', color: 'transparent' } }, 'Fluid Unified Responsive Engineering'),
+                        e('p', { className: 'step-desc', style: { fontSize: '1rem', lineHeight: '1.8', marginTop: '15px' } },
+                            'Every micro-utility workspace inside our matrix is mapped into a unified fluid display container. Built to respect sub-pixel kerning alignments, modern color-contrast laws, and real-time interface viewport scaling, the platform dynamically reshapes visual components instantly to preserve deep focus and flow.'
+                        )
                     )
                 )
             ),
-
-            // Row 2: Data Isolation (Text Left, Image Right - Reverse)
-            e('div', { className: 'detail-row reverse animate-fade-up delay-2' },
-                e('div', { className: 'detail-image-side' },
-                    e('img', { 
-                        className: 'detail-img-graphic', 
-                        src: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=800&q=80', 
-                        alt: 'Data Security Graphic' 
-                    })
+            // Card 4
+            e('div', { className: 'classic-detail-card classic-delay-4' },
+                e('div', { className: 'classic-card-header' },
+                    e('div', { className: 'classic-icon-box' }, '⌨️'),
+                    e('h3', { className: 'classic-card-title' }, 'Tactile Typing Experience')
                 ),
-                e('div', { className: 'detail-text-side' },
-                    e('div', { className: 'step-number' }, '02'),
-                    e('h3', { className: 'step-title', style: { fontSize: '1.8rem', marginTop: '10px', background: 'linear-gradient(135deg, #ffffff, #94a3b8)', WebkitBackgroundClip: 'text', color: 'transparent' } }, 'Absolute End-to-End Data Isolation'),
-                    e('p', { className: 'step-desc', style: { fontSize: '1rem', lineHeight: '1.8', marginTop: '15px' } }, 
-                        'Unlike typical cloud-reliant utilities that quietly capture your continuous keystrokes, newly generated biographies, or highly sensitive password phrases onto backend cloud arrays, QuickKit enforces cryptographic local cross-origin isolation pipelines. Your personal workspace configurations operate entirely within your sandbox container.'
-                    )
+                e('p', { className: 'classic-card-text' },
+                    'Typing should be a sensory experience. Our environment is designed to complement the satisfying, rhythmic flow of a mechanical keyboard. Every keystroke is registered with ultra-low latency, ensuring your raw speed is measured with absolute precision.'
                 )
             ),
 
-            // Row 3: Interface Design (Image Left, Text Right)
-            e('div', { className: 'detail-row animate-fade-up delay-2' },
-                e('div', { className: 'detail-image-side' },
-                    e('img', { 
-                        className: 'detail-img-graphic', 
-                        src: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80', 
-                        alt: 'UI Layer Graphic' 
-                    })
+            // Card 5
+            e('div', { className: 'classic-detail-card classic-delay-5' },
+                e('div', { className: 'classic-card-header' },
+                    e('div', { className: 'classic-icon-box' }, '🌐'),
+                    e('h3', { className: 'classic-card-title' }, 'Edge-Optimized Deployment')
                 ),
-                e('div', { className: 'detail-text-side' },
-                    e('div', { className: 'step-number' }, '03'),
-                    e('h3', { className: 'step-title', style: { fontSize: '1.8rem', marginTop: '10px', background: 'linear-gradient(135deg, #ffffff, #94a3b8)', WebkitBackgroundClip: 'text', color: 'transparent' } }, 'Fluid Unified Responsive Engineering'),
-                    e('p', { className: 'step-desc', style: { fontSize: '1rem', lineHeight: '1.8', marginTop: '15px' } }, 
-                        'Every micro-utility workspace inside our matrix is mapped into a unified fluid display container. Built to respect sub-pixel kerning alignments, modern color-contrast laws, and real-time interface viewport scaling, the platform dynamically reshapes visual components instantly to preserve deep focus and flow.'
-                    )
+                e('p', { className: 'classic-card-text' },
+                    'Built for the modern web. The underlying architecture is perfectly configured for seamless live deployments on high-performance edge networks like Vercel. This guarantees instantaneous global access and unparalleled uptime.'
                 )
-            )
-        ),
-        // Card 4
-                e('div', { className: 'classic-detail-card classic-delay-4' },
-                    e('div', { className: 'classic-card-header' },
-                        e('div', { className: 'classic-icon-box' }, '⌨️'),
-                        e('h3', { className: 'classic-card-title' }, 'Tactile Typing Experience')
-                    ),
-                    e('p', { className: 'classic-card-text' }, 
-                        'Typing should be a sensory experience. Our environment is designed to complement the satisfying, rhythmic flow of a mechanical keyboard. Every keystroke is registered with ultra-low latency, ensuring your raw speed is measured with absolute precision.'
-                    )
-                ),
+            ),
 
-                // Card 5
-                e('div', { className: 'classic-detail-card classic-delay-5' },
-                    e('div', { className: 'classic-card-header' },
-                        e('div', { className: 'classic-icon-box' }, '🌐'),
-                        e('h3', { className: 'classic-card-title' }, 'Edge-Optimized Deployment')
-                    ),
-                    e('p', { className: 'classic-card-text' }, 
-                        'Built for the modern web. The underlying architecture is perfectly configured for seamless live deployments on high-performance edge networks like Vercel. This guarantees instantaneous global access and unparalleled uptime.'
-                    )
+            // Card 6
+            e('div', { className: 'classic-detail-card classic-delay-6' },
+                e('div', { className: 'classic-card-header' },
+                    e('div', { className: 'classic-icon-box' }, '🛠️'),
+                    e('h3', { className: 'classic-card-title' }, 'Native Editor Environment')
                 ),
-
-                // Card 6
-                e('div', { className: 'classic-detail-card classic-delay-6' },
-                    e('div', { className: 'classic-card-header' },
-                        e('div', { className: 'classic-icon-box' }, '🛠️'),
-                        e('h3', { className: 'classic-card-title' }, 'Native Editor Environment')
-                    ),
-                    e('p', { className: 'classic-card-text' }, 
-                        'Engineered for developers who live in their code editors. With a workspace that feels as fluid and responsive as VS Code, QuickKit provides advanced local utilities—like real-time file extraction and text editing workflows—without ever breaking your focus.'
-                    )
-                ),
+                e('p', { className: 'classic-card-text' },
+                    'Engineered for developers who live in their code editors. With a workspace that feels as fluid and responsive as VS Code, QuickKit provides advanced local utilities—like real-time file extraction and text editing workflows—without ever breaking your focus.'
+                )
+            ),
 
             // ── CTA BANNER ──
             e('div', { className: 'cta-banner' },
