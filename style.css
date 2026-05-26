@@ -461,38 +461,52 @@ body {
 
 /* Footer  */
 /* --- PREMIUM FOOTER STYLING --- */
+/* --- ULTRA-PREMIUM FOOTER REDESIGN --- */
 .main-footer {
-    background-color: rgba(14, 14, 18, 0.45);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    padding: 60px 40px 30px 40px;
+    background-color: rgba(10, 10, 14, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+    padding: 80px 40px 30px 40px;
     margin-top: auto;
     width: 100%;
+    position: relative;
 }
 
+/* Premium Animated Top Border Glow */
+.main-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.8), rgba(189, 0, 255, 0.8), transparent);
+    background-size: 200% auto;
+    animation: flowColors 4s linear infinite;
+}
+
+/* Perfect Alignment Container */
 .footer-container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 180px;
+    gap: 60px; /* 180px hata kar 60px kiya taake responsive rahay */
     width: 100%;
 }
 
 .footer-brand-section {
-    display: block;
-    width: 35%;
-    padding-right: 0px;
+    width: 40%;
     text-align: left;
-    /* Yeh line QuickKit aur description ko bilkul start par le aayegi */
 }
 
 .footer-brand-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 800;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     letter-spacing: -0.5px;
     background: linear-gradient(to right, #00f5ff, #bd00ff);
     -webkit-background-clip: text;
@@ -502,31 +516,37 @@ body {
 
 .footer-brand-desc {
     color: #64748b;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    max-width: 320px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 380px;
 }
 
 .footer-links-column {
-    width: 48%;
+    width: 25%;
     text-align: left;
-}
-
-.footer-links-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 16px;
-    width: 100%;
 }
 
 .footer-column-title {
     font-size: 0.95rem;
     font-weight: 700;
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Title ke neechay choti si underline decoration */
+.footer-column-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 20px;
+    height: 2px;
+    background: #bd00ff;
+    border-radius: 2px;
 }
 
 .footer-links-list {
@@ -535,32 +555,53 @@ body {
 }
 
 .footer-links-list li {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
+/* Animated Nav Links with Sliding Arrow */
 .footer-nav-link {
     background: none;
     border: none;
     color: #94a3b8;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
     padding: 0;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     text-align: left;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Hidden Arrow jo hover par aaye ga */
+.footer-nav-link::before {
+    content: '→';
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    color: #00f5ff;
+    transition: all 0.3s ease;
+    font-weight: bold;
 }
 
 .footer-nav-link:hover {
-    color: #00f5ff;
-    transform: translateX(4px);
+    color: #ffffff;
+    transform: translateX(20px); /* Text right slide hoga */
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+}
+
+.footer-nav-link:hover::before {
+    opacity: 1;
+    left: -24px; /* Arrow wazeh ho jayega */
 }
 
 /* Bottom Bar Separation */
 .footer-bottom-bar {
     max-width: 1200px;
-    margin: 40px auto 0 auto;
+    margin: 60px auto 0 auto;
     padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -576,6 +617,12 @@ body {
     color: #94a3b8;
     font-weight: 600;
     letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.creator-credits:hover {
+    color: #ff007f;
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
 }
 
 /* --- LIGHT THEME OVERRIDES FOR FOOTER --- */
