@@ -283,6 +283,7 @@ const Content = () => {
 
 // --- NEW: Bio Writer Component ---
 // --- NEW: Bio Writer Component ---
+// --- UPDATED: Bio Writer Component with 10+ Templates & Non-Repeating Logic ---
 const BioWriter = () => {
     // Name aur Field dono ke liye states
     const [userName, setUserName] = useState('');
@@ -295,34 +296,130 @@ const BioWriter = () => {
         // User ke input ko lowercase mein convert kar rahe hain taake matching aasani se ho sake
         const professionLower = field.trim().toLowerCase();
 
-        // 1. MEDICAL / DOCTOR FIELD TEMPLATES
+        // 1. MEDICAL / DOCTOR FIELD TEMPLATES (10 Variations)
         const doctorTemplates = [
-            `🩺 Healthcare Professional | My name is ${userName} and I am a dedicated ${field}. Committed to patient care, medical excellence, and clinical innovation. Transforming healthcare with empathy and precision. 🌟`,
-            `✨ Driven by healing, guided by science. I'm ${userName}, a professional ${field}. Specializing in diagnostics, medical research, and compassionate patient wellness. 🏥`
+            `Nordic Healthcare Professional | My name is ${userName} and I am a dedicated ${field}. Committed to patient care, medical excellence, and clinical innovation. Transforming healthcare with empathy and precision. 🌟`,
+            `✨ Driven by healing, guided by science. I'm ${userName}, a professional ${field}. Specializing in diagnostics, medical research, and compassionate patient wellness. 🏥`,
+            `🩺 Lifesaver mode: ON. I am ${userName}, practicing as a ${field}. Healing hands, caring heart, and a mind dedicated to medical breakthroughs. 🩺`,
+            `🌟 Medical Excellence & Empathy | Hello! I am ${userName}, a proud ${field}. Balancing cutting-edge medical procedures with deep patient care. 💊`,
+            `🔬 Stethoscopes, scrubs, and clinical precision. I'm ${userName}, your friendly neighborhood ${field}. Making the world healthier, one patient at a time. 🩺`,
+            `🏥 Healthcare Architect | I am ${userName}, working as a passionate ${field}. Specializing in emergency response, internal medicine, and critical patient care. ✨`,
+            `🌿 Healing with compassion. I am ${userName}, a certified ${field}. Dedicated to bringing wellness, smiles, and healthier lives to our community. 💖`,
+            `🧬 Medicine is an art, and I'm ${userName}, a dedicated ${field} painting a healthier future. Focus: Clinical trials, diagnostics, and patient safety. 📊`,
+            `⚡ Saving lives and chasing smiles. Meet ${userName}, a high-performance ${field} navigating the frontlines of modern medical science. 🏥`,
+            `🎯 Precision in diagnosis, warmth in treatment. I am ${userName}, serving proudly as a ${field}. Your health is my lifelong mission. 🌟`
         ];
 
-        // 2. ENGINEERING FIELD TEMPLATES
+        // 2. ENGINEERING FIELD TEMPLATES (10 Variations)
         const engineeringTemplates = [
-            `🛠️ Problem Solver & Innovator | I am ${userName}, an analytical ${field}. Turning blueprints into reality, optimizing complex machinery, and architecting sustainable infrastructural designs. 🚀`,
-            `⚙️ Engineering the future, one project at a time. My name is ${userName}, working as an enthusiastic ${field}. Focused on technical precision, structural systems, and cutting-edge mechanisms. 📐`
+            `🛠️ Problem Solver & Innovator | I am ${userName}, an analytical ${field}. Turning blueprints into reality, optimizing complex machinery, and architecting sustainable designs. 🚀`,
+            `⚙️ Engineering the future, one project at a time. My name is ${userName}, working as an enthusiastic ${field}. Focused on technical precision and cutting-edge mechanisms. 📐`,
+            `📐 Code, steel, and concrete structures. I'm ${userName}, an ambitious ${field}. Designing infrastructure and deploying systems that withstand time. ⚡`,
+            `🚀 Innovation in every dimension. Meet ${userName}, a professional ${field} bridging the gap between imaginative designs and real-world execution. 🛠️`,
+            `💻 System Architect & Engineer | I am ${userName}, a dedicated ${field}. Optimizing industrial systems, structural designs, and automated pipelines. ⚙️`,
+            `🔋 Powering progress through design. My name is ${userName}, an expert ${field} creating resilient systems and smart mechanical integrations. 🔧`,
+            `🌟 Building what matters. I'm ${userName}, a qualified ${field} focused on high-efficiency projects, advanced analytics, and technical blueprints. 📐`,
+            `🔬 Mechanics, equations, and absolute logic. Meet ${userName}, a deep-tech ${field} redefining the benchmarks of structural engineering. 🛠️`,
+            `💡 Transforming complex physics into seamless utility. I am ${userName}, a practical ${field} crafting standard-setting industrial solutions. ⚡`,
+            `🎨 Where creativity meets physical math. My name is ${userName}, working as a progressive ${field}. Shaping tomorrow's landscape today. 🚀`
         ];
 
-        // 3. BBA / BUSINESS / MANAGEMENT FIELD TEMPLATES
+        // 3. BBA / BUSINESS / MANAGEMENT FIELD TEMPLATES (10 Variations)
         const businessTemplates = [
-            `📊 Strategist & Business Leader | Hello! I'm ${userName}, a sharp ${field}. Driving corporate growth, optimizing financial models, managing cross-functional assets, and scaling market performance. 📈`,
-            `💼 Corporate Mindset | I am ${userName}, working in the field of ${field}. Specializing in brand management, operations strategy, data analytics, and entrepreneurial leadership. 🎯`
+            `📊 Strategist & Business Leader | Hello! I'm ${userName}, a sharp ${field}. Driving corporate growth, optimizing financial models, and scaling performance. 📈`,
+            `💼 Corporate Mindset | I am ${userName}, working in the field of ${field}. Specializing in brand management, operations strategy, and data analytics. 🎯`,
+            `💸 Capitalist heart, analytical mind. I'm ${userName}, a dynamic ${field}. Building startups, liquidating portfolios, and crushing quarterly KPIs. 📈`,
+            `🔥 Entrepreneurial Spirit | Meet ${userName}, a visionary ${field}. Merging corporate strategy with disruptive marketing campaigns to scale global brands. 🚀`,
+            `👑 Master of Management | I am ${userName}, an expert ${field}. Streamlining supply chains, driving venture capital investments, and building market authority. 📊`,
+            `🤝 Negotiation & Growth Hacking | Hello, I'm ${userName}, a results-driven ${field}. Creating high-ROI opportunities and engineering financial synergy. 💎`,
+            `🌟 Corporate Consultant | My name is ${userName}, a qualified ${field}. Redefining fiscal strategies, operational logic, and organizational health. 💼`,
+            `📈 Scaling ventures from zero to millions. Meet ${userName}, an elite ${field}. Focus on data-driven business modeling and strategic leadership. 🎯`,
+            `🎯 Execution is everything. I am ${userName}, a market-savvy ${field}. Transforming traditional business operations into hyper-profitable assets. 🔥`,
+            `💎 Premium asset manager and corporate advisor. I'm ${userName}, working full-time as a ${field}. Shaping the dynamics of modern commerce. 💼`
         ];
 
-        // 4. DEVELOPMENT / CODING FIELD TEMPLATES
+        // 4. DEVELOPMENT / CODING FIELD TEMPLATES (10 Variations)
         const developerTemplates = [
             `💻 Full-Stack Architecture | I'm ${userName}, a high-performance ${field}. Turning complex logic into fluid browser tabs, writing scalable microservices, and debugging the web. ⚡`,
-            `🚀 Digital Craftsman | My name is ${userName}, a creative ${field}. Building responsive interfaces, working locally with ultra-low latency frameworks, and pushing pixels to production. 🎨`
+            `🚀 Digital Craftsman | My name is ${userName}, a creative ${field}. Building responsive interfaces, working locally with ultra-low latency frameworks, and pushing pixels to production. 🎨`,
+            `👾 Compiling dreams into reality. I am ${userName}, an elite ${field}. Eating syntax errors for breakfast and pushing production-ready micro-apps. 💻`,
+            `🔒 Cyber-minded logic wrangler. Meet ${userName}, a fast-paced ${field}. Writing clean, secure, open-source code and decoupling legacy monoliths. ⚡`,
+            `🎨 UI/UX focused engineer. I'm ${userName}, a frontend-native ${field}. Crafting premium web layouts, smooth animations, and zero-latency user workspaces. 🚀`,
+            `🌐 Cloud Native Architect | My name is ${userName}, a modern ${field}. Spinning up serverless clusters, orchestrating APIs, and managing local sandboxes. 🛠️`,
+            `☕ Coffee in, production code out. Meet ${userName}, an agile ${field} dedicated to automation, reactive state management, and semantic elements. 💻`,
+            `⚡ Performance optimization specialist. I am ${userName}, a tech-driven ${field} fixing layout shifts, memory leaks, and render blockers. 🎨`,
+            `🚀 Coding with sub-pixel perfection. My name is ${userName}, working as a high-end ${field}. Building web utilities to supercharge daily workflows. 🔥`,
+            `🧠 AI & Algorithm Enthusiast | I'm ${userName}, a progressive ${field}. Mapping computational models, training custom pipelines, and refining client logic. 🤖`
         ];
 
-        // 5. GENERAL / FALLBACK TEMPLATES (Agar user koi alag field dale to ye chalega)
+        // 5. ARMY / MILITARY TEMPLATES (10 Variations)
+        const armyTemplates = [
+            `🎖️ Serving with Honor | I am ${userName}, a disciplined ${field} in the armed forces. Guarding the nation, defending freedom, and living by loyalty. ⚔️`,
+            `🦁 Courage over fear, duty before self. My name is ${userName}, working proudly as an active ${field}. Standing tall on the frontlines. 🪖`,
+            `🪖 Tactical precision, absolute discipline. I'm ${userName}, a dedicated ${field}. Trained to lead, born to protect, and bound by ultimate honor. 🎖️`,
+            `⚔️ Professional Warrior | Meet ${userName}, an elite ${field}. Defending sovereignty, executing high-stakes tactical deployments, and maintaining peace. 🛡️`,
+            `🦅 Sky is the limit, nation is the priority. I am ${userName}, working as a resilient ${field}. Proud member of the defense matrix. 🪖`,
+            `🛡️ Integrity, resilience, and valor. My name is ${userName}, serving my country as a active ${field}. Freedom isn't free, we guard it. 🎖️`,
+            `⚡ Elite operational mindset. I am ${userName}, a trained ${field}. Specializing in strategic operations, safety logistics, and defense deployments. ⚔️`,
+            `🌟 Born to serve, sworn to protect. Meet ${userName}, an official ${field}. Living a life of extreme challenge, core discipline, and national pride. 🪖`,
+            `🔥 Iron will, steel brotherhood. I am ${userName}, a passionate ${field}. Operating under high-pressure scenarios to keep our borders secure. 🦅`,
+            `🎖️ Guardian of the realm. My name is ${userName}, serving as a tactical ${field}. Loyalty to the flag, commitment to the mission. 🛡️`
+        ];
+
+        // 6. POLICE / LAW ENFORCEMENT TEMPLATES (10 Variations)
+        const policeTemplates = [
+            `👮 To Protect & To Serve | I am ${userName}, a vigilant ${field}. Maintaining law and order, securing neighborhoods, and fighting crime daily. 🚔`,
+            `🚨 Law Enforcement Professional | My name is ${userName}, working as a ${field}. Upholding justice with transparency, integrity, and extreme courage. 🛡️`,
+            `🚔 City guardian mode active. I'm ${userName}, your local ${field}. Keeping our streets safe, investigating cases, and implementing justice. 🚨`,
+            `⚖️ Shielding the innocent, arresting the lawbreakers. Meet ${userName}, a frontline ${field}. Dedicated to community safety and public order. 👮`,
+            `🛡️ Badge of honor, heart of justice. I am ${userName}, a professional ${field}. Standing against crime and fostering peaceful communities. 🚔`,
+            `🚨 Crime investigator & tracker. My name is ${userName}, working passionately as a ${field}. Cracking complex cases and restoring public trust. ⚖️`,
+            `👮 Community protector. I'm ${userName}, serving diligently as a ${field}. Building bridges between law enforcement and citizens for a safer tomorrow. 🌟`,
+            `⚡ High-alert tactical responder. Meet ${userName}, an active ${field}. Managing emergency interventions and neutralizing urban security threats. 🚔`,
+            `🎯 Justice is non-negotiable. I am ${userName}, a standard-setting ${field}. Pledging my life to counter crime and corruption. 🛡️`,
+            `🚨 Zero tolerance for chaos. My name is ${userName}, executing operations as a dedicated ${field}. Patrolling the grid to keep you secure. 👮`
+        ];
+
+        // 7. ACTOR / PERFORMING ARTS TEMPLATES (10 Variations)
+        const actorTemplates = [
+            `🎭 Storyteller & Performer | I am ${userName}, a versatile ${field}. Breathing life into characters, mastering scripts, and lighting up the screen. 🎬`,
+            `✨ Lights, Camera, Expression! My name is ${userName}, working as a professional ${field}. Capturing emotions and defining cinematic moments. 🌟`,
+            `🎬 Living a thousand lives in one. I'm ${userName}, a dedicated ${field}. From theatrical drama to silver screen blockbusters, acting is my soul. 🎭`,
+            `🌟 Creative Artist & Entertainer | Meet ${userName}, an expressive ${field}. Transforming dynamic scripts into unforgettable cinematic experiences. 🎥`,
+            `🎭 Methods, expressions, and deep monologues. I am ${userName}, a passionate ${field} always chasing the perfect shot. 🎬`,
+            `🎥 Cinematic Craftsman | My name is ${userName}, a freelance ${field}. Exploring indie cinemas, commercial dramas, and powerful character arts. ✨`,
+            `🔥 The stage is my playground. I'm ${userName}, a trained ${field}. Connecting audiences with raw human emotions and artistic storytelling. 🎭`,
+            `✨ Red carpets and rigorous screen auditions. Meet ${userName}, a rising ${field}. Dedicated to authentic acting and visual excellence. 🎬`,
+            `🎬 Bringing words to life from script to screen. I am ${userName}, an innovative ${field}. Shaping cultural narratives through media. 🎥`,
+            `💎 Pure performance artist. My name is ${userName}, serving as a cinematic ${field}. Creating timeless art, one scene at a time. 🌟`
+        ];
+
+        // 8. INFLUENCER / CONTENT CREATOR TEMPLATES (10 Variations)
+        const influencerTemplates = [
+            `📸 Digital Creator & Trendsetter | Hello! I'm ${userName}, a dynamic ${field}. Sharing lifestyle insights, building a viral community, and creating impact. 🚀`,
+            `✨ Cultivating authentic digital vibes. My name is ${userName}, working as an engaging ${field}. Curating aesthetics and building premium brand partnerships. 💎`,
+            `🎥 Content King/Queen | I am ${userName}, a full-time ${field}. Pushing creative boundaries, editing viral reels, and inspiring millions daily. 🌟`,
+            `🚀 Monetizing my lifestyle and aesthetic ideas. Meet ${userName}, a professional ${field}. Focus: Tech reviews, travel vlogs, and daily vlogs. 📸`,
+            `💎 Niche authority & community builder. I'm ${userName}, a proud ${field}. Connecting brands with hyper-engaged organic audiences worldwide. 📈`,
+            `🌟 Storytelling via grid aesthetics. My name is ${userName}, working as a digital ${field}. Spreading positivity, trends, and smart lifestyles. 🎨`,
+            `⚡ Attention architect. I am ${userName}, a viral ${field}. Merging visual arts with data analytics to dominate social media algorithms. 📊`,
+            `🎨 Creative director of my own brand space. Meet ${userName}, a global ${field}. Sharing unfiltered real stories and aesthetic journeys. 🚀`,
+            `🎯 Influencing cultures, inspiring mindsets. I am ${userName}, a leading ${field}. Elevating casual viewers into a powerful community. 🔥`,
+            `🎬 Press play on premium digital experiences. My name is ${userName}, working as an independent ${field}. Catch my latest lifestyle dropping soon! ✨`
+        ];
+
+        // 9. GENERAL / FALLBACK TEMPLATES (10 Variations)
         const generalTemplates = [
-            `✨ Creative Mind | Hey, I'm ${userName}! A passionate ${field} crafting impactful workflows, solving complex problems, and turning ideas into reality. Let's collaborate! 🚀`,
-            `🎯 Professional Profile | Driven. Innovative. Dedicated. I am ${userName}, specializing as a ${field} with a focus on operational efficiency and out-of-the-box thinking. 🔥`
+            `✨ Creative Mind | Hey, I'm ${userName}! A passionate ${field} crafting impactful workflows, solving complex problems, and turning ideas into reality. 🚀`,
+            `🎯 Professional Profile | Driven. Innovative. Dedicated. I am ${userName}, specializing as a ${field} with a focus on operational efficiency. 🔥`,
+            `🌟 Hustle, heart, and high performance. Meet ${userName}, working full-time as a ${field}. Always learning, growing, and scaling limits. 💎`,
+            `💡 Idea Generator & Executor | Hello world! I am ${userName}, an independent ${field}. Bridging creative vision with pixel-perfect execution. ⚡`,
+            `🚀 Modern Practitioner | My name is ${userName}, managing projects as a ${field}. Dedicated to absolute precision and game-changing solutions. ✨`,
+            `🔥 Focused on impact, driven by results. I'm ${userName}, an ambitious ${field} continuously updating my skill arrays to lead my niche. 🎯`,
+            `💎 Elite productivity enthusiast. Hello, I am ${userName}, a certified ${field}. Optimizing workflows and maintaining zero downtime. 🚀`,
+            `🌿 Living intentionally, working professionally. My name is ${userName}, making a difference as a standard-setting ${field}. Let's build! 🌟`,
+            `📊 Analytical vision, creative output. Meet ${userName}, an adaptable ${field} turning raw problems into polished success blueprints. 🔧`,
+            `⚡ Breaking boundaries, setting new trends. I am ${userName}, a passionate ${field}. Welcome to my official professional workspace. 💼`
         ];
 
         // Dynamic Field Matching System
@@ -336,10 +433,25 @@ const BioWriter = () => {
             selectedTemplates = businessTemplates;
         } else if (professionLower.includes('developer') || professionLower.includes('coder') || professionLower.includes('programmer') || professionLower.includes('software') || professionLower.includes('web')) {
             selectedTemplates = developerTemplates;
+        } else if (professionLower.includes('army') || professionLower.includes('military') || professionLower.includes('soldier') || professionLower.includes('airforce') || professionLower.includes('navy')) {
+            selectedTemplates = armyTemplates;
+        } else if (professionLower.includes('police') || professionLower.includes('cop') || professionLower.includes('inspector') || professionLower.includes('constable')) {
+            selectedTemplates = policeTemplates;
+        } else if (professionLower.includes('actor') || professionLower.includes('actress') || professionLower.includes('hero') || professionLower.includes('theatre') || professionLower.includes('model')) {
+            selectedTemplates = actorTemplates;
+        } else if (professionLower.includes('influencer') || professionLower.includes('creator') || professionLower.includes('vlogger') || professionLower.includes('blogger') || professionLower.includes('youtuber')) {
+            selectedTemplates = influencerTemplates;
         }
 
-        // Selected list se randomly ek premium variations picking logic
-        const finalBio = selectedTemplates[Math.floor(Math.random() * selectedTemplates.length)];
+        // --- NON-REPEATING LOGIC: Loop tab tak chalay ga jab tak purani bio se match na kare ---
+        let finalBio = '';
+        let securityCounter = 0; // Infinite loop protection layer
+
+        do {
+            finalBio = selectedTemplates[Math.floor(Math.random() * selectedTemplates.length)];
+            securityCounter++;
+        } while (finalBio === generatedBio && selectedTemplates.length > 1 && securityCounter < 20);
+
         setGeneratedBio(finalBio);
     };
 
@@ -369,14 +481,14 @@ const BioWriter = () => {
                     e('input', {
                         type: 'text',
                         className: 'prompt-input-field',
-                        placeholder: 'Enter your profession (e.g., Web Developer)',
+                        placeholder: 'Enter your profession (e.g., Doctor, Army, Influencer)',
                         value: field,
                         onChange: (event) => setField(event.target.value)
                     })
                 )
             ),
 
-            // Generate Button (Inputs ke neeche space ke sath)
+            // Generate Button
             e('button', {
                 className: 'action-btn',
                 onClick: handleGenerate,
