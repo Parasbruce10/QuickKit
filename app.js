@@ -971,46 +971,67 @@ const Home = ({ navigate }) => {
                 ),
 
                 // Stats Row
-                e('div', { className: 'hero-stats-row' },
-                    e('div', { className: 'stat-item' },
-                        e('div', { className: 'stat-number' }, '3+'),
-                        e('div', { className: 'stat-label' }, 'Tools')
-                    ),
-                    e('div', { className: 'stat-item' },
-                        e('div', { className: 'stat-number' }, '100%'),
-                        e('div', { className: 'stat-label' }, 'Free')
-                    ),
-                    e('div', { className: 'stat-item' },
-                        e('div', { className: 'stat-number' }, '0ms'),
-                        e('div', { className: 'stat-label' }, 'Server Delay')
-                    )
-                )
-            ),
+             e('div', { className: 'stat-item stat-delay-1' },
+        e('div', { className: 'stat-number' }, '3+'),
+        e('div', { className: 'stat-label' }, 'Tools')
+    ),
+    // Counter Item 2
+    e('div', { className: 'stat-item stat-delay-2' },
+        e('div', { className: 'stat-number' }, '100%'),
+        e('div', { className: 'stat-label' }, 'Free')
+    ),
+    // Counter Item 3
+    e('div', { className: 'stat-item stat-delay-3' },
+        e('div', { className: 'stat-number' }, '0ms'),
+        e('div', { className: 'stat-label' }, 'Server Delay')
+    ),
+),
 
             // ── FEATURE CARDS ──
-            e('div', { className: 'features-grid' },
-                e('div', { className: 'feature-card', onClick: () => navigate('typingtester') },
-                    e('img', { className: 'feature-img', src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80', alt: 'Coding' }),
-                    e('div', { className: 'feature-content' },
-                        e('h3', { className: 'feature-title' }, '⌨️ Typing Tester'),
-                        e('p', { style: { color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' } }, 'Test your coding speed with real paragraphs and get instant WPM results.')
-                    )
-                ),
-                e('div', { className: 'feature-card', onClick: () => navigate('passwordchecker') },
-                    e('img', { className: 'feature-img', src: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=600&q=80', alt: 'Security' }),
-                    e('div', { className: 'feature-content' },
-                        e('h3', { className: 'feature-title' }, '🔒 Password Strength'),
-                        e('p', { style: { color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' } }, 'Evaluate password security locally with real-time smart scoring.')
-                    )
-                ),
-                e('div', { className: 'feature-card', onClick: () => navigate('biowriter') },
-                    e('img', { className: 'feature-img', src: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=600&q=80', alt: 'Writing' }),
-                    e('div', { className: 'feature-content' },
-                        e('h3', { className: 'feature-title' }, '✨ Bio Writer'),
-                        e('p', { style: { color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' } }, 'Generate professional bios for social profiles in one click.')
-                    )
-                )
-            ),
+           // --- CODES TO REPLACE IN HOME COMPONENT (RIGHT UNDER THE 3+ TOOLS ROW) ---
+e('div', { className: 'premium-tools-grid' },
+    // Card 1: Typing Tester Tool
+    e('div', { 
+        className: 'premium-tool-card typing-card premium-card-delay-1',
+        onClick: () => navigate('typingtester')
+    },
+        e('div', null,
+            e('div', { className: 'premium-badge' }, '⚡ Speed Matrix'),
+            e('div', { className: 'card-icon-container' }, '⌨️'),
+            e('h3', { className: 'card-main-title' }, 'Instant Typing Tester'),
+            e('p', { className: 'card-secondary-desc' }, 'Test your writing performance across dynamic difficulty matrices with fluid word-per-minute counters.')
+        ),
+        e('div', { className: 'card-action-link-footer' }, 'Launch Simulator', e('span', { className: 'arrow-vector' }, '→'))
+    ),
+
+    // Card 2: Password Strength Checker Tool
+    e('div', { 
+        className: 'premium-tool-card crypto-card premium-card-delay-2',
+        onClick: () => navigate('passwordchecker')
+    },
+        e('div', null,
+            e('div', { className: 'premium-badge' }, '🔒 Security Audit'),
+            e('div', { className: 'card-icon-container' }, '🛡️'),
+            e('h3', { className: 'card-main-title' }, 'Password Strength Checker'),
+            e('p', { className: 'card-secondary-desc' }, 'Evaluate cryptographic entropy, analyze vulnerabilities under strict compliance rules, and auto-suggest passwords.')
+        ),
+        e('div', { className: 'card-action-link-footer' }, 'Check Entropy Now', e('span', { className: 'arrow-vector' }, '→'))
+    ),
+
+    // Card 3: Personalized Bio Writer Tool
+    e('div', { 
+        className: 'premium-tool-card bio-card premium-card-delay-3',
+        onClick: () => navigate('biowriter')
+    },
+        e('div', null,
+            e('div', { className: 'premium-badge' }, '✨ Text Generation'),
+            e('div', { className: 'card-icon-container' }, '✍️'),
+            e('h3', { className: 'card-main-title' }, 'Personalized Bio Writer'),
+            e('p', { className: 'card-secondary-desc' }, 'Generate 10+ completely non-repeating high-impact stylish descriptions across multiple corporate professions.')
+        ),
+        e('div', { className: 'card-action-link-footer' }, 'Generate Premium Bio', e('span', { className: 'arrow-vector' }, '→'))
+    )
+),
 
             // ── HOW IT WORKS ──
             e('div', { className: 'how-it-works' },

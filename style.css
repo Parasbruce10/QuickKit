@@ -1369,3 +1369,274 @@ body {
 .classic-delay-6 {
     animation-delay: 1.2s;
 }
+
+/* ==========================================================================
+   PREMIUM ANIMATED UTILITY CARDS GRID FRAMEWORK
+   ========================================================================== */
+
+/* Cards Container Grid */
+.premium-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1150px;
+    margin: 50px auto 20px auto;
+    padding: 0 20px;
+}
+
+/* Premium Core Glass Card Layout */
+.premium-tool-card {
+    background: rgba(13, 13, 18, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 35px 30px;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 290px;
+}
+
+/* Smooth Cascade Sequential Animation Rules */
+.premium-tool-card {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: premiumCardFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.premium-card-delay-1 { animation-delay: 0.1s; }
+.premium-card-delay-2 { animation-delay: 0.2s; }
+.premium-card-delay-3 { animation-delay: 0.3s; }
+
+@keyframes premiumCardFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ambient Subtle Shimmer Layer Effect */
+.premium-tool-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+    transition: all 0.6s ease;
+}
+.premium-tool-card:hover::after {
+    left: 100%;
+}
+
+/* Unique Hover Styles For Card 1: Typing Tester (Cyan Neon Glow) */
+.premium-tool-card.typing-card:hover {
+    border-color: rgba(0, 245, 255, 0.35);
+    box-shadow: 0 20px 40px rgba(0, 245, 255, 0.06), inset 0 0 15px rgba(0, 245, 255, 0.02);
+    transform: translateY(-8px);
+}
+
+/* Unique Hover Styles For Card 2: Password Checker (Rose Pink Glow) */
+.premium-tool-card.crypto-card:hover {
+    border-color: rgba(255, 0, 127, 0.35);
+    box-shadow: 0 20px 40px rgba(255, 0, 127, 0.06), inset 0 0 15px rgba(255, 0, 127, 0.02);
+    transform: translateY(-8px);
+}
+
+/* Unique Hover Styles For Card 3: Bio Writer (Gold Amber Glow) */
+.premium-tool-card.bio-card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.06), inset 0 0 15px rgba(212, 175, 55, 0.02);
+    transform: translateY(-8px);
+}
+
+/* Dynamic Floating Icon System */
+.card-icon-container {
+    font-size: 2.3rem;
+    margin-bottom: 20px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: inline-block;
+}
+.premium-tool-card:hover .card-icon-container {
+    transform: scale(1.2) rotate(-6deg);
+}
+
+/* Header Badges Inside Cards */
+.premium-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border-radius: 30px;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+.typing-card .premium-badge { background: rgba(0, 245, 255, 0.08); color: #00f5ff; }
+.crypto-card .premium-badge { background: rgba(255, 0, 127, 0.08); color: #ff007f; }
+.bio-card .premium-badge { background: rgba(212, 175, 55, 0.08); color: #d4af37; }
+
+/* Cards Typography Styles */
+.card-main-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+}
+.card-secondary-desc {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+/* Premium Action Footer Indicator Link */
+.card-action-link-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 30px;
+    transition: opacity 0.3s ease;
+}
+.typing-card .card-action-link-footer { color: #00f5ff; }
+.crypto-card .card-action-link-footer { color: #ff007f; }
+.bio-card .card-action-link-footer { color: #d4af37; }
+
+.card-action-link-footer span.arrow-vector {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.premium-tool-card:hover .card-action-link-footer span.arrow-vector {
+    transform: translateX(6px);
+}
+
+/* ==========================================================================
+   OPTIMIZED: ULTRA-PREMIUM SPACIOUS HERO COUNTERS
+   ========================================================================== */
+
+/* Main container mein spacing aur gap ko barha diya hai */
+.hero-stats-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px; /* 👈 Do capsules ke darmiyan space barha di */
+    max-width: 1000px;
+    margin: 60px auto 80px auto; /* 👈 Top aur Bottom se solid space di hai taake cards se door rahe */
+    padding: 0 25px;
+    flex-wrap: wrap;
+}
+
+/* Individual Card Capsule - Soft Glassmorphism */
+.stat-item {
+    margin-top: 30px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.002) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 24px; /* 👈 Corners ko mazeed round aur modern kiya */
+    padding: 28px 45px; /* 👈 Card ke andar ki spacing (padding) barha di */
+    min-width: 220px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Smooth, Soft aur Elegant Fade-in Animation */
+    opacity: 0;
+    transform: translateY(15px); /* 👈 Distance kam kiya taake jhatka na lage, soft lift ho */
+    animation: premiumStatFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Entry Timings (Ek ek kar ke smooth load honge) */
+.stat-delay-1 { animation-delay: 0.1s; }
+.stat-delay-2 { animation-delay: 0.25s; }
+.stat-delay-3 { animation-delay: 0.4s; }
+
+@keyframes premiumStatFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---- INTERACTION HOVER EFFECTS WITH SOFT TRANSLATION ---- */
+
+/* Capsule 1: Cyan Neon Glow */
+.stat-item:nth-child(1):hover {
+    border-color: rgba(0, 245, 255, 0.25);
+    box-shadow: 0 25px 50px rgba(0, 245, 255, 0.04);
+    transform: translateY(-4px); /* 👈 Hover par halka sa lift */
+}
+/* Capsule 2: Green Glow */
+.stat-item:nth-child(2):hover {
+    border-color: rgba(34, 197, 94, 0.25);
+    box-shadow: 0 25px 50px rgba(34, 197, 94, 0.04);
+    transform: translateY(-4px);
+}
+/* Capsule 3: Pink Glow */
+.stat-item:nth-child(3):hover {
+    border-color: rgba(255, 0, 127, 0.25);
+    box-shadow: 0 25px 50px rgba(255, 0, 127, 0.04);
+    transform: translateY(-4px);
+}
+
+/* Numbers Core Typography */
+.stat-number {
+    font-size: 2.5rem; /* 👈 Size thoda text aur readable kiya */
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-block;
+}
+
+/* Hover dynamic text scaling */
+.stat-item:hover .stat-number {
+    transform: scale(1.04);
+}
+
+.stat-item:nth-child(1):hover .stat-number { background: linear-gradient(135deg, #ffffff, #00f5ff); -webkit-background-clip: text; }
+.stat-item:nth-child(2):hover .stat-number { background: linear-gradient(135deg, #ffffff, #22c55e); -webkit-background-clip: text; }
+.stat-item:nth-child(3):hover .stat-number { background: linear-gradient(135deg, #ffffff, #ff007f); -webkit-background-clip: text; }
+
+/* Sub-labels under the counters */
+.stat-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #475569; /* 👈 Defualt color thoda dark kiya taake white number pop out kare */
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+.stat-item:hover .stat-label {
+    color: #94a3b8;
+}
+@media (max-width: 768px) {
+    .premium-tools-grid {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+    }
+
+    .hero-stats-row {
+        flex-direction: column;
+        gap: 16px;
+        margin: 30px auto 40px auto;
+        padding: 0 16px;
+    }
+
+    .stat-item {
+        min-width: unset;
+        width: 100%;
+        margin-top:30px;
+        padding: 20px 24px;
+    }
+}
