@@ -516,19 +516,19 @@ const PasswordChecker = () => {
         const numbers = "0123456789";
         const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
         const allChars = uppercase + lowercase + numbers + symbols;
-        
+
         let pass = "";
         // Yeh ensure karega ke rules satisfy hon (1 Upper, 1 Lower, 1 Num, 1 Symbol)
         pass += uppercase[Math.floor(Math.random() * uppercase.length)];
         pass += lowercase[Math.floor(Math.random() * lowercase.length)];
         pass += numbers[Math.floor(Math.random() * numbers.length)];
         pass += symbols[Math.floor(Math.random() * symbols.length)];
-        
+
         // Baki length pure random pool se generate hogi (Total Length: 14)
         for (let i = 0; i < 10; i++) {
             pass += allChars[Math.floor(Math.random() * allChars.length)];
         }
-        
+
         // Generated text array ko random array shuffle algorithm se pass kiya
         const shuffledPass = pass.split('').sort(() => 0.5 - Math.random()).join('');
         setSuggestedPassword(shuffledPass);
@@ -561,7 +561,7 @@ const PasswordChecker = () => {
             e('div', { className: 'prompt-search-container', style: { maxWidth: '500px', margin: '0 auto 20px auto' } },
                 e('span', { className: 'prompt-icon' }, '🔒'),
                 e('input', {
-                    type: 'text', 
+                    type: 'text',
                     className: 'prompt-input-field',
                     placeholder: 'Type your password here...',
                     value: password,
@@ -577,18 +577,18 @@ const PasswordChecker = () => {
             }, '💡 Suggest a Strong Password'),
 
             // Custom Display Layout for Suggested Outputs
-            suggestedPassword && e('div', { 
-                className: 'result-card', 
-                style: { maxWidth: '500px', margin: '0 auto 25px auto', padding: '20px', border: '1px dashed #00f5ff' } 
+            suggestedPassword && e('div', {
+                className: 'result-card',
+                style: { maxWidth: '500px', margin: '0 auto 25px auto', padding: '20px', border: '1px dashed #00f5ff' }
             },
                 e('p', { style: { color: '#94a3b8', margin: 0, fontSize: '0.9rem' } }, 'Try using this high-entropy password:'),
-                e('code', { 
-                    style: { 
-                        color: '#00f5ff', 
-                        fontSize: '1.25rem', 
-                        fontWeight: 'bold', 
-                        display: 'block', 
-                        marginTop: '8px', 
+                e('code', {
+                    style: {
+                        color: '#00f5ff',
+                        fontSize: '1.25rem',
+                        fontWeight: 'bold',
+                        display: 'block',
+                        marginTop: '8px',
                         letterSpacing: '1.5px',
                         userSelect: 'all',
                         cursor: 'pointer'
@@ -895,7 +895,7 @@ const ContactUs = () => {
 // --- NEW: Premium Home Component with Typewriter ---
 const Home = ({ navigate }) => {
     const [typedText, setTypedText] = useState('');
-    
+
     // Aapki website se related 3 professional lines jo loop mein chalengi
     const typewriterLines = [
         "Premium digital utilities to supercharge your daily workflow.",
@@ -945,13 +945,13 @@ const Home = ({ navigate }) => {
 
         // Typewriter effect ko start karna
         const timerId = setTimeout(handleType, typingSpeed);
-        
+
         // Cleanup mechanism
         return () => clearTimeout(timerId);
     }, []);
 
-    return e('main', { className: 'main-content' },
-        e('div', { className: 'tester-section-wrapper', style: { gap: '0' } },
+    return e('main', { className: 'main-content home-page-bg' }, // Yahan humne class add ki hy
+    e('div', { className: 'tester-section-wrapper', style: { gap: '0' } },
 
             // ── HERO ──
             e('div', { className: 'home-hero' },
@@ -971,67 +971,68 @@ const Home = ({ navigate }) => {
                 ),
 
                 // Stats Row
-             e('div', { className: 'stat-item stat-delay-1' },
+                // Stats Row - teeno boxes ek wrapper mein
+e('div', { className: 'hero-stats-row' },
+    e('div', { className: 'stat-item stat-delay-1' },
         e('div', { className: 'stat-number' }, '3+'),
         e('div', { className: 'stat-label' }, 'Tools')
     ),
-    // Counter Item 2
     e('div', { className: 'stat-item stat-delay-2' },
         e('div', { className: 'stat-number' }, '100%'),
         e('div', { className: 'stat-label' }, 'Free')
     ),
-    // Counter Item 3
     e('div', { className: 'stat-item stat-delay-3' },
         e('div', { className: 'stat-number' }, '0ms'),
         e('div', { className: 'stat-label' }, 'Server Delay')
-    ),
-),
-
-            // ── FEATURE CARDS ──
-           // --- CODES TO REPLACE IN HOME COMPONENT (RIGHT UNDER THE 3+ TOOLS ROW) ---
-e('div', { className: 'premium-tools-grid' },
-    // Card 1: Typing Tester Tool
-    e('div', { 
-        className: 'premium-tool-card typing-card premium-card-delay-1',
-        onClick: () => navigate('typingtester')
-    },
-        e('div', null,
-            e('div', { className: 'premium-badge' }, '⚡ Speed Matrix'),
-            e('div', { className: 'card-icon-container' }, '⌨️'),
-            e('h3', { className: 'card-main-title' }, 'Instant Typing Tester'),
-            e('p', { className: 'card-secondary-desc' }, 'Test your writing performance across dynamic difficulty matrices with fluid word-per-minute counters.')
-        ),
-        e('div', { className: 'card-action-link-footer' }, 'Launch Simulator', e('span', { className: 'arrow-vector' }, '→'))
-    ),
-
-    // Card 2: Password Strength Checker Tool
-    e('div', { 
-        className: 'premium-tool-card crypto-card premium-card-delay-2',
-        onClick: () => navigate('passwordchecker')
-    },
-        e('div', null,
-            e('div', { className: 'premium-badge' }, '🔒 Security Audit'),
-            e('div', { className: 'card-icon-container' }, '🛡️'),
-            e('h3', { className: 'card-main-title' }, 'Password Strength Checker'),
-            e('p', { className: 'card-secondary-desc' }, 'Evaluate cryptographic entropy, analyze vulnerabilities under strict compliance rules, and auto-suggest passwords.')
-        ),
-        e('div', { className: 'card-action-link-footer' }, 'Check Entropy Now', e('span', { className: 'arrow-vector' }, '→'))
-    ),
-
-    // Card 3: Personalized Bio Writer Tool
-    e('div', { 
-        className: 'premium-tool-card bio-card premium-card-delay-3',
-        onClick: () => navigate('biowriter')
-    },
-        e('div', null,
-            e('div', { className: 'premium-badge' }, '✨ Text Generation'),
-            e('div', { className: 'card-icon-container' }, '✍️'),
-            e('h3', { className: 'card-main-title' }, 'Personalized Bio Writer'),
-            e('p', { className: 'card-secondary-desc' }, 'Generate 10+ completely non-repeating high-impact stylish descriptions across multiple corporate professions.')
-        ),
-        e('div', { className: 'card-action-link-footer' }, 'Generate Premium Bio', e('span', { className: 'arrow-vector' }, '→'))
     )
 ),
+            ),
+
+            // ── FEATURE CARDS ──
+            // --- CODES TO REPLACE IN HOME COMPONENT (RIGHT UNDER THE 3+ TOOLS ROW) ---
+            e('div', { className: 'premium-tools-grid' },
+                // Card 1: Typing Tester Tool
+                e('div', {
+                    className: 'premium-tool-card typing-card premium-card-delay-1',
+                    onClick: () => navigate('typingtester')
+                },
+                    e('div', null,
+                        e('div', { className: 'premium-badge' }, '⚡ Speed Matrix'),
+                        e('div', { className: 'card-icon-container' }, '⌨️'),
+                        e('h3', { className: 'card-main-title' }, 'Instant Typing Tester'),
+                        e('p', { className: 'card-secondary-desc' }, 'Test your writing performance across dynamic difficulty matrices with fluid word-per-minute counters.')
+                    ),
+                    e('div', { className: 'card-action-link-footer' }, 'Launch Simulator', e('span', { className: 'arrow-vector' }, '→'))
+                ),
+
+                // Card 2: Password Strength Checker Tool
+                e('div', {
+                    className: 'premium-tool-card crypto-card premium-card-delay-2',
+                    onClick: () => navigate('passwordchecker')
+                },
+                    e('div', null,
+                        e('div', { className: 'premium-badge' }, '🔒 Security Audit'),
+                        e('div', { className: 'card-icon-container' }, '🛡️'),
+                        e('h3', { className: 'card-main-title' }, 'Password Strength Checker'),
+                        e('p', { className: 'card-secondary-desc' }, 'Evaluate cryptographic entropy, analyze vulnerabilities under strict compliance rules, and auto-suggest passwords.')
+                    ),
+                    e('div', { className: 'card-action-link-footer' }, 'Check Entropy Now', e('span', { className: 'arrow-vector' }, '→'))
+                ),
+
+                // Card 3: Personalized Bio Writer Tool
+                e('div', {
+                    className: 'premium-tool-card bio-card premium-card-delay-3',
+                    onClick: () => navigate('biowriter')
+                },
+                    e('div', null,
+                        e('div', { className: 'premium-badge' }, '✨ Text Generation'),
+                        e('div', { className: 'card-icon-container' }, '✍️'),
+                        e('h3', { className: 'card-main-title' }, 'Personalized Bio Writer'),
+                        e('p', { className: 'card-secondary-desc' }, 'Generate 10+ completely non-repeating high-impact stylish descriptions across multiple corporate professions.')
+                    ),
+                    e('div', { className: 'card-action-link-footer' }, 'Generate Premium Bio', e('span', { className: 'arrow-vector' }, '→'))
+                )
+            ),
 
             // ── HOW IT WORKS ──
             e('div', { className: 'how-it-works' },

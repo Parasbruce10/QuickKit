@@ -494,7 +494,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 60px; /* 180px hata kar 60px kiya taake responsive rahay */
+    gap: 60px;
+    /* 180px hata kar 60px kiya taake responsive rahay */
     width: 100%;
 }
 
@@ -587,13 +588,15 @@ body {
 
 .footer-nav-link:hover {
     color: #ffffff;
-    transform: translateX(20px); /* Text right slide hoga */
+    transform: translateX(20px);
+    /* Text right slide hoga */
     text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
 }
 
 .footer-nav-link:hover::before {
     opacity: 1;
-    left: -24px; /* Arrow wazeh ho jayega */
+    left: -24px;
+    /* Arrow wazeh ho jayega */
 }
 
 /* Bottom Bar Separation */
@@ -1409,9 +1412,18 @@ body {
     transform: translateY(40px);
     animation: premiumCardFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-.premium-card-delay-1 { animation-delay: 0.1s; }
-.premium-card-delay-2 { animation-delay: 0.2s; }
-.premium-card-delay-3 { animation-delay: 0.3s; }
+
+.premium-card-delay-1 {
+    animation-delay: 0.1s;
+}
+
+.premium-card-delay-2 {
+    animation-delay: 0.2s;
+}
+
+.premium-card-delay-3 {
+    animation-delay: 0.3s;
+}
 
 @keyframes premiumCardFadeUp {
     to {
@@ -1428,9 +1440,10 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
     transition: all 0.6s ease;
 }
+
 .premium-tool-card:hover::after {
     left: 100%;
 }
@@ -1463,6 +1476,7 @@ body {
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     display: inline-block;
 }
+
 .premium-tool-card:hover .card-icon-container {
     transform: scale(1.2) rotate(-6deg);
 }
@@ -1478,9 +1492,21 @@ body {
     width: fit-content;
     margin-bottom: 15px;
 }
-.typing-card .premium-badge { background: rgba(0, 245, 255, 0.08); color: #00f5ff; }
-.crypto-card .premium-badge { background: rgba(255, 0, 127, 0.08); color: #ff007f; }
-.bio-card .premium-badge { background: rgba(212, 175, 55, 0.08); color: #d4af37; }
+
+.typing-card .premium-badge {
+    background: rgba(0, 245, 255, 0.08);
+    color: #00f5ff;
+}
+
+.crypto-card .premium-badge {
+    background: rgba(255, 0, 127, 0.08);
+    color: #ff007f;
+}
+
+.bio-card .premium-badge {
+    background: rgba(212, 175, 55, 0.08);
+    color: #d4af37;
+}
 
 /* Cards Typography Styles */
 .card-main-title {
@@ -1490,6 +1516,7 @@ body {
     margin-bottom: 10px;
     letter-spacing: -0.3px;
 }
+
 .card-secondary-desc {
     font-size: 0.9rem;
     color: #94a3b8;
@@ -1506,13 +1533,23 @@ body {
     margin-top: 30px;
     transition: opacity 0.3s ease;
 }
-.typing-card .card-action-link-footer { color: #00f5ff; }
-.crypto-card .card-action-link-footer { color: #ff007f; }
-.bio-card .card-action-link-footer { color: #d4af37; }
+
+.typing-card .card-action-link-footer {
+    color: #00f5ff;
+}
+
+.crypto-card .card-action-link-footer {
+    color: #ff007f;
+}
+
+.bio-card .card-action-link-footer {
+    color: #d4af37;
+}
 
 .card-action-link-footer span.arrow-vector {
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+
 .premium-tool-card:hover .card-action-link-footer span.arrow-vector {
     transform: translateX(6px);
 }
@@ -1524,13 +1561,13 @@ body {
 /* Main container mein spacing aur gap ko barha diya hai */
 .hero-stats-row {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 35px; /* 👈 Do capsules ke darmiyan space barha di */
-    max-width: 1000px;
-    margin: 60px auto 80px auto; /* 👈 Top aur Bottom se solid space di hai taake cards se door rahe */
+    align-items: stretch;  /* 👈 center ki jagah stretch */
+    gap: 35px;
+    max-width: 1450px;      /* 👈 Yeh bhi set karo apni marzi se */
+    margin: 60px auto 80px auto;
     padding: 0 25px;
-    flex-wrap: wrap;
 }
 
 /* Individual Card Capsule - Soft Glassmorphism */
@@ -1538,25 +1575,37 @@ body {
     margin-top: 30px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.002) 100%);
     border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 24px; /* 👈 Corners ko mazeed round aur modern kiya */
-    padding: 28px 45px; /* 👈 Card ke andar ki spacing (padding) barha di */
+    border-radius: 24px;
+    /* 👈 Corners ko mazeed round aur modern kiya */
+    padding: 28px 45px;
+    /* 👈 Card ke andar ki spacing (padding) barha di */
     min-width: 220px;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     position: relative;
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    
+     width: auto;
+    transition: all 0.3s ease-in-out;
+
     /* Smooth, Soft aur Elegant Fade-in Animation */
     opacity: 0;
-    transform: translateY(15px); /* 👈 Distance kam kiya taake jhatka na lage, soft lift ho */
+    transform: translateY(15px);
+    /* 👈 Distance kam kiya taake jhatka na lage, soft lift ho */
     animation: premiumStatFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Entry Timings (Ek ek kar ke smooth load honge) */
-.stat-delay-1 { animation-delay: 0.1s; }
-.stat-delay-2 { animation-delay: 0.25s; }
-.stat-delay-3 { animation-delay: 0.4s; }
+.stat-delay-1 {
+    animation-delay: 0.1s;
+}
+
+.stat-delay-2 {
+    animation-delay: 0.25s;
+}
+
+.stat-delay-3 {
+    animation-delay: 0.4s;
+}
 
 @keyframes premiumStatFadeUp {
     to {
@@ -1568,27 +1617,33 @@ body {
 /* ---- INTERACTION HOVER EFFECTS WITH SOFT TRANSLATION ---- */
 
 /* Capsule 1: Cyan Neon Glow */
+/* ---- INTERACTION HOVER EFFECTS WITH ULTRA NEON GLOW (FORCED) ---- */
+
+/* Pehla Box: Cyan Glow Effect */
 .stat-item:nth-child(1):hover {
-    border-color: rgba(0, 245, 255, 0.25);
-    box-shadow: 0 25px 50px rgba(0, 245, 255, 0.04);
-    transform: translateY(-4px); /* 👈 Hover par halka sa lift */
+    border-color: rgba(0, 245, 255, 0.9) !important;
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.7), inset 0 0 15px rgba(0, 245, 255, 0.3) !important;
+    transform: translateY(-6px) !important;
 }
-/* Capsule 2: Green Glow */
+
+/* Dosra Box: Green Glow Effect */
 .stat-item:nth-child(2):hover {
-    border-color: rgba(34, 197, 94, 0.25);
-    box-shadow: 0 25px 50px rgba(34, 197, 94, 0.04);
-    transform: translateY(-4px);
+    border-color: rgba(34, 197, 94, 0.9) !important;
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.7), inset 0 0 15px rgba(34, 197, 94, 0.3) !important;
+    transform: translateY(-6px) !important;
 }
-/* Capsule 3: Pink Glow */
+
+/* Teesra Box: Pink Glow Effect */
 .stat-item:nth-child(3):hover {
-    border-color: rgba(255, 0, 127, 0.25);
-    box-shadow: 0 25px 50px rgba(255, 0, 127, 0.04);
-    transform: translateY(-4px);
+    border-color: rgba(255, 0, 127, 0.9) !important;
+    box-shadow: 0 0 30px rgba(255, 0, 127, 0.7), inset 0 0 15px rgba(255, 0, 127, 0.3) !important;
+    transform: translateY(-6px) !important;
 }
 
 /* Numbers Core Typography */
 .stat-number {
-    font-size: 2.5rem; /* 👈 Size thoda text aur readable kiya */
+    font-size: 2.5rem;
+    /* 👈 Size thoda text aur readable kiya */
     font-weight: 800;
     letter-spacing: -0.5px;
     margin-bottom: 8px;
@@ -1604,22 +1659,36 @@ body {
     transform: scale(1.04);
 }
 
-.stat-item:nth-child(1):hover .stat-number { background: linear-gradient(135deg, #ffffff, #00f5ff); -webkit-background-clip: text; }
-.stat-item:nth-child(2):hover .stat-number { background: linear-gradient(135deg, #ffffff, #22c55e); -webkit-background-clip: text; }
-.stat-item:nth-child(3):hover .stat-number { background: linear-gradient(135deg, #ffffff, #ff007f); -webkit-background-clip: text; }
+.stat-item:nth-child(1):hover .stat-number {
+    background: linear-gradient(135deg, #ffffff, #00f5ff);
+    -webkit-background-clip: text;
+}
+
+.stat-item:nth-child(2):hover .stat-number {
+    background: linear-gradient(135deg, #ffffff, #22c55e);
+    -webkit-background-clip: text;
+}
+
+.stat-item:nth-child(3):hover .stat-number {
+    background: linear-gradient(135deg, #ffffff, #ff007f);
+    -webkit-background-clip: text;
+}
 
 /* Sub-labels under the counters */
 .stat-label {
     font-size: 0.78rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #475569; /* 👈 Defualt color thoda dark kiya taake white number pop out kare */
+    color: #475569;
+    /* 👈 Defualt color thoda dark kiya taake white number pop out kare */
     letter-spacing: 2px;
     transition: color 0.3s ease;
 }
+
 .stat-item:hover .stat-label {
     color: #94a3b8;
 }
+
 @media (max-width: 768px) {
     .premium-tools-grid {
         grid-template-columns: 1fr;
@@ -1636,7 +1705,63 @@ body {
     .stat-item {
         min-width: unset;
         width: 100%;
-        margin-top:30px;
+        margin-top: 30px;
         padding: 20px 24px;
     }
+}
+/* Home Page Technical Background Image Style */
+.home-page-bg {
+    /* Unsplash se premium cyber/abstract tech graphic image aur sath dark premium overlay */
+    background-image: linear-gradient(
+        to bottom, 
+        rgba(10, 10, 12, 0.88), 
+        rgba(15, 23, 42, 0.95)
+    ), 
+    url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1920&q=80');
+    
+    /* Background properties taake image fix aur responsive rahe */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Scrolling ke waqt premium parallax effect dega */
+    min-height: 100vh;
+}
+
+/* Agar user Light Theme par switch kare, to background transparently light matrix vibe mein adjust ho jaye */
+.light-theme .home-page-bg {
+    background-image: linear-gradient(
+        to bottom, 
+        rgba(248, 250, 252, 0.92), 
+        rgba(241, 245, 249, 0.96)
+    ), 
+    url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1920&q=80');
+}
+/* Stat boxes ke liye forced strong glow - hover pe */
+.hero-stats-row .stat-item:nth-child(1):hover {
+    border-color: rgba(0, 245, 255, 0.9) !important;
+    box-shadow: 0 0 35px rgba(0, 245, 255, 0.8), 
+                0 0 70px rgba(0, 245, 255, 0.3),
+                inset 0 0 20px rgba(0, 245, 255, 0.15) !important;
+    transform: translateY(-6px) !important;
+}
+
+.hero-stats-row .stat-item:nth-child(2):hover {
+    border-color: rgba(34, 197, 94, 0.9) !important;
+    box-shadow: 0 0 35px rgba(34, 197, 94, 0.8), 
+                0 0 70px rgba(34, 197, 94, 0.3),
+                inset 0 0 20px rgba(34, 197, 94, 0.15) !important;
+    transform: translateY(-6px) !important;
+}
+
+.hero-stats-row .stat-item:nth-child(3):hover {
+    border-color: rgba(255, 0, 127, 0.9) !important;
+    box-shadow: 0 0 35px rgba(255, 0, 127, 0.8), 
+                0 0 70px rgba(255, 0, 127, 0.3),
+                inset 0 0 20px rgba(255, 0, 127, 0.15) !important;
+    transform: translateY(-6px) !important;
+}
+
+/* Smooth cursor pointer */
+.hero-stats-row .stat-item {
+    cursor: default;
 }
