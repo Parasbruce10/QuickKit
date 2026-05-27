@@ -504,22 +504,50 @@ const BioWriter = () => {
     );
 };
 // --- NEW: Password Strength Checker Component ---
+// --- NEW: Password Strength Checker Component (Strict Version with Suggestion) ---
 const PasswordChecker = () => {
     const [password, setPassword] = useState('');
+    const [suggestedPassword, setSuggestedPassword] = useState('');
 
-    // Strength evaluate karne ka logic
+    // Secure Password Generator Logic
+    const generateSuggestion = () => {
+        const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const lowercase = "abcdefghijklmnopqrstuvwxyz";
+        const numbers = "0123456789";
+        const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+        const allChars = uppercase + lowercase + numbers + symbols;
+        
+        let pass = "";
+        // Yeh ensure karega ke rules satisfy hon (1 Upper, 1 Lower, 1 Num, 1 Symbol)
+        pass += uppercase[Math.floor(Math.random() * uppercase.length)];
+        pass += lowercase[Math.floor(Math.random() * lowercase.length)];
+        pass += numbers[Math.floor(Math.random() * numbers.length)];
+        pass += symbols[Math.floor(Math.random() * symbols.length)];
+        
+        // Baki length pure random pool se generate hogi (Total Length: 14)
+        for (let i = 0; i < 10; i++) {
+            pass += allChars[Math.floor(Math.random() * allChars.length)];
+        }
+        
+        // Generated text array ko random array shuffle algorithm se pass kiya
+        const shuffledPass = pass.split('').sort(() => 0.5 - Math.random()).join('');
+        setSuggestedPassword(shuffledPass);
+    };
+
+    // Ultra-Strict Strength Evaluator Matrix
     const getStrength = (pass) => {
         if (!pass) return { score: 0, text: 'Empty', color: '#64748b' };
 
         let score = 0;
-        if (pass.length >= 8) score++;
-        if (/[A-Z]/.test(pass)) score++;
-        if (/[0-9]/.test(pass)) score++;
-        if (/[^A-Za-z0-9]/.test(pass)) score++;
+        if (pass.length >= 12) score++;          // Rule 1: Min 12 chars strict rule
+        if (/[A-Z]/.test(pass)) score++;         // Rule 2: Capital Letter
+        if (/[a-z]/.test(pass)) score++;         // Rule 3: Lowercase Letter
+        if (/[0-9]/.test(pass)) score++;         // Rule 4: Numbers
+        if (/[^A-Za-z0-9]/.test(pass)) score++;  // Rule 5: Special Character
 
-        if (score <= 1) return { score, text: '🔴 Weak Password', color: '#ef4444' };
-        if (score <= 3) return { score, text: '🟡 Medium Password', color: '#eab308' };
-        return { score, text: '🟢 Strong Password (Secure)', color: '#22c55e' };
+        if (score <= 2) return { score, text: '🔴 Weak Password (Highly Unsafe)', color: '#ef4444' };
+        if (score <= 4) return { score, text: '🟡 Medium Password (Needs Improvement)', color: '#eab308' };
+        return { score, text: '🟢 Ultra Secure Password (Excellent)', color: '#22c55e' };
     };
 
     const strength = getStrength(password);
@@ -527,13 +555,13 @@ const PasswordChecker = () => {
     return e('main', { className: 'main-content' },
         e('div', { className: 'tester-section-wrapper', style: { textAlign: 'center' } },
             e('h2', { className: 'tester-main-title' }, 'Password Strength Checker'),
-            e('p', { style: { color: '#64748b', marginBottom: '30px' } }, 'Enter your password and check the strenght of your password'),
+            e('p', { style: { color: '#64748b', marginBottom: '30px' } }, 'Enter your password and evaluate its security status under strict compliance algorithms.'),
 
-            // Input field wrapper
-            e('div', { className: 'prompt-search-container', style: { maxWidth: '500px', margin: '0 auto 30px auto' } },
+            // Main Input Field Box Wrapper
+            e('div', { className: 'prompt-search-container', style: { maxWidth: '500px', margin: '0 auto 20px auto' } },
                 e('span', { className: 'prompt-icon' }, '🔒'),
                 e('input', {
-                    type: 'text', // Text rakha hai taake user dekh sake, aap 'password' bhi kar sakte hain
+                    type: 'text', 
                     className: 'prompt-input-field',
                     placeholder: 'Type your password here...',
                     value: password,
@@ -541,33 +569,62 @@ const PasswordChecker = () => {
                 })
             ),
 
-            // Live Result Meter Card
+            // Suggestion Engine Trigger Button
+            e('button', {
+                className: 'action-btn',
+                onClick: generateSuggestion,
+                style: { marginBottom: '30px', padding: '12px 24px', fontSize: '0.95rem' }
+            }, '💡 Suggest a Strong Password'),
+
+            // Custom Display Layout for Suggested Outputs
+            suggestedPassword && e('div', { 
+                className: 'result-card', 
+                style: { maxWidth: '500px', margin: '0 auto 25px auto', padding: '20px', border: '1px dashed #00f5ff' } 
+            },
+                e('p', { style: { color: '#94a3b8', margin: 0, fontSize: '0.9rem' } }, 'Try using this high-entropy password:'),
+                e('code', { 
+                    style: { 
+                        color: '#00f5ff', 
+                        fontSize: '1.25rem', 
+                        fontWeight: 'bold', 
+                        display: 'block', 
+                        marginTop: '8px', 
+                        letterSpacing: '1.5px',
+                        userSelect: 'all',
+                        cursor: 'pointer'
+                    },
+                    title: 'Click to select all text'
+                }, window.navigator.clipboard ? suggestedPassword : suggestedPassword)
+            ),
+
+            // Live Performance Progress Indicator Tracker Grid
             password && e('div', { className: 'result-card', style: { marginTop: '20px', padding: '25px', maxWidth: '500px', margin: '0 auto' } },
                 e('h3', { style: { fontSize: '1.2rem', marginBottom: '10px', color: strength.color } }, strength.text),
 
-                // Visual Indicator Bar
+                // Visual Status Progress Pipeline Bar
                 e('div', { style: { background: 'rgba(255,255,255,0.1)', height: '8px', borderRadius: '4px', overflow: 'hidden', marginTop: '15px' } },
                     e('div', {
                         style: {
                             background: strength.color,
-                            width: `${(strength.score / 4) * 100}%`,
+                            width: `${(strength.score / 5) * 100}%`,
                             height: '100%',
                             transition: 'all 0.3s ease'
                         }
                     })
                 ),
 
-                // Live Feedback Guidelines
+                // Dynamic Checklist Matrix
                 e('ul', { style: { textAlign: 'left', marginTop: '20px', color: '#94a3b8', fontSize: '0.9rem', listStyleType: 'none', padding: 0 } },
-                    e('li', { style: { color: password.length >= 8 ? '#22c55e' : '' } }, `${password.length >= 8 ? '✓' : '○'} At least 8 characters`),
-                    e('li', { style: { color: /[A-Z]/.test(password) ? '#22c55e' : '' } }, `${/[A-Z]/.test(password) ? '✓' : '○'} Contains Capital Letter (A-Z)`),
-                    e('li', { style: { color: /[0-9]/.test(password) ? '#22c55e' : '' } }, `${/[0-9]/.test(password) ? '✓' : '○'} Contains Number (0-9)`),
-                    e('li', { style: { color: /[^A-Za-z0-9]/.test(password) ? '#22c55e' : '' } }, `${/[^A-Za-z0-9]/.test(password) ? '✓' : '○'} Contains Special Character (@, #, $, etc.)`)
+                    e('li', { style: { color: password.length >= 12 ? '#22c55e' : '', marginBottom: '8px' } }, `${password.length >= 12 ? '✓' : '○'} At least 12 characters length (Strict)`),
+                    e('li', { style: { color: /[A-Z]/.test(password) ? '#22c55e' : '', marginBottom: '8px' } }, `${/[A-Z]/.test(password) ? '✓' : '○'} Contains Capital Letter (A-Z)`),
+                    e('li', { style: { color: /[a-z]/.test(password) ? '#22c55e' : '', marginBottom: '8px' } }, `${/[a-z]/.test(password) ? '✓' : '○'} Contains Lowercase Letter (a-z)`),
+                    e('li', { style: { color: /[0-9]/.test(password) ? '#22c55e' : '', marginBottom: '8px' } }, `${/[0-9]/.test(password) ? '✓' : '○'} Contains Number (0-9)`),
+                    e('li', { style: { color: /[^A-Za-z0-9]/.test(password) ? '#22c55e' : '' } }, `${/[^A-Za-z0-9]/.test(password) ? '✓' : '○'} Contains Special Character (@, #, $, %, etc.)`)
                 )
             )
         )
     );
-};// --- NEW: About Component ---
+};
 // --- About Component with English text ---
 const About = () => {
     return e('main', { className: 'main-content' },
