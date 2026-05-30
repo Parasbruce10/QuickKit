@@ -310,6 +310,62 @@ const BioWriter = () => {
             `🎯 Precision in diagnosis, warmth in treatment. I am ${userName}, serving proudly as a ${field}. Your health is my lifelong mission. 🌟`
         ];
 
+        // 8a. TEACHER / EDUCATOR TEMPLATES (10 Variations)
+        const teacherTemplates = [
+            `📚 Shaping Minds & Inspiring Futures | I am ${userName}, a passionate ${field}. Dedicated to cultivating knowledge, fostering curiosity, and empowering the next generation. 🎓`,
+            `✨ Education is the movement from darkness to light. My name is ${userName}, working as a dedicated ${field}. Mentoring students and building strong intellectual foundations. 📝`,
+            `🎓 Classroom leader mode: ON. I'm ${userName}, your friendly ${field}. Lesson plans, grading scales, and a heart devoted to student success. 🍎`,
+            `🌟 Academic Excellence & Mentorship | Hello! I am ${userName}, a proud ${field}. Combining modern pedagogy with interactive teaching methods. 📖`,
+            `💡 Igniting young minds one lesson at a time. Meet ${userName}, an enthusiastic ${field} navigating the frontlines of modern education. 🏫`,
+            `🏫 Knowledge Architect | I am ${userName}, serving as a ${field}. Specializing in curriculum design, cognitive growth, and classroom management. ✨`,
+            `🌱 Planting seeds of knowledge that grow forever. I am ${userName}, a certified ${field}. Bringing smiles, clarity, and education to our community. 💖`,
+            `📐 Teaching is an art, and I'm ${userName}, a professional ${field} scripting a brighter future. Focus: Conceptual learning and student development. 📊`,
+            `⚡ Empowering voices through education. Meet ${userName}, a high-performance ${field} breaking down complex concepts effortlessly. 🏫`,
+            `🎯 Precision in explanation, warmth in guidance. I am ${userName}, serving proudly as a ${field}. Your academic growth is my lifelong mission. 🌟`
+        ];
+
+        // 8b. MECHANIC / AUTOMOTIVE TECHNICIAN TEMPLATES (10 Variations)
+        const mechanicTemplates = [
+            `🔧 Precision Grease Monkey | I am ${userName}, an expert ${field}. Diagnosing engine faults, tuning horsepower, and keeping heavy machinery running smoothly. 🚗`,
+            `⚙️ Engineering on the asphalt. My name is ${userName}, working as an experienced ${field}. Wrenches, gearboxes, and absolute mechanical precision. 🛠️`,
+            `🏎️ Performance tuning & custom builds. I'm ${userName}, a professional ${field}. Fixing internal combustion loops and restoring classic engines to life. ⚡`,
+            `🚀 High-torque troubleshooting. Meet ${userName}, a practical ${field} bridging the gap between electronic diagnostics and heavy metal gear execution. 🛠️`,
+            `🔩 Torque wrenches, bolts, and system overhauls. I am ${userName}, a dedicated ${field}. Optimizing automotive performance and structural alignment. ⚙️`,
+            `🔋 Powering mechanical reliability. My name is ${userName}, an elite ${field} handling everything from brake systems to suspension matrix modifications. 🔧`,
+            `🌟 If it's broken, I fix it. I'm ${userName}, a qualified ${field} focused on hydraulic systems, custom engine blueprints, and total vehicle safety. 📐`,
+            `⚡ Spark plugs, timing belts, and pure mechanical logic. Meet ${userName}, a deep-tech ${field} redefining automotive reliability. 🛠️`,
+            `💡 Transforming raw mechanical friction into smooth acceleration. I am ${userName}, a standard-setting ${field} crafting premium repair solutions. ⚡`,
+            `🚗 Master of the garage workshop. My name is ${userName}, working as a progressive ${field}. Shaping automotive performance every single day. 🚀`
+        ];
+
+        // 8c. YOUTUBER TEMPLATES (10 Variations)
+        const youtuberTemplates = [
+            `🎥 Press Play on Premium Content | Hey everyone, I'm ${userName}, a full-time ${field}. Scripting, filming, and editing high-retention videos for my amazing subscribers. 🚀`,
+            `🔔 Don't forget to subscribe! My name is ${userName}, an independent ${field}. Reviewing tech, vlogging daily, and decoding the YouTube algorithm. 🎬`,
+            `🌟 High-retention digital storyteller. I am ${userName}, working as a creative ${field}. Creating custom thumbnails, render pipelines, and viral video structures. 🎥`,
+            `🚀 Smashing that like button daily. Meet ${userName}, a professional ${field} building an organic audience community through video monetization frameworks. 📸`,
+            `💎 Render buffers, standard frame rates, and 4K sequences. I'm ${userName}, a passionate ${field}. Bringing cinematic value to your subscription feed. 📊`,
+            `🎬 From conceptual scripting to final export rendering. My name is ${userName}, a high-energy ${field}. Welcome to my official creative hub. ✨`,
+            `⚡ Attention retention architect. I am ${userName}, a viral ${field} generating premium informational and entertaining content arrays daily. 🎥`,
+            `🎯 Cultivating genuine digital connections. Meet ${userName}, a content-driven ${field}. Elevating casual viewers into a powerful global community. 🔥`,
+            `🎨 Creative director of my own digital channel space. I am ${userName}, an independent ${field} dropping new videos every week. Stay tuned! 🚀`,
+            `🌟 Capturing reality through a wide-angle lens. My name is ${userName}, working as a progressive ${field}. Transforming ideas into global internet streams. 🎬`
+        ];
+
+        // 8d. TIKTOKER TEMPLATES (10 Variations)
+        const tiktokerTemplates = [
+            `⚡ Catch Me On Your FYP! | Hello! I'm ${userName}, a dynamic ${field}. Dropping viral transitions, short-form lifestyle aesthetics, and trending audios. 🚀`,
+            `✨ Hyper-retention vertical video creator. My name is ${userName}, working as an engaging ${field}. Cultivating massive organic community growth. 💎`,
+            `📱 Pushing the boundaries of 15-second entertainment. I am ${userName}, a full-time ${field}. Tracking algorithmic sounds and lighting up your feed. 🌟`,
+            `🚀 Curating micro-trends and lifestyle edits. Meet ${userName}, a professional ${field} dominating mobile screen interfaces globally. 📸`,
+            `🔥 Vertical loop visual specialist. I'm ${userName}, a high-performance ${field} crafting seamless cuts and high-impact organic trends. 📈`,
+            `🌟 Quick cuts, neon color gradients, and algorithmic pacing. My name is ${userName}, working as a digital ${field}. Spreading positive vibes daily. 🎨`,
+            `💎 Hooking your attention in the first 2 seconds. I am ${userName}, a native short-form ${field}. Merging audio trends with aesthetic visuals. ⚡`,
+            `🎨 Creative cell-phone cinema director. Meet ${userName}, a global ${field} sharing real, raw, and highly engaging vertical micro-stories. 🚀`,
+            `🎯 Influencing modern mobile sub-cultures. I am ${userName}, a trending ${field}. Elevating casual swipers into loyal community fans. 🔥`,
+            `🎬 Press tap for high-energy mobile entertainment. My name is ${userName}, working as an independent ${field}. Catch my next transition video! ✨`
+        ];
+
         // 2. ENGINEERING FIELD TEMPLATES (10 Variations)
         const engineeringTemplates = [
             `🛠️ Problem Solver & Innovator | I am ${userName}, an analytical ${field}. Turning blueprints into reality, optimizing complex machinery, and architecting sustainable designs. 🚀`,
@@ -393,7 +449,75 @@ const BioWriter = () => {
             `🎬 Bringing words to life from script to screen. I am ${userName}, an innovative ${field}. Shaping cultural narratives through media. 🎥`,
             `💎 Pure performance artist. My name is ${userName}, serving as a cinematic ${field}. Creating timeless art, one scene at a time. 🌟`
         ];
+// 8e. POLITICIAN / PUBLIC LEADER TEMPLATES (10 Variations)
+        const politicianTemplates = [
+            `🏛️ Serving the People, Shaping the Nation | I am ${userName}, a dedicated ${field}. Committed to public welfare, policy reform, and transparent governance. 🇵🇰`,
+            `🌟 Leadership is action, not position. My name is ${userName}, working as a progressive ${field}. Voice of the community, driving grassroots development. 📢`,
+            `📈 Building a stronger future together. I'm ${userName}, your local ${field}. Focusing on economic stability, social justice, and public empowerment. 🏛️`,
+            `🤝 Driven by integrity, united by purpose. Meet ${userName}, an active ${field} striving to bring positive change and policy execution to our society. ✨`,
+            `💡 Empowering citizens, amplifying voices. I am ${userName}, serving proudly as a ${field}. Dedicated to community leadership and political strategy. 🏛️`,
+            `🌍 Strategic governance and social equity. My name is ${userName}, a passionate ${field}. Working around the clock for legislative reforms and public advocacy. 🗳️`,
+            `🗳️ Democracy in action. I'm ${userName}, a community-driven ${field}. Transforming public trust into real-world developmental progress. 🏛️`,
+            `⚡ Visionary leadership for a brighter tomorrow. Meet ${userName}, a visionary ${field}. Focusing on state policy analysis, human rights, and public welfare. 🌟`,
+            `🎯 Accountability, development, and progress. I am ${userName}, an independent ${field} working toward systemic transparency and institutional strength. 📈`,
+            `🏛️ Dedicated to the service of our constituency. My name is ${userName}, working actively as a ${field}. Let's build a prosperous future together. 🤝`
+        ];
 
+        // 8f. CRICKETER / CRICKET PLAYER TEMPLATES (10 Variations)
+        const cricketerTemplates = [
+            `🏏 Bleeding Green & Chasing Targets | I am ${userName}, a passionate ${field}. Living life 22 yards at a time, timing boundaries, and winning matches. 🔥`,
+            `⚡ Middle of the bat consistency. My name is ${userName}, playing as a professional ${field}. Fast bowling formulas, spin variations, and match-winning knocks. 🏆`,
+            `🏆 Hard work, discipline, and cricket logic. I'm ${userName}, an elite ${field}. From net practice routines to high-pressure stadium finishes. 🏏`,
+            `🔥 Swing king / Power hitter mode: ALWAYS ON. Meet ${userName}, a dedicated ${field} mastering the art of modern-day cricket execution. 🌟`,
+            `🏏 Cricket isn't just a game, it's an emotion. I am ${userName}, a standard-setting ${field}. Focused on athletic fitness, tactical field placement, and clean striking. ⚡`,
+            `🎯 Precision line and length, flawless cover drives. My name is ${userName}, an active ${field} contributing to team victory through raw athletic performance. 🏆`,
+            `🌟 Stadium lights, roaring crowds, pure adrenaline. I'm ${userName}, a competitive ${field}. Scripting glory for my team, one ball at a time. 🏏`,
+            `📈 Tactical cricket brain. Meet ${userName}, a professional ${field} managing strike rates, bowling economies, and high-performance sports training. ⚡`,
+            `💎 Pure talent meets endless grind. I am ${userName}, a registered ${field}. Dominating tournaments and elevating sportsmanship standards. 🏆`,
+            `🏏 Pad up, guard on, ready to conquer. My name is ${userName}, working and playing as a dynamic ${field}. Catch me live on the pitch! 🔥`
+        ];
+
+        // 8g. FOOTBALLER / SOCCER PLAYER TEMPLATES (10 Variations)
+        const footballerTemplates = [
+            `⚽ Ninety Minutes of Pure Passion | I am ${userName}, a high-octane ${field}. Tactical dribbles, clean clean-sheets, and top-corner finishes. 🏃‍♂️`,
+            `⚡ Speed, stamina, and standard goal execution. My name is ${userName}, working as a professional ${field}. Living for the beautiful game. 🏆`,
+            `🏆 Total pitch domination. I'm ${userName}, an elite ${field}. Tactical playmaking, defensive matrix setups, and high-retention ball control. ⚽`,
+            `🏃‍♂️ Training hard in silence, shining on match day. Meet ${userName}, a dedicated ${field} pushing the physical and tactical boundaries of football. 🔥`,
+            `💎 Striker instinct, midfielder vision, defender grit. I am ${userName}, a certified ${field}. Chasing trophies and building athletic history. ⚽`,
+            `⚡ From the training ground to the championship league. My name is ${userName}, a competitive ${field}. Nutmegs, assists, and high-energy pressing. 🏆`,
+            `🎯 Boot physics and perfect tactical positioning. I'm ${userName}, a progressive ${field} engineering victory through teamwork and intense training. 🏃‍♂️`,
+            `🌟 Roaring stadiums, standard 4-3-3 formations. Meet ${userName}, an agile ${field} dedicated to sports performance and visual entertainment. ⚽`,
+            `🔥 Work hard, play fair, score goals. I am ${userName}, an independent ${field}. Transforming strategic formations into real-world match wins. 🏆`,
+            `⚽ Lace up the boots, hear the whistle, dominate. My name is ${userName}, working proudly as a tactical ${field}. The pitch is my kingdom. 🏃‍♂️`
+        ];
+
+        // 8h. CARPENTER / WOODWORKING ARTISAN TEMPLATES (10 Variations)
+        const carpenterTemplates = [
+            `🪚 Crafting Wood into Fine Art | I am ${userName}, a professional ${field}. Saws, chisels, sanders, and bespoke furniture engineering. 🪵`,
+            `📐 Measure twice, cut once. My name is ${userName}, working as a traditional ${field}. Custom cabinetry, structural layout framing, and wooden blueprints. 🛠️`,
+            `🪵 Bringing raw timber to life. I'm ${userName}, an experienced ${field}. Transforming solid oak and walnut into premium, durable living space utilities. ✨`,
+            `🔨 Hardwood aesthetics and structural precision. Meet ${userName}, a dedicated ${field} specializing in vintage restoration and modern joinery. 🪚`,
+            `⚡ Power tools, routing matrices, and flawless wood finish. I am ${userName}, a standard-setting ${field} sculpting architectural wood structures. 🛠️`,
+            `🏠 Transforming houses into homes with custom woodwork. My name is ${userName}, a qualified ${field}. Handcrafted furniture with lifetime durability guarantees. 🪵`,
+            `🎨 Creative wood design architect. I'm ${userName}, an independent ${field}. Merging geometric alignment with pure organic timber textures. 🪚`,
+            `📐 Wood shavings, dovetail joints, and pure manual layout logic. Meet ${userName}, a progressive ${field} redefining manual craftsmanship. 🛠️`,
+            `🌟 If you can dream it, I can build it in wood. I am ${userName}, a premium ${field}. Custom closets, modular kitchens, and structural roofing. 🪵`,
+            `🪚 Master of the woodworking studio shop. My name is ${userName}, working as an elite ${field}. Designing heritage items, one block at a time. 🔨`
+        ];
+
+        // 8i. MANUFACTURER / INDUSTRIAL PRODUCER TEMPLATES (10 Variations)
+        const manufacturerTemplates = [
+            `🏭 Driving Industrial Innovation & Scale | I am ${userName}, a professional ${field}. Supply chain optimization, assembly line engineering, and bulk production. 🚀`,
+            `⚙️ Transforming raw materials into global consumer goods. My name is ${userName}, working as a progressive ${field}. Quality control and plant automation. 📊`,
+            `🏭 High-output fabrication matrix. I'm ${userName}, an elite ${field}. Managing inventory workflows, industrial machinery setups, and production lines. 🛠️`,
+            `🚀 Mass production with zero compromise on precision. Meet ${userName}, a leading ${field} scaling industrial operations and manufacturing plants. ⚙️`,
+            `📦 Factory floors, lean manufacturing, and global standard safety. I am ${userName}, a dedicated ${field} designing high-efficiency manufacturing pipelines. 🏭`,
+            `⚡ Engineering the goods that power our economy. My name is ${userName}, an experienced ${field}. From prototype design blueprints to bulk cargo distribution. 📈`,
+            `🌟 Scaling local industries to global market heights. I'm ${userName}, a qualified ${field} focusing on sustainable raw material processing. 🏭`,
+            `⚙️ Plant operations, supply chain metrics, and automated output arrays. Meet ${userName}, a high-performance ${field} managing industrial logistics. 🔧`,
+            `💡 Innovation on the assembly line. I am ${userName}, a standard-setting ${field}. Redefining product manufacturing, tool calibration, and material yield. 📊`,
+            `🏭 Industrial scale architect. My name is ${userName}, working actively as a ${field}. Shaping commercial consumer landscapes every single day. 🚀`
+        ];
         // 8. INFLUENCER / CONTENT CREATOR TEMPLATES (10 Variations)
         const influencerTemplates = [
             `📸 Digital Creator & Trendsetter | Hello! I'm ${userName}, a dynamic ${field}. Sharing lifestyle insights, building a viral community, and creating impact. 🚀`,
@@ -441,6 +565,26 @@ const BioWriter = () => {
             selectedTemplates = actorTemplates;
         } else if (professionLower.includes('influencer') || professionLower.includes('creator') || professionLower.includes('vlogger') || professionLower.includes('blogger') || professionLower.includes('youtuber')) {
             selectedTemplates = influencerTemplates;
+        }else if (professionLower.includes('teacher') || professionLower.includes('educator') || professionLower.includes('professor') || professionLower.includes('lecturer') || professionLower.includes('school')) {
+            selectedTemplates = teacherTemplates;
+        } else if (professionLower.includes('mechanic') || professionLower.includes('repair') || professionLower.includes('automotive') || professionLower.includes('car') || professionLower.includes('technician')) {
+            selectedTemplates = mechanicTemplates;
+        } else if (professionLower.includes('youtuber') || professionLower.includes('youtube') || professionLower.includes('channel') || professionLower.includes('vlog')) {
+            selectedTemplates = youtuberTemplates;
+        } else if (professionLower.includes('tiktoker') || professionLower.includes('tiktok') || professionLower.includes('reel') || professionLower.includes('shorts')) {
+            selectedTemplates = tiktokerTemplates;
+            } else if (professionLower.includes('politician') || professionLower.includes('leader') || professionLower.includes('minister') || professionLower.includes('mna') || professionLower.includes('mpa')) {
+            selectedTemplates = politicianTemplates;
+        } else if (professionLower.includes('cricketer') || professionLower.includes('cricket') || professionLower.includes('batsman') || professionLower.includes('bowler')) {
+            selectedTemplates = cricketerTemplates;
+        } else if (professionLower.includes('footballer') || professionLower.includes('football') || professionLower.includes('soccer') || professionLower.includes('player')) {
+            selectedTemplates = footballerTemplates;
+        } else if (professionLower.includes('carpenter') || professionLower.includes('wood') || professionLower.includes('furniture') || professionLower.includes('carpentry')) {
+            selectedTemplates = carpenterTemplates;
+        } else if (professionLower.includes('manufacturer') || professionLower.includes('factory') || professionLower.includes('manufacturing') || professionLower.includes('production')) {
+            selectedTemplates = manufacturerTemplates;
+        } else {
+            selectedTemplates = generalTemplates;
         }
 
         // --- NON-REPEATING LOGIC: Loop tab tak chalay ga jab tak purani bio se match na kare ---
