@@ -1321,7 +1321,8 @@ const Footer = ({ company, navigate }) => {
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('home') }, 'Home')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('typingtester') }, 'Typing Tester')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('biowriter') }, 'Bio Writer')),
-                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('passwordchecker') }, 'Password Strength Checker'))
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('passwordchecker') }, 'Password Strength Checker')),
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('calculator') }, 'All in One Calculator'))
                 )
             ),
             /* ... (Baqi legal wala hissa waise hi rahega) ... */
@@ -1374,7 +1375,9 @@ const App = () => {
         currentView = e(BioWriter);
     } else if (currentPage === 'passwordchecker') {
         currentView = e(PasswordChecker);
-    } else if (currentPage === 'about') {
+    }  else if (currentPage === 'calculator') {
+        currentView = e(AllInOneCalculator, { navigate: navigate });
+    }else if (currentPage === 'about') {
         currentView = e(About);
     } else if (currentPage === 'terms') {
         currentView = e(TermsConditions);
@@ -1393,6 +1396,172 @@ const App = () => {
     );
 };
 
+// ==========================================
+// 11. ALL IN ONE CALCULATOR HUB COMPONENT
+// ==========================================
+// ==========================================
+// 11. ALL IN ONE CALCULATOR HUB COMPONENT
+// ==========================================
+// ==========================================
+// 11. ALL IN ONE CALCULATOR HUB COMPONENT
+// ==========================================
+const AllInOneCalculator = () => {
+    const [activeCalc, setActiveCalc] = useState(null); // null, 'age', 'calories', 'percentage'
+
+    // Age Calculator States
+    const [birthDate, setBirthDate] = useState('');
+    const [ageResult, setAgeResult] = useState(null);
+
+    // Calories Calculator States
+    const [calAge, setCalAge] = useState('');
+    const [calGender, setCalGender] = useState('male');
+    const [calWeight, setCalWeight] = useState('');
+    const [calHeight, setCalHeight] = useState('');
+    const [calActivity, setCalActivity] = useState('1.2');
+    const [calResult, setCalResult] = useState(null);
+
+    // Percentage Calculator States
+    const [pNum, setPNum] = useState('');
+    const [pTotal, setPTotal] = useState('');
+    const [pResult, setPResult] = useState(null);
+
+    // --- LOGIC FUNCTIONS ---
+    const calculateAge = () => {
+        if (!birthDate) return;
+        const birth = new Date(birthDate);
+        const now = new Date();
+        let years = now.getFullYear() - birth.getFullYear();
+        let months = now.getMonth() - birth.getMonth();
+        let days = now.getDate() - birth.getDate();
+
+        if (days < 0) {
+            months--;
+            days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        }
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+        setAgeResult(`${years} Years, ${months} Months, aur ${days} Days`);
+    };
+
+    const calculateCalories = () => {
+        if (!calAge || !calWeight || !calHeight) return;
+        const w = parseFloat(calWeight);
+        const h = parseFloat(calHeight);
+        const a = parseFloat(calAge);
+        
+        let bmr = (calGender === 'male') 
+            ? (10 * w) + (6.25 * h) - (5 * a) + 5 
+            : (10 * w) + (6.25 * h) - (5 * a) - 161;
+        
+        const totalCalories = Math.round(bmr * parseFloat(calActivity));
+        setCalResult(`${totalCalories} kcal / day`);
+    };
+
+    const calculatePercentage = () => {
+        if (!pNum || !pTotal) return;
+        const res = (parseFloat(pNum) / parseFloat(pTotal)) * 100;
+        setPResult(`${res.toFixed(2)}%`);
+    };
+
+    // Inner Card UI Component with glass-calc-card class
+    const CalculatorCard = ({ title, icon, desc, onClick }) => {
+        return e('div', { className: 'glass-calc-card', onClick: onClick },
+            e('div', { style: { fontSize: '55px' } }, icon),
+            e('h3', { style: { fontSize: '20px'} }, title),
+            e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, desc)
+        );
+    };
+
+    // --- RENDER VIEWS ---
+    if (activeCalc) {
+        let currentForm;
+
+        if (activeCalc === 'age') {
+            currentForm = e(React.Fragment, null,
+                e('h2', { className: 'card-title', style: { fontSize: '24px', marginBottom: '25px' } }, '📅 Age Calculator'),
+                e('div', { style: { marginBottom: '25px' } },
+                    e('label', { style: { display: 'block', color: '#aaa', marginBottom: '10px', fontSize: '15px' } }, 'Apni Date of Birth select karein:'),
+                    e('input', { type: 'date', value: birthDate, onChange: (e) => setBirthDate(e.target.value), className: 'custom-input-box', style: { width: '100%', padding: '15px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px', fontSize: '16px' } })
+                ),
+                e('button', { className: 'start-btn', onClick: calculateAge, style: { width: '100%', padding: '15px', fontSize: '16px' } }, 'Calculate Age'),
+                ageResult && e('div', { style: { marginTop: '30px', padding: '20px', background: 'rgba(0,247,255,0.1)', border: '1px solid #00f7ff', borderRadius: '8px', textAlign: 'center', color: '#fff', fontSize: '18px', fontWeight: 'bold' } }, ageResult)
+            );
+        } else if (activeCalc === 'calories') {
+            currentForm = e(React.Fragment, null,
+                e('h2', { className: 'card-title', style: { fontSize: '24px', marginBottom: '25px' } }, '🔥 Calories Calculator'),
+                e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '25px' } },
+                    e('div', null,
+                        e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Age (Years)'),
+                        e('input', { type: 'number', placeholder: 'e.g. 22', value: calAge, onChange: (e) => setCalAge(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } })
+                    ),
+                    e('div', null,
+                        e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Gender'),
+                        e('select', { value: calGender, onChange: (e) => setCalGender(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } },
+                            e('option', { value: 'male' }, 'Male'),
+                            e('option', { value: 'female' }, 'Female')
+                        )
+                    ),
+                    e('div', null,
+                        e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Weight (kg)'),
+                        e('input', { type: 'number', placeholder: 'e.g. 70', value: calWeight, onChange: (e) => setCalWeight(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } })
+                    ),
+                    e('div', null,
+                        e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Height (cm)'),
+                        e('input', { type: 'number', placeholder: 'e.g. 175', value: calHeight, onChange: (e) => setCalHeight(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } })
+                    )
+                ),
+                e('div', { style: { marginBottom: '30px' } },
+                    e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Activity Level'),
+                    e('select', { value: calActivity, onChange: (e) => setCalActivity(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } },
+                        e('option', { value: '1.2' }, 'Sedentary (No exercise)'),
+                        e('option', { value: '1.375' }, 'Light (1-3 days/week)'),
+                        e('option', { value: '1.55' }, 'Moderate (3-5 days/week)'),
+                        e('option', { value: '1.725' }, 'Heavy (6-7 days/week)')
+                    )
+                ),
+                e('button', { className: 'start-btn', onClick: calculateCalories, style: { width: '100%', padding: '15px', fontSize: '16px' } }, 'Calculate Daily Calories'),
+                calResult && e('div', { style: { marginTop: '30px', padding: '20px', background: 'rgba(0,247,255,0.1)', border: '1px solid #00f7ff', borderRadius: '8px', textAlign: 'center', color: '#fff', fontSize: '18px', fontWeight: 'bold' } }, `Maintenance Calories: ${calResult}`)
+            );
+        } else if (activeCalc === 'percentage') {
+            currentForm = e(React.Fragment, null,
+                e('h2', { className: 'card-title', style: { fontSize: '24px', marginBottom: '15px' } }, '📊 Percentage Calculator'),
+                e('div', { style: { display: 'flex', gap: '15px', alignItems: 'center', marginBottom: '30px', flexWrap: 'wrap' } },
+                    e('input', { type: 'number', placeholder: 'Obtained', value: pNum, onChange: (e) => setPNum(e.target.value), style: { flex: '1', padding: '15px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px', minWidth: '120px' } }),
+                    e('span', { style: { color: '#aaa', fontWeight: 'bold' } }, 'is what % of'),
+                    e('input', { type: 'number', placeholder: 'Total', value: pTotal, onChange: (e) => setPTotal(e.target.value), style: { flex: '1', padding: '15px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px', minWidth: '120px' } })
+                ),
+                e('button', { className: 'start-btn', onClick: calculatePercentage, style: { width: '100%', padding: '15px', fontSize: '16px' } }, 'Calculate Percentage'),
+                pResult && e('div', { style: { marginTop: '30px', padding: '20px', background: 'rgba(0,247,255,0.1)', border: '1px solid #00f7ff', borderRadius: '8px', textAlign: 'center', color: '#fff', fontSize: '22px', fontWeight: 'bold' } }, `Result: ${pResult}`)
+            );
+        }
+
+        return e('div', { className: 'container-section calculator-hub-wrapper' },
+            e('div', { className: 'glass-calc-form' },
+                e('button', { 
+                    onClick: () => { setActiveCalc(null); setAgeResult(null); setCalResult(null); setPResult(null); }, 
+                    style: { background: 'none', border: 'none', color: '#00f7ff', cursor: 'pointer', marginBottom: '30px', fontSize: '15px', fontWeight: 'bold' } 
+                }, '← Back to Main Hub'),
+                currentForm
+            )
+        );
+    }
+
+    // Main Hub Layout using glass classes
+    return e('div', { className: 'container-section calculator-hub-wrapper' },
+        e('div', { style: { textAlign: 'center', marginBottom: '60px' } },
+            e('h2', { className: 'brand-title', style: { textShadow: '0 0 15px rgba(0,247,255,0.5)', fontSize: '36px', marginBottom: '15px', fontWeight: '800' } }, '🧮 Calculator Hub'),
+            e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } }, 'Select any advanced tool below to compute instant daily utilities with precision.')
+        ),
+
+        e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '1000px', margin: '0 auto' } },
+            CalculatorCard({ title: 'Age Calculator', icon: '📅', desc: 'Sahi baras, mahine, aur dinon ke mutabiq apni exact umar check karein.', onClick: () => setActiveCalc('age') }),
+            CalculatorCard({ title: 'Calories Calculator', icon: '🔥', desc: 'BMR formula ke sath apni jism ke mutabiq daily energy calories janiye.', onClick: () => setActiveCalc('calories') }),
+            CalculatorCard({ title: 'Percentage Calculator', icon: '📊', desc: 'School marks ya business statistics ke liye kisi bhi raqam ki exact percentage nikalain.', onClick: () => setActiveCalc('percentage') })
+        )
+    );
+};
 // Injection into DOM
 const rootElement = document.getElementById('root');
 if (rootElement) {
