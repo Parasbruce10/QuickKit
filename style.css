@@ -1861,3 +1861,11 @@ body {
     color: #94a3b8 !important;
     margin: 0 !important;
 }
+/* Back to Hub Button Hover Effect */
+.glass-calc-form button:hover {
+    background: rgba(0, 245, 255, 0.08) !important;
+    border-color: rgba(0, 245, 255, 0.4) !important;
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.25) !important;
+    transform: translateY(-2px);
+    color: #ffffff !important;
+}

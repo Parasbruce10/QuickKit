@@ -1427,23 +1427,51 @@ const AllInOneCalculator = () => {
 
     // --- LOGIC FUNCTIONS ---
     const calculateAge = () => {
-        if (!birthDate) return;
-        const birth = new Date(birthDate);
-        const now = new Date();
-        let years = now.getFullYear() - birth.getFullYear();
-        let months = now.getMonth() - birth.getMonth();
-        let days = now.getDate() - birth.getDate();
+    if (!birthDate) return;
+    
+    // User ke likhe format "DD-MM-YYYY" ko split karenge
+    const dateParts = birthDate.split('-');
+    
+    // Check karein ke user ne sahi format likha hai ya nahi (3 hisse hone chahiye)
+    if (dateParts.length !== 3) {
+        setAgeResult("Sahi format likhein: DD-MM-YYYY (e.g., 26-12-2004)");
+        return;
+    }
 
-        if (days < 0) {
-            months--;
-            days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-        }
-        if (months < 0) {
-            years--;
-            months += 12;
-        }
-        setAgeResult(`${years} Years, ${months} Months, aur ${days} Days`);
-    };
+    const day = parseInt(dateParts[0], 10);
+    const month = parseInt(dateParts[1], 10) - 1; // JS mein months 0 se start hote hain (Jan = 0)
+    const year = parseInt(dateParts[2], 10);
+
+    // Agar saal poora nahi likha ya galat hai to error handle karein
+    if (isNaN(day) || isNaN(month) || isNaN(year) || year < 1000) {
+        setAgeResult("Meharbani karke valid date aur poora saal (YYYY) likhein.");
+        return;
+    }
+
+    const birth = new Date(year, month, day);
+    const now = new Date();
+    
+    // Agar future ki date daal di ho
+    if (birth > now) {
+        setAgeResult("Birth date future ki nahi ho sakti!");
+        return;
+    }
+
+    let years = now.getFullYear() - birth.getFullYear();
+    let months = now.getMonth() - birth.getMonth();
+    let days = now.getDate() - birth.getDate();
+
+    if (days < 0) {
+        months--;
+        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+    }
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+    
+    setAgeResult(`${years} Years, ${months} Months, aur ${days} Days`);
+};
 
     const calculateCalories = () => {
         if (!calAge || !calWeight || !calHeight) return;
@@ -1478,74 +1506,145 @@ const AllInOneCalculator = () => {
     };
 
     // --- RENDER VIEWS ---
+    // --- RENDER VIEWS ---
     if (activeCalc) {
         let currentForm;
 
+        // 1. AGE CALCULATOR (Cyan Neon Theme)
         if (activeCalc === 'age') {
             currentForm = e(React.Fragment, null,
-                e('h2', { className: 'card-title', style: { fontSize: '24px', marginBottom: '25px' } }, '📅 Age Calculator'),
-                e('div', { style: { marginBottom: '25px' } },
-                    e('label', { style: { display: 'block', color: '#aaa', marginBottom: '10px', fontSize: '15px' } }, 'Apni Date of Birth select karein:'),
-                    e('input', { type: 'date', value: birthDate, onChange: (e) => setBirthDate(e.target.value), className: 'custom-input-box', style: { width: '100%', padding: '15px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px', fontSize: '16px' } })
+               
+               e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(0,245,255,0.2)', borderTop: '1px solid rgba(0,245,255,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Age Calculator'),
+                e('div', { style: { marginBottom: '30px', textAlign: 'left' } },
+                    e('label', { style: { display: 'block', color: '#00f5ff', marginBottom: '10px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: '700' } }, 'Select Date of Birth'),
+                   // IS KOD KO PURANE INPUT KI JAGAH RAKHEIN:
+e('input', { 
+    type: 'text', 
+    placeholder: 'DD-MM-YYYY', // Placeholder de diya taake user ko pata chale
+    value: birthDate, 
+    onChange: (e) => setBirthDate(e.target.value), // Ab user manually likh sakega
+    style: { 
+        width: '100%', 
+        padding: '16px', 
+        background: 'rgba(255, 255, 255, 0.05)', 
+        color: '#fff', 
+        border: '1px solid rgba(255, 255, 255, 0.1)', 
+        borderRadius: '12px', 
+        fontSize: '1rem', 
+        outline: 'none' 
+    } 
+})
                 ),
-                e('button', { className: 'start-btn', onClick: calculateAge, style: { width: '100%', padding: '15px', fontSize: '16px' } }, 'Calculate Age'),
-                ageResult && e('div', { style: { marginTop: '30px', padding: '20px', background: 'rgba(0,247,255,0.1)', border: '1px solid #00f7ff', borderRadius: '8px', textAlign: 'center', color: '#fff', fontSize: '18px', fontWeight: 'bold' } }, ageResult)
+                
+                e('button', { className: 'action-btn', onClick: calculateAge, style: { display: 'block', margin: '0 auto', padding: '16px 40px', fontSize: '1.1rem' } }, '⚡ Calculate Exact Age'),
+                
+                ageResult && e('div', { className: 'result-card', style: { marginTop: '30px', padding: '25px', background: 'rgba(0, 245, 255, 0.05)', border: '1px solid rgba(0, 245, 255, 0.3)', boxShadow: '0 0 20px rgba(0, 245, 255, 0.1)' } },
+                    e('p', { style: { color: '#94a3b8', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '10px' } }, 'Your Age Is'),
+                    e('div', { style: { color: '#00f5ff', fontSize: '1.8rem', fontWeight: '800', textShadow: '0 0 15px rgba(0, 245, 255, 0.4)' } }, ageResult)
+                )
             );
-        } else if (activeCalc === 'calories') {
+        } 
+        
+        // 2. CALORIES CALCULATOR (Pink Neon Theme)
+        else if (activeCalc === 'calories') {
             currentForm = e(React.Fragment, null,
-                e('h2', { className: 'card-title', style: { fontSize: '24px', marginBottom: '25px' } }, '🔥 Calories Calculator'),
-                e('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '25px' } },
+               
+               e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(255,0,127,0.2)', borderTop: '1px solid rgba(255,0,127,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Calories Calculator'),
+                e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '25px', textAlign: 'left' } },
+
                     e('div', null,
-                        e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Age (Years)'),
-                        e('input', { type: 'number', placeholder: 'e.g. 22', value: calAge, onChange: (e) => setCalAge(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } })
+                        e('label', { style: { display: 'block', color: '#ff007f', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Age (Years)'),
+                        e('input', { type: 'number', placeholder: 'e.g. 22', value: calAge, onChange: (e) => setCalAge(e.target.value), style: { width: '100%', padding: '14px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none' } })
                     ),
                     e('div', null,
-                        e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Gender'),
-                        e('select', { value: calGender, onChange: (e) => setCalGender(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } },
-                            e('option', { value: 'male' }, 'Male'),
-                            e('option', { value: 'female' }, 'Female')
+                        e('label', { style: { display: 'block', color: '#ff007f', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Gender'),
+                        e('select', { value: calGender, onChange: (e) => setCalGender(e.target.value), style: { width: '100%', padding: '14px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none' } },
+                            e('option', { value: 'male', style: { background: '#0f172a' } }, 'Male'),
+                            e('option', { value: 'female', style: { background: '#0f172a' } }, 'Female')
                         )
                     ),
                     e('div', null,
-                        e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Weight (kg)'),
-                        e('input', { type: 'number', placeholder: 'e.g. 70', value: calWeight, onChange: (e) => setCalWeight(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } })
+                        e('label', { style: { display: 'block', color: '#ff007f', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Weight (kg)'),
+                        e('input', { type: 'number', placeholder: 'e.g. 70', value: calWeight, onChange: (e) => setCalWeight(e.target.value), style: { width: '100%', padding: '14px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none' } })
                     ),
                     e('div', null,
-                        e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Height (cm)'),
-                        e('input', { type: 'number', placeholder: 'e.g. 175', value: calHeight, onChange: (e) => setCalHeight(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } })
+                        e('label', { style: { display: 'block', color: '#ff007f', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Height (cm)'),
+                        e('input', { type: 'number', placeholder: 'e.g. 175', value: calHeight, onChange: (e) => setCalHeight(e.target.value), style: { width: '100%', padding: '14px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none' } })
                     )
                 ),
-                e('div', { style: { marginBottom: '30px' } },
-                    e('label', { style: { display: 'block', color: '#aaa', marginBottom: '8px', fontSize: '14px' } }, 'Activity Level'),
-                    e('select', { value: calActivity, onChange: (e) => setCalActivity(e.target.value), style: { width: '100%', padding: '12px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px' } },
-                        e('option', { value: '1.2' }, 'Sedentary (No exercise)'),
-                        e('option', { value: '1.375' }, 'Light (1-3 days/week)'),
-                        e('option', { value: '1.55' }, 'Moderate (3-5 days/week)'),
-                        e('option', { value: '1.725' }, 'Heavy (6-7 days/week)')
+                
+                e('div', { style: { marginBottom: '30px', textAlign: 'left' } },
+                    e('label', { style: { display: 'block', color: '#ff007f', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Activity Level'),
+                    e('select', { value: calActivity, onChange: (e) => setCalActivity(e.target.value), style: { width: '100%', padding: '14px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none' } },
+                        e('option', { value: '1.2', style: { background: '#0f172a' } }, 'Sedentary (Little to no exercise)'),
+                        e('option', { value: '1.375', style: { background: '#0f172a' } }, 'Light (Exercise 1-3 days/week)'),
+                        e('option', { value: '1.55', style: { background: '#0f172a' } }, 'Moderate (Exercise 3-5 days/week)'),
+                        e('option', { value: '1.725', style: { background: '#0f172a' } }, 'Heavy (Exercise 6-7 days/week)')
                     )
                 ),
-                e('button', { className: 'start-btn', onClick: calculateCalories, style: { width: '100%', padding: '15px', fontSize: '16px' } }, 'Calculate Daily Calories'),
-                calResult && e('div', { style: { marginTop: '30px', padding: '20px', background: 'rgba(0,247,255,0.1)', border: '1px solid #00f7ff', borderRadius: '8px', textAlign: 'center', color: '#fff', fontSize: '18px', fontWeight: 'bold' } }, `Maintenance Calories: ${calResult}`)
+                
+                e('button', { className: 'action-btn', onClick: calculateCalories, style: { display: 'block', margin: '0 auto', padding: '16px 40px', fontSize: '1.1rem' } }, '⚡ Calculate Daily Calories'),
+                
+                calResult && e('div', { className: 'result-card', style: { marginTop: '30px', padding: '25px', background: 'rgba(255, 0, 127, 0.05)', border: '1px solid rgba(255, 0, 127, 0.3)', boxShadow: '0 0 20px rgba(255, 0, 127, 0.1)' } },
+                    e('p', { style: { color: '#94a3b8', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '10px' } }, 'Maintenance Energy Required'),
+                    e('div', { style: { color: '#ff007f', fontSize: '2.2rem', fontWeight: '800', textShadow: '0 0 15px rgba(255, 0, 127, 0.4)' } }, calResult)
+                )
             );
-        } else if (activeCalc === 'percentage') {
+        } 
+        
+        // 3. PERCENTAGE CALCULATOR (Purple Neon Theme)
+        else if (activeCalc === 'percentage') {
             currentForm = e(React.Fragment, null,
-                e('h2', { className: 'card-title', style: { fontSize: '24px', marginBottom: '15px' } }, '📊 Percentage Calculator'),
-                e('div', { style: { display: 'flex', gap: '15px', alignItems: 'center', marginBottom: '30px', flexWrap: 'wrap' } },
-                    e('input', { type: 'number', placeholder: 'Obtained', value: pNum, onChange: (e) => setPNum(e.target.value), style: { flex: '1', padding: '15px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px', minWidth: '120px' } }),
-                    e('span', { style: { color: '#aaa', fontWeight: 'bold' } }, 'is what % of'),
-                    e('input', { type: 'number', placeholder: 'Total', value: pTotal, onChange: (e) => setPTotal(e.target.value), style: { flex: '1', padding: '15px', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '8px', minWidth: '120px' } })
+                
+               e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(189,0,255,0.2)', borderTop: '1px solid rgba(189,0,255,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Percentage Calculator'),
+                e('p', { style: { color: '#94a3b8', fontSize: '0.95rem', marginBottom: '30px', textAlign: 'center' } }, 'Quickly find what percentage an amount is out of a total.'),
+                
+                e('div', { style: { display: 'flex', gap: '15px', alignItems: 'center', marginBottom: '30px', flexWrap: 'wrap', justifyContent: 'center' } },
+                    e('div', { style: { flex: '1', minWidth: '140px', textAlign: 'left' } },
+                        e('label', { style: { display: 'block', color: '#bd00ff', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Obtained Marks / Value'),
+                        e('input', { type: 'number', placeholder: 'e.g. 450', value: pNum, onChange: (e) => setPNum(e.target.value), style: { width: '100%', padding: '16px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none', fontSize: '1.1rem' } })
+                    ),
+                    e('span', { style: { color: '#ffffff', fontWeight: '800', fontSize: '1.2rem', marginTop: '20px', opacity: '0.5' } }, 'OF'),
+                    e('div', { style: { flex: '1', minWidth: '140px', textAlign: 'left' } },
+                        e('label', { style: { display: 'block', color: '#bd00ff', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Total Amount'),
+                        e('input', { type: 'number', placeholder: 'e.g. 500', value: pTotal, onChange: (e) => setPTotal(e.target.value), style: { width: '100%', padding: '16px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none', fontSize: '1.1rem' } })
+                    )
                 ),
-                e('button', { className: 'start-btn', onClick: calculatePercentage, style: { width: '100%', padding: '15px', fontSize: '16px' } }, 'Calculate Percentage'),
-                pResult && e('div', { style: { marginTop: '30px', padding: '20px', background: 'rgba(0,247,255,0.1)', border: '1px solid #00f7ff', borderRadius: '8px', textAlign: 'center', color: '#fff', fontSize: '22px', fontWeight: 'bold' } }, `Result: ${pResult}`)
+                
+                e('button', { className: 'action-btn', onClick: calculatePercentage, style: { display: 'block', margin: '0 auto', padding: '16px 40px', fontSize: '1.1rem' } }, '⚡ Calculate Percentage'),
+                
+                pResult && e('div', { className: 'result-card', style: { marginTop: '30px', padding: '25px', background: 'rgba(189, 0, 255, 0.05)', border: '1px solid rgba(189, 0, 255, 0.3)', boxShadow: '0 0 20px rgba(189, 0, 255, 0.1)' } },
+                    e('p', { style: { color: '#94a3b8', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '10px' } }, 'Final Result'),
+                    e('div', { style: { color: '#bd00ff', fontSize: '2.5rem', fontWeight: '800', textShadow: '0 0 15px rgba(189, 0, 255, 0.4)' } }, pResult)
+                )
             );
         }
 
+        // Return The Premium Wrapper with Stylish Back Button
         return e('div', { className: 'container-section calculator-hub-wrapper' },
             e('div', { className: 'glass-calc-form' },
                 e('button', {
                     onClick: () => { setActiveCalc(null); setAgeResult(null); setCalResult(null); setPResult(null); },
-                    style: { background: 'none', border: 'none', color: '#00f7ff', cursor: 'pointer', marginBottom: '30px', fontSize: '15px', fontWeight: 'bold' }
-                }, '← Back to Main Hub'),
+                    style: { 
+    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))', 
+    border: '1px solid rgba(255, 255, 255, 0.12)', 
+    color: '#00f5ff', // Cyan color for neon tech look
+    cursor: 'pointer', 
+    marginBottom: '30px', 
+    padding: '10px 20px', 
+    borderRadius: '30px', // More rounded pill shape
+    fontSize: '0.88rem', 
+    fontWeight: '600', 
+    display: 'inline-flex', 
+    alignItems: 'center', 
+    gap: '8px',
+    letterSpacing: '0.5px',
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    backdropFilter: 'blur(10px)',
+    WebkitBackdropFilter: 'blur(10px)'
+}
+                }, '← Back to Hub'),
                 currentForm
             )
         );
