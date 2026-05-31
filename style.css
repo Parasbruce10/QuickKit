@@ -1869,3 +1869,20 @@ body {
     transform: translateY(-2px);
     color: #ffffff !important;
 }
+/* Unique Hover Styles For Card 4: Calculator (Purple Neon Glow) */
+.premium-tool-card.calc-card:hover {
+    border-color: rgba(189, 0, 255, 0.35);
+    box-shadow: 0 20px 40px rgba(189, 0, 255, 0.06), inset 0 0 15px rgba(189, 0, 255, 0.02);
+    transform: translateY(-8px);
+}
+
+/* Calculator Card Badge Glow */
+.calc-card .premium-badge {
+    background: rgba(189, 0, 255, 0.08);
+    color: #bd00ff;
+}
+
+/* Calculator Card Action Link Text Color */
+.calc-card .card-action-link-footer {
+    color: #bd00ff;
+}

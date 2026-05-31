@@ -779,7 +779,7 @@ const About = () => {
             e('div', { className: 'result-card', style: { padding: '40px', marginTop: '20px', textAlign: 'left' } },
                 e('h3', { className: 'result-title', style: { fontSize: '1.4rem', marginBottom: '15px', color: '#00f5ff' } }, 'Our Mission'),
                 e('p', { style: { color: '#94a3b8', lineHeight: '1.8', fontSize: '1.05rem', marginBottom: '25px' } },
-                    'At QuickKit, our goal is simple: to build high-performance web utilities that respect your privacy and maximize your efficiency. Whether you are testing your typing speed, generating a creative professional bio, or auditing your password security, QuickKit offers a seamless, premium user experience.'
+                    'At QuickKit, our goal is simple: to build high-performance web utilities that respect your privacy and maximize your efficiency. Whether you are testing your typing speed, generating a creative professional bio, auditing your password security, or computing instant daily metrics with our all-in-one calculator, QuickKit offers a seamless, premium user experience.'
                 ),
 
                 e('h3', { className: 'result-title', style: { fontSize: '1.2rem', marginBottom: '15px', color: '#22c55e' } }, 'Why Choose QuickKit?'),
@@ -1044,7 +1044,8 @@ const Home = ({ navigate }) => {
     const typewriterLines = [
         "Premium digital utilities to supercharge your daily workflow.",
         "Test your typing speed with real-time advanced precision metrics.",
-        "Evaluate password strength and generate aesthetic bios locally."
+        "Evaluate password strength and generate aesthetic bios locally.",
+        "Calculate exact age, daily calories, and percentage metrics instantly." 
     ];
 
     useEffect(() => {
@@ -1118,7 +1119,7 @@ const Home = ({ navigate }) => {
                 // Stats Row - teeno boxes ek wrapper mein
                 e('div', { className: 'hero-stats-row' },
                     e('div', { className: 'stat-item stat-delay-1' },
-                        e('div', { className: 'stat-number' }, '3+'),
+                        e('div', { className: 'stat-number' }, '4+'),
                         e('div', { className: 'stat-label' }, 'Tools')
                     ),
                     e('div', { className: 'stat-item stat-delay-2' },
@@ -1175,6 +1176,18 @@ const Home = ({ navigate }) => {
                         e('p', { className: 'card-secondary-desc' }, 'Generate 10+ completely non-repeating high-impact stylish descriptions across multiple corporate professions.')
                     ),
                     e('div', { className: 'card-action-link-footer' }, 'Generate Premium Bio', e('span', { className: 'arrow-vector' }, '→'))
+                )// Card 4: All in One Calculator Tool
+                , e('div', {
+                    className: 'premium-tool-card calc-card premium-card-delay-4',
+                    onClick: () => navigate('calculator')
+                },
+                    e('div', null,
+                        e('div', { className: 'premium-badge' }, '🧮 Smart Analytics'),
+                        e('div', { className: 'card-icon-container' }, '📐'),
+                        e('h3', { className: 'card-main-title' }, 'All in One Calculator'),
+                        e('p', { className: 'card-secondary-desc' }, 'Instantly calculate your exact age, daily calorie maintenance, and complex percentage metrics.')
+                    ),
+                    e('div', { className: 'card-action-link-footer' }, 'Open Calculators', e('span', { className: 'arrow-vector' }, '→'))
                 )
             ),
 
@@ -1187,8 +1200,9 @@ const Home = ({ navigate }) => {
                         e('span', { className: 'step-icon' }, '🎯'),
                         e('div', { className: 'step-num' }, 'Step 01'),
                         e('div', { className: 'step-title' }, 'Pick a Tool'),
-                        e('div', { className: 'step-desc' }, 'Choose from typing tester, password checker, or bio writer — all free.')
+                    e('div', { className: 'step-desc' }, 'Choose from typing tester, password checker, bio writer, or calculator — all free.')
                     ),
+
                     e('div', { className: 'step-card' },
                         e('span', { className: 'step-icon' }, '⚡'),
                         e('div', { className: 'step-num' }, 'Step 02'),
@@ -1427,51 +1441,51 @@ const AllInOneCalculator = () => {
 
     // --- LOGIC FUNCTIONS ---
     const calculateAge = () => {
-    if (!birthDate) return;
-    
-    // User ke likhe format "DD-MM-YYYY" ko split karenge
-    const dateParts = birthDate.split('-');
-    
-    // Check karein ke user ne sahi format likha hai ya nahi (3 hisse hone chahiye)
-    if (dateParts.length !== 3) {
-        setAgeResult("Sahi format likhein: DD-MM-YYYY (e.g., 26-12-2004)");
-        return;
-    }
+        if (!birthDate) return;
 
-    const day = parseInt(dateParts[0], 10);
-    const month = parseInt(dateParts[1], 10) - 1; // JS mein months 0 se start hote hain (Jan = 0)
-    const year = parseInt(dateParts[2], 10);
+        // User ke likhe format "DD-MM-YYYY" ko split karenge
+        const dateParts = birthDate.split('-');
 
-    // Agar saal poora nahi likha ya galat hai to error handle karein
-    if (isNaN(day) || isNaN(month) || isNaN(year) || year < 1000) {
-        setAgeResult("Meharbani karke valid date aur poora saal (YYYY) likhein.");
-        return;
-    }
+        // Check karein ke user ne sahi format likha hai ya nahi (3 hisse hone chahiye)
+        if (dateParts.length !== 3) {
+            setAgeResult("Sahi format likhein: DD-MM-YYYY (e.g., 26-12-2004)");
+            return;
+        }
 
-    const birth = new Date(year, month, day);
-    const now = new Date();
-    
-    // Agar future ki date daal di ho
-    if (birth > now) {
-        setAgeResult("Birth date future ki nahi ho sakti!");
-        return;
-    }
+        const day = parseInt(dateParts[0], 10);
+        const month = parseInt(dateParts[1], 10) - 1; // JS mein months 0 se start hote hain (Jan = 0)
+        const year = parseInt(dateParts[2], 10);
 
-    let years = now.getFullYear() - birth.getFullYear();
-    let months = now.getMonth() - birth.getMonth();
-    let days = now.getDate() - birth.getDate();
+        // Agar saal poora nahi likha ya galat hai to error handle karein
+        if (isNaN(day) || isNaN(month) || isNaN(year) || year < 1000) {
+            setAgeResult("Meharbani karke valid date aur poora saal (YYYY) likhein.");
+            return;
+        }
 
-    if (days < 0) {
-        months--;
-        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-    }
-    if (months < 0) {
-        years--;
-        months += 12;
-    }
-    
-    setAgeResult(`${years} Years, ${months} Months, aur ${days} Days`);
-};
+        const birth = new Date(year, month, day);
+        const now = new Date();
+
+        // Agar future ki date daal di ho
+        if (birth > now) {
+            setAgeResult("Birth date future ki nahi ho sakti!");
+            return;
+        }
+
+        let years = now.getFullYear() - birth.getFullYear();
+        let months = now.getMonth() - birth.getMonth();
+        let days = now.getDate() - birth.getDate();
+
+        if (days < 0) {
+            months--;
+            days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        }
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        setAgeResult(`${years} Years, ${months} Months, aur ${days} Days`);
+    };
 
     const calculateCalories = () => {
         if (!calAge || !calWeight || !calHeight) return;
@@ -1513,43 +1527,43 @@ const AllInOneCalculator = () => {
         // 1. AGE CALCULATOR (Cyan Neon Theme)
         if (activeCalc === 'age') {
             currentForm = e(React.Fragment, null,
-               
-               e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(0,245,255,0.2)', borderTop: '1px solid rgba(0,245,255,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Age Calculator'),
+
+                e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(0,245,255,0.2)', borderTop: '1px solid rgba(0,245,255,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Age Calculator'),
                 e('div', { style: { marginBottom: '30px', textAlign: 'left' } },
                     e('label', { style: { display: 'block', color: '#00f5ff', marginBottom: '10px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', fontWeight: '700' } }, 'Select Date of Birth'),
-                   // IS KOD KO PURANE INPUT KI JAGAH RAKHEIN:
-e('input', { 
-    type: 'text', 
-    placeholder: 'DD-MM-YYYY', // Placeholder de diya taake user ko pata chale
-    value: birthDate, 
-    onChange: (e) => setBirthDate(e.target.value), // Ab user manually likh sakega
-    style: { 
-        width: '100%', 
-        padding: '16px', 
-        background: 'rgba(255, 255, 255, 0.05)', 
-        color: '#fff', 
-        border: '1px solid rgba(255, 255, 255, 0.1)', 
-        borderRadius: '12px', 
-        fontSize: '1rem', 
-        outline: 'none' 
-    } 
-})
+                    // IS KOD KO PURANE INPUT KI JAGAH RAKHEIN:
+                    e('input', {
+                        type: 'text',
+                        placeholder: 'DD-MM-YYYY', // Placeholder de diya taake user ko pata chale
+                        value: birthDate,
+                        onChange: (e) => setBirthDate(e.target.value), // Ab user manually likh sakega
+                        style: {
+                            width: '100%',
+                            padding: '16px',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            color: '#fff',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            borderRadius: '12px',
+                            fontSize: '1rem',
+                            outline: 'none'
+                        }
+                    })
                 ),
-                
+
                 e('button', { className: 'action-btn', onClick: calculateAge, style: { display: 'block', margin: '0 auto', padding: '16px 40px', fontSize: '1.1rem' } }, '⚡ Calculate Exact Age'),
-                
+
                 ageResult && e('div', { className: 'result-card', style: { marginTop: '30px', padding: '25px', background: 'rgba(0, 245, 255, 0.05)', border: '1px solid rgba(0, 245, 255, 0.3)', boxShadow: '0 0 20px rgba(0, 245, 255, 0.1)' } },
                     e('p', { style: { color: '#94a3b8', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '10px' } }, 'Your Age Is'),
                     e('div', { style: { color: '#00f5ff', fontSize: '1.8rem', fontWeight: '800', textShadow: '0 0 15px rgba(0, 245, 255, 0.4)' } }, ageResult)
                 )
             );
-        } 
-        
+        }
+
         // 2. CALORIES CALCULATOR (Pink Neon Theme)
         else if (activeCalc === 'calories') {
             currentForm = e(React.Fragment, null,
-               
-               e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(255,0,127,0.2)', borderTop: '1px solid rgba(255,0,127,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Calories Calculator'),
+
+                e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(255,0,127,0.2)', borderTop: '1px solid rgba(255,0,127,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Calories Calculator'),
                 e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '25px', textAlign: 'left' } },
 
                     e('div', null,
@@ -1572,7 +1586,7 @@ e('input', {
                         e('input', { type: 'number', placeholder: 'e.g. 175', value: calHeight, onChange: (e) => setCalHeight(e.target.value), style: { width: '100%', padding: '14px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none' } })
                     )
                 ),
-                
+
                 e('div', { style: { marginBottom: '30px', textAlign: 'left' } },
                     e('label', { style: { display: 'block', color: '#ff007f', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Activity Level'),
                     e('select', { value: calActivity, onChange: (e) => setCalActivity(e.target.value), style: { width: '100%', padding: '14px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none' } },
@@ -1582,23 +1596,23 @@ e('input', {
                         e('option', { value: '1.725', style: { background: '#0f172a' } }, 'Heavy (Exercise 6-7 days/week)')
                     )
                 ),
-                
+
                 e('button', { className: 'action-btn', onClick: calculateCalories, style: { display: 'block', margin: '0 auto', padding: '16px 40px', fontSize: '1.1rem' } }, '⚡ Calculate Daily Calories'),
-                
+
                 calResult && e('div', { className: 'result-card', style: { marginTop: '30px', padding: '25px', background: 'rgba(255, 0, 127, 0.05)', border: '1px solid rgba(255, 0, 127, 0.3)', boxShadow: '0 0 20px rgba(255, 0, 127, 0.1)' } },
                     e('p', { style: { color: '#94a3b8', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '10px' } }, 'Maintenance Energy Required'),
                     e('div', { style: { color: '#ff007f', fontSize: '2.2rem', fontWeight: '800', textShadow: '0 0 15px rgba(255, 0, 127, 0.4)' } }, calResult)
                 )
             );
-        } 
-        
+        }
+
         // 3. PERCENTAGE CALCULATOR (Purple Neon Theme)
         else if (activeCalc === 'percentage') {
             currentForm = e(React.Fragment, null,
-                
-               e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(189,0,255,0.2)', borderTop: '1px solid rgba(189,0,255,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Percentage Calculator'),
+
+                e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(189,0,255,0.2)', borderTop: '1px solid rgba(189,0,255,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Percentage Calculator'),
                 e('p', { style: { color: '#94a3b8', fontSize: '0.95rem', marginBottom: '30px', textAlign: 'center' } }, 'Quickly find what percentage an amount is out of a total.'),
-                
+
                 e('div', { style: { display: 'flex', gap: '15px', alignItems: 'center', marginBottom: '30px', flexWrap: 'wrap', justifyContent: 'center' } },
                     e('div', { style: { flex: '1', minWidth: '140px', textAlign: 'left' } },
                         e('label', { style: { display: 'block', color: '#bd00ff', marginBottom: '8px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '700' } }, 'Obtained Marks / Value'),
@@ -1610,9 +1624,9 @@ e('input', {
                         e('input', { type: 'number', placeholder: 'e.g. 500', value: pTotal, onChange: (e) => setPTotal(e.target.value), style: { width: '100%', padding: '16px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none', fontSize: '1.1rem' } })
                     )
                 ),
-                
+
                 e('button', { className: 'action-btn', onClick: calculatePercentage, style: { display: 'block', margin: '0 auto', padding: '16px 40px', fontSize: '1.1rem' } }, '⚡ Calculate Percentage'),
-                
+
                 pResult && e('div', { className: 'result-card', style: { marginTop: '30px', padding: '25px', background: 'rgba(189, 0, 255, 0.05)', border: '1px solid rgba(189, 0, 255, 0.3)', boxShadow: '0 0 20px rgba(189, 0, 255, 0.1)' } },
                     e('p', { style: { color: '#94a3b8', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '10px' } }, 'Final Result'),
                     e('div', { style: { color: '#bd00ff', fontSize: '2.5rem', fontWeight: '800', textShadow: '0 0 15px rgba(189, 0, 255, 0.4)' } }, pResult)
@@ -1625,25 +1639,25 @@ e('input', {
             e('div', { className: 'glass-calc-form' },
                 e('button', {
                     onClick: () => { setActiveCalc(null); setAgeResult(null); setCalResult(null); setPResult(null); },
-                    style: { 
-    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))', 
-    border: '1px solid rgba(255, 255, 255, 0.12)', 
-    color: '#00f5ff', // Cyan color for neon tech look
-    cursor: 'pointer', 
-    marginBottom: '30px', 
-    padding: '10px 20px', 
-    borderRadius: '30px', // More rounded pill shape
-    fontSize: '0.88rem', 
-    fontWeight: '600', 
-    display: 'inline-flex', 
-    alignItems: 'center', 
-    gap: '8px',
-    letterSpacing: '0.5px',
-    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    backdropFilter: 'blur(10px)',
-    WebkitBackdropFilter: 'blur(10px)'
-}
+                    style: {
+                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))',
+                        border: '1px solid rgba(255, 255, 255, 0.12)',
+                        color: '#00f5ff', // Cyan color for neon tech look
+                        cursor: 'pointer',
+                        marginBottom: '30px',
+                        padding: '10px 20px',
+                        borderRadius: '30px', // More rounded pill shape
+                        fontSize: '0.88rem',
+                        fontWeight: '600',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        letterSpacing: '0.5px',
+                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)'
+                    }
                 }, '← Back to Hub'),
                 currentForm
             )
@@ -1653,7 +1667,7 @@ e('input', {
     // Main Hub Layout using glass classes
     return e('div', { className: 'container-section calculator-hub-wrapper' },
         e('div', { style: { textAlign: 'center', marginBottom: '60px' } },
-           e('h1', { className: 'brand-title', style: { marginBottom: '15px' } }, '🧮 Calculator Hub'),
+            e('h1', { className: 'brand-title', style: { marginBottom: '15px' } }, '🧮 Calculator Hub'),
             e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } }, 'Select any advanced tool below to compute instant daily utilities with precision.')
         ),
 
