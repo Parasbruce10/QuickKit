@@ -449,7 +449,7 @@ const BioWriter = () => {
             `🎬 Bringing words to life from script to screen. I am ${userName}, an innovative ${field}. Shaping cultural narratives through media. 🎥`,
             `💎 Pure performance artist. My name is ${userName}, serving as a cinematic ${field}. Creating timeless art, one scene at a time. 🌟`
         ];
-// 8e. POLITICIAN / PUBLIC LEADER TEMPLATES (10 Variations)
+        // 8e. POLITICIAN / PUBLIC LEADER TEMPLATES (10 Variations)
         const politicianTemplates = [
             `🏛️ Serving the People, Shaping the Nation | I am ${userName}, a dedicated ${field}. Committed to public welfare, policy reform, and transparent governance. 🇵🇰`,
             `🌟 Leadership is action, not position. My name is ${userName}, working as a progressive ${field}. Voice of the community, driving grassroots development. 📢`,
@@ -565,7 +565,7 @@ const BioWriter = () => {
             selectedTemplates = actorTemplates;
         } else if (professionLower.includes('influencer') || professionLower.includes('creator') || professionLower.includes('vlogger') || professionLower.includes('blogger') || professionLower.includes('youtuber')) {
             selectedTemplates = influencerTemplates;
-        }else if (professionLower.includes('teacher') || professionLower.includes('educator') || professionLower.includes('professor') || professionLower.includes('lecturer') || professionLower.includes('school')) {
+        } else if (professionLower.includes('teacher') || professionLower.includes('educator') || professionLower.includes('professor') || professionLower.includes('lecturer') || professionLower.includes('school')) {
             selectedTemplates = teacherTemplates;
         } else if (professionLower.includes('mechanic') || professionLower.includes('repair') || professionLower.includes('automotive') || professionLower.includes('car') || professionLower.includes('technician')) {
             selectedTemplates = mechanicTemplates;
@@ -573,7 +573,7 @@ const BioWriter = () => {
             selectedTemplates = youtuberTemplates;
         } else if (professionLower.includes('tiktoker') || professionLower.includes('tiktok') || professionLower.includes('reel') || professionLower.includes('shorts')) {
             selectedTemplates = tiktokerTemplates;
-            } else if (professionLower.includes('politician') || professionLower.includes('leader') || professionLower.includes('minister') || professionLower.includes('mna') || professionLower.includes('mpa')) {
+        } else if (professionLower.includes('politician') || professionLower.includes('leader') || professionLower.includes('minister') || professionLower.includes('mna') || professionLower.includes('mpa')) {
             selectedTemplates = politicianTemplates;
         } else if (professionLower.includes('cricketer') || professionLower.includes('cricket') || professionLower.includes('batsman') || professionLower.includes('bowler')) {
             selectedTemplates = cricketerTemplates;
@@ -1095,7 +1095,7 @@ const Home = ({ navigate }) => {
     }, []);
 
     return e('main', { className: 'main-content home-page-bg' }, // Yahan humne class add ki hy
-    e('div', { className: 'tester-section-wrapper', style: { gap: '0' } },
+        e('div', { className: 'tester-section-wrapper', style: { gap: '0' } },
 
             // ── HERO ──
             e('div', { className: 'home-hero' },
@@ -1116,20 +1116,20 @@ const Home = ({ navigate }) => {
 
                 // Stats Row
                 // Stats Row - teeno boxes ek wrapper mein
-e('div', { className: 'hero-stats-row' },
-    e('div', { className: 'stat-item stat-delay-1' },
-        e('div', { className: 'stat-number' }, '3+'),
-        e('div', { className: 'stat-label' }, 'Tools')
-    ),
-    e('div', { className: 'stat-item stat-delay-2' },
-        e('div', { className: 'stat-number' }, '100%'),
-        e('div', { className: 'stat-label' }, 'Free')
-    ),
-    e('div', { className: 'stat-item stat-delay-3' },
-        e('div', { className: 'stat-number' }, '0ms'),
-        e('div', { className: 'stat-label' }, 'Server Delay')
-    )
-),
+                e('div', { className: 'hero-stats-row' },
+                    e('div', { className: 'stat-item stat-delay-1' },
+                        e('div', { className: 'stat-number' }, '3+'),
+                        e('div', { className: 'stat-label' }, 'Tools')
+                    ),
+                    e('div', { className: 'stat-item stat-delay-2' },
+                        e('div', { className: 'stat-number' }, '100%'),
+                        e('div', { className: 'stat-label' }, 'Free')
+                    ),
+                    e('div', { className: 'stat-item stat-delay-3' },
+                        e('div', { className: 'stat-number' }, '0ms'),
+                        e('div', { className: 'stat-label' }, 'Server Delay')
+                    )
+                ),
             ),
 
             // ── FEATURE CARDS ──
@@ -1375,9 +1375,9 @@ const App = () => {
         currentView = e(BioWriter);
     } else if (currentPage === 'passwordchecker') {
         currentView = e(PasswordChecker);
-    }  else if (currentPage === 'calculator') {
+    } else if (currentPage === 'calculator') {
         currentView = e(AllInOneCalculator, { navigate: navigate });
-    }else if (currentPage === 'about') {
+    } else if (currentPage === 'about') {
         currentView = e(About);
     } else if (currentPage === 'terms') {
         currentView = e(TermsConditions);
@@ -1450,11 +1450,11 @@ const AllInOneCalculator = () => {
         const w = parseFloat(calWeight);
         const h = parseFloat(calHeight);
         const a = parseFloat(calAge);
-        
-        let bmr = (calGender === 'male') 
-            ? (10 * w) + (6.25 * h) - (5 * a) + 5 
+
+        let bmr = (calGender === 'male')
+            ? (10 * w) + (6.25 * h) - (5 * a) + 5
             : (10 * w) + (6.25 * h) - (5 * a) - 161;
-        
+
         const totalCalories = Math.round(bmr * parseFloat(calActivity));
         setCalResult(`${totalCalories} kcal / day`);
     };
@@ -1466,11 +1466,14 @@ const AllInOneCalculator = () => {
     };
 
     // Inner Card UI Component with glass-calc-card class
+    // Inner Card UI Component with advanced animations
     const CalculatorCard = ({ title, icon, desc, onClick }) => {
         return e('div', { className: 'glass-calc-card', onClick: onClick },
-            e('div', { style: { fontSize: '55px' } }, icon),
-            e('h3', { style: { fontSize: '20px'} }, title),
-            e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, desc)
+            e('div', { className: 'calc-icon' }, icon),
+            e('h3', { style: { fontSize: '20px' } }, title),
+            e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, desc),
+            // Naya Animated Action Button
+            e('div', { className: 'calc-action' }, 'Open Tool →')
         );
     };
 
@@ -1539,9 +1542,9 @@ const AllInOneCalculator = () => {
 
         return e('div', { className: 'container-section calculator-hub-wrapper' },
             e('div', { className: 'glass-calc-form' },
-                e('button', { 
-                    onClick: () => { setActiveCalc(null); setAgeResult(null); setCalResult(null); setPResult(null); }, 
-                    style: { background: 'none', border: 'none', color: '#00f7ff', cursor: 'pointer', marginBottom: '30px', fontSize: '15px', fontWeight: 'bold' } 
+                e('button', {
+                    onClick: () => { setActiveCalc(null); setAgeResult(null); setCalResult(null); setPResult(null); },
+                    style: { background: 'none', border: 'none', color: '#00f7ff', cursor: 'pointer', marginBottom: '30px', fontSize: '15px', fontWeight: 'bold' }
                 }, '← Back to Main Hub'),
                 currentForm
             )
@@ -1551,7 +1554,7 @@ const AllInOneCalculator = () => {
     // Main Hub Layout using glass classes
     return e('div', { className: 'container-section calculator-hub-wrapper' },
         e('div', { style: { textAlign: 'center', marginBottom: '60px' } },
-            e('h2', { className: 'brand-title', style: { textShadow: '0 0 15px rgba(0,247,255,0.5)', fontSize: '36px', marginBottom: '15px', fontWeight: '800' } }, '🧮 Calculator Hub'),
+           e('h1', { className: 'brand-title', style: { marginBottom: '15px' } }, '🧮 Calculator Hub'),
             e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } }, 'Select any advanced tool below to compute instant daily utilities with precision.')
         ),
 
