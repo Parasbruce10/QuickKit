@@ -1042,9 +1042,9 @@ const Home = ({ navigate }) => {
 
     // Aapki website se related 3 professional lines jo loop mein chalengi
     const typewriterLines = [
-        "Premium digital utilities to supercharge your workflow.",
+        "Premium digital utilities for your workflow.",
         "Test typing speed with advanced precision metrics.",
-        "Evaluate password strength and generate creative bios.",
+        "Evaluate password strength and generate bios.",
         "Calculate exact age and daily calorie metrics."
     ];
 
