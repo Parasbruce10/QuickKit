@@ -1107,17 +1107,19 @@ e('div', { className: 'home-hero' },
         
         // Left Side: Text, Subtitle aur Dono Buttons
         e('div', { className: 'hero-content-left' },
-            e('span', { className: 'hero-badge' }, '✦ Free • Local • Fast'),
-            e('h2', { className: 'hero-title', style: { textAlign: 'left' } }, 'Your Digital Toolkit,', e('br'), 'Supercharged.'),
-            e('p', { className: 'hero-subtitle', style: { textAlign: 'left' } },
-                typedText,
-                e('span', { style: { color: '#00f5ff' } }, '|')
-            ),
-            e('div', { className: 'hero-btn-group' },
-                e('button', { className: 'action-btn', onClick: () => navigate('typingtester') }, '🚀 Start Typing Test'),
-                e('button', { className: 'learn-more-btn', onClick: () => navigate('about') }, 'Learn More')
-            )
-        ),
+    e('span', { className: 'hero-badge' }, '✦ Free • Local • Fast'),
+    e('h2', { className: 'hero-title', style: { textAlign: 'left' } }, 'Your Digital Toolkit,', e('br'), 'Supercharged.'),
+    e('div', { style: { minHeight: '80px' } },
+        e('p', { className: 'hero-subtitle', style: { textAlign: 'left', margin: '0' } },
+            typedText,
+            e('span', { style: { color: '#00f5ff' } }, '|')
+        )
+    ),
+    e('div', { className: 'hero-btn-group' },
+        e('button', { className: 'action-btn', onClick: () => navigate('typingtester') }, '🚀 Start Typing Test'),
+        e('button', { className: 'learn-more-btn', onClick: () => navigate('about') }, 'Learn More')
+    )
+),
 
         // Right Side: Animation Box (Jo text ke bilkul barabar mein chalega)
         e('div', { className: 'hero-visual-right' },

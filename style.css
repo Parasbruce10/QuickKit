@@ -707,8 +707,8 @@ body {
 }
 
 .home-hero {
-    text-align: center;
-    padding: 20px 0 60px 0;
+    text-align: start;
+    padding: 100px 0 60px 0;
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
@@ -745,10 +745,11 @@ body {
     font-size: 1.15rem;
     color: #64748b;
     max-width: 520px;
-    margin: 0 auto 40px auto;
+    margin: 0 0 40px 0;
     line-height: 1.7;
     min-height: 2em;
 }
+
 
 .hero-stats-row {
     display: flex;
@@ -2061,10 +2062,95 @@ body {
 }
 
 /* Mobile Screen Responsiveness */
+/* POORA BADLO IS SE: */
 @media (max-width: 768px) {
-    .hero-top-split { flex-direction: column; text-align: center; }
-    .hero-content-left, .hero-btn-group, .hero-stats-row { justify-content: center; text-align: center !important; }
-    .t-password { margin-left: 0px !important; }
+
+    .main-content {
+        padding: 90px 20px 40px 20px;
+        align-items: flex-start;
+    }
+
+    .home-hero {
+        padding: 20px 0 40px 0;
+        text-align: center;
+    }
+
+    .hero-top-split {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .hero-content-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center !important;
+    }
+
+    .hero-badge {
+    margin-top: 0;
+    font-size: 0.8rem !important;
+    padding: 6px 20px !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+    .hero-title {
+        font-size: 2.2rem;
+        letter-spacing: -1px;
+        text-align: center !important;
+    }
+
+ .hero-subtitle {
+    text-align: center !important;
+    margin: 0 auto 0 auto;
+    height: 30px !important;
+    max-height: 30px !important;
+    overflow: hidden !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
+.hero-btn-group {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px !important;
+    flex-shrink: 0 !important;
+}
+
+    .hero-btn-group button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-stats-row {
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .hero-visual-right {
+        width: 100%;
+    }
+
+    .toolkit-animation-box {
+        max-width: 100%;
+    }
+
+    .t-password, .t-bio {
+        margin-left: 0px !important;
+    }
+
+    .premium-tools-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .steps-row {
+        flex-direction: column;
+    }
 }
 /* Bio Writer Card Animation & Color Setup */
 .t-bio {
@@ -2105,4 +2191,44 @@ body {
 .status-orange { 
     color: #ff9900; 
     background: rgba(255, 153, 0, 0.1); 
+}
+@media (max-width: 768px) {
+    .hero-content-left {
+        display: grid !important;
+        grid-template-rows: auto auto 55px auto !important;
+    }
+    .hero-subtitle {
+        height: 55px !important;
+        min-height: 55px !important;
+        max-height: 55px !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        align-self: start !important;
+    }
+    .hero-btn-group {
+        margin-top: 15px !important;
+        position: static !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        flex-shrink: 0 !important;
+        transform: none !important;
+        align-self: start !important;
+    }
+}
+@media (max-width: 768px) {
+    .hero-badge {
+        display: block !important;
+        width: fit-content !important;
+        margin: 0 auto 15px auto !important;
+        font-size: 0.8rem !important;
+        padding: 6px 20px !important;
+        animation: none !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
 }
