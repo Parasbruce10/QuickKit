@@ -1045,7 +1045,7 @@ const Home = ({ navigate }) => {
         "Premium digital utilities to supercharge your daily workflow.",
         "Test your typing speed with real-time advanced precision metrics.",
         "Evaluate password strength and generate aesthetic bios locally.",
-        "Calculate exact age, daily calories, and percentage metrics instantly." 
+        "Calculate exact age, daily calories, and percentage metrics instantly."
     ];
 
     useEffect(() => {
@@ -1099,39 +1099,94 @@ const Home = ({ navigate }) => {
         e('div', { className: 'tester-section-wrapper', style: { gap: '0' } },
 
             // ── HERO ──
-            e('div', { className: 'home-hero' },
-                e('span', { className: 'hero-badge' }, '✦ Free • Local • Fast'),
-                e('h2', { className: 'hero-title' }, 'Your Digital Toolkit,', e('br'), 'Supercharged.'),
-                e('p', { className: 'hero-subtitle' },
-                    typedText,
-                    e('span', { style: { color: '#00f5ff' } }, '|')
-                ),
-                e('div', { style: { display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' } },
-                    e('button', { className: 'action-btn', onClick: () => navigate('typingtester') }, '🚀 Start Typing Test'),
-                    // Updated Learn More Button with Glow Class
-                    e('button', {
-                        className: 'learn-more-btn',
-                        onClick: () => navigate('about')
-                    }, 'Learn More')
+            // ── HERO ──
+e('div', { className: 'home-hero' },
+    
+    // ROW 1: Is row mein Text (Left) aur Animation (Right) bilkul aamne-saamne (paros mein) hain
+    e('div', { className: 'hero-top-split' },
+        
+        // Left Side: Text, Subtitle aur Dono Buttons
+        e('div', { className: 'hero-content-left' },
+            e('span', { className: 'hero-badge' }, '✦ Free • Local • Fast'),
+            e('h2', { className: 'hero-title', style: { textAlign: 'left' } }, 'Your Digital Toolkit,', e('br'), 'Supercharged.'),
+            e('p', { className: 'hero-subtitle', style: { textAlign: 'left' } },
+                typedText,
+                e('span', { style: { color: '#00f5ff' } }, '|')
+            ),
+            e('div', { className: 'hero-btn-group' },
+                e('button', { className: 'action-btn', onClick: () => navigate('typingtester') }, '🚀 Start Typing Test'),
+                e('button', { className: 'learn-more-btn', onClick: () => navigate('about') }, 'Learn More')
+            )
+        ),
+
+        // Right Side: Animation Box (Jo text ke bilkul barabar mein chalega)
+        e('div', { className: 'hero-visual-right' },
+            e('div', { className: 'toolkit-animation-box' },
+                
+                // Tool 1: Typing Tester Animation
+                e('div', { className: 'tool-motion-card t-typing' },
+                    e('div', { className: 'tool-card-icon' }, '⌨️'),
+                    e('div', { className: 'tool-card-info' },
+                        e('span', { className: 'tool-card-name' }, 'Typing Tester'),
+                        e('div', { className: 'typing-sim-lines' }, 
+                            e('span', { className: 'sim-word' }, 'Speed '),
+                            e('span', { className: 'sim-word active' }, 'Test...')
+                        )
+                    ),
+                    e('span', { className: 'tool-card-status' }, '68 WPM')
                 ),
 
-                // Stats Row
-                // Stats Row - teeno boxes ek wrapper mein
-                e('div', { className: 'hero-stats-row' },
-                    e('div', { className: 'stat-item stat-delay-1' },
-                        e('div', { className: 'stat-number' }, '4+'),
-                        e('div', { className: 'stat-label' }, 'Tools')
+                // Tool 2: Password Gen Animation
+                e('div', { className: 'tool-motion-card t-password' },
+                    e('div', { className: 'tool-card-icon' }, '🔒'),
+                    e('div', { className: 'tool-card-info' },
+                        e('span', { className: 'tool-card-name' }, 'Password Gen'),
+                        e('span', { className: 'crypto-pass-stream' }, 'aK9$m!2P')
                     ),
-                    e('div', { className: 'stat-item stat-delay-2' },
-                        e('div', { className: 'stat-number' }, '100%'),
-                        e('div', { className: 'stat-label' }, 'Free')
-                    ),
-                    e('div', { className: 'stat-item stat-delay-3' },
-                        e('div', { className: 'stat-number' }, '0ms'),
-                        e('div', { className: 'stat-label' }, 'Server Delay')
-                    )
+                    e('span', { className: 'tool-card-status status-purple' }, 'Secure')
                 ),
-            ),
+
+                // Tool 3: Zip Extractor Animation// Tool 3: All-In-One Calculator Animation (Zip Extractor ki jagah)
+e('div', { className: 'tool-motion-card t-calc' },
+    e('div', { className: 'tool-card-icon' }, '🧮'),
+    e('div', { className: 'tool-card-info' },
+        e('span', { className: 'tool-card-name' }, 'All-In-One Calculator'),
+        e('span', { className: 'math-stream-text' }, '25% + 75% = 100')
+    ),
+    e('span', { className: 'tool-card-status status-orange' }, 'Instant')
+),
+                // Tool 4: AI Bio Writer Animation (Yeh Naya Box Hai)
+e('div', { className: 'tool-motion-card t-bio' },
+    e('div', { className: 'tool-card-icon' }, '✍️'),
+    e('div', { className: 'tool-card-info' },
+        e('span', { className: 'tool-card-name' }, 'AI Bio Writer'),
+        e('span', { className: 'bio-stream-text' }, 'Generating perfect bio...')
+    ),
+    e('span', { className: 'tool-card-status status-pink' }, 'AI Ready')
+),
+
+                // Background Glow effect
+                e('div', { className: 'toolkit-core-glow' })
+            )
+        )
+    ),
+
+    // ROW 2: "4+ Tools" wala section jo split row ke bilkul NEECHAY hai (Animation se strictly niche)
+    e('div', { className: 'hero-stats-row' },
+        e('div', { className: 'stat-item stat-delay-1' },
+            e('div', { className: 'stat-number' }, '4+'),
+            e('div', { className: 'stat-label' }, 'Tools')
+        ),
+        e('div', { className: 'stat-item stat-delay-2' },
+            e('div', { className: 'stat-number' }, '100%'),
+            e('div', { className: 'stat-label' }, 'Free')
+        ),
+        e('div', { className: 'stat-item stat-delay-3' },
+            e('div', { className: 'stat-number' }, '0ms'),
+            e('div', { className: 'stat-label' }, 'Server Delay')
+        )
+    )
+),
 
             // ── FEATURE CARDS ──
             // --- CODES TO REPLACE IN HOME COMPONENT (RIGHT UNDER THE 3+ TOOLS ROW) ---
@@ -1200,7 +1255,7 @@ const Home = ({ navigate }) => {
                         e('span', { className: 'step-icon' }, '🎯'),
                         e('div', { className: 'step-num' }, 'Step 01'),
                         e('div', { className: 'step-title' }, 'Pick a Tool'),
-                    e('div', { className: 'step-desc' }, 'Choose from typing tester, password checker, bio writer, or calculator — all free.')
+                        e('div', { className: 'step-desc' }, 'Choose from typing tester, password checker, bio writer, or calculator — all free.')
                     ),
 
                     e('div', { className: 'step-card' },
