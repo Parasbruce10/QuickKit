@@ -1100,95 +1100,95 @@ const Home = ({ navigate }) => {
 
             // ── HERO ──
             // ── HERO ──
-e('div', { className: 'home-hero' },
-    
-    // ROW 1: Is row mein Text (Left) aur Animation (Right) bilkul aamne-saamne (paros mein) hain
-    e('div', { className: 'hero-top-split' },
-        
-        // Left Side: Text, Subtitle aur Dono Buttons
-        e('div', { className: 'hero-content-left' },
-    e('span', { className: 'hero-badge' }, '✦ Free • Local • Fast'),
-    e('h2', { className: 'hero-title', style: { textAlign: 'left' } }, 'Your Digital Toolkit,', e('br'), 'Supercharged.'),
-    e('div', { style: { minHeight: '80px' } },
-        e('p', { className: 'hero-subtitle', style: { textAlign: 'left', margin: '0' } },
-            typedText,
-            e('span', { style: { color: '#00f5ff' } }, '|')
-        )
-    ),
-    e('div', { className: 'hero-btn-group' },
-        e('button', { className: 'action-btn', onClick: () => navigate('typingtester') }, '🚀 Start Typing Test'),
-        e('button', { className: 'learn-more-btn', onClick: () => navigate('about') }, 'Learn More')
-    )
-),
+            e('div', { className: 'home-hero' },
 
-        // Right Side: Animation Box (Jo text ke bilkul barabar mein chalega)
-        e('div', { className: 'hero-visual-right' },
-            e('div', { className: 'toolkit-animation-box' },
-                
-                // Tool 1: Typing Tester Animation
-                e('div', { className: 'tool-motion-card t-typing' },
-                    e('div', { className: 'tool-card-icon' }, '⌨️'),
-                    e('div', { className: 'tool-card-info' },
-                        e('span', { className: 'tool-card-name' }, 'Typing Tester'),
-                        e('div', { className: 'typing-sim-lines' }, 
-                            e('span', { className: 'sim-word' }, 'Speed '),
-                            e('span', { className: 'sim-word active' }, 'Test...')
+                // ROW 1: Is row mein Text (Left) aur Animation (Right) bilkul aamne-saamne (paros mein) hain
+                e('div', { className: 'hero-top-split' },
+
+                    // Left Side: Text, Subtitle aur Dono Buttons
+                    e('div', { className: 'hero-content-left' },
+                        e('span', { className: 'hero-badge' }, '✦ Free • Local • Fast'),
+                        e('h2', { className: 'hero-title', style: { textAlign: 'left' } }, 'Your Digital Toolkit,', e('br'), 'Supercharged.'),
+                        e('div', { style: { minHeight: '80px' } },
+                            e('p', { className: 'hero-subtitle', style: { textAlign: 'left', margin: '0' } },
+                                typedText,
+                                e('span', { style: { color: '#00f5ff' } }, '|')
+                            )
+                        ),
+                        e('div', { className: 'hero-btn-group' },
+                            e('button', { className: 'action-btn', onClick: () => navigate('typingtester') }, '🚀 Start Typing Test'),
+                            e('button', { className: 'learn-more-btn', onClick: () => navigate('about') }, 'Learn More')
                         )
                     ),
-                    e('span', { className: 'tool-card-status' }, '68 WPM')
+
+                    // Right Side: Animation Box (Jo text ke bilkul barabar mein chalega)
+                    e('div', { className: 'hero-visual-right' },
+                        e('div', { className: 'toolkit-animation-box' },
+
+                            // Tool 1: Typing Tester Animation
+                            e('div', { className: 'tool-motion-card t-typing' },
+                                e('div', { className: 'tool-card-icon' }, '⌨️'),
+                                e('div', { className: 'tool-card-info' },
+                                    e('span', { className: 'tool-card-name' }, 'Typing Tester'),
+                                    e('div', { className: 'typing-sim-lines' },
+                                        e('span', { className: 'sim-word' }, 'Speed '),
+                                        e('span', { className: 'sim-word active' }, 'Test...')
+                                    )
+                                ),
+                                e('span', { className: 'tool-card-status' }, '68 WPM')
+                            ),
+
+                            // Tool 2: Password Gen Animation
+                            e('div', { className: 'tool-motion-card t-password' },
+                                e('div', { className: 'tool-card-icon' }, '🔒'),
+                                e('div', { className: 'tool-card-info' },
+                                    e('span', { className: 'tool-card-name' }, 'Password Gen'),
+                                    e('span', { className: 'crypto-pass-stream' }, 'aK9$m!2P')
+                                ),
+                                e('span', { className: 'tool-card-status status-purple' }, 'Secure')
+                            ),
+
+                            // Tool 3: Zip Extractor Animation// Tool 3: All-In-One Calculator Animation (Zip Extractor ki jagah)
+                            e('div', { className: 'tool-motion-card t-calc' },
+                                e('div', { className: 'tool-card-icon' }, '🧮'),
+                                e('div', { className: 'tool-card-info' },
+                                    e('span', { className: 'tool-card-name' }, 'All-In-One Calculator'),
+                                    e('span', { className: 'math-stream-text' }, '25% + 75% = 100')
+                                ),
+                                e('span', { className: 'tool-card-status status-orange' }, 'Instant')
+                            ),
+                            // Tool 4: AI Bio Writer Animation (Yeh Naya Box Hai)
+                            e('div', { className: 'tool-motion-card t-bio' },
+                                e('div', { className: 'tool-card-icon' }, '✍️'),
+                                e('div', { className: 'tool-card-info' },
+                                    e('span', { className: 'tool-card-name' }, 'AI Bio Writer'),
+                                    e('span', { className: 'bio-stream-text' }, 'Generating perfect bio...')
+                                ),
+                                e('span', { className: 'tool-card-status status-pink' }, 'AI Ready')
+                            ),
+
+                            // Background Glow effect
+                            e('div', { className: 'toolkit-core-glow' })
+                        )
+                    )
                 ),
 
-                // Tool 2: Password Gen Animation
-                e('div', { className: 'tool-motion-card t-password' },
-                    e('div', { className: 'tool-card-icon' }, '🔒'),
-                    e('div', { className: 'tool-card-info' },
-                        e('span', { className: 'tool-card-name' }, 'Password Gen'),
-                        e('span', { className: 'crypto-pass-stream' }, 'aK9$m!2P')
+                // ROW 2: "4+ Tools" wala section jo split row ke bilkul NEECHAY hai (Animation se strictly niche)
+                e('div', { className: 'hero-stats-row' },
+                    e('div', { className: 'stat-item stat-delay-1' },
+                        e('div', { className: 'stat-number' }, '4+'),
+                        e('div', { className: 'stat-label' }, 'Tools')
                     ),
-                    e('span', { className: 'tool-card-status status-purple' }, 'Secure')
-                ),
-
-                // Tool 3: Zip Extractor Animation// Tool 3: All-In-One Calculator Animation (Zip Extractor ki jagah)
-e('div', { className: 'tool-motion-card t-calc' },
-    e('div', { className: 'tool-card-icon' }, '🧮'),
-    e('div', { className: 'tool-card-info' },
-        e('span', { className: 'tool-card-name' }, 'All-In-One Calculator'),
-        e('span', { className: 'math-stream-text' }, '25% + 75% = 100')
-    ),
-    e('span', { className: 'tool-card-status status-orange' }, 'Instant')
-),
-                // Tool 4: AI Bio Writer Animation (Yeh Naya Box Hai)
-e('div', { className: 'tool-motion-card t-bio' },
-    e('div', { className: 'tool-card-icon' }, '✍️'),
-    e('div', { className: 'tool-card-info' },
-        e('span', { className: 'tool-card-name' }, 'AI Bio Writer'),
-        e('span', { className: 'bio-stream-text' }, 'Generating perfect bio...')
-    ),
-    e('span', { className: 'tool-card-status status-pink' }, 'AI Ready')
-),
-
-                // Background Glow effect
-                e('div', { className: 'toolkit-core-glow' })
-            )
-        )
-    ),
-
-    // ROW 2: "4+ Tools" wala section jo split row ke bilkul NEECHAY hai (Animation se strictly niche)
-    e('div', { className: 'hero-stats-row' },
-        e('div', { className: 'stat-item stat-delay-1' },
-            e('div', { className: 'stat-number' }, '4+'),
-            e('div', { className: 'stat-label' }, 'Tools')
-        ),
-        e('div', { className: 'stat-item stat-delay-2' },
-            e('div', { className: 'stat-number' }, '100%'),
-            e('div', { className: 'stat-label' }, 'Free')
-        ),
-        e('div', { className: 'stat-item stat-delay-3' },
-            e('div', { className: 'stat-number' }, '0ms'),
-            e('div', { className: 'stat-label' }, 'Server Delay')
-        )
-    )
-),
+                    e('div', { className: 'stat-item stat-delay-2' },
+                        e('div', { className: 'stat-number' }, '100%'),
+                        e('div', { className: 'stat-label' }, 'Free')
+                    ),
+                    e('div', { className: 'stat-item stat-delay-3' },
+                        e('div', { className: 'stat-number' }, '0ms'),
+                        e('div', { className: 'stat-label' }, 'Server Delay')
+                    )
+                )
+            ),
 
             // ── FEATURE CARDS ──
             // --- CODES TO REPLACE IN HOME COMPONENT (RIGHT UNDER THE 3+ TOOLS ROW) ---
@@ -1545,12 +1545,12 @@ const CGPACalculator = ({ onBack }) => {
         setCgpaResult(null);
     };
 
-  return e('div', { 
-        className: 'tester-section-wrapper', 
+    return e('div', {
+        className: 'tester-section-wrapper',
         // 1. textAlign: 'left' add kia hy taake button bilkul start mi jaye
-        style: { maxWidth: '700px', margin: '80px auto 20px auto', padding: '20px', textAlign: 'left' } 
+        style: { maxWidth: '700px', margin: '80px auto 20px auto', padding: '20px', textAlign: 'left' }
     },
-        
+
         // ⬅️ COMPACT & LEFT-ALIGNED BUTTON (Exactly like the image)
         e('button', {
             onClick: typeof onBack === 'function' ? onBack : () => window.location.reload(),
@@ -1577,18 +1577,18 @@ const CGPACalculator = ({ onBack }) => {
         }, '← Back to Hub'),
 
         // Aapka CGPA Card yahan se niche start hoga:
-        e('div', { 
-            className: 'calculator-card', 
-            style: { padding: '40px', background: 'rgba(30, 41, 59, 0.7)', backdropFilter: 'blur(12px)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' } 
+        e('div', {
+            className: 'calculator-card',
+            style: { padding: '40px', background: 'rgba(30, 41, 59, 0.7)', backdropFilter: 'blur(12px)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }
         },
             e('h2', { className: 'tester-main-title', style: { textAlign: 'center', marginBottom: '10px', fontSize: '2rem' } }, '🎓 CGPA Calculator'),
             e('p', { style: { color: '#94a3b8', textAlign: 'center', marginBottom: '35px', fontSize: '14px' } }, 'Enter your semester obtain CGPA and credit hours.'),
 
             e('div', { style: { display: 'flex', flexDirection: 'column', gap: '20px' } },
-                semesters.map((sem, idx) => 
+                semesters.map((sem, idx) =>
                     e('div', { key: sem.id, style: { display: 'flex', gap: '15px', alignItems: 'center', background: 'rgba(255,255,255,0.03)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' } },
                         e('span', { style: { color: '#00f5ff', minWidth: '110px', fontWeight: '600', fontSize: '15px' } }, 'Semester 0' + (idx + 1) + ':'),
-                        
+
                         e('div', { className: 'prompt-search-container', style: { flex: 1, margin: 0, padding: 0, background: 'transparent' } },
                             e('input', {
                                 type: 'number',
@@ -1596,18 +1596,18 @@ const CGPACalculator = ({ onBack }) => {
                                 className: 'prompt-input-field',
                                 placeholder: 'GPA (e.g., 3.52)',
                                 value: sem.gpa,
-                                onChange: function(e) { handleInputChange(sem.id, 'gpa', e.target.value); },
+                                onChange: function (e) { handleInputChange(sem.id, 'gpa', e.target.value); },
                                 style: { width: '100%', boxSizing: 'border-box' }
                             })
                         ),
-                        
+
                         e('div', { className: 'prompt-search-container', style: { flex: 1, margin: 0, padding: 0, background: 'transparent' } },
                             e('input', {
                                 type: 'number',
                                 className: 'prompt-input-field',
                                 placeholder: 'Credit Hours',
                                 value: sem.creditHours,
-                                onChange: function(e) { handleInputChange(sem.id, 'creditHours', e.target.value); },
+                                onChange: function (e) { handleInputChange(sem.id, 'creditHours', e.target.value); },
                                 style: { width: '100%', boxSizing: 'border-box' }
                             })
                         )
@@ -1731,11 +1731,11 @@ const AllInOneCalculator = () => {
     // --- RENDER VIEWS ---
     // --- RENDER VIEWS ---
     if (activeCalc) {
-    if (activeCalc === 'cgpa') {
-        return e(CGPACalculator, { onBack: () => setActiveCalc(null) });
-    }
+        if (activeCalc === 'cgpa') {
+            return e(CGPACalculator, { onBack: () => setActiveCalc(null) });
+        }
 
-    let currentForm = null;
+        let currentForm = null;
 
         // 1. AGE CALCULATOR (Cyan Neon Theme)
         if (activeCalc === 'age') {
@@ -1822,7 +1822,7 @@ const AllInOneCalculator = () => {
         // 3. PERCENTAGE CALCULATOR (Purple Neon Theme)
         else if (activeCalc === 'percentage') {
             currentForm = e(React.Fragment, null,
-                
+
 
                 e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(189,0,255,0.2)', borderTop: '1px solid rgba(189,0,255,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Percentage Calculator'),
                 e('p', { style: { color: '#94a3b8', fontSize: '0.95rem', marginBottom: '30px', textAlign: 'center' } }, 'Quickly find what percentage an amount is out of a total.'),
@@ -1838,7 +1838,7 @@ const AllInOneCalculator = () => {
                         e('input', { type: 'number', placeholder: 'e.g. 500', value: pTotal, onChange: (e) => setPTotal(e.target.value), style: { width: '100%', padding: '16px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none', fontSize: '1.1rem' } })
                     )
                 ),
-                
+
 
                 e('button', { className: 'action-btn', onClick: calculatePercentage, style: { display: 'block', margin: '0 auto', padding: '16px 40px', fontSize: '1.1rem' } }, '⚡ Calculate Percentage'),
 
@@ -1848,21 +1848,21 @@ const AllInOneCalculator = () => {
                 )
             );
         }
-// Agar activeCalc ki value 'cgpa' ho to naya calculator render karo
-if (activeCalc === 'cgpa') {
-    return e(CGPACalculator, { onBack: () => setActiveCalc(null) });
-}
+        // Agar activeCalc ki value 'cgpa' ho to naya calculator render karo
+        if (activeCalc === 'cgpa') {
+            return e(CGPACalculator, { onBack: () => setActiveCalc(null) });
+        }
         // Return The Premium Wrapper with Stylish Back Button
         return e('div', { className: 'container-section calculator-hub-wrapper' },
-        e('div', { className: 'glass-calc-form' },
-         e('button', {
-                onClick: () => { 
-                    setActiveCalc(null); 
-                    setAgeResult(null); 
-                    setCalResult(null); 
-                    setPResult(null); 
-                },
-                style: {
+            e('div', { className: 'glass-calc-form' },
+                e('button', {
+                    onClick: () => {
+                        setActiveCalc(null);
+                        setAgeResult(null);
+                        setCalResult(null);
+                        setPResult(null);
+                    },
+                    style: {
                         background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))',
                         border: '1px solid rgba(255, 255, 255, 0.12)',
                         color: '#00f5ff', // Cyan color for neon tech look
@@ -1881,12 +1881,12 @@ if (activeCalc === 'cgpa') {
                         backdropFilter: 'blur(10px)',
                         WebkitBackdropFilter: 'blur(10px)'
                     }
-                
-            }, '← Back to Hub'),
-            currentForm
-        )
-    );
-}
+
+                }, '← Back to Hub'),
+                currentForm
+            )
+        );
+    }
 
     // Main Hub Layout using glass classes
     // 🧮 CALCULATOR HUB RETURN CONTAINER
