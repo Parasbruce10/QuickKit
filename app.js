@@ -1476,6 +1476,158 @@ const App = () => {
 // ==========================================
 // 11. ALL IN ONE CALCULATOR HUB COMPONENT
 // ==========================================
+// ========================================================
+// 🎓 ERROR-FREE DESIGNER CGPA CALCULATOR COMPONENT
+// ========================================================
+const CGPACalculator = ({ onBack }) => {
+    // Scope error se bachne ke liye React.useState use kiya hai
+    const [semesters, setSemesters] = React.useState([
+        { id: 1, gpa: '', creditHours: '' },
+        { id: 2, gpa: '', creditHours: '' }
+    ]);
+    const [cgpaResult, setCgpaResult] = React.useState(null);
+
+    const handleInputChange = (id, field, value) => {
+        const updated = semesters.map(sem => {
+            if (sem.id === id) {
+                return Object.assign({}, sem, { [field]: value });
+            }
+            return sem;
+        });
+        setSemesters(updated);
+    };
+
+    const addSemesterRow = () => {
+        if (semesters.length >= 8) {
+            alert("Aap maximum 8 semesters hi add kar sakte hain.");
+            return;
+        }
+        setSemesters([].concat(semesters, [{ id: semesters.length + 1, gpa: '', creditHours: '' }]));
+    };
+
+    const calculateCGPA = () => {
+        let totalQualityPoints = 0;
+        let totalCreditHours = 0;
+        let isValid = true;
+
+        semesters.forEach(sem => {
+            const gpa = parseFloat(sem.gpa);
+            const ch = parseFloat(sem.creditHours);
+
+            if (!isNaN(gpa) && !isNaN(ch)) {
+                if (gpa < 0 || gpa > 4.0 || ch <= 0) {
+                    isValid = false;
+                } else {
+                    totalQualityPoints += (gpa * ch);
+                    totalCreditHours += ch;
+                }
+            }
+        });
+
+        if (!isValid) {
+            alert("Sahi values enter karein! GPA 0 se 4 ke darmiyan aur Credit Hours 0 se zyada hone chahiye.");
+            return;
+        }
+
+        if (totalCreditHours > 0) {
+            const finalCgpa = totalQualityPoints / totalCreditHours;
+            setCgpaResult(finalCgpa.toFixed(2));
+        } else {
+            alert("Kam az kam ek semester ka mukammal data enter karein.");
+        }
+    };
+
+    const resetFields = () => {
+        setSemesters([
+            { id: 1, gpa: '', creditHours: '' },
+            { id: 2, gpa: '', creditHours: '' }
+        ]);
+        setCgpaResult(null);
+    };
+
+  return e('div', { 
+        className: 'tester-section-wrapper', 
+        // 1. textAlign: 'left' add kia hy taake button bilkul start mi jaye
+        style: { maxWidth: '700px', margin: '80px auto 20px auto', padding: '20px', textAlign: 'left' } 
+    },
+        
+        // ⬅️ COMPACT & LEFT-ALIGNED BUTTON (Exactly like the image)
+        e('button', {
+            onClick: typeof onBack === 'function' ? onBack : () => window.location.reload(),
+            style: {
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#00f5ff',
+                cursor: 'pointer',
+                marginBottom: '25px', // Neeche se thoda faasla
+                padding: '8px 16px',  // 2. Padding kam kar di taake button patla aur smart lagay
+                borderRadius: '30px',
+                fontSize: '0.85rem',  // 3. Font thoda sa chota kiya hy image jaisa
+                fontWeight: '600',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                letterSpacing: '0.5px',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                width: 'max-content' // 4. Ye trick button ko sirf text jitni width de gi
+            }
+        }, '← Back to Hub'),
+
+        // Aapka CGPA Card yahan se niche start hoga:
+        e('div', { 
+            className: 'calculator-card', 
+            style: { padding: '40px', background: 'rgba(30, 41, 59, 0.7)', backdropFilter: 'blur(12px)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' } 
+        },
+            e('h2', { className: 'tester-main-title', style: { textAlign: 'center', marginBottom: '10px', fontSize: '2rem' } }, '🎓 CGPA Calculator'),
+            e('p', { style: { color: '#94a3b8', textAlign: 'center', marginBottom: '35px', fontSize: '14px' } }, 'Enter your semester obtain CGPA and credit hours.'),
+
+            e('div', { style: { display: 'flex', flexDirection: 'column', gap: '20px' } },
+                semesters.map((sem, idx) => 
+                    e('div', { key: sem.id, style: { display: 'flex', gap: '15px', alignItems: 'center', background: 'rgba(255,255,255,0.03)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' } },
+                        e('span', { style: { color: '#00f5ff', minWidth: '110px', fontWeight: '600', fontSize: '15px' } }, 'Semester 0' + (idx + 1) + ':'),
+                        
+                        e('div', { className: 'prompt-search-container', style: { flex: 1, margin: 0, padding: 0, background: 'transparent' } },
+                            e('input', {
+                                type: 'number',
+                                step: '0.01',
+                                className: 'prompt-input-field',
+                                placeholder: 'GPA (e.g., 3.52)',
+                                value: sem.gpa,
+                                onChange: function(e) { handleInputChange(sem.id, 'gpa', e.target.value); },
+                                style: { width: '100%', boxSizing: 'border-box' }
+                            })
+                        ),
+                        
+                        e('div', { className: 'prompt-search-container', style: { flex: 1, margin: 0, padding: 0, background: 'transparent' } },
+                            e('input', {
+                                type: 'number',
+                                className: 'prompt-input-field',
+                                placeholder: 'Credit Hours',
+                                value: sem.creditHours,
+                                onChange: function(e) { handleInputChange(sem.id, 'creditHours', e.target.value); },
+                                style: { width: '100%', boxSizing: 'border-box' }
+                            })
+                        )
+                    )
+                )
+            ),
+
+            e('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '15px', marginTop: '35px', justifyContent: 'center' } },
+                e('button', { className: 'action-btn', onClick: addSemesterRow, disabled: semesters.length >= 8, style: { background: 'rgba(255,255,255,0.1)', opacity: semesters.length >= 8 ? 0.5 : 1 } }, '➕ Add Semester'),
+                e('button', { className: 'action-btn', style: { background: '#00f5ff', color: '#0f172a', fontWeight: 'bold', boxShadow: '0 0 15px rgba(0, 245, 255, 0.4)' }, onClick: calculateCGPA }, '🧮 Calculate CGPA'),
+                e('button', { className: 'action-btn', style: { background: '#ef4444', boxShadow: '0 0 15px rgba(239, 68, 68, 0.3)' }, onClick: resetFields }, '🔄 Reset')
+            ),
+
+            cgpaResult !== null && e('div', { className: 'result-card', style: { marginTop: '35px', padding: '25px', textAlign: 'center', background: 'rgba(0, 245, 255, 0.05)', border: '1px solid #00f5ff', borderRadius: '12px' } },
+                e('h3', { className: 'result-title', style: { color: '#00f5ff', fontSize: '1.7rem', margin: 0 } }, 'Your CGPA: ' + cgpaResult),
+                e('p', { style: { color: '#94a3b8', fontSize: '14px', marginTop: '8px', marginBottom: 0 } }, 'Keep learning and expanding your knowledge! 🚀')
+            )
+        )
+    );
+};
 const AllInOneCalculator = () => {
     const [activeCalc, setActiveCalc] = useState(null); // null, 'age', 'calories', 'percentage'
 
@@ -1579,7 +1731,11 @@ const AllInOneCalculator = () => {
     // --- RENDER VIEWS ---
     // --- RENDER VIEWS ---
     if (activeCalc) {
-        let currentForm;
+    if (activeCalc === 'cgpa') {
+        return e(CGPACalculator, { onBack: () => setActiveCalc(null) });
+    }
+
+    let currentForm = null;
 
         // 1. AGE CALCULATOR (Cyan Neon Theme)
         if (activeCalc === 'age') {
@@ -1666,6 +1822,7 @@ const AllInOneCalculator = () => {
         // 3. PERCENTAGE CALCULATOR (Purple Neon Theme)
         else if (activeCalc === 'percentage') {
             currentForm = e(React.Fragment, null,
+                
 
                 e('h2', { style: { fontSize: '2rem', fontWeight: '800', marginBottom: '30px', textAlign: 'center', background: 'linear-gradient(to right, #00f5ff, #bd00ff, #ff007f, #00f5ff)', backgroundSize: '300% auto', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', animation: 'flowColors 8s linear infinite', padding: '20px', border: '1px solid rgba(189,0,255,0.2)', borderTop: '1px solid rgba(189,0,255,0.5)', borderRadius: '16px', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' } }, 'Percentage Calculator'),
                 e('p', { style: { color: '#94a3b8', fontSize: '0.95rem', marginBottom: '30px', textAlign: 'center' } }, 'Quickly find what percentage an amount is out of a total.'),
@@ -1681,6 +1838,7 @@ const AllInOneCalculator = () => {
                         e('input', { type: 'number', placeholder: 'e.g. 500', value: pTotal, onChange: (e) => setPTotal(e.target.value), style: { width: '100%', padding: '16px', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', outline: 'none', fontSize: '1.1rem' } })
                     )
                 ),
+                
 
                 e('button', { className: 'action-btn', onClick: calculatePercentage, style: { display: 'block', margin: '0 auto', padding: '16px 40px', fontSize: '1.1rem' } }, '⚡ Calculate Percentage'),
 
@@ -1690,13 +1848,21 @@ const AllInOneCalculator = () => {
                 )
             );
         }
-
+// Agar activeCalc ki value 'cgpa' ho to naya calculator render karo
+if (activeCalc === 'cgpa') {
+    return e(CGPACalculator, { onBack: () => setActiveCalc(null) });
+}
         // Return The Premium Wrapper with Stylish Back Button
         return e('div', { className: 'container-section calculator-hub-wrapper' },
-            e('div', { className: 'glass-calc-form' },
-                e('button', {
-                    onClick: () => { setActiveCalc(null); setAgeResult(null); setCalResult(null); setPResult(null); },
-                    style: {
+        e('div', { className: 'glass-calc-form' },
+         e('button', {
+                onClick: () => { 
+                    setActiveCalc(null); 
+                    setAgeResult(null); 
+                    setCalResult(null); 
+                    setPResult(null); 
+                },
+                style: {
                         background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))',
                         border: '1px solid rgba(255, 255, 255, 0.12)',
                         color: '#00f5ff', // Cyan color for neon tech look
@@ -1715,25 +1881,31 @@ const AllInOneCalculator = () => {
                         backdropFilter: 'blur(10px)',
                         WebkitBackdropFilter: 'blur(10px)'
                     }
-                }, '← Back to Hub'),
-                currentForm
-            )
-        );
-    }
+                
+            }, '← Back to Hub'),
+            currentForm
+        )
+    );
+}
 
     // Main Hub Layout using glass classes
+    // 🧮 CALCULATOR HUB RETURN CONTAINER
     return e('div', { className: 'container-section calculator-hub-wrapper' },
         e('div', { style: { textAlign: 'center', marginBottom: '60px' } },
             e('h1', { className: 'brand-title', style: { marginBottom: '15px' } }, '🧮 Calculator Hub'),
             e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } }, 'Select any advanced tool below to compute instant daily utilities with precision.')
         ),
 
+        // 4 Cards inside the perfect responsive grid layout
         e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '1000px', margin: '0 auto' } },
             CalculatorCard({ title: 'Age Calculator', icon: '📅', desc: 'Sahi baras, mahine, aur dinon ke mutabiq apni exact umar check karein.', onClick: () => setActiveCalc('age') }),
             CalculatorCard({ title: 'Calories Calculator', icon: '🔥', desc: 'BMR formula ke sath apni jism ke mutabiq daily energy calories janiye.', onClick: () => setActiveCalc('calories') }),
-            CalculatorCard({ title: 'Percentage Calculator', icon: '📊', desc: 'School marks ya business statistics ke liye kisi bhi raqam ki exact percentage nikalain.', onClick: () => setActiveCalc('percentage') })
+            CalculatorCard({ title: 'Percentage Calculator', icon: '📊', desc: 'School marks ya business statistics ke liye kisi bhi raqam ki exact percentage nikalain.', onClick: () => setActiveCalc('percentage') }),
+            CalculatorCard({ title: 'CGPA Calculator', icon: '🎓', desc: 'Calculate your exact CGPA first enter your semester obtain CGPA and credit hours.', onClick: () => setActiveCalc('cgpa') })
         )
     );
+    // Isko Percentage Calculator wale card ke thik niche paste karein:
+
 };
 // Injection into DOM
 const rootElement = document.getElementById('root');
