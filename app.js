@@ -1628,6 +1628,280 @@ const CGPACalculator = ({ onBack }) => {
         )
     );
 };
+const CourseCGPACalculator = ({ onBack }) => {
+    const [courses, setCourses] = React.useState([
+        { id: 1, name: '', grade: '', obtainMarks: '' },
+        { id: 2, name: '', grade: '', obtainMarks: '' }
+    ]);
+    const [cgpaResult, setCgpaResult] = React.useState(null);
+
+    // Extended Grade to Point Mapping (with A-, B-, C-, D-)
+    const getGradePoint = (grade) => {
+        if (!grade) return 0;
+        const g = grade.trim().toUpperCase();
+
+        const mapping = {
+            'A+': 4.0, 'A': 3.7, 'A-': 3.3,
+            'B+': 3.3, 'B': 3.0, 'B-': 2.7,
+            'C+': 2.3, 'C': 2.0, 'C-': 1.7,
+            'D+': 1.3, 'D': 1.0, 'D-': 0.7,
+            'F': 0.0
+        };
+        return mapping[g] !== undefined ? mapping[g] : 0;
+    };
+
+    const handleInputChange = (id, field, value) => {
+        const updated = courses.map(course =>
+            course.id === id ? { ...course, [field]: value } : course
+        );
+        setCourses(updated);
+    };
+
+    const addCourse = () => {
+        if (courses.length >= 12) {
+            alert("Maximum 12 courses allowed.");
+            return;
+        }
+        setCourses([...courses, {
+            id: courses.length + 1,
+            name: '',
+            grade: '',
+            obtainMarks: ''
+        }]);
+    };
+
+    const removeCourse = (id) => {
+        if (courses.length === 1) return;
+        setCourses(courses.filter(course => course.id !== id));
+    };
+
+    const calculateCGPA = () => {
+        let totalQualityPoints = 0;
+        let totalMarks = 0;
+        let isValid = true;
+
+        courses.forEach(course => {
+            const gradePoint = getGradePoint(course.grade);
+            const marks = parseFloat(course.obtainMarks);
+
+            if (!course.name.trim() || !course.grade || isNaN(marks)) {
+                isValid = false;
+                return;
+            }
+
+            if (marks < 0 || marks > 100) {
+                isValid = false;
+                return;
+            }
+
+            totalQualityPoints += (gradePoint * marks);
+            totalMarks += marks;
+        });
+
+        if (!isValid) {
+            alert("Please fill all fields correctly.\nGrade: A+, A, A-, B+, B, B- etc.\nObtain Marks: 0-100");
+            return;
+        }
+
+        if (totalMarks > 0) {
+            const finalCgpa = totalQualityPoints / totalMarks;
+            setCgpaResult(finalCgpa.toFixed(2));
+        } else {
+            alert("Please enter at least one valid course.");
+        }
+    };
+
+    const resetFields = () => {
+        setCourses([
+            { id: 1, name: '', grade: '', obtainMarks: '' },
+            { id: 2, name: '', grade: '', obtainMarks: '' }
+        ]);
+        setCgpaResult(null);
+    };
+
+    return e('div', {
+        className: 'tester-section-wrapper',
+        style: {
+            maxWidth: '900px',
+            margin: '60px auto 20px auto',
+            padding: '15px',
+            textAlign: 'left'
+        }
+    },
+
+        // Back Button
+        e('button', {
+            onClick: onBack,
+            style: {
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#00f5ff',
+                cursor: 'pointer',
+                marginTop: '35px',
+                marginBottom: '20px', // Neeche se thoda faasla
+                padding: '8px 16px',  // 2. Padding kam kar di taake button patla aur smart lagay
+                borderRadius: '30px',
+                fontSize: '0.85rem',  // 3. Font thoda sa chota kiya hy image jaisa
+                fontWeight: '600',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                letterSpacing: '0.5px',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                width: 'max-content' // 4. Ye trick button ko sirf text jitni width de gi
+            }
+        }, '← Back to Hub'),
+
+        // Main Card
+        e('div', {
+            className: 'calculator-card',
+            style: {
+                padding: '25px',
+                background: 'rgba(30, 41, 59, 0.85)',
+                backdropFilter: 'blur(12px)',
+                borderRadius: '16px',
+                border: '1px solid rgba(255,255,255,0.1)'
+            }
+        },
+
+            e('h2', {
+                className: 'tester-main-title',
+                style: { textAlign: 'center', marginBottom: '8px', fontSize: '1.8rem' }
+            }, '📝 Course-wise CGPA Calculator'),
+
+            e('p', {
+                style: {
+                    color: '#94a3b8',
+                    textAlign: 'center',
+                    marginBottom: '25px',
+                    fontSize: '14px'
+                }
+            }, 'Enter course, grade (A+, A, A-, B- etc.) & obtained marks'),
+
+            // Courses Container - Responsive
+            e('div', { style: { display: 'flex', flexDirection: 'column', gap: '16px' } },
+                courses.map((course, idx) =>
+                    e('div', {
+                        key: course.id,
+                        style: {
+                            display: 'flex',
+                            flexDirection: 'column', // Mobile pe column
+                            gap: '10px',
+                            background: 'rgba(255,255,255,0.04)',
+                            padding: '16px',
+                            borderRadius: '12px',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                            '@media (min-width: 768px)': { flexDirection: 'row', alignItems: 'center' } // Desktop pe row
+                        }
+                    },
+
+                        e('span', {
+                            style: {
+                                color: '#00f5ff',
+                                fontWeight: '700',
+                                minWidth: '70px',
+                                fontSize: '15px'
+                            }
+                        }, `Course ${String(idx + 1).padStart(2, '0')}`),
+
+                        // Course Name
+                        e('input', {
+                            type: 'text',
+                            className: 'prompt-input-field',
+                            placeholder: 'Course Name',
+                            value: course.name,
+                            onChange: (e) => handleInputChange(course.id, 'name', e.target.value),
+                            style: { flex: 1, minWidth: '140px' }
+                        }),
+
+                        // Grade Input (Free Text)
+                        e('input', {
+                            type: 'text',
+                            className: 'prompt-input-field',
+                            placeholder: 'Grade',
+                            value: course.grade,
+                            onChange: (e) => handleInputChange(course.id, 'grade', e.target.value),
+                            style: { width: '110px', textTransform: 'uppercase' }
+                        }),
+
+                        // Obtain Marks
+                        e('input', {
+                            type: 'number',
+                            className: 'prompt-input-field',
+                            placeholder: 'Marks',
+                            value: course.obtainMarks,
+                            onChange: (e) => handleInputChange(course.id, 'obtainMarks', e.target.value),
+                            style: { width: '110px' }
+                        }),
+
+                        // Remove Button
+                        e('button', {
+                            onClick: () => removeCourse(course.id),
+                            style: {
+                                background: '#ef4444',
+                                color: 'white',
+                                border: 'none',
+                                padding: '8px 12px',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontSize: '1rem',
+                                alignSelf: 'flex-start'
+                            }
+                        }, '✕')
+                    )
+                )
+            ),
+
+            // Buttons
+            e('div', {
+                style: {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '12px',
+                    marginTop: '30px',
+                    justifyContent: 'center'
+                }
+            },
+                e('button', {
+                    className: 'action-btn',
+                    onClick: addCourse,
+                    style: { background: 'rgba(255,255,255,0.1)' }
+                }, '➕ Add Course'),
+
+                e('button', {
+                    className: 'action-btn',
+                    style: { background: '#00f5ff', color: '#0f172a', fontWeight: 'bold' },
+                    onClick: calculateCGPA
+                }, '🧮 Calculate CGPA'),
+
+                e('button', {
+                    className: 'action-btn',
+                    style: { background: '#ef4444' },
+                    onClick: resetFields
+                }, '🔄 Reset')
+            ),
+
+            // Result
+            cgpaResult && e('div', {
+                className: 'result-card',
+                style: {
+                    marginTop: '35px',
+                    padding: '25px',
+                    textAlign: 'center',
+                    background: 'rgba(0, 245, 255, 0.08)',
+                    border: '1px solid #00f5ff'
+                }
+            },
+                e('h3', { style: { color: '#00f5ff', fontSize: '1.85rem', margin: '0 0 8px 0' } },
+                    `CGPA: ${cgpaResult}`),
+                e('p', { style: { color: '#94a3b8' } }, 'Shandar Performance! Continue like this! 🚀')
+            )
+        )
+    );
+};
 const AllInOneCalculator = () => {
     const [activeCalc, setActiveCalc] = useState(null); // null, 'age', 'calories', 'percentage'
 
@@ -1733,6 +2007,10 @@ const AllInOneCalculator = () => {
     if (activeCalc) {
         if (activeCalc === 'cgpa') {
             return e(CGPACalculator, { onBack: () => setActiveCalc(null) });
+        }
+        // Switch ya if-else block mein ye add karein:
+        if (activeCalc === 'course-cgpa') {
+            return e(CourseCGPACalculator, { onBack: () => setActiveCalc(null) });
         }
 
         let currentForm = null;
@@ -1901,7 +2179,13 @@ const AllInOneCalculator = () => {
             CalculatorCard({ title: 'Age Calculator', icon: '📅', desc: 'Sahi baras, mahine, aur dinon ke mutabiq apni exact umar check karein.', onClick: () => setActiveCalc('age') }),
             CalculatorCard({ title: 'Calories Calculator', icon: '🔥', desc: 'BMR formula ke sath apni jism ke mutabiq daily energy calories janiye.', onClick: () => setActiveCalc('calories') }),
             CalculatorCard({ title: 'Percentage Calculator', icon: '📊', desc: 'School marks ya business statistics ke liye kisi bhi raqam ki exact percentage nikalain.', onClick: () => setActiveCalc('percentage') }),
-            CalculatorCard({ title: 'CGPA Calculator', icon: '🎓', desc: 'Calculate your exact CGPA first enter your semester obtain CGPA and credit hours.', onClick: () => setActiveCalc('cgpa') })
+            CalculatorCard({ title: 'CGPA Calculator', icon: '🎓', desc: 'Calculate your exact CGPA first enter your semester obtain CGPA and credit hours.', onClick: () => setActiveCalc('cgpa') }),
+            CalculatorCard({
+                title: 'Course CGPA',
+                icon: '📝',
+                desc: 'Courses, grades aur credit hours daal kar apna CGPA calculate karein.',
+                onClick: () => setActiveCalc('course-cgpa')
+            })
         )
     );
     // Isko Percentage Calculator wale card ke thik niche paste karein:
