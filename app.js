@@ -1902,6 +1902,231 @@ const CourseCGPACalculator = ({ onBack }) => {
         )
     );
 };
+// ========================================================
+// 🔬 ADVANCED SCIENTIFIC CALCULATOR COMPONENT
+// ========================================================
+// ========================================================
+// 🔬 ADVANCED SCIENTIFIC CALCULATOR COMPONENT
+// ========================================================
+const ScientificCalculator = ({ onBack }) => {
+    const [display, setDisplay] = React.useState('0');
+    const [expression, setExpression] = React.useState('');
+    const [justEvaluated, setJustEvaluated] = React.useState(false);
+    const [shiftOn, setShiftOn] = React.useState(false);
+    const [angleMode, setAngleMode] = React.useState('DEG');
+
+    const handleBtn = (val) => {
+        if (val === 'SHIFT') { setShiftOn(s => !s); return; }
+        if (val === 'MODE') { setAngleMode(m => m === 'DEG' ? 'RAD' : 'DEG'); setShiftOn(false); return; }
+
+        if (val === 'AC') {
+            setDisplay('0'); setExpression(''); setJustEvaluated(false); setShiftOn(false); return;
+        }
+        if (val === 'DEL') {
+            if (justEvaluated) { setDisplay('0'); setExpression(''); setJustEvaluated(false); return; }
+            const nd = display.length > 1 ? display.slice(0, -1) : '0';
+            setDisplay(nd); setExpression(nd === '0' ? '' : nd); return;
+        }
+
+        setShiftOn(false);
+
+        if (val === '=') {
+            try {
+                let expr = expression
+                    .replace(/sin⁻¹\(/g, 'Math.asin(')
+                    .replace(/cos⁻¹\(/g, 'Math.acos(')
+                    .replace(/tan⁻¹\(/g, 'Math.atan(')
+                    .replace(/sinh\(/g, 'Math.sinh(')
+                    .replace(/cosh\(/g, 'Math.cosh(')
+                    .replace(/tanh\(/g, 'Math.tanh(')
+                    .replace(/sin\(/g, angleMode === 'DEG' ? '(v=>Math.sin(v*Math.PI/180))(' : 'Math.sin(')
+                    .replace(/cos\(/g, angleMode === 'DEG' ? '(v=>Math.cos(v*Math.PI/180))(' : 'Math.cos(')
+                    .replace(/tan\(/g, angleMode === 'DEG' ? '(v=>Math.tan(v*Math.PI/180))(' : 'Math.tan(')
+                    .replace(/log\(/g, 'Math.log10(')
+                    .replace(/ln\(/g, 'Math.log(')
+                    .replace(/√\(/g, 'Math.sqrt(')
+                    .replace(/\^/g, '**')
+                    .replace(/π/g, 'Math.PI')
+                    .replace(/×/g, '*')
+                    .replace(/÷/g, '/')
+                    .replace(/(\d+)!/g, (_, n) => { let f = 1; for (let i = 2; i <= parseInt(n); i++) f *= i; return f; })
+                    .replace(/(\d*\.?\d+)%/g, '($1/100)');
+                const result = eval(expr);
+                const formatted = Number.isInteger(result) ? String(result) : parseFloat(result.toFixed(10)).toString();
+                setDisplay(formatted); setExpression(formatted); setJustEvaluated(true);
+            } catch { setDisplay('Math ERROR'); setExpression(''); setJustEvaluated(true); }
+            return;
+        }
+
+        let newExpr = (justEvaluated && ![')', '×', '÷', '+', '-', '^', '%'].includes(val)) ? '' : expression;
+        setJustEvaluated(false);
+        const newExp = newExpr + val;
+        setExpression(newExp);
+        setDisplay(newExp);
+    };
+
+    // Casio fx-991ES button layout — same rows as image
+    const rows = [
+        // Row 1: SHIFT, MODE/SETUP, (blank), (blank), x⁻¹, logₐb
+        [
+            { l: 'SHIFT', s: null, sci: true },
+            { l: 'MODE', s: null, sci: true },
+            { l: '', s: null, blank: true },
+            { l: '', s: null, blank: true },
+            { l: 'x⁻¹', s: null, sci: true },
+            { l: 'logₐ', s: null, sci: true },
+        ],
+        // Row 2: ab/c, √(, x², xⁿ, log(, ln(
+        [
+            { l: 'ab/c', s: null, sci: true },
+            { l: '√(', s: '³√(', sci: true },
+            { l: 'x²', s: 'x³', sci: true },
+            { l: 'xⁿ', s: null, sci: true },
+            { l: 'log(', s: '10^', sci: true },
+            { l: 'ln(', s: 'e^', sci: true },
+        ],
+        // Row 3: (-), hyp, sin(, cos(, tan(
+        [
+            { l: '(-)', s: null, sci: true },
+            { l: '°\'"', s: null, sci: true },
+            { l: 'hyp', s: null, sci: true },
+            { l: 'sin(', s: 'sin⁻¹(', sci: true },
+            { l: 'cos(', s: 'cos⁻¹(', sci: true },
+            { l: 'tan(', s: 'tan⁻¹(', sci: true },
+        ],
+        // Row 4: RCL, ENG, (, ), S⇔D, M+
+        [
+            { l: 'RCL', s: null, sci: true },
+            { l: 'ENG', s: null, sci: true },
+            { l: '(', s: null, sci: true },
+            { l: ')', s: null, sci: true },
+            { l: 'S⇔D', s: null, sci: true },
+            { l: 'M+', s: 'M-', sci: true },
+        ],
+        // Row 5: 7, 8, 9, DEL, AC
+        [
+            { l: '7', s: null, num: true },
+            { l: '8', s: null, num: true },
+            { l: '9', s: null, num: true },
+            { l: 'DEL', s: null, del: true },
+            { l: 'AC', s: null, ac: true },
+        ],
+        // Row 6: 4, 5, 6, ×, ÷
+        [
+            { l: '4', s: null, num: true },
+            { l: '5', s: null, num: true },
+            { l: '6', s: null, num: true },
+            { l: '×', s: null, op: true },
+            { l: '÷', s: null, op: true },
+        ],
+        // Row 7: 1, 2, 3, +, -
+        [
+            { l: '1', s: null, num: true },
+            { l: '2', s: null, num: true },
+            { l: '3', s: null, num: true },
+            { l: '+', s: null, op: true },
+            { l: '-', s: null, op: true },
+        ],
+        // Row 8: 0, ., x10ˣ, Ans, =
+        [
+            { l: '0', s: null, num: true },
+            { l: '.', s: null, num: true },
+            { l: 'x10ˣ', s: null, sci: true },
+            { l: 'Ans', s: null, sci: true },
+            { l: '=', s: null, eq: true },
+        ],
+    ];
+
+    return e('div', {
+        className: 'tester-section-wrapper',
+        style: { maxWidth: '520px', margin: '60px auto 20px auto', padding: '15px', textAlign: 'left' }
+    },
+        // Back button — tera original style
+        e('button', {
+            onClick: typeof onBack === 'function' ? onBack : () => window.location.reload(),
+            style: {
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02))',
+                border: '1px solid rgba(255,255,255,0.12)',
+                color: '#00f5ff', cursor: 'pointer',
+                marginTop: '35px', marginBottom: '20px',
+                padding: '8px 16px', borderRadius: '30px', fontSize: '0.85rem',
+                fontWeight: '600', display: 'inline-flex', alignItems: 'center',
+                gap: '8px', letterSpacing: '0.5px',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.1)',
+                transition: 'all 0.3s ease',
+                backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', width: 'max-content'
+            }
+        }, '← Back to Hub'),
+
+        // Main card — tera original dark glass style
+        e('div', {
+            className: 'calculator-card',
+            style: { padding: '30px', background: 'rgba(30,41,59,0.85)', backdropFilter: 'blur(12px)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }
+        },
+            e('h2', { className: 'tester-main-title', style: { textAlign: 'center', marginBottom: '8px', fontSize: '1.8rem' } }, '🔬 Scientific Calculator'),
+
+            // Mode indicator
+            e('div', { style: { display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '14px' } },
+                e('span', { style: { fontSize: '0.75rem', color: angleMode === 'DEG' ? '#00f5ff' : '#64748b', fontWeight: '700', border: '1px solid rgba(0,245,255,0.3)', padding: '2px 10px', borderRadius: '20px' } }, 'DEG'),
+                e('span', { style: { fontSize: '0.75rem', color: angleMode === 'RAD' ? '#00f5ff' : '#64748b', fontWeight: '700', border: '1px solid rgba(0,245,255,0.3)', padding: '2px 10px', borderRadius: '20px' } }, 'RAD'),
+                shiftOn && e('span', { style: { fontSize: '0.75rem', color: '#fbbf24', fontWeight: '700', border: '1px solid rgba(251,191,36,0.4)', padding: '2px 10px', borderRadius: '20px' } }, 'SHIFT ON')
+            ),
+
+            // Display — tera original neon style
+            e('div', {
+                style: {
+                    background: 'rgba(0,0,0,0.4)', padding: '20px', borderRadius: '12px',
+                    marginBottom: '25px', textAlign: 'right', fontSize: display.length > 16 ? '1.2rem' : '2rem',
+                    color: '#00f5ff', letterSpacing: '2px', minHeight: '80px', wordBreak: 'break-all',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'flex-end'
+                }
+            }, display || '0'),
+
+            // Buttons
+            e('div', { style: { display: 'flex', flexDirection: 'column', gap: '8px' } },
+                rows.map((row, ri) =>
+                    e('div', { key: ri, style: { display: 'flex', gap: '8px' } },
+                        row.map((btn, bi) => {
+                            if (btn.blank) return e('div', { key: bi, style: { flex: 1 } });
+
+                            const label = (shiftOn && btn.s) ? btn.s : btn.l;
+
+                            // Colors — tera neon dark theme
+                            let bg, color, border;
+                            if (btn.eq) { bg = 'rgba(0,245,255,0.2)'; color = '#00f5ff'; border = '1px solid rgba(0,245,255,0.4)'; }
+                            else if (btn.ac || btn.del) { bg = 'rgba(239,68,68,0.15)'; color = '#ef4444'; border = '1px solid rgba(239,68,68,0.3)'; }
+                            else if (btn.op) { bg = 'rgba(255,255,255,0.1)'; color = '#00f5ff'; border = '1px solid rgba(255,255,255,0.15)'; }
+                            else if (btn.num) { bg = 'rgba(255,255,255,0.06)'; color = '#f3f4f6'; border = '1px solid rgba(255,255,255,0.1)'; }
+                            else if (btn.l === 'SHIFT') { bg = shiftOn ? 'rgba(251,191,36,0.2)' : 'rgba(255,255,255,0.05)'; color = shiftOn ? '#fbbf24' : '#94a3b8'; border = '1px solid rgba(251,191,36,0.3)'; }
+                            else { bg = 'rgba(255,255,255,0.04)'; color = '#94a3b8'; border = '1px solid rgba(255,255,255,0.07)'; }
+
+                            return e('button', {
+                                key: bi,
+                                onClick: () => handleBtn(label),
+                                style: {
+                                    flex: 1, padding: btn.num || btn.op || btn.eq || btn.del || btn.ac ? '14px 4px' : '10px 4px',
+                                    background: bg, color: color, border: border,
+                                    borderRadius: '10px', cursor: 'pointer',
+                                    fontSize: btn.sci ? '0.78rem' : '1.1rem',
+                                    fontWeight: btn.num || btn.eq ? '700' : '600',
+                                    fontFamily: 'inherit', lineHeight: '1',
+                                    boxShadow: 'none', transition: 'all 0.15s',
+                                    display: 'flex', flexDirection: 'column',
+                                    alignItems: 'center', justifyContent: 'center', gap: '2px',
+                                    minWidth: 0
+                                }
+                            },
+                                btn.s && e('span', { style: { fontSize: '0.55rem', color: '#f6ad55', lineHeight: '1' } }, btn.s),
+                                e('span', null, btn.l)
+                            );
+                        })
+                    )
+                )
+            )
+        )
+    );
+};
 const AllInOneCalculator = () => {
     const [activeCalc, setActiveCalc] = useState(null); // null, 'age', 'calories', 'percentage'
 
@@ -2011,6 +2236,10 @@ const AllInOneCalculator = () => {
         // Switch ya if-else block mein ye add karein:
         if (activeCalc === 'course-cgpa') {
             return e(CourseCGPACalculator, { onBack: () => setActiveCalc(null) });
+        }
+
+        if (activeCalc === 'scientific') {
+            return e(ScientificCalculator, { onBack: () => setActiveCalc(null) });
         }
 
         let currentForm = null;
@@ -2130,6 +2359,8 @@ const AllInOneCalculator = () => {
         if (activeCalc === 'cgpa') {
             return e(CGPACalculator, { onBack: () => setActiveCalc(null) });
         }
+        // Jab aap active view render kar rahay hon, to logic is tarha extend kar lein:
+
         // Return The Premium Wrapper with Stylish Back Button
         return e('div', { className: 'container-section calculator-hub-wrapper' },
             e('div', { className: 'glass-calc-form' },
@@ -2185,12 +2416,26 @@ const AllInOneCalculator = () => {
                 icon: '📝',
                 desc: 'Courses, grades aur credit hours daal kar apna CGPA calculate karein.',
                 onClick: () => setActiveCalc('course-cgpa')
-            })
+            }),
+            // Isko CGPA card wale code ke foran baad paste karein
+            e('div', {
+                className: 'premium-tool-card calc-card',
+                onClick: () => setActiveCalc('scientific')  // ✅ SAHI // <-- DHEAYAN RAHE: Aap apne state function ka naam yahan likhein jo "active" change karta hy
+            },
+                e('div', null,
+                    e('div', { className: 'premium-badge' }, '🔬 Advanced Math'),
+                    e('div', { className: 'card-icon-container' }, '📐'),
+                    e('h3', { className: 'card-main-title' }, 'Scientific Calculator'),
+                    e('p', { className: 'card-secondary-desc' }, 'Evaluate complex mathematical expressions, trigonometry, and logarithms instantly inside your browser.')
+                ),
+                e('div', { className: 'card-action-link-footer' }, 'Open Calculator', e('span', { className: 'arrow-vector' }, '→'))
+            )
         )
     );
     // Isko Percentage Calculator wale card ke thik niche paste karein:
 
 };
+
 // Injection into DOM
 const rootElement = document.getElementById('root');
 if (rootElement) {
