@@ -1038,7 +1038,12 @@ const ContactUs = () => {
 };
 // --- NEW: English Sentence Checker Component ---
 // --- STRICT TENSE & GRAMMAR CHECKER COMPONENT ---
+// --- FIXED: Sentence Checker with Premium Card Design (Matching Calculator Hub) ---
+// --- FIXED: Sentence Checker with Premium Card Design (Matching Calculator Hub) ---
 const SentenceChecker = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [isBackHovered, setIsBackHovered] = useState(false);
     const [sentence, setSentence] = useState('');
     const [status, setStatus] = useState('');
     const [correctedText, setCorrectedText] = useState('');
@@ -1046,7 +1051,6 @@ const SentenceChecker = () => {
 
     const handleCheck = async () => {
         if (!sentence.trim()) return;
-
         setStatus('loading');
         setCorrectedText('');
         setErrorDetails([]);
@@ -1054,29 +1058,18 @@ const SentenceChecker = () => {
         try {
             const response = await fetch('https://api.languagetool.org/v2/check', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    text: sentence,
-                    language: 'en-US'
-                })
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ text: sentence, language: 'en-US' })
             });
-
             const data = await response.json();
-
-            // Spelling/Typos hata ke sirf grammar+tense issues lo
             const grammarAndTenseMatches = data.matches.filter(match =>
-                match.rule.issueType !== 'misspelling' &&
-                match.rule.category.id !== 'TYPOS'
+                match.rule.issueType !== 'misspelling' && match.rule.category.id !== 'TYPOS'
             );
 
             if (grammarAndTenseMatches.length > 0) {
                 setStatus('incorrect');
-
                 let tempSentence = sentence;
                 let reasons = [];
-
                 const sortedMatches = [...grammarAndTenseMatches].sort((a, b) => b.offset - a.offset);
 
                 sortedMatches.forEach(match => {
@@ -1086,40 +1079,147 @@ const SentenceChecker = () => {
                         const suffix = tempSentence.substring(match.offset + match.length);
                         tempSentence = prefix + bestSuggestion + suffix;
                     }
-
-                    // Issue type + message dono dikhao
                     const issueType = match.rule.category.name || 'Grammar Issue';
                     const wrongWord = sentence.substring(match.offset, match.offset + match.length);
                     const correctWord = match.replacements && match.replacements[0] ? match.replacements[0].value : '?';
                     reasons.push(`${issueType}: "${wrongWord}" → "${correctWord}" — ${match.message}`);
                 });
-
                 setCorrectedText(tempSentence);
                 setErrorDetails(reasons);
             } else {
                 setStatus('perfect');
             }
         } catch (error) {
-            console.error("Tense Check Error:", error);
+            console.error("Error:", error);
             setStatus('incorrect');
-            setCorrectedText("Server se connection nahi ho saka.");
-            setErrorDetails(["LanguageTool server unavailable — internet check karein."]);
+            setCorrectedText("Server error!");
+            setErrorDetails(["Internet ya API issue hai."]);
         }
     };
 
-    return e('main', { className: 'main-content' },
-        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '600px', margin: '0 auto', paddingBottom: '40px' } },
-            e('h2', { className: 'tester-main-title', style: { textAlign: 'center' } }, '📝 English Tense & Grammar Checker'),
-            e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '30px' } }, 'Sentence likhein, yeh check karega ke Tense sahi hai ya galat.'),
+    // 1. CARD VIEW (Calculator Hub Style)
+    if (!isOpen) {
+        return e('div', { 
+            className: 'calculator-container', 
+            style: { 
+                padding: '90px 20px 40px 20px',
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                gap: '12px'
+            } 
+        },
+            // Main Heading
+            e('h2', { 
+                className: 'tester-main-title', 
+                style: { 
+                    textAlign: 'center', 
+                    fontSize: '2.4rem', 
+                    color: '#ffffff',
+                    fontWeight: '700',
+                    margin: '0',
+                    letterSpacing: '0.5px'
+                } 
+            }, 'Sentence Checker'),
 
-            e('div', { className: 'result-card', style: { padding: '35px', display: 'flex', flexDirection: 'column', gap: '20px' } },
+            // Heading ke neeche detail description
+            e('p', {
+                style: {
+                    color: '#64748b',
+                    fontSize: '15px',
+                    textAlign: 'center',
+                    margin: '0 0 20px 0',
+                    maxWidth: '500px',
+                    lineHeight: '1.5'
+                }
+            }, 'Analyze tenses, structural issues, and grammatical syntax instantly with advanced AI local verification processing.'),
+
+            // Premium Card - Exactly like Calculator Hub cards
+            e('div', {
+                className: 'premium-tool-card calc-card',
+                onClick: () => setIsOpen(true),
+                onMouseEnter: () => setIsHovered(true),
+                onMouseLeave: () => setIsHovered(false),
+                style: {
+                    cursor: 'pointer',
+                    padding: '24px',
+                    borderRadius: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    textAlign: 'left',
+                    width: '100%',
+                    maxWidth: '420px',
+                    background: isHovered ? 'rgba(30, 41, 59, 0.7)' : 'rgba(30, 41, 59, 0.45)',
+                    backdropFilter: 'blur(12px)',
+                    border: isHovered ? '1px solid rgba(0, 245, 255, 0.6)' : '1px solid rgba(255, 255, 255, 0.08)',
+                    transform: isHovered ? 'translateY(-5px)' : 'translateY(0px)',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    boxShadow: isHovered ? '0 20px 30px -10px rgba(0, 0, 0, 0.5)' : 'none'
+                }
+            },
+                // Badge
+                e('div', { className: 'premium-badge' }, '📝 Grammar Audit'),
+                // Icon Container
+                e('div', { className: 'card-icon-container' }, '✍️'),
+                // Title
+                e('h3', { className: 'card-main-title' }, 'English Sentence Checker'),
+                // Description
+                e('p', { className: 'card-secondary-desc' },
+                    'Apne English sentences ke tenses aur grammar mistakes ko real-time mein check aur correct karein.'
+                ),
+                // Footer Action
+                e('div', { className: 'card-action-link-footer' },
+                    'Open Tool',
+                    e('span', { className: 'arrow-vector' }, '→')
+                )
+            )
+        );
+    }
+
+    // 2. ACTUAL TOOL INTERFACE (Back button with glow effect and max-content width)
+    return e('main', { className: 'main-content', style: { paddingTop: '80px' } },
+        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '600px', margin: '0 auto', padding: '20px' } },
+            
+            // ✅ FIXED: Back Button with Glow Effect & max-content width
+            e('button', {
+                onClick: () => { setIsOpen(false); setSentence(''); setStatus(''); setCorrectedText(''); setErrorDetails([]); },
+                onMouseEnter: () => setIsBackHovered(true),
+                onMouseLeave: () => setIsBackHovered(false),
+                style: {
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    color: '#00f5ff',
+                    cursor: 'pointer',
+                    marginBottom: '25px',
+                    padding: '8px 16px',
+                    borderRadius: '30px',
+                    fontSize: '0.85rem',
+                    fontWeight: '600',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    letterSpacing: '0.5px',
+                    boxShadow: isBackHovered 
+                        ? '0 0 15px rgba(0, 245, 255, 0.6), 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)' 
+                        : '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+                    transition: 'all 0.3s ease',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    width: 'max-content'
+                }
+            }, '← Back to Card'),
+
+            e('div', { style: { background: 'rgba(30, 41, 59, 0.7)', backdropFilter: 'blur(12px)', padding: '35px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)' } },
+                e('h2', { className: 'tester-main-title', style: { textAlign: 'center', marginBottom: '8px', fontSize: '1.8rem' } }, '📝 Tense & Grammar Checker'),
+                e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '30px', fontSize: '14px' } }, 'Verify your sentence structure and get detailed suggestions instantly.'),
+
                 e('div', { className: 'prompt-search-container' },
                     e('span', { className: 'prompt-icon' }, '✍️'),
                     e('input', {
                         type: 'text',
                         className: 'prompt-input-field',
-                        style: { minWidth: '0', width: '100%', boxSizing: 'border-box' },
-                        placeholder: 'Write your sentence here',
+                        placeholder: 'Type your English sentence here...',
                         value: sentence,
                         disabled: status === 'loading',
                         onChange: (event) => {
@@ -1133,26 +1233,23 @@ const SentenceChecker = () => {
                     className: 'action-btn',
                     onClick: handleCheck,
                     disabled: status === 'loading',
-                    style: { width: '100%', justifyContent: 'center', opacity: status === 'loading' ? 0.7 : 1 }
-                }, status === 'loading' ? '⏳ Verifying Tenses...' : '🔍 Check Sentence'),
+                    style: { width: '100%', justifyContent: 'center', marginTop: '20px' }
+                }, status === 'loading' ? '⏳ Verifying...' : '🔍 Check Sentence'),
 
                 status === 'perfect' && e('div', {
-                    style: { marginTop: '15px', padding: '15px', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid #22c55e', borderRadius: '8px', color: '#22c55e', fontWeight: 'bold', textAlign: 'center' }
-                }, '✨ Tense is Correct! (Sentence bilkul sahi hai)'),
+                    style: { marginTop: '24px', padding: '15px', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid #22c55e', borderRadius: '10px', color: '#22c55e', fontWeight: 'bold', textAlign: 'center' }
+                }, '✨ Tense is Correct! No mistakes found.'),
 
                 status === 'incorrect' && e('div', {
-                    style: { marginTop: '15px', padding: '20px', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '12px', textAlign: 'left' }
+                    style: { marginTop: '24px', padding: '20px', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '14px' }
                 },
-                    e('p', { style: { color: '#ef4444', fontWeight: 'bold', margin: '0 0 8px 0', fontSize: '1.1rem' } }, '❌ Incorrect Tense / Grammar Structure'),
-
-                  e('ul', { style: { paddingLeft: '20px', margin: '0 0 15px 0', color: '#94a3b8', fontSize: '0.95rem', wordBreak: 'break-word', overflowWrap: 'break-word' } },
-                        errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '5px' } }, err))
+                    e('p', { style: { color: '#ef4444', fontWeight: 'bold', margin: '0 0 10px 0' } }, '❌ Issue Detected in Sentence Structure:'),
+                    e('ul', { style: { paddingLeft: '20px', margin: '0 0 18px 0', color: '#94a3b8', fontSize: '0.95rem' } },
+                        errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '6px' } }, err))
                     ),
-
-                    e('div', { style: { height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '15px' } }),
-
-                    e('p', { style: { color: '#64748b', fontSize: '0.85rem', margin: '0 0 4px 0' } }, 'CORRECTED SENTENCE:'),
-                  e('p', { style: { color: '#00f5ff', margin: 0, fontSize: '1.2rem', fontWeight: '500', wordBreak: 'break-word', overflowWrap: 'break-word' } }, correctedText)  
+                    e('div', { style: { height: '1px', background: 'rgba(255,255,255,0.08)', marginBottom: '18px' } }),
+                    e('p', { style: { color: '#64748b', fontSize: '12px', margin: '0 0 6px 0', fontWeight: '600' } }, 'SUGGESTED CORRECTION:'),
+                    e('p', { style: { color: '#00f5ff', margin: 0, fontSize: '1.2rem', fontWeight: '500' } }, correctedText)
                 )
             )
         )
