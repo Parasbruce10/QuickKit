@@ -1036,6 +1036,127 @@ const ContactUs = () => {
         )
     );
 };
+// --- NEW: English Sentence Checker Component ---
+// --- STRICT TENSE & GRAMMAR CHECKER COMPONENT ---
+const SentenceChecker = () => {
+    const [sentence, setSentence] = useState('');
+    const [status, setStatus] = useState('');
+    const [correctedText, setCorrectedText] = useState('');
+    const [errorDetails, setErrorDetails] = useState([]);
+
+    const handleCheck = async () => {
+        if (!sentence.trim()) return;
+
+        setStatus('loading');
+        setCorrectedText('');
+        setErrorDetails([]);
+
+        try {
+            const response = await fetch('https://api.languagetool.org/v2/check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    text: sentence,
+                    language: 'en-US'
+                })
+            });
+
+            const data = await response.json();
+
+            // Spelling/Typos hata ke sirf grammar+tense issues lo
+            const grammarAndTenseMatches = data.matches.filter(match =>
+                match.rule.issueType !== 'misspelling' &&
+                match.rule.category.id !== 'TYPOS'
+            );
+
+            if (grammarAndTenseMatches.length > 0) {
+                setStatus('incorrect');
+
+                let tempSentence = sentence;
+                let reasons = [];
+
+                const sortedMatches = [...grammarAndTenseMatches].sort((a, b) => b.offset - a.offset);
+
+                sortedMatches.forEach(match => {
+                    if (match.replacements && match.replacements[0]) {
+                        const bestSuggestion = match.replacements[0].value;
+                        const prefix = tempSentence.substring(0, match.offset);
+                        const suffix = tempSentence.substring(match.offset + match.length);
+                        tempSentence = prefix + bestSuggestion + suffix;
+                    }
+
+                    // Issue type + message dono dikhao
+                    const issueType = match.rule.category.name || 'Grammar Issue';
+                    const wrongWord = sentence.substring(match.offset, match.offset + match.length);
+                    const correctWord = match.replacements && match.replacements[0] ? match.replacements[0].value : '?';
+                    reasons.push(`${issueType}: "${wrongWord}" → "${correctWord}" — ${match.message}`);
+                });
+
+                setCorrectedText(tempSentence);
+                setErrorDetails(reasons);
+            } else {
+                setStatus('perfect');
+            }
+        } catch (error) {
+            console.error("Tense Check Error:", error);
+            setStatus('incorrect');
+            setCorrectedText("Server se connection nahi ho saka.");
+            setErrorDetails(["LanguageTool server unavailable — internet check karein."]);
+        }
+    };
+
+    return e('main', { className: 'main-content' },
+        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '600px', margin: '0 auto', paddingBottom: '40px' } },
+            e('h2', { className: 'tester-main-title', style: { textAlign: 'center' } }, '📝 English Tense & Grammar Checker'),
+            e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '30px' } }, 'Sentence likhein, yeh check karega ke Tense sahi hai ya galat.'),
+
+            e('div', { className: 'result-card', style: { padding: '35px', display: 'flex', flexDirection: 'column', gap: '20px' } },
+                e('div', { className: 'prompt-search-container' },
+                    e('span', { className: 'prompt-icon' }, '✍️'),
+                    e('input', {
+                        type: 'text',
+                        className: 'prompt-input-field',
+                        placeholder: 'Write your sentence here',
+                        value: sentence,
+                        disabled: status === 'loading',
+                        onChange: (event) => {
+                            setSentence(event.target.value);
+                            setStatus('');
+                        }
+                    })
+                ),
+
+                e('button', {
+                    className: 'action-btn',
+                    onClick: handleCheck,
+                    disabled: status === 'loading',
+                    style: { width: '100%', justifyContent: 'center', opacity: status === 'loading' ? 0.7 : 1 }
+                }, status === 'loading' ? '⏳ Verifying Tenses...' : '🔍 Check Tense Structure'),
+
+                status === 'perfect' && e('div', {
+                    style: { marginTop: '15px', padding: '15px', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid #22c55e', borderRadius: '8px', color: '#22c55e', fontWeight: 'bold', textAlign: 'center' }
+                }, '✨ Tense is Correct! (Sentence bilkul sahi hai)'),
+
+                status === 'incorrect' && e('div', {
+                    style: { marginTop: '15px', padding: '20px', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '12px', textAlign: 'left' }
+                },
+                    e('p', { style: { color: '#ef4444', fontWeight: 'bold', margin: '0 0 8px 0', fontSize: '1.1rem' } }, '❌ Incorrect Tense / Grammar Structure'),
+
+                    e('ul', { style: { paddingLeft: '20px', margin: '0 0 15px 0', color: '#94a3b8', fontSize: '0.95rem' } },
+                        errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '5px' } }, err))
+                    ),
+
+                    e('div', { style: { height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '15px' } }),
+
+                    e('p', { style: { color: '#64748b', fontSize: '0.85rem', margin: '0 0 4px 0' } }, 'CORRECTED SENTENCE:'),
+                    e('p', { style: { color: '#00f5ff', margin: 0, fontSize: '1.2rem', fontWeight: '500' } }, correctedText)
+                )
+            )
+        )
+    );
+};
 // --- NEW: Premium Home Component with Typewriter ---
 const Home = ({ navigate }) => {
     const [typedText, setTypedText] = useState('');
@@ -1393,7 +1514,9 @@ const Footer = ({ company, navigate }) => {
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('typingtester') }, 'Typing Tester')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('biowriter') }, 'Bio Writer')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('passwordchecker') }, 'Password Strength Checker')),
-                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('calculator') }, 'All in One Calculator'))
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('calculator') }, 'All in One Calculator')),
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('sentencechecker') }, 'Sentence Checker'))
+                    
                 )
             ),
             /* ... (Baqi legal wala hissa waise hi rahega) ... */
@@ -1437,17 +1560,20 @@ const App = () => {
     };
 
     // Conditional Rendering Logic for multi-pages
+    // Conditional Rendering Logic for multi-pages
     let currentView;
     if (currentPage === 'home') {
-        currentView = e(Home, { navigate: navigate }); // Home render hoga default
+        currentView = e(Home, { navigate: navigate });
     } else if (currentPage === 'typingtester') {
-        currentView = e(Content); // Content ab Typing Tester ban gaya
+        currentView = e(Content);
     } else if (currentPage === 'biowriter') {
         currentView = e(BioWriter);
     } else if (currentPage === 'passwordchecker') {
         currentView = e(PasswordChecker);
     } else if (currentPage === 'calculator') {
         currentView = e(AllInOneCalculator, { navigate: navigate });
+    } else if (currentPage === 'sentencechecker') { // <-- YEH NAVI CONDITION ADD KI HY
+        currentView = e(SentenceChecker);
     } else if (currentPage === 'about') {
         currentView = e(About);
     } else if (currentPage === 'terms') {
@@ -1457,7 +1583,7 @@ const App = () => {
     } else if (currentPage === 'contact') {
         currentView = e(ContactUs);
     } else {
-        currentView = e(Home, { navigate: navigate }); // Fallback bhi Home
+        currentView = e(Home, { navigate: navigate });
     }
 
     return e('div', { className: `app-container ${theme}-theme` },
