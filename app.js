@@ -1114,11 +1114,12 @@ const SentenceChecker = () => {
                 className: 'tester-main-title', 
                 style: { 
                     textAlign: 'center', 
-                    fontSize: '2.4rem', 
+                    fontSize: 'clamp(1.8rem, 5vw, 2.4rem)', 
                     color: '#ffffff',
                     fontWeight: '700',
                     margin: '0',
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.5px',
+                    wordBreak: 'break-word'
                 } 
             }, 'Sentence Checker'),
 
@@ -1126,11 +1127,13 @@ const SentenceChecker = () => {
             e('p', {
                 style: {
                     color: '#64748b',
-                    fontSize: '15px',
+                    fontSize: 'clamp(13px, 4vw, 15px)',
                     textAlign: 'center',
                     margin: '0 0 20px 0',
                     maxWidth: '500px',
-                    lineHeight: '1.5'
+                    lineHeight: '1.5',
+                    padding: '0 10px',
+                    wordBreak: 'break-word'
                 }
             }, 'Analyze tenses, structural issues, and grammatical syntax instantly with advanced AI local verification processing.'),
 
@@ -1163,9 +1166,9 @@ const SentenceChecker = () => {
                 // Icon Container
                 e('div', { className: 'card-icon-container' }, '✍️'),
                 // Title
-                e('h3', { className: 'card-main-title' }, 'English Sentence Checker'),
+                e('h3', { className: 'card-main-title', style: { wordBreak: 'break-word' } }, 'English Sentence Checker'),
                 // Description
-                e('p', { className: 'card-secondary-desc' },
+                e('p', { className: 'card-secondary-desc', style: { wordBreak: 'break-word' } },
                     'Apne English sentences ke tenses aur grammar mistakes ko real-time mein check aur correct karein.'
                 ),
                 // Footer Action
@@ -1177,11 +1180,11 @@ const SentenceChecker = () => {
         );
     }
 
-    // 2. ACTUAL TOOL INTERFACE (Back button with glow effect and max-content width)
+    // 2. ACTUAL TOOL INTERFACE
     return e('main', { className: 'main-content', style: { paddingTop: '80px' } },
-        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '600px', margin: '0 auto', padding: '20px' } },
+        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '600px', width: '90%', margin: '0 auto', padding: '20px' } },
             
-            // ✅ FIXED: Back Button with Glow Effect & max-content width
+            // Back Button with Glow Effect & max-content width
             e('button', {
                 onClick: () => { setIsOpen(false); setSentence(''); setStatus(''); setCorrectedText(''); setErrorDetails([]); },
                 onMouseEnter: () => setIsBackHovered(true),
@@ -1210,11 +1213,45 @@ const SentenceChecker = () => {
                 }
             }, '← Back to Card'),
 
-            e('div', { style: { background: 'rgba(30, 41, 59, 0.7)', backdropFilter: 'blur(12px)', padding: '35px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)' } },
-                e('h2', { className: 'tester-main-title', style: { textAlign: 'center', marginBottom: '8px', fontSize: '1.8rem' } }, '📝 Tense & Grammar Checker'),
-                e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '30px', fontSize: '14px' } }, 'Verify your sentence structure and get detailed suggestions instantly.'),
+            e('div', { 
+                style: { 
+                    background: 'rgba(30, 41, 59, 0.7)', 
+                    backdropFilter: 'blur(12px)', 
+                    padding: 'clamp(20px, 5vw, 35px)', 
+                    borderRadius: '20px', 
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    overflowX: 'auto'
+                } 
+            },
+                e('h2', { 
+                    className: 'tester-main-title', 
+                    style: { 
+                        textAlign: 'center', 
+                        marginBottom: '8px', 
+                        fontSize: 'clamp(1.4rem, 5vw, 1.8rem)',
+                        wordBreak: 'break-word'
+                    } 
+                }, '📝 Tense & Grammar Checker'),
+                
+                e('p', { 
+                    style: { 
+                        color: '#64748b', 
+                        textAlign: 'center', 
+                        marginBottom: '30px', 
+                        fontSize: 'clamp(12px, 4vw, 14px)',
+                        wordBreak: 'break-word'
+                    } 
+                }, 'Verify your sentence structure and get detailed suggestions instantly.'),
 
-                e('div', { className: 'prompt-search-container' },
+                e('div', { 
+                    className: 'prompt-search-container',
+                    style: {
+                        width: '100%',
+                        boxSizing: 'border-box'
+                    }
+                },
                     e('span', { className: 'prompt-icon' }, '✍️'),
                     e('input', {
                         type: 'text',
@@ -1225,6 +1262,13 @@ const SentenceChecker = () => {
                         onChange: (event) => {
                             setSentence(event.target.value);
                             setStatus('');
+                        },
+                        style: {
+                            width: '100%',
+                            boxSizing: 'border-box',
+                            overflowX: 'auto',
+                            whiteSpace: 'normal',
+                            wordBreak: 'break-word'
                         }
                     })
                 ),
@@ -1237,19 +1281,54 @@ const SentenceChecker = () => {
                 }, status === 'loading' ? '⏳ Verifying...' : '🔍 Check Sentence'),
 
                 status === 'perfect' && e('div', {
-                    style: { marginTop: '24px', padding: '15px', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid #22c55e', borderRadius: '10px', color: '#22c55e', fontWeight: 'bold', textAlign: 'center' }
+                    style: { 
+                        marginTop: '24px', 
+                        padding: '15px', 
+                        background: 'rgba(34, 197, 94, 0.1)', 
+                        border: '1px solid #22c55e', 
+                        borderRadius: '10px', 
+                        color: '#22c55e', 
+                        fontWeight: 'bold', 
+                        textAlign: 'center',
+                        wordBreak: 'break-word'
+                    }
                 }, '✨ Tense is Correct! No mistakes found.'),
 
                 status === 'incorrect' && e('div', {
-                    style: { marginTop: '24px', padding: '20px', background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '14px' }
+                    style: { 
+                        marginTop: '24px', 
+                        padding: '20px', 
+                        background: 'rgba(239, 68, 68, 0.05)', 
+                        border: '1px solid rgba(239, 68, 68, 0.3)', 
+                        borderRadius: '14px',
+                        wordBreak: 'break-word',
+                        overflowX: 'auto'
+                    }
                 },
                     e('p', { style: { color: '#ef4444', fontWeight: 'bold', margin: '0 0 10px 0' } }, '❌ Issue Detected in Sentence Structure:'),
-                    e('ul', { style: { paddingLeft: '20px', margin: '0 0 18px 0', color: '#94a3b8', fontSize: '0.95rem' } },
-                        errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '6px' } }, err))
+                    e('ul', { 
+                        style: { 
+                            paddingLeft: '20px', 
+                            margin: '0 0 18px 0', 
+                            color: '#94a3b8', 
+                            fontSize: 'clamp(12px, 3.5vw, 0.95rem)',
+                            wordBreak: 'break-word'
+                        } 
+                    },
+                        errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '6px', wordBreak: 'break-word' } }, err))
                     ),
                     e('div', { style: { height: '1px', background: 'rgba(255,255,255,0.08)', marginBottom: '18px' } }),
                     e('p', { style: { color: '#64748b', fontSize: '12px', margin: '0 0 6px 0', fontWeight: '600' } }, 'SUGGESTED CORRECTION:'),
-                    e('p', { style: { color: '#00f5ff', margin: 0, fontSize: '1.2rem', fontWeight: '500' } }, correctedText)
+                    e('p', { 
+                        style: { 
+                            color: '#00f5ff', 
+                            margin: 0, 
+                            fontSize: 'clamp(1rem, 4vw, 1.2rem)', 
+                            fontWeight: '500',
+                            wordBreak: 'break-word',
+                            whiteSpace: 'normal'
+                        } 
+                    }, correctedText)
                 )
             )
         )
