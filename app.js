@@ -1039,7 +1039,7 @@ const ContactUs = () => {
 // --- NEW: English Sentence Checker Component ---
 // --- STRICT TENSE & GRAMMAR CHECKER COMPONENT ---
 // --- FIXED: Sentence Checker with Premium Card Design (Matching Calculator Hub) ---
-// --- FIXED: Sentence Checker with Premium Card Design (Matching Calculator Hub) ---
+// --- FIXED: Sentence Checker with Proper Tense Detection ---
 const SentenceChecker = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -1049,6 +1049,60 @@ const SentenceChecker = () => {
     const [correctedText, setCorrectedText] = useState('');
     const [errorDetails, setErrorDetails] = useState([]);
 
+    // Tense detection function
+    const detectTenseIssues = (text) => {
+        const issues = [];
+        let tempText = text;
+        
+        // Common tense patterns to check
+        const tensePatterns = [
+            // Present tense issues
+            { pattern: /\b(he|she|it)\s+(\w+?)(s|es)?\s+(\w+?)(s|es)?\b/gi, message: "Subject-verb agreement issue with he/she/it" },
+            // Past tense issues 
+            { pattern: /\b(yesterday|last\s+\w+|ago)\s+(\w+?)(s|es|ed)?\b/gi, message: "Past tense marker detected but verb may not be in past tense" },
+            // Future tense issues
+            { pattern: /\b(tomorrow|next\s+\w+|soon)\s+(\w+?)(ed|s|es)?\b/gi, message: "Future tense marker detected but verb may not be correct" },
+            // Is/Are/Am issues
+            { pattern: /\b(he|she|it)\s+are\b/gi, message: "Use 'is' instead of 'are' with he/she/it" },
+            { pattern: /\b(they|we|you)\s+is\b/gi, message: "Use 'are' instead of 'is' with they/we/you" },
+            { pattern: /\b(I)\s+is\b/gi, message: "Use 'am' instead of 'is' with 'I'" },
+            // Has/Have issues
+            { pattern: /\b(he|she|it)\s+have\b/gi, message: "Use 'has' instead of 'have' with he/she/it" },
+            { pattern: /\b(they|we|you|I)\s+has\b/gi, message: "Use 'have' instead of 'has' with they/we/you/I" },
+            // Was/Were issues
+            { pattern: /\b(they|we|you)\s+was\b/gi, message: "Use 'were' instead of 'was' with they/we/you" },
+            { pattern: /\b(he|she|it|I)\s+were\b/gi, message: "Use 'was' instead of 'were' with he/she/it/I (except for subjunctive)" },
+            // Verb tense mismatches with time indicators
+            { pattern: /\b(every\s+day|always|usually|sometimes|often|generally)\s+(\w+?ed)\b/gi, message: "Present time marker but past tense verb detected" },
+            { pattern: /\b(yesterday|last\s+\w+|ago|previously)\s+(\w+?s|es)\b/gi, message: "Past time marker but present tense verb detected" },
+            { pattern: /\b(tomorrow|next\s+\w+|soon|later)\s+(\w+?ed)\b/gi, message: "Future time marker but past tense verb detected" }
+        ];
+
+        for (const pattern of tensePatterns) {
+            pattern.pattern.lastIndex = 0;
+            if (pattern.pattern.test(text)) {
+                issues.push(pattern.message);
+                // Try to suggest fix
+                const match = pattern.pattern.exec(text);
+                if (match) {
+                    if (pattern.message.includes("is instead of are")) {
+                        tempText = tempText.replace(/\bare\b(?=\s+with)/i, 'is');
+                    } else if (pattern.message.includes("are instead of is")) {
+                        tempText = tempText.replace(/\bis\b(?=\s+with)/i, 'are');
+                    } else if (pattern.message.includes("am instead of is")) {
+                        tempText = tempText.replace(/\bis\b(?=\s+with)/i, 'am');
+                    } else if (pattern.message.includes("has instead of have")) {
+                        tempText = tempText.replace(/\bhave\b(?=\s+with)/i, 'has');
+                    } else if (pattern.message.includes("have instead of has")) {
+                        tempText = tempText.replace(/\bhas\b(?=\s+with)/i, 'have');
+                    }
+                }
+            }
+        }
+        
+        return { issues, correctedText: tempText };
+    };
+
     const handleCheck = async () => {
         if (!sentence.trim()) return;
         setStatus('loading');
@@ -1056,44 +1110,64 @@ const SentenceChecker = () => {
         setErrorDetails([]);
 
         try {
+            // First check tense issues locally
+            const tenseResults = detectTenseIssues(sentence);
+            
+            // Then call LanguageTool API for grammar
             const response = await fetch('https://api.languagetool.org/v2/check', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({ text: sentence, language: 'en-US' })
             });
             const data = await response.json();
-            const grammarAndTenseMatches = data.matches.filter(match =>
-                match.rule.issueType !== 'misspelling' && match.rule.category.id !== 'TYPOS'
+            
+            // Filter grammar issues (excluding spelling)
+            const grammarMatches = data.matches.filter(match =>
+                match.rule.issueType !== 'misspelling' && 
+                match.rule.category.id !== 'TYPOS' &&
+                match.rule.category.name !== 'Typo'
             );
 
-            if (grammarAndTenseMatches.length > 0) {
-                setStatus('incorrect');
-                let tempSentence = sentence;
-                let reasons = [];
-                const sortedMatches = [...grammarAndTenseMatches].sort((a, b) => b.offset - a.offset);
+            let allIssues = [...tenseResults.issues];
+            let finalCorrectedText = sentence;
+            let detailedReasons = [];
 
-                sortedMatches.forEach(match => {
-                    if (match.replacements && match.replacements[0]) {
-                        const bestSuggestion = match.replacements[0].value;
-                        const prefix = tempSentence.substring(0, match.offset);
-                        const suffix = tempSentence.substring(match.offset + match.length);
-                        tempSentence = prefix + bestSuggestion + suffix;
-                    }
-                    const issueType = match.rule.category.name || 'Grammar Issue';
-                    const wrongWord = sentence.substring(match.offset, match.offset + match.length);
-                    const correctWord = match.replacements && match.replacements[0] ? match.replacements[0].value : '?';
-                    reasons.push(`${issueType}: "${wrongWord}" → "${correctWord}" — ${match.message}`);
+            // Process grammar matches
+            const sortedMatches = [...grammarMatches].sort((a, b) => b.offset - a.offset);
+            sortedMatches.forEach(match => {
+                if (match.replacements && match.replacements[0]) {
+                    const bestSuggestion = match.replacements[0].value;
+                    const prefix = finalCorrectedText.substring(0, match.offset);
+                    const suffix = finalCorrectedText.substring(match.offset + match.length);
+                    finalCorrectedText = prefix + bestSuggestion + suffix;
+                }
+                const issueType = match.rule.category.name || 'Grammar Issue';
+                const wrongWord = sentence.substring(match.offset, match.offset + match.length);
+                const correctWord = match.replacements && match.replacements[0] ? match.replacements[0].value : '?';
+                detailedReasons.push(`${issueType}: "${wrongWord}" → "${correctWord}" — ${match.message}`);
+                allIssues.push(match.message);
+            });
+
+            // Use tense corrected text if available
+            if (tenseResults.issues.length > 0) {
+                finalCorrectedText = tenseResults.correctedText;
+                detailedReasons.forEach(reason => {
+                    if (!allIssues.includes(reason)) allIssues.push(reason);
                 });
-                setCorrectedText(tempSentence);
-                setErrorDetails(reasons);
+            }
+
+            if (allIssues.length > 0 || grammarMatches.length > 0) {
+                setStatus('incorrect');
+                setCorrectedText(finalCorrectedText);
+                setErrorDetails(detailedReasons.length > 0 ? detailedReasons : tenseResults.issues);
             } else {
                 setStatus('perfect');
             }
         } catch (error) {
             console.error("Error:", error);
             setStatus('incorrect');
-            setCorrectedText("Server error!");
-            setErrorDetails(["Internet ya API issue hai."]);
+            setCorrectedText("Server error! Please check your internet connection.");
+            setErrorDetails(["Unable to connect to grammar checker API."]);
         }
     };
 
@@ -1109,7 +1183,6 @@ const SentenceChecker = () => {
                 gap: '12px'
             } 
         },
-            // Main Heading
             e('h2', { 
                 className: 'tester-main-title', 
                 style: { 
@@ -1123,7 +1196,6 @@ const SentenceChecker = () => {
                 } 
             }, 'Sentence Checker'),
 
-            // Heading ke neeche detail description
             e('p', {
                 style: {
                     color: '#64748b',
@@ -1135,9 +1207,8 @@ const SentenceChecker = () => {
                     padding: '0 10px',
                     wordBreak: 'break-word'
                 }
-            }, 'Analyze tenses, structural issues, and grammatical syntax instantly with advanced AI local verification processing.'),
+            }, 'Check English sentences for tense errors, subject-verb agreement, and grammar mistakes with AI-powered verification.'),
 
-            // Premium Card - Exactly like Calculator Hub cards
             e('div', {
                 className: 'premium-tool-card calc-card',
                 onClick: () => setIsOpen(true),
@@ -1161,17 +1232,12 @@ const SentenceChecker = () => {
                     boxShadow: isHovered ? '0 20px 30px -10px rgba(0, 0, 0, 0.5)' : 'none'
                 }
             },
-                // Badge
-                e('div', { className: 'premium-badge' }, '📝 Grammar Audit'),
-                // Icon Container
+                e('div', { className: 'premium-badge' }, '📝 Tense & Grammar Audit'),
                 e('div', { className: 'card-icon-container' }, '✍️'),
-                // Title
-                e('h3', { className: 'card-main-title', style: { wordBreak: 'break-word' } }, 'English Sentence Checker'),
-                // Description
+                e('h3', { className: 'card-main-title', style: { wordBreak: 'break-word' } }, 'English Tense & Grammar Checker'),
                 e('p', { className: 'card-secondary-desc', style: { wordBreak: 'break-word' } },
-                    'Apne English sentences ke tenses aur grammar mistakes ko real-time mein check aur correct karein.'
+                    'Detect subject-verb agreement issues, incorrect tense usage, and grammar mistakes in your English sentences.'
                 ),
-                // Footer Action
                 e('div', { className: 'card-action-link-footer' },
                     'Open Tool',
                     e('span', { className: 'arrow-vector' }, '→')
@@ -1184,7 +1250,6 @@ const SentenceChecker = () => {
     return e('main', { className: 'main-content', style: { paddingTop: '80px' } },
         e('div', { className: 'tester-section-wrapper', style: { maxWidth: '600px', width: '90%', margin: '0 auto', padding: '20px' } },
             
-            // Back Button with Glow Effect & max-content width
             e('button', {
                 onClick: () => { setIsOpen(false); setSentence(''); setStatus(''); setCorrectedText(''); setErrorDetails([]); },
                 onMouseEnter: () => setIsBackHovered(true),
@@ -1243,7 +1308,7 @@ const SentenceChecker = () => {
                         fontSize: 'clamp(12px, 4vw, 14px)',
                         wordBreak: 'break-word'
                     } 
-                }, 'Verify your sentence structure and get detailed suggestions instantly.'),
+                }, 'Check for tense errors, subject-verb agreement, and grammar mistakes.'),
 
                 e('div', { 
                     className: 'prompt-search-container',
@@ -1256,7 +1321,7 @@ const SentenceChecker = () => {
                     e('input', {
                         type: 'text',
                         className: 'prompt-input-field',
-                        placeholder: 'Type your English sentence here...',
+                        placeholder: 'Type your English sentence here... (e.g., "He go to school yesterday")',
                         value: sentence,
                         disabled: status === 'loading',
                         onChange: (event) => {
@@ -1292,7 +1357,7 @@ const SentenceChecker = () => {
                         textAlign: 'center',
                         wordBreak: 'break-word'
                     }
-                }, '✨ Tense is Correct! No mistakes found.'),
+                }, '✅ Sentence looks good! No tense or grammar mistakes found.'),
 
                 status === 'incorrect' && e('div', {
                     style: { 
@@ -1305,7 +1370,7 @@ const SentenceChecker = () => {
                         overflowX: 'auto'
                     }
                 },
-                    e('p', { style: { color: '#ef4444', fontWeight: 'bold', margin: '0 0 10px 0' } }, '❌ Issue Detected in Sentence Structure:'),
+                    e('p', { style: { color: '#ef4444', fontWeight: 'bold', margin: '0 0 10px 0' } }, '❌ Issues Detected:'),
                     e('ul', { 
                         style: { 
                             paddingLeft: '20px', 
@@ -1317,18 +1382,20 @@ const SentenceChecker = () => {
                     },
                         errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '6px', wordBreak: 'break-word' } }, err))
                     ),
-                    e('div', { style: { height: '1px', background: 'rgba(255,255,255,0.08)', marginBottom: '18px' } }),
-                    e('p', { style: { color: '#64748b', fontSize: '12px', margin: '0 0 6px 0', fontWeight: '600' } }, 'SUGGESTED CORRECTION:'),
-                    e('p', { 
-                        style: { 
-                            color: '#00f5ff', 
-                            margin: 0, 
-                            fontSize: 'clamp(1rem, 4vw, 1.2rem)', 
-                            fontWeight: '500',
-                            wordBreak: 'break-word',
-                            whiteSpace: 'normal'
-                        } 
-                    }, correctedText)
+                    correctedText !== sentence && e('div', { style: { marginTop: '15px' } },
+                        e('div', { style: { height: '1px', background: 'rgba(255,255,255,0.08)', marginBottom: '18px' } }),
+                        e('p', { style: { color: '#64748b', fontSize: '12px', margin: '0 0 6px 0', fontWeight: '600' } }, '💡 SUGGESTED CORRECTION:'),
+                        e('p', { 
+                            style: { 
+                                color: '#00f5ff', 
+                                margin: 0, 
+                                fontSize: 'clamp(1rem, 4vw, 1.2rem)', 
+                                fontWeight: '500',
+                                wordBreak: 'break-word',
+                                whiteSpace: 'normal'
+                            } 
+                        }, correctedText)
+                    )
                 )
             )
         )
