@@ -1039,11 +1039,10 @@ const ContactUs = () => {
 // --- NEW: English Sentence Checker Component ---
 // --- STRICT TENSE & GRAMMAR CHECKER COMPONENT ---
 // --- FIXED: Sentence Checker with Premium Card Design (Matching Calculator Hub) ---
-// --- FIXED: Sentence Checker with Proper Tense Detection ---
+// --- SENTENCE CHECKER - Card pe click karein to tool khule ---
 const SentenceChecker = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const [isBackHovered, setIsBackHovered] = useState(false);
     const [sentence, setSentence] = useState('');
     const [status, setStatus] = useState('');
     const [correctedText, setCorrectedText] = useState('');
@@ -1054,48 +1053,22 @@ const SentenceChecker = () => {
         const issues = [];
         let tempText = text;
         
-        // Common tense patterns to check
         const tensePatterns = [
-            // Present tense issues
-            { pattern: /\b(he|she|it)\s+(\w+?)(s|es)?\s+(\w+?)(s|es)?\b/gi, message: "Subject-verb agreement issue with he/she/it" },
-            // Past tense issues 
-            { pattern: /\b(yesterday|last\s+\w+|ago)\s+(\w+?)(s|es|ed)?\b/gi, message: "Past tense marker detected but verb may not be in past tense" },
-            // Future tense issues
-            { pattern: /\b(tomorrow|next\s+\w+|soon)\s+(\w+?)(ed|s|es)?\b/gi, message: "Future tense marker detected but verb may not be correct" },
-            // Is/Are/Am issues
-            { pattern: /\b(he|she|it)\s+are\b/gi, message: "Use 'is' instead of 'are' with he/she/it" },
-            { pattern: /\b(they|we|you)\s+is\b/gi, message: "Use 'are' instead of 'is' with they/we/you" },
-            { pattern: /\b(I)\s+is\b/gi, message: "Use 'am' instead of 'is' with 'I'" },
-            // Has/Have issues
-            { pattern: /\b(he|she|it)\s+have\b/gi, message: "Use 'has' instead of 'have' with he/she/it" },
-            { pattern: /\b(they|we|you|I)\s+has\b/gi, message: "Use 'have' instead of 'has' with they/we/you/I" },
-            // Was/Were issues
-            { pattern: /\b(they|we|you)\s+was\b/gi, message: "Use 'were' instead of 'was' with they/we/you" },
-            { pattern: /\b(he|she|it|I)\s+were\b/gi, message: "Use 'was' instead of 'were' with he/she/it/I (except for subjunctive)" },
-            // Verb tense mismatches with time indicators
-            { pattern: /\b(every\s+day|always|usually|sometimes|often|generally)\s+(\w+?ed)\b/gi, message: "Present time marker but past tense verb detected" },
-            { pattern: /\b(yesterday|last\s+\w+|ago|previously)\s+(\w+?s|es)\b/gi, message: "Past time marker but present tense verb detected" },
-            { pattern: /\b(tomorrow|next\s+\w+|soon|later)\s+(\w+?ed)\b/gi, message: "Future time marker but past tense verb detected" }
+            { pattern: /\b(he|she|it)\s+are\b/gi, message: "Use 'is' instead of 'are' with he/she/it", fix: (t) => t.replace(/\b(he|she|it)\s+are\b/gi, '$1 is') },
+            { pattern: /\b(they|we|you)\s+is\b/gi, message: "Use 'are' instead of 'is' with they/we/you", fix: (t) => t.replace(/\b(they|we|you)\s+is\b/gi, '$1 are') },
+            { pattern: /\b(I)\s+is\b/gi, message: "Use 'am' instead of 'is' with 'I'", fix: (t) => t.replace(/\bI\s+is\b/gi, 'I am') },
+            { pattern: /\b(he|she|it)\s+have\b/gi, message: "Use 'has' instead of 'have' with he/she/it", fix: (t) => t.replace(/\b(he|she|it)\s+have\b/gi, '$1 has') },
+            { pattern: /\b(they|we|you|I)\s+has\b/gi, message: "Use 'have' instead of 'has' with they/we/you/I", fix: (t) => t.replace(/\b(they|we|you|I)\s+has\b/gi, '$1 have') },
+            { pattern: /\b(they|we|you)\s+was\b/gi, message: "Use 'were' instead of 'was' with they/we/you", fix: (t) => t.replace(/\b(they|we|you)\s+was\b/gi, '$1 were') },
+            { pattern: /\b(he|she|it)\s+were\b/gi, message: "Use 'was' instead of 'were' with he/she/it", fix: (t) => t.replace(/\b(he|she|it)\s+were\b/gi, '$1 was') }
         ];
 
         for (const pattern of tensePatterns) {
             pattern.pattern.lastIndex = 0;
             if (pattern.pattern.test(text)) {
                 issues.push(pattern.message);
-                // Try to suggest fix
-                const match = pattern.pattern.exec(text);
-                if (match) {
-                    if (pattern.message.includes("is instead of are")) {
-                        tempText = tempText.replace(/\bare\b(?=\s+with)/i, 'is');
-                    } else if (pattern.message.includes("are instead of is")) {
-                        tempText = tempText.replace(/\bis\b(?=\s+with)/i, 'are');
-                    } else if (pattern.message.includes("am instead of is")) {
-                        tempText = tempText.replace(/\bis\b(?=\s+with)/i, 'am');
-                    } else if (pattern.message.includes("has instead of have")) {
-                        tempText = tempText.replace(/\bhave\b(?=\s+with)/i, 'has');
-                    } else if (pattern.message.includes("have instead of has")) {
-                        tempText = tempText.replace(/\bhas\b(?=\s+with)/i, 'have');
-                    }
+                if (pattern.fix) {
+                    tempText = pattern.fix(tempText);
                 }
             }
         }
@@ -1110,10 +1083,8 @@ const SentenceChecker = () => {
         setErrorDetails([]);
 
         try {
-            // First check tense issues locally
             const tenseResults = detectTenseIssues(sentence);
             
-            // Then call LanguageTool API for grammar
             const response = await fetch('https://api.languagetool.org/v2/check', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -1121,7 +1092,6 @@ const SentenceChecker = () => {
             });
             const data = await response.json();
             
-            // Filter grammar issues (excluding spelling)
             const grammarMatches = data.matches.filter(match =>
                 match.rule.issueType !== 'misspelling' && 
                 match.rule.category.id !== 'TYPOS' &&
@@ -1132,7 +1102,6 @@ const SentenceChecker = () => {
             let finalCorrectedText = sentence;
             let detailedReasons = [];
 
-            // Process grammar matches
             const sortedMatches = [...grammarMatches].sort((a, b) => b.offset - a.offset);
             sortedMatches.forEach(match => {
                 if (match.replacements && match.replacements[0]) {
@@ -1144,19 +1113,15 @@ const SentenceChecker = () => {
                 const issueType = match.rule.category.name || 'Grammar Issue';
                 const wrongWord = sentence.substring(match.offset, match.offset + match.length);
                 const correctWord = match.replacements && match.replacements[0] ? match.replacements[0].value : '?';
-                detailedReasons.push(`${issueType}: "${wrongWord}" → "${correctWord}" — ${match.message}`);
+                detailedReasons.push(`${issueType}: "${wrongWord}" → "${correctWord}"`);
                 allIssues.push(match.message);
             });
 
-            // Use tense corrected text if available
-            if (tenseResults.issues.length > 0) {
+            if (tenseResults.issues.length > 0 && tenseResults.correctedText !== sentence) {
                 finalCorrectedText = tenseResults.correctedText;
-                detailedReasons.forEach(reason => {
-                    if (!allIssues.includes(reason)) allIssues.push(reason);
-                });
             }
 
-            if (allIssues.length > 0 || grammarMatches.length > 0) {
+            if (allIssues.length > 0) {
                 setStatus('incorrect');
                 setCorrectedText(finalCorrectedText);
                 setErrorDetails(detailedReasons.length > 0 ? detailedReasons : tenseResults.issues);
@@ -1171,7 +1136,7 @@ const SentenceChecker = () => {
         }
     };
 
-    // 1. CARD VIEW (Calculator Hub Style)
+    // 1. CARD VIEW (Pehle card dikhega)
     if (!isOpen) {
         return e('div', { 
             className: 'calculator-container', 
@@ -1209,6 +1174,7 @@ const SentenceChecker = () => {
                 }
             }, 'Check English sentences for tense errors, subject-verb agreement, and grammar mistakes with AI-powered verification.'),
 
+            // Premium Card
             e('div', {
                 className: 'premium-tool-card calc-card',
                 onClick: () => setIsOpen(true),
@@ -1232,7 +1198,7 @@ const SentenceChecker = () => {
                     boxShadow: isHovered ? '0 20px 30px -10px rgba(0, 0, 0, 0.5)' : 'none'
                 }
             },
-                e('div', { className: 'premium-badge' }, '📝 Tense & Grammar Audit'),
+                e('div', { className: 'premium-badge' }, '📝 Grammar Audit'),
                 e('div', { className: 'card-icon-container' }, '✍️'),
                 e('h3', { className: 'card-main-title', style: { wordBreak: 'break-word' } }, 'English Tense & Grammar Checker'),
                 e('p', { className: 'card-secondary-desc', style: { wordBreak: 'break-word' } },
@@ -1246,14 +1212,19 @@ const SentenceChecker = () => {
         );
     }
 
-    // 2. ACTUAL TOOL INTERFACE
+    // 2. TOOL INTERFACE (Card click karne ke baad ye khulega - Bilkul tumhari wali design)
     return e('main', { className: 'main-content', style: { paddingTop: '80px' } },
         e('div', { className: 'tester-section-wrapper', style: { maxWidth: '600px', width: '90%', margin: '0 auto', padding: '20px' } },
             
+            // Back button to go back to card
             e('button', {
-                onClick: () => { setIsOpen(false); setSentence(''); setStatus(''); setCorrectedText(''); setErrorDetails([]); },
-                onMouseEnter: () => setIsBackHovered(true),
-                onMouseLeave: () => setIsBackHovered(false),
+                onClick: () => { 
+                    setIsOpen(false); 
+                    setSentence(''); 
+                    setStatus(''); 
+                    setCorrectedText(''); 
+                    setErrorDetails([]); 
+                },
                 style: {
                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))',
                     border: '1px solid rgba(255, 255, 255, 0.12)',
@@ -1268,9 +1239,7 @@ const SentenceChecker = () => {
                     alignItems: 'center',
                     gap: '8px',
                     letterSpacing: '0.5px',
-                    boxShadow: isBackHovered 
-                        ? '0 0 15px rgba(0, 245, 255, 0.6), 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)' 
-                        : '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
                     transition: 'all 0.3s ease',
                     backdropFilter: 'blur(10px)',
                     WebkitBackdropFilter: 'blur(10px)',
