@@ -1134,7 +1134,7 @@ const SentenceChecker = () => {
                     onClick: handleCheck,
                     disabled: status === 'loading',
                     style: { width: '100%', justifyContent: 'center', opacity: status === 'loading' ? 0.7 : 1 }
-                }, status === 'loading' ? '⏳ Verifying Tenses...' : '🔍 Check Tense'),
+                }, status === 'loading' ? '⏳ Verifying Tenses...' : '🔍 Check Sentence'),
 
                 status === 'perfect' && e('div', {
                     style: { marginTop: '15px', padding: '15px', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid #22c55e', borderRadius: '8px', color: '#22c55e', fontWeight: 'bold', textAlign: 'center' }
