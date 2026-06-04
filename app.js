@@ -1213,162 +1213,89 @@ const SentenceChecker = () => {
     }
 
     // 2. TOOL INTERFACE (Card click karne ke baad ye khulega - Bilkul tumhari wali design)
-    return e('main', { className: 'main-content', style: { paddingTop: '80px' } },
-        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '600px', width: '90%', margin: '0 auto', padding: '20px' } },
-            
-            // Back button to go back to card
-            e('button', {
-                onClick: () => { 
-                    setIsOpen(false); 
-                    setSentence(''); 
-                    setStatus(''); 
-                    setCorrectedText(''); 
-                    setErrorDetails([]); 
-                },
-                style: {
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02))',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    color: '#00f5ff',
-                    cursor: 'pointer',
-                    marginBottom: '25px',
-                    padding: '8px 16px',
-                    borderRadius: '30px',
-                    fontSize: '0.85rem',
-                    fontWeight: '600',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    letterSpacing: '0.5px',
-                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
-                    transition: 'all 0.3s ease',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    width: 'max-content'
-                }
-            }, '← Back to Card'),
+    // 2. TOOL INTERFACE - BioWriter style
+return e('main', { className: 'main-content' },
+    e('div', { className: 'tester-section-wrapper', style: { textAlign: 'center' } },
 
-            e('div', { 
-                style: { 
-                    background: 'rgba(30, 41, 59, 0.7)', 
-                    backdropFilter: 'blur(12px)', 
-                    padding: 'clamp(20px, 5vw, 35px)', 
-                    borderRadius: '20px', 
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    width: '100%',
-                    boxSizing: 'border-box',
-                    overflowX: 'auto'
-                } 
+        // Back button — heading se upar
+        e('button', {
+            onClick: () => {
+                setIsOpen(false);
+                setSentence('');
+                setStatus('');
+                setCorrectedText('');
+                setErrorDetails([]);
             },
-                e('h2', { 
-                    className: 'tester-main-title', 
-                    style: { 
-                        textAlign: 'center', 
-                        marginBottom: '8px', 
-                        fontSize: 'clamp(1.4rem, 5vw, 1.8rem)',
-                        wordBreak: 'break-word'
-                    } 
-                }, '📝 Tense & Grammar Checker'),
-                
-                e('p', { 
-                    style: { 
-                        color: '#64748b', 
-                        textAlign: 'center', 
-                        marginBottom: '30px', 
-                        fontSize: 'clamp(12px, 4vw, 14px)',
-                        wordBreak: 'break-word'
-                    } 
-                }, 'Check for tense errors, subject-verb agreement, and grammar mistakes.'),
+            style: {
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02))',
+                border: '1px solid rgba(255,255,255,0.12)',
+                color: '#00f5ff',
+                cursor: 'pointer',
+                padding: '8px 18px',
+                borderRadius: '30px',
+                fontSize: '0.85rem',
+                fontWeight: '600',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                letterSpacing: '0.5px',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                marginBottom: '24px',
+                width:'max-content'
+            }
+        }, '← Back to Card'),
 
-                e('div', { 
-                    className: 'prompt-search-container',
-                    style: {
-                        width: '100%',
-                        boxSizing: 'border-box'
-                    }
-                },
-                    e('span', { className: 'prompt-icon' }, '✍️'),
-                    e('input', {
-                        type: 'text',
-                        className: 'prompt-input-field',
-                        placeholder: 'Type your English sentence here... (e.g., "He go to school yesterday")',
-                        value: sentence,
-                        disabled: status === 'loading',
-                        onChange: (event) => {
-                            setSentence(event.target.value);
-                            setStatus('');
-                        },
-                        style: {
-                            width: '100%',
-                            boxSizing: 'border-box',
-                            overflowX: 'auto',
-                            whiteSpace: 'normal',
-                            wordBreak: 'break-word'
-                        }
-                    })
-                ),
+        e('h2', { className: 'tester-main-title' }, '📝 Tense & Grammar Checker'),
+        e('p', { style: { color: '#64748b', marginBottom: '30px' } }, 'Type your English sentence below and check for tense errors, subject-verb agreement, and grammar mistakes'),
 
-                e('button', {
-                    className: 'action-btn',
-                    onClick: handleCheck,
+        // CONTAINER FOR INPUT
+        e('div', { style: { maxWidth: '500px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' } },
+
+            // Sentence Input Field
+            e('div', { className: 'prompt-search-container' },
+                e('span', { className: 'prompt-icon' }, '✍️'),
+                e('input', {
+                    type: 'text',
+                    className: 'prompt-input-field',
+                    placeholder: 'Type your English sentence here... (e.g., "He go to school yesterday")',
+                    value: sentence,
                     disabled: status === 'loading',
-                    style: { width: '100%', justifyContent: 'center', marginTop: '20px' }
-                }, status === 'loading' ? '⏳ Verifying...' : '🔍 Check Sentence'),
-
-                status === 'perfect' && e('div', {
-                    style: { 
-                        marginTop: '24px', 
-                        padding: '15px', 
-                        background: 'rgba(34, 197, 94, 0.1)', 
-                        border: '1px solid #22c55e', 
-                        borderRadius: '10px', 
-                        color: '#22c55e', 
-                        fontWeight: 'bold', 
-                        textAlign: 'center',
-                        wordBreak: 'break-word'
+                    onChange: (event) => {
+                        setSentence(event.target.value);
+                        setStatus('');
                     }
-                }, '✅ Sentence looks good! No tense or grammar mistakes found.'),
+                })
+            )
+        ),
 
-                status === 'incorrect' && e('div', {
-                    style: { 
-                        marginTop: '24px', 
-                        padding: '20px', 
-                        background: 'rgba(239, 68, 68, 0.05)', 
-                        border: '1px solid rgba(239, 68, 68, 0.3)', 
-                        borderRadius: '14px',
-                        wordBreak: 'break-word',
-                        overflowX: 'auto'
-                    }
-                },
-                    e('p', { style: { color: '#ef4444', fontWeight: 'bold', margin: '0 0 10px 0' } }, '❌ Issues Detected:'),
-                    e('ul', { 
-                        style: { 
-                            paddingLeft: '20px', 
-                            margin: '0 0 18px 0', 
-                            color: '#94a3b8', 
-                            fontSize: 'clamp(12px, 3.5vw, 0.95rem)',
-                            wordBreak: 'break-word'
-                        } 
-                    },
-                        errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '6px', wordBreak: 'break-word' } }, err))
-                    ),
-                    correctedText !== sentence && e('div', { style: { marginTop: '15px' } },
-                        e('div', { style: { height: '1px', background: 'rgba(255,255,255,0.08)', marginBottom: '18px' } }),
-                        e('p', { style: { color: '#64748b', fontSize: '12px', margin: '0 0 6px 0', fontWeight: '600' } }, '💡 SUGGESTED CORRECTION:'),
-                        e('p', { 
-                            style: { 
-                                color: '#00f5ff', 
-                                margin: 0, 
-                                fontSize: 'clamp(1rem, 4vw, 1.2rem)', 
-                                fontWeight: '500',
-                                wordBreak: 'break-word',
-                                whiteSpace: 'normal'
-                            } 
-                        }, correctedText)
-                    )
-                )
+        // Check Button
+        e('button', {
+            className: 'action-btn',
+            onClick: handleCheck,
+            disabled: status === 'loading',
+            style: { marginTop: '30px' }
+        }, status === 'loading' ? '⏳ Verifying...' : '🔍 Check Sentence'),
+
+        // SUCCESS RESULT
+        status === 'perfect' && e('div', { className: 'result-card', style: { marginTop: '40px', padding: '30px' } },
+            e('h3', { className: 'result-title', style: { fontSize: '1.2rem', marginBottom: '15px', color: '#22c55e' } }, '✅ Perfect Sentence!'),
+            e('p', { className: 'text-display', style: { color: '#22c55e', fontSize: '1.1rem', lineHeight: '1.6', textAlign: 'left' } }, 'No tense or grammar mistakes found. Your sentence looks great!')
+        ),
+
+        // ERROR RESULT
+        status === 'incorrect' && e('div', { className: 'result-card', style: { marginTop: '40px', padding: '30px', borderLeft: '4px solid #ef4444' } },
+            e('h3', { className: 'result-title', style: { fontSize: '1.2rem', marginBottom: '15px', color: '#ef4444' } }, '❌ Issues Detected:'),
+            e('ul', { style: { paddingLeft: '20px', color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.8', textAlign: 'left' } },
+                errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '6px' } }, err))
+            ),
+            correctedText && correctedText !== sentence && e('div', { style: { marginTop: '20px' } },
+                e('p', { style: { color: '#64748b', fontSize: '12px', margin: '0 0 8px 0', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' } }, '💡 Suggested Correction:'),
+                e('p', { className: 'text-display', style: { color: '#00f5ff', fontSize: '1.1rem', lineHeight: '1.6', textAlign: 'left' } }, correctedText)
             )
         )
-    );
+    )
+);
 };
 // --- NEW: Premium Home Component with Typewriter ---
 const Home = ({ navigate }) => {
