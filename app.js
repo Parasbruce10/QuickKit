@@ -1118,6 +1118,7 @@ const SentenceChecker = () => {
                     e('input', {
                         type: 'text',
                         className: 'prompt-input-field',
+                        style: { minWidth: '0', width: '100%', boxSizing: 'border-box' },
                         placeholder: 'Write your sentence here',
                         value: sentence,
                         disabled: status === 'loading',
@@ -1133,7 +1134,7 @@ const SentenceChecker = () => {
                     onClick: handleCheck,
                     disabled: status === 'loading',
                     style: { width: '100%', justifyContent: 'center', opacity: status === 'loading' ? 0.7 : 1 }
-                }, status === 'loading' ? '⏳ Verifying Tenses...' : '🔍 Check Tense Structure'),
+                }, status === 'loading' ? '⏳ Verifying Tenses...' : '🔍 Check Tense'),
 
                 status === 'perfect' && e('div', {
                     style: { marginTop: '15px', padding: '15px', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid #22c55e', borderRadius: '8px', color: '#22c55e', fontWeight: 'bold', textAlign: 'center' }
@@ -1144,14 +1145,14 @@ const SentenceChecker = () => {
                 },
                     e('p', { style: { color: '#ef4444', fontWeight: 'bold', margin: '0 0 8px 0', fontSize: '1.1rem' } }, '❌ Incorrect Tense / Grammar Structure'),
 
-                    e('ul', { style: { paddingLeft: '20px', margin: '0 0 15px 0', color: '#94a3b8', fontSize: '0.95rem' } },
+                  e('ul', { style: { paddingLeft: '20px', margin: '0 0 15px 0', color: '#94a3b8', fontSize: '0.95rem', wordBreak: 'break-word', overflowWrap: 'break-word' } },
                         errorDetails.map((err, idx) => e('li', { key: idx, style: { marginBottom: '5px' } }, err))
                     ),
 
                     e('div', { style: { height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '15px' } }),
 
                     e('p', { style: { color: '#64748b', fontSize: '0.85rem', margin: '0 0 4px 0' } }, 'CORRECTED SENTENCE:'),
-                    e('p', { style: { color: '#00f5ff', margin: 0, fontSize: '1.2rem', fontWeight: '500' } }, correctedText)
+                  e('p', { style: { color: '#00f5ff', margin: 0, fontSize: '1.2rem', fontWeight: '500', wordBreak: 'break-word', overflowWrap: 'break-word' } }, correctedText)  
                 )
             )
         )
