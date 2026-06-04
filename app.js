@@ -1166,7 +1166,8 @@ const Home = ({ navigate }) => {
         "Premium digital utilities for your workflow.",
         "Test typing speed with advanced precision metrics.",
         "Evaluate password strength and generate bios.",
-        "Calculate exact age and daily calorie metrics."
+        "Calculate exact age and daily calorie metrics.",
+        "Check your English tenses and grammar structures rules."
     ];
 
     useEffect(() => {
@@ -1278,6 +1279,7 @@ const Home = ({ navigate }) => {
                                 ),
                                 e('span', { className: 'tool-card-status status-orange' }, 'Instant')
                             ),
+                            
                             // Tool 4: AI Bio Writer Animation (Yeh Naya Box Hai)
                             e('div', { className: 'tool-motion-card t-bio' },
                                 e('div', { className: 'tool-card-icon' }, '✍️'),
@@ -1287,9 +1289,34 @@ const Home = ({ navigate }) => {
                                 ),
                                 e('span', { className: 'tool-card-status status-pink' }, 'AI Ready')
                             ),
+                            
 
                             // Background Glow effect
-                            e('div', { className: 'toolkit-core-glow' })
+                            e('div', { className: 'toolkit-core-glow' }),
+                            e('div', { 
+    className: 'tool-motion-card t-calc', // Aapki purani card animation class
+    style: {
+        transition: 'all 0.3s ease',
+        cursor: 'pointer'
+    },
+    // Hover karne par border glow karega ✨
+    onMouseEnter: (e) => {
+        e.currentTarget.style.borderColor = '#8b5cf6'; // Bright purple border
+        e.currentTarget.style.boxShadow = '0 0 15px rgba(139, 92, 246, 0.6)'; // Soft neon glow
+    },
+    // Mouse hatne par wapis normal ho jayega
+    onMouseLeave: (e) => {
+        e.currentTarget.style.borderColor = ''; // Normal border
+        e.currentTarget.style.boxShadow = ''; // Normal shadow
+    }
+},
+    e('div', { className: 'tool-card-icon' }, '✍️'), // Sentence checker ka icon
+    e('div', { className: 'tool-card-info' },
+        e('span', { className: 'tool-card-name' }, 'Sentence Checker'), // Tool ka naam
+        e('span', { className: 'math-stream-text' }, 'Grammar & Tense Audit') // Subtext / description
+    ),
+    e('span', { className: 'tool-card-status status-orange' }, 'Instant')
+)
                         )
                     )
                 ),
@@ -1297,7 +1324,7 @@ const Home = ({ navigate }) => {
                 // ROW 2: "4+ Tools" wala section jo split row ke bilkul NEECHAY hai (Animation se strictly niche)
                 e('div', { className: 'hero-stats-row' },
                     e('div', { className: 'stat-item stat-delay-1' },
-                        e('div', { className: 'stat-number' }, '4+'),
+                        e('div', { className: 'stat-number' }, '5+'),
                         e('div', { className: 'stat-label' }, 'Tools')
                     ),
                     e('div', { className: 'stat-item stat-delay-2' },
@@ -1366,7 +1393,34 @@ const Home = ({ navigate }) => {
                         e('p', { className: 'card-secondary-desc' }, 'Instantly calculate your exact age, daily calorie maintenance, and complex percentage metrics.')
                     ),
                     e('div', { className: 'card-action-link-footer' }, 'Open Calculators', e('span', { className: 'arrow-vector' }, '→'))
-                )
+                ),
+e('div', {
+    className: 'premium-tool-card premium-card-delay-5', // Normal class rakhi hy taake background baqi cards jaisa rahe
+    style: {
+        transition: 'all 0.3s ease',
+    },
+    // Mouse upar aane par border glow karega ✨
+    onMouseEnter: (e) => {
+        e.currentTarget.style.borderColor = '#8b5cf6'; // Purple color ka border
+        e.currentTarget.style.boxShadow = '0 0 15px rgba(139, 92, 246, 0.6)'; // Glow effect
+        e.currentTarget.style.transform = 'translateY(-5px)'; // Thoda upar uthega
+    },
+    // Mouse hatne par wapis normal ho jayega
+    onMouseLeave: (e) => {
+        e.currentTarget.style.borderColor = ''; // Normal border
+        e.currentTarget.style.boxShadow = ''; // Normal shadow
+        e.currentTarget.style.transform = ''; // Normal position
+    },
+    onClick: () => navigate('sentencechecker')
+},
+    e('div', null,
+        e('div', { className: 'premium-badge' }, '📝 Grammar Audit'),
+        e('div', { className: 'card-icon-container' }, '✍️'),
+        e('h3', { className: 'card-main-title' }, 'English Sentence Checker'),
+        e('p', { className: 'card-secondary-desc' }, 'Verify your sentence structures, evaluate strict tense rules, and fix grammatical mistakes instantly.')
+    ),
+    e('div', { className: 'card-action-link-footer' }, 'Analyze Tense Structure', e('span', { className: 'arrow-vector' }, '→'))
+)
             ),
 
             // ── HOW IT WORKS ──
