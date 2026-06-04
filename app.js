@@ -1138,75 +1138,20 @@ const SentenceChecker = () => {
 
     // 1. CARD VIEW (Pehle card dikhega)
     if (!isOpen) {
-        return e('div', { 
-            className: 'calculator-container', 
-            style: { 
-                padding: '90px 20px 40px 20px',
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'center',
-                gap: '12px'
-            } 
+        return e('div', {
+            className: 'container-section calculator-hub-wrapper'
         },
-            e('h2', { 
-                className: 'tester-main-title', 
-                style: { 
-                    textAlign: 'center', 
-                    fontSize: 'clamp(1.8rem, 5vw, 2.4rem)', 
-                    color: '#ffffff',
-                    fontWeight: '700',
-                    margin: '0',
-                    letterSpacing: '0.5px',
-                    wordBreak: 'break-word'
-                } 
-            }, 'Sentence Checker'),
+            e('div', { style: { textAlign: 'center', marginBottom: '60px' } },
+                e('h1', { className: 'brand-title', style: { marginBottom: '15px' } }, '📝 Grammar Checker'),
+                e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } }, 'Check your English sentences for tense errors, subject-verb agreement, and grammar mistakes instantly.')
+            ),
 
-            e('p', {
-                style: {
-                    color: '#64748b',
-                    fontSize: 'clamp(13px, 4vw, 15px)',
-                    textAlign: 'center',
-                    margin: '0 0 20px 0',
-                    maxWidth: '500px',
-                    lineHeight: '1.5',
-                    padding: '0 10px',
-                    wordBreak: 'break-word'
-                }
-            }, 'Check English sentences for tense errors, subject-verb agreement, and grammar mistakes with AI-powered verification.'),
-
-            // Premium Card
-            e('div', {
-                className: 'premium-tool-card calc-card',
-                onClick: () => setIsOpen(true),
-                onMouseEnter: () => setIsHovered(true),
-                onMouseLeave: () => setIsHovered(false),
-                style: {
-                    cursor: 'pointer',
-                    padding: '24px',
-                    borderRadius: '20px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    textAlign: 'left',
-                    width: '100%',
-                    maxWidth: '420px',
-                    background: isHovered ? 'rgba(30, 41, 59, 0.7)' : 'rgba(30, 41, 59, 0.45)',
-                    backdropFilter: 'blur(12px)',
-                    border: isHovered ? '1px solid rgba(0, 245, 255, 0.6)' : '1px solid rgba(255, 255, 255, 0.08)',
-                    transform: isHovered ? 'translateY(-5px)' : 'translateY(0px)',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    boxShadow: isHovered ? '0 20px 30px -10px rgba(0, 0, 0, 0.5)' : 'none'
-                }
-            },
-                e('div', { className: 'premium-badge' }, '📝 Grammar Audit'),
-                e('div', { className: 'card-icon-container' }, '✍️'),
-                e('h3', { className: 'card-main-title', style: { wordBreak: 'break-word' } }, 'English Tense & Grammar Checker'),
-                e('p', { className: 'card-secondary-desc', style: { wordBreak: 'break-word' } },
-                    'Detect subject-verb agreement issues, incorrect tense usage, and grammar mistakes in your English sentences.'
-                ),
-                e('div', { className: 'card-action-link-footer' },
-                    'Open Tool',
-                    e('span', { className: 'arrow-vector' }, '→')
+            e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '400px', margin: '0 auto' } },
+                e('div', { className: 'glass-calc-card', onClick: () => setIsOpen(true) },
+                    e('div', { className: 'calc-icon' }, '✍️'),
+                    e('h3', { style: { fontSize: '20px' } }, 'English Tense & Grammar Checker'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, 'Detect subject-verb agreement issues, incorrect tense usage, and grammar mistakes in your English sentences.'),
+                    e('div', { className: 'calc-action' }, 'Open Tool →')
                 )
             )
         );
