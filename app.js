@@ -1167,7 +1167,7 @@ const Home = ({ navigate }) => {
         "Test typing speed with advanced precision metrics.",
         "Evaluate password strength and generate bios.",
         "Calculate exact age and daily calorie metrics.",
-        "Check your English tenses and grammar structures rules."
+        "Fix grammar and check tenses instantly."
     ];
 
     useEffect(() => {
