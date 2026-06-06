@@ -1054,6 +1054,9 @@ const SentenceChecker = () => {
     const [translateStatus, setTranslateStatus] = useState('idle'); // idle, loading, success, error
     const [sourceLang, setSourceLang] = useState('en');
     const [targetLang, setTargetLang] = useState('ur');
+    // --- WORD COUNTER STATES ---
+    const [isWordCounterOpen, setIsWordCounterOpen] = useState(false);
+    const [wordText, setWordText] = useState('');
 
     // --- TRANSLATION FETCH FUNCTION ---
     const handleTranslate = async () => {
@@ -1166,9 +1169,8 @@ const SentenceChecker = () => {
     };
 
     // 1. CARD VIEW (Pehle card dikhega)
-    // 1. CARD VIEW (Dono cards ab tabhi dikhenge jab koi tool open na ho)
     // 1. CARD VIEW (Glowmorphism Effect Ke Sath)
-    if (!isOpen && !isTranslateOpen) {
+    if (!isOpen && !isTranslateOpen && !isWordCounterOpen) {
         return e('div', { 
             className: 'container-section calculator-hub-wrapper',
             style: { textAlign: 'center', padding: '40px 20px' } 
@@ -1196,8 +1198,16 @@ const SentenceChecker = () => {
                     e('h3', { style: { fontSize: '20px' } }, 'English Tense & Grammar Checker'),
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, 'Detect subject-verb agreement issues, incorrect tense usage, and grammar mistakes in your English sentences.'),
                     e('div', { className: 'calc-action' }, 'Open Tool →')
+                )// 3. NAYA CARD (Word Counter)
+                , e('div', { 
+                    className: 'glass-calc-card glowmorphism-card',
+                    onClick: () => setIsWordCounterOpen(true) 
+                },
+                    e('div', { className: 'calc-icon' }, '📊'),
+                    e('h3', { style: { fontSize: '20px' } }, 'Word & Text Counter'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, 'Apne paragraph ko paste karein aur words, spaces, sentences aur lines ka fori hisab lagayein.'),
+                    e('div', { className: 'calc-action' }, 'Open Tool →')
                 ),
-
                 // 2. NAYA CARD (Universal Translation)
                 e('div', { 
                     className: 'glass-calc-card glowmorphism-card', // Dono classes mix kar di
@@ -1332,6 +1342,97 @@ const SentenceChecker = () => {
                 },
                     e('h4', { style: { color: '#00f5ff', fontSize: '13px', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px', textAlign: 'left' } }, 'Translated Output:'),
                     e('p', { style: { color: '#fff', fontSize: '19px', lineHeight: '1.6', margin: 0 } }, translatedOutput)
+                )
+            )
+        );
+    }
+    // 1.8 WORD COUNTER TOOL INTERFACE
+    if (isWordCounterOpen) {
+        // Realtime Calculations
+        const text = wordText || '';
+        const charCount = text.length;
+        const charNoSpaces = text.replace(/\s/g, '').length;
+        const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+        const spaceCount = text.split(' ').length - 1;
+        const sentenceCount = text.trim() ? text.split(/[.!?]+/).filter(Boolean).length : 0;
+        const lineCount = text.trim() ? text.split(/\r\n|\r|\n/).length : 0;
+
+        return e('main', { className: 'main-content' },
+            e('div', { className: 'tester-section-wrapper', style: { textAlign: 'center', maxWidth: '800px', margin: '0 auto' } },
+
+                // Back Button
+                e('button', {
+                    onClick: () => {
+                        setIsWordCounterOpen(false);
+                        setWordText('');
+                    },
+                    style: {
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02))',
+                        border: '1px solid rgba(255,255,255,0.12)',
+                        color: '#00f5ff',
+                        cursor: 'pointer',
+                        padding: '8px 18px',
+                        borderRadius: '30px',
+                        fontSize: '0.85rem',
+                        fontWeight: '600',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        marginBottom: '24px',
+                        width: 'max-content'
+                    }
+                }, '← Back to Menu'),
+
+                e('h2', { className: 'tester-main-title' }, '📊 Live Word & Text Counter'),
+                e('p', { style: { color: '#64748b', marginBottom: '30px' } }, 'Paste your paragraph below to instantly count words, spaces, sentences, and lines.'),
+
+                // Textarea for pasting paragraph
+                e('textarea', {
+                    value: wordText,
+                    onChange: (e) => setWordText(e.target.value),
+                    placeholder: 'Apna text yahan paste karein...',
+                    style: {
+                        width: '100%',
+                        height: '180px',
+                        padding: '18px',
+                        borderRadius: '12px',
+                        background: 'rgba(255,255,255,0.03)',
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        color: '#fff',
+                        fontSize: '16px',
+                        resize: 'vertical',
+                        marginBottom: '30px',
+                        outline: 'none',
+                        boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.2)'
+                    }
+                }),
+
+                // Stats Grid
+                e('div', { className: 'result-grid', style: { gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '20px' } },
+                    e('div', { className: 'result-box' },
+                        e('div', { className: 'res-val cyan' }, wordCount),
+                        e('div', { className: 'res-label' }, 'Words')
+                    ),
+                    e('div', { className: 'result-box' },
+                        e('div', { className: 'res-val pink' }, charCount),
+                        e('div', { className: 'res-label' }, 'Characters')
+                    ),
+                    e('div', { className: 'result-box' },
+                        e('div', { className: 'res-val purple' }, spaceCount),
+                        e('div', { className: 'res-label' }, 'Spaces')
+                    ),
+                    e('div', { className: 'result-box' },
+                        e('div', { className: 'res-val' }, sentenceCount),
+                        e('div', { className: 'res-label' }, 'Sentences')
+                    ),
+                    e('div', { className: 'result-box' },
+                        e('div', { className: 'res-val', style: { color: '#eab308' } }, lineCount),
+                        e('div', { className: 'res-label' }, 'Lines')
+                    ),
+                    e('div', { className: 'result-box' },
+                        e('div', { className: 'res-val', style: { color: '#22c55e' } }, charNoSpaces),
+                        e('div', { className: 'res-label' }, 'Chars (No Space)')
+                    )
                 )
             )
         );
