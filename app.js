@@ -1172,7 +1172,7 @@ const SentenceChecker = () => {
             className: 'container-section calculator-hub-wrapper'
         },
             e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '800px', margin: '0 auto' } },
-                
+
                 // 1. PEHLA CARD (Grammar Checker)
                 e('div', { className: 'glass-calc-card', onClick: () => setIsOpen(true) },
                     e('div', { className: 'calc-icon' }, '✍️'),
@@ -1195,7 +1195,7 @@ const SentenceChecker = () => {
     if (isTranslateOpen) {
         return e('main', { className: 'main-content' },
             e('div', { className: 'tester-section-wrapper', style: { textAlign: 'center', maxWidth: '700px', margin: '0 auto' } },
-                
+
                 // Back Button
                 e('button', {
                     onClick: () => {
@@ -1235,7 +1235,7 @@ const SentenceChecker = () => {
                         e('option', { value: 'ur' }, 'Urdu (اردو)'),
                         e('option', { value: 'hi' }, 'Hindi (हिन्दी)')
                     ),
-                    
+
                     // Language Swapper Button
                     e('button', {
                         onClick: () => {
@@ -1246,7 +1246,7 @@ const SentenceChecker = () => {
                         style: { background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#00f5ff', fontSize: '18px', padding: '8px 12px', borderRadius: '50%', cursor: 'pointer' },
                         title: 'Swap Languages'
                     }, '🔄'),
-                    
+
                     e('select', {
                         value: targetLang,
                         onChange: (e) => setTargetLang(e.target.value),
@@ -1381,7 +1381,7 @@ const SentenceChecker = () => {
                 disabled: status === 'loading',
                 style: { marginTop: '30px' }
             }, status === 'loading' ? '⏳ Verifying...' : '🔍 Check Sentence'),
-            
+
 
             // SUCCESS RESULT
             status === 'perfect' && e('div', { className: 'result-card', style: { marginTop: '40px', padding: '30px' } },
