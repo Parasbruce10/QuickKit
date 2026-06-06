@@ -2965,17 +2965,42 @@ const AllInOneCalculator = () => {
                 onClick: () => setActiveCalc('course-cgpa')
             }),
             // Isko CGPA card wale code ke foran baad paste karein
+            // Scientific Calculator Card - Sentence Checker Style Design
             e('div', {
-                className: 'premium-tool-card calc-card',
-                onClick: () => setActiveCalc('scientific')  // ✅ SAHI // <-- DHEAYAN RAHE: Aap apne state function ka naam yahan likhein jo "active" change karta hy
+                className: 'glass-calc-card glowmorphism-card', // Aapki glass aur prism glow classes
+                onClick: () => setActiveCalc('scientific'),
+                style: { cursor: 'pointer' }
             },
-                e('div', null,
-                    e('div', { className: 'premium-badge' }, '🔬 Advanced Math'),
-                    e('div', { className: 'card-icon-container' }, '📐'),
-                    e('h3', { className: 'card-main-title' }, 'Scientific Calculator'),
-                    e('p', { className: 'card-secondary-desc' }, 'Evaluate complex mathematical expressions, trigonometry, and logarithms instantly inside your browser.')
+                // Icon block top par
+                e('div', { className: 'calc-icon' }, '🔬'),
+                
+                // Title
+                e('h3', { style: { fontSize: '20px', fontWeight: '600' } }, 'Scientific Calculator'),
+                
+                // Badge (Advanced Math) ko title ke thik niche pyara sa render karne ke liye
+                e('span', { 
+                    style: {
+                        display: 'inline-block',
+                        background: 'rgba(0, 245, 255, 0.1)',
+                        color: '#00f5ff',
+                        padding: '3px 10px',
+                        borderRadius: '20px',
+                        fontSize: '11px',
+                        fontWeight: '600',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        marginBottom: '12px',
+                        border: '1px solid rgba(0, 245, 255, 0.2)'
+                    }
+                }, '🔬 Advanced Math'),
+
+                // Description Paragraph
+                e('p', { style: { fontSize: '14px', lineHeight: '1.6', marginTop: '4px' } }, 
+                    'Evaluate complex mathematical expressions, trigonometry, and logarithms instantly inside your browser.'
                 ),
-                e('div', { className: 'card-action-link-footer' }, 'Open Calculator', e('span', { className: 'arrow-vector' }, '→'))
+                
+                // Bottom Footer Action Link
+                e('div', { className: 'calc-action' }, 'Open Tool →')
             )
         )
     );
