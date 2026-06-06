@@ -198,6 +198,17 @@ const Content = () => {
 
                 // --- NAYI HEADING CORNERSTONE YAHAN ADD KAREIN ---
                 e('h2', { className: 'tester-main-title', style: { textAlign: 'center' } }, 'Typing Speed Tester'),
+                // Title ke neeche detail description text add kiya
+                e('p', { 
+                    style: { 
+                        color: '#94a3b8', 
+                        fontSize: '15px', 
+                        lineHeight: '1.6', 
+                        maxWidth: '600px', 
+                        margin: '0 auto 30px auto',
+                        textAlign: 'center'
+                    } 
+                }, 'Test your typing speed and accuracy in real-time. Start typing the text below to calculate your WPM.'),
                 // Prompt Search Input Bar
                 e('div', { className: 'prompt-search-container' },
                     e('span', { className: 'prompt-icon' }, '✦'),
