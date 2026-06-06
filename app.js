@@ -1167,22 +1167,42 @@ const SentenceChecker = () => {
 
     // 1. CARD VIEW (Pehle card dikhega)
     // 1. CARD VIEW (Dono cards ab tabhi dikhenge jab koi tool open na ho)
+    // 1. CARD VIEW (Glowmorphism Effect Ke Sath)
     if (!isOpen && !isTranslateOpen) {
-        return e('div', {
-            className: 'container-section calculator-hub-wrapper'
+        return e('div', { 
+            className: 'container-section calculator-hub-wrapper',
+            style: { textAlign: 'center', padding: '40px 20px' } 
         },
-            e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '800px', margin: '0 auto' } },
+            // ─── MOVING GLOW HEADING ───
+            e('h2', { 
+                className: 'moving-glow-text', // CSS class lagayi chalne wale color ke liye
+                style: { fontSize: '36px', marginBottom: '12px', fontWeight: '800', letterSpacing: '0.5px' } 
+            }, '📝 Sentence Checker & Language Hub'),
 
+            // ─── DETAIL TEXT ───
+            e('p', { 
+                style: { color: '#94a3b8', fontSize: '16px', maxWidth: '600px', margin: '0 auto 40px auto', lineHeight: '1.6' } 
+            }, 'Apni English grammar durust karein, tenses ke masle hal karein, ya phir apne text ko ba-asani Urdu aur Hindi mein translate karein.'),
+            
+            // Cards Grid
+            e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '800px', margin: '0 auto' } },
+                
                 // 1. PEHLA CARD (Grammar Checker)
-                e('div', { className: 'glass-calc-card', onClick: () => setIsOpen(true) },
+                e('div', { 
+                    className: 'glass-calc-card glowmorphism-card', // Dono classes mix kar di
+                    onClick: () => setIsOpen(true) 
+                },
                     e('div', { className: 'calc-icon' }, '✍️'),
                     e('h3', { style: { fontSize: '20px' } }, 'English Tense & Grammar Checker'),
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, 'Detect subject-verb agreement issues, incorrect tense usage, and grammar mistakes in your English sentences.'),
                     e('div', { className: 'calc-action' }, 'Open Tool →')
                 ),
 
-                // 2. NAYA CARD (Translation - Isme alert hata kar state change laga di hai)
-                e('div', { className: 'glass-calc-card', onClick: () => setIsTranslateOpen(true) },
+                // 2. NAYA CARD (Universal Translation)
+                e('div', { 
+                    className: 'glass-calc-card glowmorphism-card', // Dono classes mix kar di
+                    onClick: () => setIsTranslateOpen(true) 
+                },
                     e('div', { className: 'calc-icon' }, '🌍'),
                     e('h3', { style: { fontSize: '20px' } }, 'Universal Translation'),
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, 'Translate your text into Hindi and Urdu, or translate your Hindi/Urdu text back into English instantly.'),
