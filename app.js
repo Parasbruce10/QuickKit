@@ -1047,6 +1047,35 @@ const SentenceChecker = () => {
     const [status, setStatus] = useState('');
     const [correctedText, setCorrectedText] = useState('');
     const [errorDetails, setErrorDetails] = useState([]);
+    // --- TRANSLATION STATES ---
+    const [isTranslateOpen, setIsTranslateOpen] = useState(false);
+    const [translateInput, setTranslateInput] = useState('');
+    const [translatedOutput, setTranslatedOutput] = useState('');
+    const [translateStatus, setTranslateStatus] = useState('idle'); // idle, loading, success, error
+    const [sourceLang, setSourceLang] = useState('en');
+    const [targetLang, setTargetLang] = useState('ur');
+
+    // --- TRANSLATION FETCH FUNCTION ---
+    const handleTranslate = async () => {
+        if (!translateInput.trim()) return;
+        setTranslateStatus('loading');
+        setTranslatedOutput('');
+        try {
+            const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(translateInput)}&langpair=${sourceLang}|${targetLang}`);
+            const data = await res.json();
+            if (data.responseData && data.responseData.translatedText) {
+                setTranslatedOutput(data.responseData.translatedText);
+                setTranslateStatus('success');
+            } else {
+                setTranslateStatus('error');
+                setTranslatedOutput('Translation nahi ho saki. Dobara koshish karein.');
+            }
+        } catch (err) {
+            console.error(err);
+            setTranslateStatus('error');
+            setTranslatedOutput('Internet check karein ya server respond nahi kar raha.');
+        }
+    };
 
     // Tense detection function
     const detectTenseIssues = (text) => {
@@ -1137,21 +1166,152 @@ const SentenceChecker = () => {
     };
 
     // 1. CARD VIEW (Pehle card dikhega)
-    if (!isOpen) {
+    // 1. CARD VIEW (Dono cards ab tabhi dikhenge jab koi tool open na ho)
+    if (!isOpen && !isTranslateOpen) {
         return e('div', {
             className: 'container-section calculator-hub-wrapper'
         },
-            e('div', { style: { textAlign: 'center', marginBottom: '60px' } },
-                e('h1', { className: 'brand-title', style: { marginBottom: '15px' } }, '📝 Grammar Checker'),
-                e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } }, 'Check your English sentences for tense errors, subject-verb agreement, and grammar mistakes instantly.')
-            ),
-
-            e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '400px', margin: '0 auto' } },
+            e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '800px', margin: '0 auto' } },
+                
+                // 1. PEHLA CARD (Grammar Checker)
                 e('div', { className: 'glass-calc-card', onClick: () => setIsOpen(true) },
                     e('div', { className: 'calc-icon' }, '✍️'),
                     e('h3', { style: { fontSize: '20px' } }, 'English Tense & Grammar Checker'),
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, 'Detect subject-verb agreement issues, incorrect tense usage, and grammar mistakes in your English sentences.'),
                     e('div', { className: 'calc-action' }, 'Open Tool →')
+                ),
+
+                // 2. NAYA CARD (Translation - Isme alert hata kar state change laga di hai)
+                e('div', { className: 'glass-calc-card', onClick: () => setIsTranslateOpen(true) },
+                    e('div', { className: 'calc-icon' }, '🌍'),
+                    e('h3', { style: { fontSize: '20px' } }, 'Universal Translation'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, 'Translate your text into Hindi and Urdu, or translate your Hindi/Urdu text back into English instantly.'),
+                    e('div', { className: 'calc-action' }, 'Open Tool →')
+                )
+            )
+        );
+    }
+    // 1.5 TRANSLATION TOOL INTERFACE (Dono languages switch karne ka option)
+    if (isTranslateOpen) {
+        return e('main', { className: 'main-content' },
+            e('div', { className: 'tester-section-wrapper', style: { textAlign: 'center', maxWidth: '700px', margin: '0 auto' } },
+                
+                // Back Button
+                e('button', {
+                    onClick: () => {
+                        setIsTranslateOpen(false);
+                        setTranslateInput('');
+                        setTranslatedOutput('');
+                        setTranslateStatus('idle');
+                    },
+                    style: {
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02))',
+                        border: '1px solid rgba(255,255,255,0.12)',
+                        color: '#00f5ff',
+                        cursor: 'pointer',
+                        padding: '8px 18px',
+                        borderRadius: '30px',
+                        fontSize: '0.85rem',
+                        fontWeight: '600',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        marginBottom: '24px',
+                        width: 'max-content'
+                    }
+                }, '← Back to Menu'),
+
+                e('h2', { className: 'tester-main-title' }, '🌍 Universal Language Translator'),
+                e('p', { style: { color: '#64748b', marginBottom: '30px' } }, 'Type any sentence in English, Urdu, or Hindi and translate it immediately.'),
+
+                // Language Selectors & Swap Row
+                e('div', { style: { display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '15px', marginBottom: '25px' } },
+                    e('select', {
+                        value: sourceLang,
+                        onChange: (e) => setSourceLang(e.target.value),
+                        style: { padding: '10px 15px', borderRadius: '10px', background: '#1e293b', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer' }
+                    },
+                        e('option', { value: 'en' }, 'English'),
+                        e('option', { value: 'ur' }, 'Urdu (اردو)'),
+                        e('option', { value: 'hi' }, 'Hindi (हिन्दी)')
+                    ),
+                    
+                    // Language Swapper Button
+                    e('button', {
+                        onClick: () => {
+                            const temp = sourceLang;
+                            setSourceLang(targetLang);
+                            setTargetLang(temp);
+                        },
+                        style: { background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#00f5ff', fontSize: '18px', padding: '8px 12px', borderRadius: '50%', cursor: 'pointer' },
+                        title: 'Swap Languages'
+                    }, '🔄'),
+                    
+                    e('select', {
+                        value: targetLang,
+                        onChange: (e) => setTargetLang(e.target.value),
+                        style: { padding: '10px 15px', borderRadius: '10px', background: '#1e293b', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer' }
+                    },
+                        e('option', { value: 'ur' }, 'Urdu (اردو)'),
+                        e('option', { value: 'hi' }, 'Hindi (हिन्दी)'),
+                        e('option', { value: 'en' }, 'English')
+                    )
+                ),
+
+                // Textarea Input
+                e('textarea', {
+                    value: translateInput,
+                    onChange: (e) => setTranslateInput(e.target.value),
+                    placeholder: sourceLang === 'ur' ? 'Yahan Urdu text likhein...' : sourceLang === 'hi' ? 'यहाँ हिंदी टेक्स्ट लिखें...' : 'Type your English text here...',
+                    style: {
+                        width: '100%',
+                        height: '130px',
+                        padding: '15px',
+                        borderRadius: '12px',
+                        background: 'rgba(255,255,255,0.03)',
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        color: '#fff',
+                        fontSize: '16px',
+                        resize: 'none',
+                        marginBottom: '18px',
+                        textAlign: (sourceLang === 'ur' ? 'right' : 'left'),
+                        outline: 'none'
+                    }
+                }),
+
+                // Submit Button
+                e('button', {
+                    onClick: handleTranslate,
+                    disabled: translateStatus === 'loading',
+                    style: {
+                        background: 'linear-gradient(135deg, #00f5ff, #00d2ff)',
+                        color: '#0f172a',
+                        border: 'none',
+                        padding: '12px 30px',
+                        borderRadius: '30px',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        width: '100%',
+                        boxShadow: '0 4px 15px rgba(0, 245, 255, 0.25)',
+                        marginBottom: '25px',
+                        transition: 'all 0.2s'
+                    }
+                }, translateStatus === 'loading' ? 'Translating... ⏳' : 'Translate Now ✨'),
+
+                // Translation Result Card
+                translatedOutput && e('div', {
+                    style: {
+                        background: 'rgba(255, 255, 255, 0.04)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        padding: '22px',
+                        borderRadius: '12px',
+                        textAlign: (targetLang === 'ur' ? 'right' : 'left'),
+                        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.05)'
+                    }
+                },
+                    e('h4', { style: { color: '#00f5ff', fontSize: '13px', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px', textAlign: 'left' } }, 'Translated Output:'),
+                    e('p', { style: { color: '#fff', fontSize: '19px', lineHeight: '1.6', margin: 0 } }, translatedOutput)
                 )
             )
         );
@@ -1221,6 +1381,7 @@ const SentenceChecker = () => {
                 disabled: status === 'loading',
                 style: { marginTop: '30px' }
             }, status === 'loading' ? '⏳ Verifying...' : '🔍 Check Sentence'),
+            
 
             // SUCCESS RESULT
             status === 'perfect' && e('div', { className: 'result-card', style: { marginTop: '40px', padding: '30px' } },
