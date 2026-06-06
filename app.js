@@ -199,15 +199,15 @@ const Content = () => {
                 // --- NAYI HEADING CORNERSTONE YAHAN ADD KAREIN ---
                 e('h2', { className: 'tester-main-title', style: { textAlign: 'center' } }, 'Typing Speed Tester'),
                 // Title ke neeche detail description text add kiya
-                e('p', { 
-                    style: { 
-                        color: '#94a3b8', 
-                        fontSize: '15px', 
-                        lineHeight: '1.6', 
-                        maxWidth: '600px', 
+                e('p', {
+                    style: {
+                        color: '#94a3b8',
+                        fontSize: '15px',
+                        lineHeight: '1.6',
+                        maxWidth: '600px',
                         margin: '0 auto 30px auto',
                         textAlign: 'center'
-                    } 
+                    }
                 }, 'Test your typing speed and accuracy in real-time. Start typing the text below to calculate your WPM.'),
                 // Prompt Search Input Bar
                 e('div', { className: 'prompt-search-container' },
@@ -1182,37 +1182,37 @@ const SentenceChecker = () => {
     // 1. CARD VIEW (Pehle card dikhega)
     // 1. CARD VIEW (Glowmorphism Effect Ke Sath)
     if (!isOpen && !isTranslateOpen && !isWordCounterOpen) {
-        return e('div', { 
+        return e('div', {
             className: 'container-section calculator-hub-wrapper',
-            style: { textAlign: 'center', padding: '40px 20px' } 
+            style: { textAlign: 'center', padding: '40px 20px' }
         },
             // ─── MOVING GLOW HEADING ───
-            e('h2', { 
+            e('h2', {
                 className: 'moving-glow-text', // CSS class lagayi chalne wale color ke liye
-                style: { fontSize: '36px', marginBottom: '12px', fontWeight: '800', letterSpacing: '0.5px' } 
+                style: { fontSize: '36px', marginBottom: '12px', fontWeight: '800', letterSpacing: '0.5px' }
             }, '📝 Sentence Checker & Language Hub'),
 
             // ─── DETAIL TEXT ───
-            e('p', { 
-                style: { color: '#94a3b8', fontSize: '16px', maxWidth: '600px', margin: '0 auto 40px auto', lineHeight: '1.6' } 
+            e('p', {
+                style: { color: '#94a3b8', fontSize: '16px', maxWidth: '600px', margin: '0 auto 40px auto', lineHeight: '1.6' }
             }, 'Apni English grammar durust karein, tenses ke masle hal karein, ya phir apne text ko ba-asani Urdu aur Hindi mein translate karein.'),
-            
+
             // Cards Grid
             e('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '35px', maxWidth: '800px', margin: '0 auto' } },
-                
+
                 // 1. PEHLA CARD (Grammar Checker)
-                e('div', { 
+                e('div', {
                     className: 'glass-calc-card glowmorphism-card', // Dono classes mix kar di
-                    onClick: () => setIsOpen(true) 
+                    onClick: () => setIsOpen(true)
                 },
                     e('div', { className: 'calc-icon' }, '✍️'),
                     e('h3', { style: { fontSize: '20px' } }, 'English Tense & Grammar Checker'),
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6' } }, 'Detect subject-verb agreement issues, incorrect tense usage, and grammar mistakes in your English sentences.'),
                     e('div', { className: 'calc-action' }, 'Open Tool →')
                 )// 3. NAYA CARD (Word Counter)
-                , e('div', { 
+                , e('div', {
                     className: 'glass-calc-card glowmorphism-card',
-                    onClick: () => setIsWordCounterOpen(true) 
+                    onClick: () => setIsWordCounterOpen(true)
                 },
                     e('div', { className: 'calc-icon' }, '📊'),
                     e('h3', { style: { fontSize: '20px' } }, 'Word & Text Counter'),
@@ -1220,9 +1220,9 @@ const SentenceChecker = () => {
                     e('div', { className: 'calc-action' }, 'Open Tool →')
                 ),
                 // 2. NAYA CARD (Universal Translation)
-                e('div', { 
+                e('div', {
                     className: 'glass-calc-card glowmorphism-card', // Dono classes mix kar di
-                    onClick: () => setIsTranslateOpen(true) 
+                    onClick: () => setIsTranslateOpen(true)
                 },
                     e('div', { className: 'calc-icon' }, '🌍'),
                     e('h3', { style: { fontSize: '20px' } }, 'Universal Translation'),
@@ -2984,12 +2984,12 @@ const AllInOneCalculator = () => {
             },
                 // Icon block top par
                 e('div', { className: 'calc-icon' }, '🔬'),
-                
+
                 // Title
                 e('h3', { style: { fontSize: '20px', fontWeight: '600' } }, 'Scientific Calculator'),
-                
+
                 // Badge (Advanced Math) ko title ke thik niche pyara sa render karne ke liye
-                e('span', { 
+                e('span', {
                     style: {
                         display: 'inline-block',
                         background: 'rgba(0, 245, 255, 0.1)',
@@ -3006,10 +3006,10 @@ const AllInOneCalculator = () => {
                 }, '🔬 Advanced Math'),
 
                 // Description Paragraph
-                e('p', { style: { fontSize: '14px', lineHeight: '1.6', marginTop: '4px' } }, 
+                e('p', { style: { fontSize: '14px', lineHeight: '1.6', marginTop: '4px' } },
                     'Evaluate complex mathematical expressions, trigonometry, and logarithms instantly inside your browser.'
                 ),
-                
+
                 // Bottom Footer Action Link
                 e('div', { className: 'calc-action' }, 'Open Tool →')
             )
