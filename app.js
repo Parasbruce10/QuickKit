@@ -59,7 +59,7 @@ const QuizPage = ({ navigate }) => {
             { q: "Which civilian award is lower in ranking hierarchy than Tamgha-e-Imtiaz?", o: ["Nishan-e-Imtiaz", "Sitara-e-Imtiaz", "Tamgha-e-Khidmat", "None of these"], c: 2 },
             { q: "The princely state of Bahawalpur acceded to Pakistan in which year?", o: ["1947", "1948", "1951", "1954"], c: 0 },
             { q: "Who served as the longest-running Chief Justice in Pakistan's history?", o: ["Justice Mohammad Haleem", "Justice A.R. Cornelius", "Justice Iftikhar Chaudhry", "Justice Anwarul Haq"], c: 0 }
-        ]  
+        ]
     };
     const coderQuizData = {
         1: [ // Round 1: Basic Web & Frontend Syntax
@@ -107,14 +107,14 @@ const QuizPage = ({ navigate }) => {
     const [levelScores, setLevelScores] = useState({ 1: 0, 2: 0, 3: 0 });
     const [quizType, setQuizType] = useState('teachers'); // Default 'teachers' rahega, ya phir 'coder' hoga
 
-const startQuiz = (type) => {
-    setQuizType(type); // 'teachers' ya 'coder' set ho jayega
-    setGameState('playing');
-    setCurrentLevel(1); // Dono quiz Round 1 se shuru honge
-    setCurrentQuestionIdx(0);
-    setSelectedAnswers({});
-    setLevelScores({ 1: 0, 2: 0, 3: 0 });
-};
+    const startQuiz = (type) => {
+        setQuizType(type); // 'teachers' ya 'coder' set ho jayega
+        setGameState('playing');
+        setCurrentLevel(1); // Dono quiz Round 1 se shuru honge
+        setCurrentQuestionIdx(0);
+        setSelectedAnswers({});
+        setLevelScores({ 1: 0, 2: 0, 3: 0 });
+    };
 
     const handleOptionSelect = (optionIdx) => {
         const key = `${currentLevel}_${currentQuestionIdx}`;
@@ -132,12 +132,12 @@ const startQuiz = (type) => {
         const passed = levelScores[currentLevel] >= 8;
         if (passed) {
             if (currentLevel < 3) {
-    setCurrentLevel(currentLevel + 1); // Agle round (level) pr bheje
-    setCurrentQuestionIdx(0);
-    setGameState('playing');
-} else {
-    setGameState('finalSummary'); // Agar 3 rounds khatam ho jayein to final report screen
-}
+                setCurrentLevel(currentLevel + 1); // Agle round (level) pr bheje
+                setCurrentQuestionIdx(0);
+                setGameState('playing');
+            } else {
+                setGameState('finalSummary'); // Agar 3 rounds khatam ho jayein to final report screen
+            }
         } else {
             setCurrentQuestionIdx(0);
             setLevelScores(prev => ({ ...prev, [currentLevel]: 0 }));
@@ -173,10 +173,10 @@ const startQuiz = (type) => {
                 e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } },
                     'Select your assessment matrix field. Score at least 8/10 to unlock consecutive rounds successfully.')
             ),
-            
+
             // Flex Grid Wrapper for Both Cards
             e('div', { style: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '30px', maxWidth: '900px', margin: '0 auto' } },
-                
+
                 // CARD 1: Teachers Quiz
                 e('div', {
                     className: 'glass-calc-card',
@@ -226,15 +226,15 @@ const startQuiz = (type) => {
     // ── SCREEN 2: PLAYING ──
     if (gameState === 'playing') {
         const currentQuestions = quizType === 'coder' ? coderQuizData[currentLevel] : quizData[currentLevel];
-        
+
         // Yahan par yeh 1 line add karni hai:
-        const currentQuestion = currentQuestions[currentQuestionIdx]; 
-        
+        const currentQuestion = currentQuestions[currentQuestionIdx];
+
         const difficultyText = currentLevel === 1 ? '🟢 Basic/Easy' : currentLevel === 2 ? '🟡 Intermediate/Medium' : '🔴 Advanced/Hard';
-        
+
         return e('div', { className: 'container-section calculator-hub-wrapper' },
             cgpaBackBtn(() => setGameState('card'), 'Back To Card'),
-           e('div', { className: 'glass-calc-form', style: { maxWidth: '680px', margin: '0 auto', padding: '40px' } },
+            e('div', { className: 'glass-calc-form', style: { maxWidth: '680px', margin: '0 auto', padding: '40px' } },
                 e('h2', { style: { textAlign: 'center', fontSize: '62px', fontWeight: '700', background: 'linear-gradient(90deg, #00f5ff, #bd00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '20px' } }, ' Lets Start The Quiz'),
                 e('div', { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '15px' } },
                     e('span', { style: { color: '#00f5ff', fontWeight: 'bold', fontSize: '15px' } }, `Level ${currentLevel}/3 — ${difficultyText}`),
@@ -1970,13 +1970,13 @@ const Home = ({ navigate }) => {
                                 e('span', { className: 'tool-card-status status-purple' }, 'Secure')
                             ),
                             e('div', { className: 'tool-motion-card t-quiz' },
-    e('div', { className: 'tool-card-icon' }, '🧠'), // Password key ki jagah Brain emoji
-    e('div', { className: 'tool-card-info' },
-        e('span', { className: 'tool-card-name' }, 'Quiz Hub'),
-        e('span', { className: 'quiz-preview-stream' }, 'Score: 95%') // Random password ki jagah score text
-    ),
-    e('span', { className: 'tool-card-status status-green' }, 'Active') // Purple ki jagah Green status line
-),
+                                e('div', { className: 'tool-card-icon' }, '🧠'), // Password key ki jagah Brain emoji
+                                e('div', { className: 'tool-card-info' },
+                                    e('span', { className: 'tool-card-name' }, 'Quiz Hub'),
+                                    e('span', { className: 'quiz-preview-stream' }, 'Score: 95%') // Random password ki jagah score text
+                                ),
+                                e('span', { className: 'tool-card-status status-green' }, 'Active') // Purple ki jagah Green status line
+                            ),
 
                             // Tool 3: Zip Extractor Animation// Tool 3: All-In-One Calculator Animation (Zip Extractor ki jagah)
                             e('div', { className: 'tool-motion-card t-calc' },
@@ -2115,9 +2115,9 @@ const Home = ({ navigate }) => {
                     },
                     // Mouse hatne par wapis normal ho jayega
                     onMouseLeave: (e) => {
-                        e.currentTarget.style.borderColor = ''; 
-                        e.currentTarget.style.boxShadow = ''; 
-                        e.currentTarget.style.transform = ''; 
+                        e.currentTarget.style.borderColor = '';
+                        e.currentTarget.style.boxShadow = '';
+                        e.currentTarget.style.transform = '';
                     },
                     onClick: () => navigate('quiz') // <-- Yeh click karne par quiz page par le jayega
                 },
@@ -2157,7 +2157,7 @@ const Home = ({ navigate }) => {
                     e('div', { className: 'card-action-link-footer' }, 'Analyze Tense Structure', e('span', { className: 'arrow-vector' }, '→'))
                 )
             ),
-            
+
 
             // ── HOW IT WORKS ──
             e('div', { className: 'how-it-works' },
@@ -2183,7 +2183,7 @@ const Home = ({ navigate }) => {
                         e('div', { className: 'step-title' }, 'Get Results'),
                         e('div', { className: 'step-desc' }, 'See your stats, scores, and outputs instantly with zero server delay.')
                     ),
-                    
+
                 )
             ),
             // --- NEW: Ultra-Premium Additional Details Section with Images & Flow ---
@@ -2365,10 +2365,10 @@ const App = () => {
     } else if (currentPage === 'calculator') {
         currentView = e(AllInOneCalculator, { navigate: navigate });
     } else if (currentPage === 'sentencechecker') { // <-- YEH NAVI CONDITION ADD KI HY
-        currentView = e(SentenceChecker);      
-    }  else if (currentPage === 'quiz') {
+        currentView = e(SentenceChecker);
+    } else if (currentPage === 'quiz') {
         currentView = e(QuizPage, { navigate: navigate });
-} else if (currentPage === 'about') {
+    } else if (currentPage === 'about') {
         currentView = e(About);
     } else if (currentPage === 'terms') {
         currentView = e(TermsConditions);
