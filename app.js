@@ -22,6 +22,253 @@ const Header = ({ title, theme, toggleTheme }) => {
         )
     );
 };
+const QuizPage = ({ navigate }) => {
+    const quizData = {
+        1: [
+            { q: "What is the official capital of Pakistan?", o: ["Lahore", "Karachi", "Islamabad", "Peshawar"], c: 2 },
+            { q: "Who is the national poet of Pakistan?", o: ["Sir Syed Ahmed Khan", "Allama Iqbal", "Hafeez Jalandhari", "Mirza Ghalib"], c: 1 },
+            { q: "What is the national language of Pakistan?", o: ["Punjabi", "Sindhi", "English", "Urdu"], c: 3 },
+            { q: "In which year did Pakistan win its first Cricket World Cup?", o: ["1992", "1999", "2007", "2011"], c: 0 },
+            { q: "Who was the first Governor-General of Pakistan?", o: ["Liaquat Ali Khan", "Quaid-e-Azam M. Ali Jinnah", "Khawaja Nazimuddin", "Iskander Mirza"], c: 1 },
+            { q: "Which is the largest city of Pakistan by population?", o: ["Islamabad", "Lahore", "Faisalabad", "Karachi"], c: 3 },
+            { q: "What is the national sport of Pakistan?", o: ["Cricket", "Field Hockey", "Squash", "Kabaddi"], c: 1 },
+            { q: "Pakistan shares its longest international border with which country?", o: ["India", "Iran", "China", "Afghanistan"], c: 3 },
+            { q: "What is the national flower of Pakistan?", o: ["Rose", "Jasmine", "Tulip", "Sunflower"], c: 1 },
+            { q: "Which is the longest river in Pakistan?", o: ["Jhelum River", "Chenab River", "Ravi River", "Indus River"], c: 3 }
+        ],
+        2: [
+            { q: "Which is the highest mountain peak located in Pakistan?", o: ["Nanga Parbat", "K2 (Mount Godwin-Austen)", "Broad Peak", "Rakaposhi"], c: 1 },
+            { q: "Who wrote the national anthem of Pakistan?", o: ["Allama Iqbal", "Hafeez Jalandhari", "Faiz Ahmed Faiz", "Ahmad Nadeem Qasmi"], c: 1 },
+            { q: "How many amendments have been officially made to the 1973 Constitution till now?", o: ["22", "24", "26", "28"], c: 2 },
+            { q: "Which is the largest desert found in Pakistan?", o: ["Thal Desert", "Cholistan Desert", "Thar Desert", "Kharan Desert"], c: 2 },
+            { q: "Who was the first female Prime Minister of Pakistan?", o: ["Benazir Bhutto", "Fatima Jinnah", "Hina Rabbani Khar", "Begum Ra'ana Liaquat"], c: 0 },
+            { q: "The famous Objectives Resolution was passed in which historical year?", o: ["1947", "1948", "1949", "1950"], c: 2 },
+            { q: "Who was the first Nobel Laureate scientist from Pakistan?", o: ["Dr. Abdus Salam", "Malala Yousafzai", "Dr. Atta-ur-Rahman", "Dr. Abdul Qadeer Khan"], c: 0 },
+            { q: "What does the strategic term CPEC stand for?", o: ["China-Pakistan Economic Corridor", "China-Pakistan Energy Cooperation", "Central-Pak Economic Committee", "China-Pak Export Corridor"], c: 0 },
+            { q: "Where is the world's largest deep-sea port located in Pakistan?", o: ["Karachi Port", "Port Qasim", "Gwadar Port", "Pasni Port"], c: 2 },
+            { q: "Which scientist is known as the father of Pakistan's nuclear program?", o: ["Dr. Ishfaq Ahmad", "Dr. Abdul Qadeer Khan", "Dr. Samar Mubarakmand", "Dr. Riazuddin"], c: 1 }
+        ],
+        3: [
+            { q: "Which is the oldest military cantonment built in Pakistan?", o: ["Rawalpindi", "Kohat", "Jhelum", "Peshawar"], c: 1 },
+            { q: "In which year did Pakistan become a Republic with its first formal constitution?", o: ["1947", "1956", "1962", "1973"], c: 1 },
+            { q: "Who served as the first official President of Pakistan?", o: ["Iskander Mirza", "Ayub Khan", "Yahya Khan", "Zulfikar Ali Bhutto"], c: 0 },
+            { q: "The controversial Kalabagh Dam project is proposed on which river?", o: ["Indus River", "Jhelum River", "Chenab River", "Kabul River"], c: 0 },
+            { q: "What is the approximate total length of the Indus River?", o: ["2,880 km", "3,180 km", "3,500 km", "2,500 km"], c: 1 },
+            { q: "What is the exact height of the killer mountain Nanga Parbat?", o: ["8,611 meters", "8,126 meters", "8,035 meters", "7,821 meters"], c: 1 },
+            { q: "Who was the first female judge of Balochistan High Court?", o: ["Justice Majida Razvi", "Justice Syeda Tahira Safdar", "Justice Ayesha Malik", "Justice Musarat Hilali"], c: 1 },
+            { q: "Which civilian award is lower in ranking hierarchy than Tamgha-e-Imtiaz?", o: ["Nishan-e-Imtiaz", "Sitara-e-Imtiaz", "Tamgha-e-Khidmat", "None of these"], c: 2 },
+            { q: "The princely state of Bahawalpur acceded to Pakistan in which year?", o: ["1947", "1948", "1951", "1954"], c: 0 },
+            { q: "Who served as the longest-running Chief Justice in Pakistan's history?", o: ["Justice Mohammad Haleem", "Justice A.R. Cornelius", "Justice Iftikhar Chaudhry", "Justice Anwarul Haq"], c: 0 }
+        ]
+        
+    };
+
+    const [gameState, setGameState] = useState('card');
+    const [currentLevel, setCurrentLevel] = useState(1);
+    const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
+    const [selectedAnswers, setSelectedAnswers] = useState({});
+    const [levelScores, setLevelScores] = useState({ 1: 0, 2: 0, 3: 0 });
+
+    const startQuiz = () => {
+        setGameState('playing');
+        setCurrentLevel(1);
+        setCurrentQuestionIdx(0);
+        setSelectedAnswers({});
+        setLevelScores({ 1: 0, 2: 0, 3: 0 });
+    };
+
+    const handleOptionSelect = (optionIdx) => {
+        const key = `${currentLevel}_${currentQuestionIdx}`;
+        setSelectedAnswers(prev => ({ ...prev, [key]: optionIdx }));
+        const isCorrect = optionIdx === quizData[currentLevel][currentQuestionIdx].c;
+        if (isCorrect) setLevelScores(prev => ({ ...prev, [currentLevel]: prev[currentLevel] + 1 }));
+        if (currentQuestionIdx < 9) {
+            setCurrentQuestionIdx(currentQuestionIdx + 1);
+        } else {
+            setGameState('level_summary');
+        }
+    };
+
+    const handleLevelSummaryAction = () => {
+        const passed = levelScores[currentLevel] >= 8;
+        if (passed) {
+            if (currentLevel < 3) { setCurrentLevel(currentLevel + 1); setCurrentQuestionIdx(0); setGameState('playing'); }
+            else { setGameState('final_results'); }
+        } else {
+            setCurrentQuestionIdx(0);
+            setLevelScores(prev => ({ ...prev, [currentLevel]: 0 }));
+            const cleaned = { ...selectedAnswers };
+            for (let i = 0; i < 10; i++) delete cleaned[`${currentLevel}_${i}`];
+            setSelectedAnswers(cleaned);
+            setGameState('playing');
+        }
+    };
+
+    const cgpaBackBtn = (onClick, label) => e('button', {
+        onClick,
+        style: {
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02))',
+            border: '1px solid rgba(255,255,255,0.12)',
+            color: '#00f5ff', cursor: 'pointer',
+            marginBottom: '25px', padding: '8px 16px',
+            borderRadius: '30px', fontSize: '0.85rem', fontWeight: '600',
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            letterSpacing: '0.5px',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.1)',
+            transition: 'all 0.3s ease',
+            backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+            width: 'max-content'
+        }
+    }, `← ${label}`);
+
+    // ── SCREEN 1: CARD ──
+    // ── SCREEN 1: CARD ──
+    if (gameState === 'card') {
+        return e('div', { className: 'container-section calculator-hub-wrapper' },
+            e('div', { style: { textAlign: 'center', marginBottom: '50px' } },
+                e('h1', { className: 'brand-title', style: { marginBottom: '15px' } }, '🧠 Quiz Hub'),
+                e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } },
+                    'Test your Pakistan GK knowledge across 3 difficulty levels. Score 8/10 to unlock the next level.')
+            ),
+            e('div', { style: { display: 'flex', justifyContent: 'center' } },
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { maxWidth: '420px', width: '100%', cursor: 'pointer', textAlign: 'center' },
+                    onClick: startQuiz
+                },
+                    e('div', { className: 'calc-icon' }, '🍎'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Teachers Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(0,245,255,0.1)', color: '#00f5ff',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(0,245,255,0.2)'
+                        }
+                    }, '🎓 Academic Assessment'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Pakistan Government Job MCQs across 3 progressive difficulty levels. Score at least 8/10 to unlock the next level!'),
+                    e('div', { className: 'calc-action' }, 'Start Assessment →')
+                )
+            )
+        );
+    }
+
+    // ── SCREEN 2: PLAYING ──
+    if (gameState === 'playing') {
+        const currentQuestion = quizData[currentLevel][currentQuestionIdx];
+        const difficultyText = currentLevel === 1 ? '🟢 Basic/Easy' : currentLevel === 2 ? '🟡 Intermediate/Medium' : '🔴 Advanced/Hard';
+        return e('div', { className: 'container-section calculator-hub-wrapper' },
+            cgpaBackBtn(() => setGameState('card'), 'Back To Card'),
+           e('div', { className: 'glass-calc-form', style: { maxWidth: '680px', margin: '0 auto', padding: '40px' } },
+                e('h2', { style: { textAlign: 'center', fontSize: '62px', fontWeight: '700', background: 'linear-gradient(90deg, #00f5ff, #bd00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '20px' } }, '🍎 Teachers Quiz'),
+                e('div', { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '15px' } },
+                    e('span', { style: { color: '#00f5ff', fontWeight: 'bold', fontSize: '15px' } }, `Level ${currentLevel}/3 — ${difficultyText}`),
+                    e('span', { style: { color: '#94a3b8', fontSize: '13px' } }, `Question ${currentQuestionIdx + 1} of 10`)
+                ),
+                e('div', { style: { background: 'rgba(255,255,255,0.05)', height: '6px', borderRadius: '3px', marginBottom: '30px', overflow: 'hidden' } },
+                    e('div', { style: { width: `${(currentQuestionIdx + 1) * 10}%`, height: '100%', background: 'linear-gradient(90deg, #00f5ff, #bd00ff)', transition: 'width 0.3s' } })
+                ),
+                e('h3', { style: { fontSize: '19px', color: '#ffffff', marginBottom: '28px', lineHeight: '1.6', fontWeight: '600', textAlign: 'center' } }, currentQuestion.q),
+                e('div', { style: { display: 'flex', flexDirection: 'column', gap: '14px' } },
+                    currentQuestion.o.map((option, idx) =>
+                        e('button', {
+                            key: idx,
+                            className: 'action-btn',
+                            style: { width: '100%', justifyContent: 'center', padding: '14px 20px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', textTransform: 'none', fontWeight: '500', borderRadius: '12px', color: '#e2e8f0', fontSize: '15px' },
+                            onClick: () => handleOptionSelect(idx)
+                        }, `${String.fromCharCode(65 + idx)}. ${option}`)
+                    )
+                )
+            )
+        );
+    }
+
+    // ── SCREEN 3: LEVEL SUMMARY ──
+    if (gameState === 'level_summary') {
+        const score = levelScores[currentLevel];
+        const passed = score >= 8;
+        return e('div', { className: 'container-section calculator-hub-wrapper' },
+            cgpaBackBtn(() => setGameState('card'), 'Exit to Menu'),
+            e('div', { className: 'glass-calc-form', style: { maxWidth: '520px', margin: '0 auto', padding: '40px', textAlign: 'center' } },
+                e('h2', { style: { color: passed ? '#22c55e' : '#ef4444', fontSize: '26px', marginBottom: '12px', fontWeight: '700' } },
+                    passed ? `🎉 Level ${currentLevel} Passed!` : `❌ Level ${currentLevel} Failed!`),
+                e('p', { style: { color: '#94a3b8', fontSize: '15px', marginBottom: '30px', lineHeight: '1.6' } },
+                    passed
+                        ? `Excellent! You scored ${score}/10. You may advance forward.`
+                        : `You scored ${score}/10. Need at least 8 correct to pass. Try again!`),
+                e('div', { className: 'result-grid', style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '30px' } },
+                    e('div', { className: 'result-box', style: { textAlign: 'center' } },
+                        e('div', { className: `res-val ${passed ? 'cyan' : 'pink'}` }, score),
+                        e('div', { className: 'res-label' }, 'Correct')
+                    ),
+                    e('div', { className: 'result-box', style: { textAlign: 'center' } },
+                        e('div', { className: 'res-val purple' }, 10 - score),
+                        e('div', { className: 'res-label' }, 'Wrong')
+                    )
+                ),
+                e('button', {
+                    className: 'action-btn',
+                    style: { margin: '0 auto', width: '100%', justifyContent: 'center' },
+                    onClick: handleLevelSummaryAction
+                }, passed ? (currentLevel === 3 ? '🏁 View Efficiency Report' : '➡️ Next Level') : '🔄 Retry Level')
+            )
+        );
+    }
+
+    // ── SCREEN 4: FINAL RESULTS ──
+    if (gameState === 'final_results') {
+        const totalCorrect = levelScores[1] + levelScores[2] + levelScores[3];
+        const overallEfficiency = Math.round((totalCorrect / 30) * 100);
+        return e('div', { className: 'container-section calculator-hub-wrapper' },
+            cgpaBackBtn(() => setGameState('card'), 'Quiz Menu'),
+            e('div', { className: 'glass-calc-form', style: { maxWidth: '820px', margin: '0 auto', padding: '40px' } },
+                e('h2', { className: 'moving-glow-text', style: { fontSize: '28px', fontWeight: '800', marginBottom: '10px', textAlign: 'center' } }, '🏆 Efficiency Report'),
+                e('p', { style: { color: '#94a3b8', textAlign: 'center', marginBottom: '35px' } }, 'Congratulations! All assessment vectors compiled successfully.'),
+                e('div', { className: 'result-grid', style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '20px', marginBottom: '35px' } },
+                    e('div', { className: 'result-box' }, e('div', { className: 'res-val cyan' }, `${totalCorrect}/30`), e('div', { className: 'res-label' }, 'Total Correct')),
+                    e('div', { className: 'result-box' }, e('div', { className: 'res-val pink' }, `${overallEfficiency}%`), e('div', { className: 'res-label' }, 'Overall Efficiency')),
+                    e('div', { className: 'result-box' }, e('div', { className: 'res-val purple' }, 'Level 3'), e('div', { className: 'res-label' }, 'Max Difficulty'))
+                ),
+                e('h3', { style: { color: '#ffffff', fontSize: '17px', marginBottom: '18px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '10px' } }, '🎯 Level Performance Audits'),
+                e('div', { style: { display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '35px' } },
+                    [1, 2, 3].map(lvl => {
+                        const lvlScore = levelScores[lvl];
+                        const eff = Math.round((lvlScore / 10) * 100);
+                        return e('div', { key: lvl, style: { background: 'rgba(255,255,255,0.02)', padding: '18px 22px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' } },
+                            e('div', null,
+                                e('div', { style: { color: '#ffffff', fontWeight: '600', fontSize: '15px' } }, `Level 0${lvl} Matrix`),
+                                e('div', { style: { color: '#64748b', fontSize: '12px' } }, `Difficulty: ${lvl === 1 ? 'Easy' : lvl === 2 ? 'Medium' : 'Hard'}`)
+                            ),
+                            e('div', { style: { display: 'flex', gap: '28px', alignItems: 'center' } },
+                                e('div', { style: { textAlign: 'right' } }, e('div', { style: { color: '#00f5ff', fontWeight: 'bold' } }, `${lvlScore}/10`), e('div', { style: { color: '#64748b', fontSize: '11px' } }, 'Score')),
+                                e('div', { style: { textAlign: 'right' } }, e('div', { style: { color: '#bd00ff', fontWeight: 'bold' } }, `${eff}%`), e('div', { style: { color: '#64748b', fontSize: '11px' } }, 'Efficiency'))
+                            )
+                        );
+                    })
+                ),
+                e('h3', { style: { color: '#ffffff', fontSize: '17px', marginBottom: '18px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '10px' } }, '📝 Answer Key Logs'),
+                e('div', { style: { maxHeight: '280px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', paddingRight: '8px', marginBottom: '30px' } },
+                    [1, 2, 3].flatMap(lvl =>
+                        quizData[lvl].map((item, qIdx) => {
+                            const userAnsIdx = selectedAnswers[`${lvl}_${qIdx}`];
+                            const isCorrect = userAnsIdx === item.c;
+                            return e('div', { key: `${lvl}_${qIdx}`, style: { background: 'rgba(0,0,0,0.15)', padding: '14px', borderRadius: '8px', borderLeft: `3px solid ${isCorrect ? '#22c55e' : '#ef4444'}` } },
+                                e('div', { style: { color: '#64748b', fontSize: '11px' } }, `Level ${lvl} — Q${qIdx + 1}`),
+                                e('div', { style: { color: '#ffffff', fontSize: '14px', fontWeight: '500', margin: '4px 0 6px' } }, item.q),
+                                e('div', { style: { fontSize: '12px', display: 'flex', gap: '14px', flexWrap: 'wrap' } },
+                                    e('span', { style: { color: isCorrect ? '#22c55e' : '#ef4444' } }, `Your: ${String.fromCharCode(65 + userAnsIdx)}) ${item.o[userAnsIdx]}`),
+                                    !isCorrect && e('span', { style: { color: '#22c55e' } }, `Correct: ${String.fromCharCode(65 + item.c)}) ${item.o[item.c]}`)
+                                )
+                            );
+                        })
+                    )
+                ),
+                e('button', { className: 'action-btn', style: { margin: '0 auto', padding: '14px 35px' }, onClick: startQuiz }, '🔄 Restart Assessment')
+            )
+        );
+    }
+};
 
 // 2. The Engine (Main Body)
 const Content = () => {
@@ -1947,7 +2194,8 @@ const Footer = ({ company, navigate }) => {
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('biowriter') }, 'Bio Writer')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('passwordchecker') }, 'Password Strength Checker')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('calculator') }, 'All in One Calculator')),
-                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('sentencechecker') }, 'Sentence Checker'))
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('sentencechecker') }, 'Sentence Checker')),
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('quiz') }, 'Quiz'))
 
                 )
             ),
@@ -2005,8 +2253,10 @@ const App = () => {
     } else if (currentPage === 'calculator') {
         currentView = e(AllInOneCalculator, { navigate: navigate });
     } else if (currentPage === 'sentencechecker') { // <-- YEH NAVI CONDITION ADD KI HY
-        currentView = e(SentenceChecker);
-    } else if (currentPage === 'about') {
+        currentView = e(SentenceChecker);      
+    }  else if (currentPage === 'quiz') {
+        currentView = e(QuizPage, { navigate: navigate });
+} else if (currentPage === 'about') {
         currentView = e(About);
     } else if (currentPage === 'terms') {
         currentView = e(TermsConditions);
