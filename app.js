@@ -137,7 +137,7 @@ const QuizPage = ({ navigate }) => {
             { q: "Complete the proverb: 'A stitch in time saves ___.'", o: ["mine", "nine", "dime", "fine"], c: 1 }
         ]
     };
-const mathQuizData = {
+    const mathQuizData = {
         1: [ // Round 1: Basic Arithmetic & Sequences
             { q: "What is 15 + 28?", o: ["33", "43", "53", "63"], c: 1 },
             { q: "What is 8 x 7?", o: ["54", "56", "62", "64"], c: 1 },
@@ -339,10 +339,10 @@ const mathQuizData = {
     if (quizType === 'coder') activeQuizData = coderQuizData;
     if (quizType === 'english') activeQuizData = englishQuizData;
     if (quizType === 'math') activeQuizData = mathQuizData;
-if (quizType === 'physics') activeQuizData = physicsQuizData;
-if (quizType === 'chemistry') activeQuizData = chemistryQuizData;
-if (quizType === 'gk') activeQuizData = gkQuizData;
-if (quizType === 'psychology') activeQuizData = psychologyQuizData;
+    if (quizType === 'physics') activeQuizData = physicsQuizData;
+    if (quizType === 'chemistry') activeQuizData = chemistryQuizData;
+    if (quizType === 'gk') activeQuizData = gkQuizData;
+    if (quizType === 'psychology') activeQuizData = psychologyQuizData;
 
     const startQuiz = (type) => {
         setQuizType(type); // 'teachers' ya 'coder' set ho jayega
@@ -434,7 +434,7 @@ if (quizType === 'psychology') activeQuizData = psychologyQuizData;
                         '30 Pakistan General Knowledge & Pedagogy MCQs mapped across 3 progressive difficulty rounds. Achieve threshold matrices.'),
                     e('div', { className: 'calc-action' }, 'Start Assessment →')
                 ),
-// CARD 2: English Quiz
+                // CARD 2: English Quiz
                 e('div', {
                     className: 'glass-calc-card',
                     style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
@@ -472,7 +472,7 @@ if (quizType === 'psychology') activeQuizData = psychologyQuizData;
                     }, '⚡ Tech & Syntax Vector'),
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
                         '30 Software Engineering & Full-Stack Development MCQs divided into 3 specialized progressive architecture rounds.'),
-                    e('div', { className: 'calc-action', style: { color: '#bd00ff' } }, 'Initialize Sandbox →')
+                    e('div', { className: 'calc-action', style: { color: '#bd00ff' } }, 'Start Assessment →')
                 ), // Ye comma picchle card ke baad lagana zaroori hai
                 // CARD 4: Math Quiz
                 e('div', {
@@ -581,7 +581,7 @@ if (quizType === 'psychology') activeQuizData = psychologyQuizData;
     // ── SCREEN 2: PLAYING ──
     // ── SCREEN 2: PLAYING ──
     if (gameState === 'playing') {
-       const currentQuestions = activeQuizData[currentLevel];
+        const currentQuestions = activeQuizData[currentLevel];
         // Yahan par yeh 1 line add karni hai:
         const currentQuestion = currentQuestions[currentQuestionIdx];
 
