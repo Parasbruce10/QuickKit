@@ -3136,8 +3136,8 @@ const Footer = ({ company, navigate }) => {
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('passwordchecker') }, 'Password Strength Checker')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('calculator') }, 'All in One Calculator')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('sentencechecker') }, 'Sentence Checker')),
-                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('quiz') }, 'Quiz Hub'))
-
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('quiz') }, 'Quiz Hub')),
+e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('converterhub') }, 'Converter Hub'))
                 )
             ),
             /* ... (Baqi legal wala hissa waise hi rahega) ... */
@@ -3197,7 +3197,11 @@ const App = () => {
         currentView = e(SentenceChecker);
     } else if (currentPage === 'quiz') {
         currentView = e(QuizPage, { navigate: navigate });
-    } else if (currentPage === 'about') {
+    } else if (currentPage === 'converterhub') {
+    currentView = e(ConverterHub, { navigate: navigate });
+}  else if (currentPage === 'wordtopdf') {
+    currentView = e(WordToPDF, { navigate });
+}else if (currentPage === 'about') {
         currentView = e(About);
     } else if (currentPage === 'terms') {
         currentView = e(TermsConditions);
@@ -4208,6 +4212,257 @@ const AllInOneCalculator = () => {
     );
     // Isko Percentage Calculator wale card ke thik niche paste karein:
 
+};
+// ====================== CONVERTER HUB ======================
+// ====================== WORD TO PDF CONVERTER ======================
+// ====================== WORD TO PDF CONVERTER ======================
+const WordToPDF = ({ navigate }) => {
+    const [file, setFile] = React.useState(null);
+    const [fileName, setFileName] = React.useState('');
+    const [fileSize, setFileSize] = React.useState('');
+    const [status, setStatus] = React.useState('');
+    const [statusType, setStatusType] = React.useState('');
+    const [isConverting, setIsConverting] = React.useState(false);
+
+    const formatSize = (bytes) => {
+        if (bytes < 1024) return bytes + 'B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + 'KB';
+        return (bytes / 1048576).toFixed(1) + 'MB';
+    };
+
+    const handleFileChange = (ev) => {
+        const f = ev.target.files[0];
+        if (f && f.name.endsWith('.docx')) {
+            setFile(f);
+            setFileName(f.name);
+            setFileSize(formatSize(f.size));
+            setStatus('');
+        } else {
+            alert("Sirf .docx file select karein!");
+        }
+    };
+
+    const handleDrop = (ev) => {
+        ev.preventDefault();
+        const f = ev.dataTransfer.files[0];
+        if (f && f.name.endsWith('.docx')) {
+            setFile(f);
+            setFileName(f.name);
+            setFileSize(formatSize(f.size));
+            setStatus('');
+        } else {
+            alert("Sirf .docx file drop karein!");
+        }
+    };
+
+    const convertToPDF = async () => {
+        if (!file) return;
+        setIsConverting(true);
+        setStatus('Converting... please wait ⏳');
+        setStatusType('loading');
+        try {
+            if (typeof mammoth === 'undefined' || typeof window.jspdf === 'undefined') {
+                throw new Error("Libraries not loaded. Refresh page.");
+            }
+            const arrayBuffer = await file.arrayBuffer();
+            const result = await mammoth.convertToHtml({ arrayBuffer });
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+            await pdf.html(result.value, {
+                callback: (doc) => doc.save(fileName.replace('.docx', '.pdf')),
+                x: 15, y: 15, width: 170, windowWidth: 800
+            });
+            setStatus('✅ PDF downloaded successfully!');
+            setStatusType('success');
+        } catch (error) {
+            setStatus('❌ Error: ' + (error.message || 'Conversion failed'));
+            setStatusType('error');
+        } finally {
+            setIsConverting(false);
+        }
+    };
+
+    const statusColors = {
+        loading: { bg: 'rgba(0,245,255,0.08)', border: 'rgba(0,245,255,0.15)', color: '#00f5ff' },
+        success: { bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.2)', color: '#22c55e' },
+        error:   { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' },
+    };
+    const sc = statusColors[statusType] || {};
+
+    return e('div', { className: 'container-section calculator-hub-wrapper' },
+        e('div', { style: { maxWidth: '700px', margin: '40px auto' } },
+e('div', { style: { textAlign: 'center', marginBottom: '40px' } },
+    e('h1', {
+        className: 'moving-glow-text',
+        style: {
+            fontSize: '36px',
+            fontWeight: '800',
+            marginBottom: '10px',
+            letterSpacing: '-0.5px'
+        }
+    }, '📄 Word to PDF Converter'),
+    e('p', { style: { color: '#64748b', fontSize: '15px', maxWidth: '480px', margin: '0 auto', lineHeight: '1.6' } },
+        'Convert your Word documents to PDF instantly — right inside your browser.'
+    )
+),
+            e('button', {
+                onClick: () => navigate('converterhub'),
+                style: { display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: '#00f5ff', padding: '10px 20px', borderRadius: '30px', marginBottom: '28px', cursor: 'pointer', fontSize: '13px', fontWeight: '600' }
+            }, '← Back to Converter Hub'),
+
+            e('div', { style: { background: 'linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '44px 40px', backdropFilter: 'blur(20px)' } },
+
+                e('div', { style: { fontSize: '48px', textAlign: 'center', marginBottom: '16px' } }, '📄'),
+                e('h1', { style: { textAlign: 'center', fontSize: '26px', fontWeight: '700', color: '#fff', marginBottom: '8px' } }, 'Word to PDF Converter'),
+                e('p', { style: { textAlign: 'center', color: '#64748b', fontSize: '14px', marginBottom: '36px', lineHeight: '1.5' } }, 'Upload a .docx file and download a clean PDF — instantly, no uploads to any server.'),
+
+                e('div', {
+                    onClick: () => document.getElementById('docxInputField').click(),
+                    onDragOver: (ev) => ev.preventDefault(),
+                    onDrop: handleDrop,
+                    style: { border: '2px dashed rgba(0,245,255,0.25)', borderRadius: '16px', padding: '36px 24px', textAlign: 'center', cursor: 'pointer', background: 'rgba(0,245,255,0.03)', marginBottom: '28px', transition: 'all .3s' }
+                },
+                    e('input', { type: 'file', accept: '.docx', id: 'docxInputField', onChange: handleFileChange, style: { display: 'none' } }),
+                    e('div', { style: { fontSize: '36px', marginBottom: '12px', opacity: '.7' } }, '☁️'),
+                    e('div', { style: { color: '#00f5ff', fontSize: '15px', fontWeight: '600', marginBottom: '4px' } }, 'Click to choose a .docx file'),
+                    e('div', { style: { color: '#94a3b8', fontSize: '14px' } }, 'or drag and drop it here')
+                ),
+
+                file && e('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(0,245,255,0.08)', border: '1px solid rgba(0,245,255,0.2)', borderRadius: '12px', padding: '14px 18px', marginBottom: '24px' } },
+                    e('span', { style: { fontSize: '22px' } }, '📁'),
+                    e('span', { style: { color: '#e2e8f0', fontSize: '14px', fontWeight: '500', flex: '1', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, fileName),
+                    e('span', { style: { color: '#64748b', fontSize: '12px' } }, fileSize)
+                ),
+
+                file && e('button', {
+                    onClick: convertToPDF,
+                    disabled: isConverting,
+                    style: { width: '100%', padding: '16px', borderRadius: '14px', border: 'none', cursor: isConverting ? 'not-allowed' : 'pointer', fontSize: '15px', fontWeight: '700', letterSpacing: '.4px', background: 'linear-gradient(135deg,#00f5ff,#0080ff)', color: '#000', opacity: isConverting ? '.5' : '1', transition: 'all .3s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }
+                }, isConverting ? 'Converting...' : '🚀 Convert to PDF'),
+
+                status && e('div', { style: { marginTop: '20px', padding: '16px 20px', borderRadius: '12px', textAlign: 'center', fontSize: '14px', fontWeight: '500', background: sc.bg, border: `1px solid ${sc.border}`, color: sc.color } }, status),
+
+                e('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '24px', color: '#475569', fontSize: '12px' } },
+                    e('span', { style: { width: '4px', height: '4px', borderRadius: '50%', background: '#334155' } }),
+                    e('span', null, 'Only .docx format supported'),
+                    e('span', { style: { width: '4px', height: '4px', borderRadius: '50%', background: '#334155' } }),
+                    e('span', null, 'File never leaves your browser'),
+                    e('span', { style: { width: '4px', height: '4px', borderRadius: '50%', background: '#334155' } })
+                )
+            )
+        )
+    );
+};
+// ====================== CONVERTER HUB ======================
+// ====================== CONVERTER HUB ======================
+const ConverterHub = ({ navigate }) => {
+    return e('div', { className: 'container-section calculator-hub-wrapper' },
+        e('div', { style: { textAlign: 'center', marginBottom: '60px' } },
+            e('h1', { className: 'brand-title' }, '🔄 Converter Hub'),
+            e('p', { style: { color: '#94a3b8', fontSize: '16.5px', maxWidth: '520px', margin: '0 auto' } }, 
+                'Fast & Secure document converters — All running locally in your browser')
+        ),
+
+        e('div', { style: { display: 'flex', justifyContent: 'center', gap: '35px', flexWrap: 'wrap' } },
+
+            // === STYLISH WORD TO PDF CARD ===
+            e('div', {
+                className: 'glass-calc-card',
+                style: { 
+                    width: '380px', 
+                    cursor: 'pointer', 
+                    textAlign: 'center',
+                    transition: 'all 0.4s ease',
+                    position: 'relative',
+                    overflow: 'hidden'
+                },
+                onClick: () => navigate('wordtopdf'),
+                onMouseEnter: (e) => {
+                    e.currentTarget.style.transform = 'translateY(-12px)';
+                    e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(34, 197, 94, 0.25)';
+                },
+                onMouseLeave: (e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '';
+                }
+            },
+                // Gradient Top Bar
+                e('div', { 
+                    style: { 
+                        height: '6px', 
+                        background: 'linear-gradient(90deg, #22c55e, #86efac)',
+                        borderTopLeftRadius: '16px',
+                        borderTopRightRadius: '16px'
+                    } 
+                }),
+
+                e('div', { className: 'calc-icon', style: { fontSize: '52px', margin: '25px 0 15px' } }, '📄➜📕'),
+
+                e('h3', { 
+                    style: { 
+                        fontSize: '24px', 
+                        fontWeight: '700', 
+                        marginBottom: '8px',
+                        background: 'linear-gradient(90deg, #22c55e, #86efac)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
+                    } 
+                }, 'Word to PDF'),
+
+                e('span', {
+                    style: { 
+                        display: 'inline-block', 
+                        background: 'rgba(34,197,94,0.15)', 
+                        color: '#22c55e',
+                        padding: '5px 16px', 
+                        borderRadius: '30px', 
+                        fontSize: '13px', 
+                        fontWeight: '700',
+                        marginBottom: '18px',
+                        border: '1px solid rgba(34,197,94,0.3)'
+                    }
+                }, 'DOCX → PDF'),
+
+                e('p', { 
+                    style: { 
+                        fontSize: '14.5px', 
+                        lineHeight: '1.6', 
+                        color: '#cbd5e1',
+                        padding: '0 25px',
+                        marginBottom: '30px'
+                    } 
+                }, 
+                    'Convert your Microsoft Word documents to clean, professional PDFs instantly — 100% private & fast.'
+                ),
+
+                e('div', { 
+                    className: 'calc-action', 
+                    style: { 
+                        color: '#22c55e', 
+                        fontWeight: '700',
+                        fontSize: '1.05rem'
+                    } 
+                }, 'Convert Now →')
+            )
+        ),
+
+        // Back Button
+        e('div', { style: { textAlign: 'center', marginTop: '70px' } },
+            e('button', {
+                onClick: () => navigate('home'),
+                style: {
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    color: '#00f5ff',
+                    padding: '12px 32px',
+                    borderRadius: '30px',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer'
+                }
+            }, '← Back to Home')
+        )
+    );
 };
 
 // Injection into DOM
