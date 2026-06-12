@@ -1866,7 +1866,8 @@ const Home = ({ navigate }) => {
         "Test typing speed with advanced precision metrics.",
         "Evaluate password strength and generate bios.",
         "Calculate exact age and daily calorie metrics.",
-        "Fix grammar and check tenses instantly."
+        "Fix grammar and check tenses instantly.",
+        "Challenge your knowledge with interactive quizzes."
     ];
 
     useEffect(() => {
@@ -1968,6 +1969,14 @@ const Home = ({ navigate }) => {
                                 ),
                                 e('span', { className: 'tool-card-status status-purple' }, 'Secure')
                             ),
+                            e('div', { className: 'tool-motion-card t-quiz' },
+    e('div', { className: 'tool-card-icon' }, '🧠'), // Password key ki jagah Brain emoji
+    e('div', { className: 'tool-card-info' },
+        e('span', { className: 'tool-card-name' }, 'Quiz Hub'),
+        e('span', { className: 'quiz-preview-stream' }, 'Score: 95%') // Random password ki jagah score text
+    ),
+    e('span', { className: 'tool-card-status status-green' }, 'Active') // Purple ki jagah Green status line
+),
 
                             // Tool 3: Zip Extractor Animation// Tool 3: All-In-One Calculator Animation (Zip Extractor ki jagah)
                             e('div', { className: 'tool-motion-card t-calc' },
@@ -2094,6 +2103,33 @@ const Home = ({ navigate }) => {
                     e('div', { className: 'card-action-link-footer' }, 'Open Calculators', e('span', { className: 'arrow-vector' }, '→'))
                 ),
                 e('div', {
+                    className: 'premium-tool-card premium-card-delay-6',
+                    style: {
+                        transition: 'all 0.3s ease',
+                    },
+                    // Mouse upar aane par green glow karega ✨
+                    onMouseEnter: (e) => {
+                        e.currentTarget.style.borderColor = '#22c55e'; // Green color ka border
+                        e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.6)'; // Green glow effect
+                        e.currentTarget.style.transform = 'translateY(-5px)'; // Thoda upar uthega
+                    },
+                    // Mouse hatne par wapis normal ho jayega
+                    onMouseLeave: (e) => {
+                        e.currentTarget.style.borderColor = ''; 
+                        e.currentTarget.style.boxShadow = ''; 
+                        e.currentTarget.style.transform = ''; 
+                    },
+                    onClick: () => navigate('quiz') // <-- Yeh click karne par quiz page par le jayega
+                },
+                    e('div', null,
+                        e('div', { className: 'premium-badge', style: { color: '#22c55e', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid rgba(34, 197, 94, 0.2)' } }, '🧠 Knowledge Base'),
+                        e('div', { className: 'card-icon-container' }, '🎓'),
+                        e('h3', { className: 'card-main-title' }, 'Interactive Quiz Hub'),
+                        e('p', { className: 'card-secondary-desc' }, 'Test your knowledge across Academic and Coding domains with our multi-level progressive MCQs.')
+                    ),
+                    e('div', { className: 'card-action-link-footer' }, 'Start Assessment', e('span', { className: 'arrow-vector' }, '→'))
+                ),
+                e('div', {
                     className: 'premium-tool-card premium-card-delay-5', // Normal class rakhi hy taake background baqi cards jaisa rahe
                     style: {
                         transition: 'all 0.3s ease',
@@ -2121,6 +2157,7 @@ const Home = ({ navigate }) => {
                     e('div', { className: 'card-action-link-footer' }, 'Analyze Tense Structure', e('span', { className: 'arrow-vector' }, '→'))
                 )
             ),
+            
 
             // ── HOW IT WORKS ──
             e('div', { className: 'how-it-works' },
@@ -2131,7 +2168,7 @@ const Home = ({ navigate }) => {
                         e('span', { className: 'step-icon' }, '🎯'),
                         e('div', { className: 'step-num' }, 'Step 01'),
                         e('div', { className: 'step-title' }, 'Pick a Tool'),
-                        e('div', { className: 'step-desc' }, 'Choose from typing tester, password checker, bio writer, or calculator — all free.')
+                        e('div', { className: 'step-desc' }, 'Choose from typing tester, password checker, bio writer, quiz, or calculator — all free.')
                     ),
 
                     e('div', { className: 'step-card' },
@@ -2145,7 +2182,8 @@ const Home = ({ navigate }) => {
                         e('div', { className: 'step-num' }, 'Step 03'),
                         e('div', { className: 'step-title' }, 'Get Results'),
                         e('div', { className: 'step-desc' }, 'See your stats, scores, and outputs instantly with zero server delay.')
-                    )
+                    ),
+                    
                 )
             ),
             // --- NEW: Ultra-Premium Additional Details Section with Images & Flow ---
