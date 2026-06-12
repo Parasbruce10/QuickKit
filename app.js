@@ -175,6 +175,158 @@ const mathQuizData = {
             { q: "What is the formula for the area of a circle?", o: ["2πr", "πr²", "πd", "2πr²"], c: 1 }
         ]
     };
+    const physicsQuizData = {
+        1: [ // Round 1: Basic Mechanics, Light & Sound
+            { q: "What is the SI unit of Force?", o: ["Joule", "Watt", "Newton", "Pascal"], c: 2 },
+            { q: "Sound travels fastest in which medium?", o: ["Solid", "Liquid", "Gas", "Vacuum"], c: 0 },
+            { q: "A light-year is a measure of what?", o: ["Time", "Distance", "Speed", "Intensity"], c: 1 },
+            { q: "What is the approximate value of acceleration due to gravity (g) on Earth?", o: ["8.9 m/s²", "9.8 m/s²", "10.5 m/s²", "11.2 m/s²"], c: 1 },
+            { q: "What is the SI unit of power?", o: ["Volt", "Ohm", "Ampere", "Watt"], c: 3 },
+            { q: "Which instrument is used to measure electric current?", o: ["Voltmeter", "Ammeter", "Galvanometer", "Thermometer"], c: 1 },
+            { q: "What type of lens is used in a magnifying glass?", o: ["Concave", "Convex", "Cylindrical", "Plano-concave"], c: 1 },
+            { q: "What is the boiling point of pure water in Celsius?", o: ["50°C", "90°C", "100°C", "120°C"], c: 2 },
+            { q: "Which primary color of light combined with Green and Blue makes White light?", o: ["Yellow", "Red", "Cyan", "Magenta"], c: 1 },
+            { q: "What is the formula for speed?", o: ["Distance × Time", "Distance ÷ Time", "Time ÷ Distance", "Mass × Acceleration"], c: 1 }
+        ],
+        2: [ // Round 2: Laws of Motion, Tensors & Electricity
+            { q: "Newton's First Law of Motion is also known as the Law of what?", o: ["Inertia", "Momentum", "Gravity", "Action & Reaction"], c: 0 },
+            { q: "What is the formula for Kinetic Energy?", o: ["mgh", "mv²", "1/2 mv²", "F × d"], c: 2 },
+            { q: "What states that V = IR (Voltage = Current × Resistance)?", o: ["Newton's Law", "Ohm's Law", "Coulomb's Law", "Pascal's Law"], c: 1 },
+            { q: "Bending of light when it passes from one medium to another is called?", o: ["Reflection", "Refraction", "Diffraction", "Dispersion"], c: 1 },
+            { q: "What is the unit of frequency?", o: ["Hertz", "Decibel", "Tesla", "Henry"], c: 0 },
+            { q: "Heat transfer through direct contact of particles is known as?", o: ["Convection", "Radiation", "Conduction", "Insulation"], c: 2 },
+            { q: "What is the formula of Density?", o: ["Mass × Volume", "Volume ÷ Mass", "Mass ÷ Volume", "Weight × Gravity"], c: 2 },
+            { q: "What type of mirror is used in car side-views to show a wider field?", o: ["Plane mirror", "Concave mirror", "Convex mirror", "Parabolic mirror"], c: 2 },
+            { q: "If the frequency of a wave increases, its wavelength ___?", o: ["Increases", "Decreases", "Remains same", "Doubles"], c: 1 },
+            { q: "What is the unit of electric resistance?", o: ["Farad", "Ohm", "Siemens", "Weber"], c: 1 }
+        ],
+        3: [ // Round 3: Modern Physics, Relativity & Quantum Concepts
+            { q: "What is the exact speed of light in a vacuum?", o: ["3 × 10⁵ m/s", "3 × 10⁸ m/s", "3 × 10¹⁰ m/s", "3 × 10⁶ m/s"], c: 1 },
+            { q: "In Einstein's famous equation E = mc², what does 'c' stand for?", o: ["Charge", "Constant", "Speed of Light", "Core Mass"], c: 2 },
+            { q: "What is the escape velocity from Earth's surface?", o: ["7.2 km/s", "9.8 km/s", "11.2 km/s", "42.1 km/s"], c: 2 },
+            { q: "What temperature is known as Absolute Zero?", o: ["0°C", "-100°C", "-273.15°C", "-459.67°C"], c: 2 },
+            { q: "A quantum of light or electromagnetic radiation is called a/an ___?", o: ["Electron", "Proton", "Neutron", "Photon"], c: 3 },
+            { q: "Which element is widely used as a semiconductor in computer chips?", o: ["Copper", "Silicon", "Iron", "Gold"], c: 1 },
+            { q: "Who discovered natural radioactivity?", o: ["Marie Curie", "Henri Becquerel", "Albert Einstein", "Ernest Rutherford"], c: 1 },
+            { q: "What is the SI unit of magnetic flux?", o: ["Tesla", "Weber", "Gauss", "Maxwell"], c: 1 },
+            { q: "If force and displacement are perpendicular (90°), work done is?", o: ["Maximum", "Minimum", "Zero", "Negative"], c: 2 },
+            { q: "Which phenomenon proves the transverse wave nature of light?", o: ["Interference", "Refraction", "Polarization", "Diffraction"], c: 2 }
+        ]
+    };
+    const chemistryQuizData = {
+        1: [ // Round 1: Basic Chemistry & Periodic Table
+            { q: "What is the chemical formula for water?", o: ["H2O", "CO2", "NaCl", "O2"], c: 0 },
+            { q: "What is the chemical symbol for Gold?", o: ["Ag", "Au", "Fe", "Pb"], c: 1 },
+            { q: "Which gas do humans need to breathe to survive?", o: ["Nitrogen", "Hydrogen", "Oxygen", "Carbon Dioxide"], c: 2 },
+            { q: "What is the atomic number of Hydrogen?", o: ["1", "2", "6", "8"], c: 0 },
+            { q: "What is the pH value of pure water?", o: ["5", "7", "9", "14"], c: 1 },
+            { q: "What is the center of an atom called?", o: ["Nucleus", "Electron", "Proton", "Neutron"], c: 0 },
+            { q: "What is the common name for Sodium Chloride (NaCl)?", o: ["Sugar", "Salt", "Baking Soda", "Vinegar"], c: 1 },
+            { q: "Which gas is filled in soft drinks/soda?", o: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"], c: 2 },
+            { q: "Which is the lightest element in the periodic table?", o: ["Hydrogen", "Helium", "Lithium", "Oxygen"], c: 0 },
+            { q: "Rusting of iron is a chemical reaction with which gas?", o: ["Hydrogen", "Oxygen", "Nitrogen", "Carbon"], c: 1 }
+        ],
+        2: [ // Round 2: Chemical Bonds, Reactions & Acids/Bases
+            { q: "Which acid is present in lemons?", o: ["Acetic acid", "Citric acid", "Hydrochloric acid", "Sulfuric acid"], c: 1 },
+            { q: "Which state of matter has a fixed volume but no fixed shape?", o: ["Solid", "Liquid", "Gas", "Plasma"], c: 1 },
+            { q: "Which type of chemical bond involves sharing of electrons?", o: ["Covalent bond", "Ionic bond", "Hydrogen bond", "Metallic bond"], c: 0 },
+            { q: "How many valence electrons does a Carbon atom have?", o: ["2", "3", "4", "6"], c: 2 },
+            { q: "What is the chemical symbol for Sodium?", o: ["S", "Na", "So", "K"], c: 1 },
+            { q: "The process of a liquid turning into gas below its boiling point is:", o: ["Boiling", "Condensation", "Evaporation", "Sublimation"], c: 2 },
+            { q: "Which element is commonly used as fuel in nuclear reactors?", o: ["Coal", "Uranium", "Petroleum", "Radium"], c: 1 },
+            { q: "What is the SI unit for the amount of a substance?", o: ["Gram", "Kilogram", "Mole", "Liter"], c: 2 },
+            { q: "Which acid is produced naturally in the human stomach?", o: ["Hydrochloric acid (HCl)", "Sulfuric acid", "Nitric acid", "Acetic acid"], c: 0 },
+            { q: "What is the hardest naturally occurring chemical substance?", o: ["Gold", "Diamond", "Iron", "Graphite"], c: 1 }
+        ],
+        3: [ // Round 3: Organic Chemistry & Advanced Concepts
+            { q: "What is the main component of Natural Gas (Sui gas)?", o: ["Methane", "Ethane", "Propane", "Butane"], c: 0 },
+            { q: "The process where a solid directly turns into gas is called:", o: ["Evaporation", "Sublimation", "Deposition", "Melting"], c: 1 },
+            { q: "What is the general formula for Alkanes?", o: ["CnH2n+2", "CnH2n", "CnH2n-2", "CnHn"], c: 0 },
+            { q: "A catalyst speeds up a chemical reaction by lowering its ___?", o: ["Temperature", "Activation energy", "Enthalpy", "Entropy"], c: 1 },
+            { q: "According to the Law of Conservation of Mass, mass cannot be ___:", o: ["Changed", "Measured", "Created or destroyed", "Weighted"], c: 2 },
+            { q: "The functional group '-OH' represents which class of organic compounds?", o: ["Aldehyde", "Alcohol", "Ketone", "Carboxylic acid"], c: 1 },
+            { q: "What is the value of Avogadro's number?", o: ["6.022 x 10^22", "6.022 x 10^23", "3.141 x 10^23", "9.81 x 10^23"], c: 1 },
+            { q: "Which gas is commonly known as Laughing Gas?", o: ["Nitric Oxide", "Nitrogen Dioxide", "Nitrous Oxide", "Ammonia"], c: 2 },
+            { q: "Which isotope of Carbon is used in archaeological carbon dating?", o: ["Carbon-12", "Carbon-13", "Carbon-14", "Carbon-16"], c: 2 },
+            { q: "Which radioactive noble gas can leak into houses from rocks?", o: ["Radon", "Radium", "Helium", "Neon"], c: 0 }
+        ]
+    };
+    const gkQuizData = {
+        1: [ // Round 1: World Basics & Fun Facts
+            { q: "Which is the largest ocean on Earth?", o: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"], c: 2 },
+            { q: "Which planet is known as the Red Planet?", o: ["Venus", "Mars", "Jupiter", "Saturn"], c: 1 },
+            { q: "How many bones are there in an adult human body?", o: ["106", "206", "306", "406"], c: 1 },
+            { q: "Which country is known as the 'Land of the Rising Sun'?", o: ["China", "Japan", "South Korea", "Thailand"], c: 1 },
+            { q: "How many days are there in a Leap Year?", o: ["364", "365", "366", "367"], c: 2 },
+            { q: "Which is the largest continent by area?", o: ["Africa", "Asia", "North America", "Europe"], c: 1 },
+            { q: "What is the currency of Japan?", o: ["Yuan", "Yen", "Won", "Dollar"], c: 1 },
+            { q: "Which animal is known as the 'Ship of the Desert'?", o: ["Horse", "Camel", "Elephant", "Donkey"], c: 1 },
+            { q: "How many colors are there in a rainbow?", o: ["5", "6", "7", "8"], c: 2 },
+            { q: "What is the national game of Pakistan?", o: ["Cricket", "Field Hockey", "Squash", "Football"], c: 1 }
+        ],
+        2: [ // Round 2: Geography, History & Landmarks
+            { q: "Which is the longest river in the world?", o: ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"], c: 1 },
+            { q: "In which country is the famous Eiffel Tower located?", o: ["Germany", "Italy", "France", "United Kingdom"], c: 2 },
+            { q: "Who painted the famous 'Mona Lisa'?", o: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"], c: 2 },
+            { q: "Which country is naturally home to the Kangaroo?", o: ["South Africa", "Australia", "New Zealand", "Kenya"], c: 1 },
+            { q: "Which is the highest mountain peak in the world?", o: ["K2", "Mount Everest", "Kangchenjunga", "Lhotse"], c: 1 },
+            { q: "Which is the smallest country in the world by area?", o: ["Monaco", "Maldives", "Vatican City", "San Marino"], c: 2 },
+            { q: "Which gas is most abundant in Earth's atmosphere?", o: ["Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"], c: 3 },
+            { q: "Which desert is the largest hot desert in the world?", o: ["Sahara Desert", "Gobi Desert", "Thar Desert", "Kalahari Desert"], c: 0 },
+            { q: "Who was the first man to step on the Moon?", o: ["Yuri Gagarin", "Neil Armstrong", "Buzz Aldrin", "Elon Musk"], c: 1 },
+            { q: "What is the capital of the United Kingdom?", o: ["Paris", "Berlin", "London", "Washington D.C."], c: 2 }
+        ],
+        3: [ // Round 3: Advanced World Records & Mysteries
+            { q: "Which country is called the 'Land of White Elephants'?", o: ["Thailand", "India", "Sri Lanka", "Myanmar"], c: 0 },
+            { q: "What is the deepest point in the world's oceans?", o: ["Java Trench", "Puerto Rico Trench", "Mariana Trench", "Sundar Trench"], c: 2 },
+            { q: "In which year did World War II end?", o: ["1918", "1939", "1945", "1950"], c: 2 },
+            { q: "What is the capital city of Canada?", o: ["Toronto", "Vancouver", "Montreal", "Ottawa"], c: 3 },
+            { q: "Which country gifted the Statue of Liberty to the United States?", o: ["United Kingdom", "France", "Spain", "Canada"], c: 1 },
+            { q: "How many hearts does an Octopus have?", o: ["1", "2", "3", "4"], c: 2 },
+            { q: "Which country's national flag is non-quadrilateral (not square or rectangle)?", o: ["Bhutan", "Nepal", "Sri Lanka", "Switzerland"], c: 1 },
+            { q: "What is the currency of Turkey?", o: ["Dinar", "Dirham", "Euro", "Turkish Lira"], c: 3 },
+            { q: "Which human organ filters blood and produces urine?", o: ["Heart", "Liver", "Kidneys", "Lungs"], c: 2 },
+            { q: "Which is the largest internal organ in the human body?", o: ["Brain", "Liver", "Stomach", "Intestine"], c: 1 }
+        ]
+    };
+    const psychologyQuizData = {
+        1: [ // Round 1: Basic Psychology & Human Behavior
+            { q: "Who is widely considered the Father of Modern Psychology?", o: ["Sigmund Freud", "Wilhelm Wundt", "B.F. Skinner", "Albert Einstein"], c: 1 },
+            { q: "Psychology is scientifically defined as the study of ___?", o: ["Brain and Bones", "Mind and Behavior", "Stars and Signs", "Society and Culture"], c: 1 },
+            { q: "Which part of the brain is primary responsible for processing emotions like fear?", o: ["Cerebellum", "Hippocampus", "Amygdala", "Medulla"], c: 2 },
+            { q: "What is a 'Placebo Effect'?", o: ["A real medicine effect", "Psychological benefit from a fake treatment", "A memory loss condition", "A sleep disorder"], c: 1 },
+            { q: "Ivan Pavlov's famous experiment with a dog and a bell is an example of?", o: ["Classical Conditioning", "Operant Conditioning", "Insight Learning", "Observational Learning"], c: 0 },
+            { q: "What is the average duration that information lasts in Short-Term Memory?", o: ["2 to 3 seconds", "20 to 30 seconds", "5 to 10 minutes", "1 hour"], c: 1 },
+            { q: "A person who is naturally reserved, quiet, and enjoys solitude is called an ___?", o: ["Extrovert", "Introvert", "Ambivert", "Optimist"], c: 1 },
+            { q: "What does IQ stand for?", o: ["Internal Quotient", "Intelligence Quotient", "Integrated Quantity", "Intellectual Quality"], c: 1 },
+            { q: "The study of mental illnesses and abnormal behaviors is known as:", o: ["Abnormal Psychology", "Cognitive Psychology", "Social Psychology", "Biopsychology"], c: 0 },
+            { q: "Which human sense is NOT processed through the thalamus hub in the brain?", o: ["Vision", "Hearing", "Touch", "Smell"], c: 3 }
+        ],
+        2: [ // Round 2: Cognitive, Developmental & Personality Theories
+            { q: "According to Sigmund Freud, which component of personality operates on the 'Pleasure Principle'?", o: ["Id", "Ego", "Superego", "Conscience"], c: 0 },
+            { q: "What is at the highest tier of Maslow's Hierarchy of Human Needs?", o: ["Safety needs", "Love and belonging", "Self-esteem", "Self-actualization"], c: 3 },
+            { q: "The psychological discomfort felt when holding two conflicting beliefs or acting against your beliefs is:", o: ["Cognitive Dissonance", "Emotional Burnout", "Mental Fatigue", "Schizophrenia"], c: 0 },
+            { q: "Who proposed the famous 8 stages of Psychosocial Development across a lifespan?", o: ["Jean Piaget", "Erik Erikson", "Carl Rogers", "John Watson"], c: 1 },
+            { q: "B.F. Skinner is famously associated with which learning theory?", o: ["Classical Conditioning", "Operant Conditioning", "Social Learning Theory", "Latent Learning"], c: 1 },
+            { q: "The partial or complete loss of memory due to brain injury or trauma is called:", o: ["Insomnia", "Amnesia", "Dementia", "Dyslexia"], c: 1 },
+            { q: "What is the psychological term for truly understanding and sharing the feelings of another person?", o: ["Apathy", "Sympathy", "Empathy", "Telepathy"], c: 2 },
+            { q: "The famous 'Nature vs. Nurture' debate in psychology refers to:", o: ["Heredity vs. Environment", "Brain vs. Heart", "Humans vs. Animals", "Logic vs. Emotions"], c: 0 },
+            { q: "The famous psychological test that uses symmetrical inkblots to analyze personality is called:", o: ["TAT Test", "MMPI Test", "Rorschach Test", "Binet Test"], c: 2 },
+            { q: "During which stage of sleep do vivid and realistic dreams mostly occur?", o: ["Stage 1 light sleep", "Stage 3 deep sleep", "REM (Rapid Eye Movement) sleep", "NREM sleep"], c: 2 }
+        ],
+        3: [ // Round 3: Advanced Neuropsychology & Disorders
+            { q: "Which neurotransmitter is commonly known as the brain's 'pleasure and reward' chemical?", o: ["Serotonin", "Dopamine", "Melatonin", "Acetylcholine"], c: 1 },
+            { q: "A disorder characterized by severe mood swings between extreme highs (mania) and extreme lows (depression) is:", o: ["Major Depression", "Bipolar Disorder", "Generalized Anxiety", "OCD"], c: 1 },
+            { q: "What is the psychological term for the tendency of people to offer less help in an emergency if other witnesses are present?", o: ["Bystander Effect", "Groupthink", "Social Loafing", "Deindividuation"], c: 0 },
+            { q: "The extreme, irrational fear of open or public places where escape might be difficult is:", o: ["Claustrophobia", "Acrophobia", "Agoraphobia", "Social Phobia"], c: 2 },
+            { q: "Which infamous and controversial psychological experiment was conducted by Philip Zimbardo in 1971?", o: ["Milgram Obedience Study", "Stanford Prison Experiment", "Little Albert Study", "Asch Conformity Experiment"], c: 1 },
+            { q: "A deficiency in which neurotransmitter is most closely linked to Clinical Depression?", o: ["Dopamine", "Endorphins", "Serotonin", "GABA"], c: 2 },
+            { q: "Which stress hormone is chronically released by the adrenal glands during long periods of anxiety?", o: ["Adrenaline", "Cortisol", "Insulin", "Thyroxine"], c: 1 },
+            { q: "A disorder involving unwanted, repetitive thoughts and the urgent need to perform repetitive behaviors is:", o: ["PTSD", "ADHD", "OCD (Obsessive-Compulsive Disorder)", "Autism"], c: 2 },
+            { q: "When a person unconsciously attributes their own unacceptable thoughts or faults onto someone else, it is called:", o: ["Projection", "Denial", "Regression", "Displacement"], c: 0 },
+            { q: "In split-brain research, doctors surgically cut which major pathway connecting the two brain hemispheres?", o: ["Brainstem", "Cerebral Cortex", "Corpus Callosum", "Meninges"], c: 2 }
+        ]
+    };
     const [gameState, setGameState] = useState('card');
     const [currentLevel, setCurrentLevel] = useState(1);
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
@@ -187,6 +339,11 @@ const mathQuizData = {
     if (quizType === 'coder') activeQuizData = coderQuizData;
     if (quizType === 'english') activeQuizData = englishQuizData;
     if (quizType === 'math') activeQuizData = mathQuizData;
+if (quizType === 'physics') activeQuizData = physicsQuizData;
+if (quizType === 'chemistry') activeQuizData = chemistryQuizData;
+if (quizType === 'gk') activeQuizData = gkQuizData;
+if (quizType === 'psychology') activeQuizData = psychologyQuizData;
+
     const startQuiz = (type) => {
         setQuizType(type); // 'teachers' ya 'coder' set ho jayega
         setGameState('playing');
@@ -336,6 +493,86 @@ const mathQuizData = {
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
                         '30 Mathematics MCQs ranging from basic arithmetic to advanced algebra and geometry.'),
                     e('div', { className: 'calc-action', style: { color: '#eab308' } }, 'Start Assessment →')
+                ), // Pichle card ke closing bracket ke baad ye comma lagana mat bhooliyega
+                // CARD 5: Physics Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('physics') // Physics quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '⚛️'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Physics Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(168, 85, 247, 0.1)', color: '#a855f7',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(168, 85, 247, 0.2)'
+                        }
+                    }, '🚀 Quantum & Mechanics'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Physics MCQs designed across basic kinematics, thermodynamics, electricity, and relativity.'),
+                    e('div', { className: 'calc-action', style: { color: '#a855f7' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 6: Chemistry Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('chemistry') // Chemistry quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '🧪'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Chemistry Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(244, 63, 94, 0.1)', color: '#f43f5e',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(244, 63, 94, 0.2)'
+                        }
+                    }, '⚗️ Atoms & Reactions'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Chemistry MCQs covering the periodic table, chemical bonding, acids & bases, and organic compounds.'),
+                    e('div', { className: 'calc-action', style: { color: '#f43f5e' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 7: General Knowledge Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('gk') // GK quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '🌍'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'General Knowledge'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(6, 182, 212, 0.1)', color: '#06b6d4',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(6, 182, 212, 0.2)'
+                        }
+                    }, '🌐 Global Facts'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Global MCQs covering world geography, history, fascinating sciences, and legendary records.'),
+                    e('div', { className: 'calc-action', style: { color: '#06b6d4' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 8: Psychology Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('psychology') // Psychology quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '🧠'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Psychology Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(99, 102, 241, 0.1)', color: '#6366f1',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(99, 102, 241, 0.2)'
+                        }
+                    }, '🔮 Mind & Behavior'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Fascinating MCQs exploring human memory, behavioral conditioning, mental health, and cognitive theories.'),
+                    e('div', { className: 'calc-action', style: { color: '#6366f1' } }, 'Start Assessment →')
                 )
             )
         );
