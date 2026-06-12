@@ -403,6 +403,82 @@ const QuizPage = ({ navigate }) => {
             { q: "What type of relationship exists when both interacting biological species benefit?", o: ["Parasitism", "Commensalism", "Mutualism", "Predation"], c: 2 }
         ]
     };
+    const hollywoodQuizData = {
+        1: [ // Round 1: Blockbusters & Pop Culture Basics
+            { q: "Who played the iconic role of Iron Man in the Marvel Cinematic Universe?", o: ["Chris Evans", "Robert Downey Jr.", "Chris Hemsworth", "Tom Holland"], c: 1 },
+            { q: "Which movie features the famous line: 'May the Force be with you'?", o: ["Star Trek", "Avatar", "Star Wars", "The Matrix"], c: 2 },
+            { q: "Who directed the 1997 epic romantic movie 'Titanic'?", o: ["Steven Spielberg", "Christopher Nolan", "James Cameron", "Quentin Tarantino"], c: 2 },
+            { q: "What is the name of the wizarding school in the Harry Potter series?", o: ["Hogwarts", "Azlaban", "Rivendell", "Westeros"], c: 0 },
+            { q: "Which actor played the character of Jack Dawson in Titanic?", o: ["Brad Pitt", "Tom Cruise", "Leonardo DiCaprio", "Johnny Depp"], c: 2 },
+            { q: "In 'The Matrix', what color pill does Neo take to wake up in the real world?", o: ["Blue", "Red", "Green", "Yellow"], c: 1 },
+            { q: "Which animated movie features a young lion prince named Simba?", o: ["Tarzan", "Madagascar", "The Lion King", "Ice Age"], c: 2 },
+            { q: "What is the highest-grossing movie of all time (without adjusting for inflation)?", o: ["Avengers: Endgame", "Titanic", "Avatar", "Star Wars: The Force Awakens"], c: 2 },
+            { q: "Who plays the lead character of Captain Jack Sparrow in Pirates of the Caribbean?", o: ["Orlando Bloom", "Johnny Depp", "Will Smith", "Hugh Jackman"], c: 1 },
+            { q: "Which superhero is also known as the 'Dark Knight'?", o: ["Superman", "Spider-Man", "Batman", "Iron Man"], c: 2 }
+        ],
+        2: [ // Round 2: Directors, MCU Lore & Famous Quotes
+            { q: "Who directed the mind-bending sci-fi movies 'Inception' and 'Interstellar'?", o: ["James Cameron", "Christopher Nolan", "David Fincher", "Ridley Scott"], c: 1 },
+            { q: "Which actor won a posthumous Academy Award (Oscar) for playing The Joker in 'The Dark Knight'?", o: ["Joaquin Phoenix", "Jared Leto", "Jack Nicholson", "Heath Ledger"], c: 3 },
+            { q: "What is the first official movie released in the Marvel Cinematic Universe (MCU)?", o: ["The Incredible Hulk", "Captain America", "Iron Man", "Thor"], c: 2 },
+            { q: "What is the first rule of 'Fight Club' according to the movie?", o: ["Always win", "You do not talk about Fight Club", "Bring your own gear", "Trust no one"], c: 1 },
+            { q: "Which 2023 biographical movie about the father of the atomic bomb won the Best Picture Oscar?", o: ["Barbie", "Oppenheimer", "Dune: Part Two", "Maestro"], c: 1 },
+            { q: "Who voiced the character of Woody in the 'Toy Story' franchise?", o: ["Tim Allen", "Tom Hanks", "Robin Williams", "Jim Carrey"], c: 1 },
+            { q: "In the movie 'Jurassic Park', what type of prehistoric animals break loose?", o: ["Dinosaurs", "Mammoths", "Sabertooth Tigers", "Giant Apes"], c: 0 },
+            { q: "Which actor plays the legendary character John Wick?", o: ["Tom Cruise", "Keanu Reeves", "Jason Statham", "Matt Damon"], c: 1 },
+            { q: "What is the name of Spider-Man's uncle whose death inspires him to fight crime?", o: ["Uncle Ben", "Uncle Sam", "Uncle Tom", "Uncle Ned"], c: 0 },
+            { q: "Which movie features the famous quote: 'I'm king of the world!'?", o: ["Avatar", "Gladiator", "Titanic", "The Lion King"], c: 2 }
+        ],
+        3: [ // Round 3: Cinema History & Deep Lore Trivia
+            { q: "Who played the legendary character Vito Corleone in 'The Godfather' (1972)?", o: ["Al Pacino", "Robert De Niro", "Marlon Brando", "Dustin Hoffman"], c: 2 },
+            { q: "What was the first full-length animated feature film ever released by Disney?", o: ["Cinderella", "Pinocchio", "Snow White and the Seven Dwarfs", "Bambi"], c: 2 },
+            { q: "Which movie franchise features a character named Gollum who constantly says 'My precious'?", o: ["The Chronicles of Narnia", "The Lord of the Rings", "Harry Potter", "Star Wars"], c: 1 },
+            { q: "Which actor holds the record for the most Academy Awards for Best Actor (3 wins)?", o: ["Jack Nicholson", "Daniel Day-Lewis", "Marlon Brando", "Tom Hanks"], c: 1 },
+            { q: "What is the name of the haunted hotel in Stephen King's 'The Shining'?", o: ["The Overlook Hotel", "Bates Motel", "The Grand Budapest", "Continental"], c: 0 },
+            { q: "In 'Interstellar', what is the name of the box-shaped military robot that accompanies the astronauts?", o: ["CASE", "TARS", "HAL 9000", "R2-D2"], c: 1 },
+            { q: "Which 1994 Quentin Tarantino film features John Travolta as Vincent Vega and Samuel L. Jackson as Jules Winnfield?", o: ["Reservoir Dogs", "Kill Bill", "Pulp Fiction", "Inglourious Basterds"], c: 2 },
+            { q: "Which movie was the first in cinema history to cross the $1 Billion mark at the worldwide box office?", o: ["Avatar", "Titanic", "Jurassic Park", "The Lord of the Rings: The Return of the King"], c: 1 },
+            { q: "What is the capital city of Panem in 'The Hunger Games' series?", o: ["District 12", "The Capitol", "District 13", "New Hope"], c: 1 },
+            { q: "Which classic horror movie features a serial killer named Michael Myers who wears a white mask?", o: ["Friday the 13th", "A Nightmare on Elm Street", "Halloween", "Scream"], c: 2 }
+        ]
+    };
+    const seriesQuizData = {
+        1: [ // Round 1: Viral Hits & Modern Classics
+            { q: "In 'Game of Thrones', which noble house rules the North with the words 'Winter is Coming'?", o: ["House Lannister", "House Stark", "House Targaryen", "House Baratheon"], c: 1 },
+            { q: "What is the name of the coffee shop where the main characters frequently meet in 'Friends'?", o: ["MacLaren's Pub", "Central Perk", "Monk's Diner", "The Cheesecake Factory"], c: 1 },
+            { q: "In 'Breaking Bad', what alias does Walter White use in the criminal underworld?", o: ["Heisenberg", "Cap'n Cook", "El Camino", "Saul Goodman"], c: 0 },
+            { q: "Which character in 'Stranger Things' has psychokinetic abilities and a love for Eggo waffles?", o: ["Mike", "Dustin", "Eleven", "Max"], c: 2 },
+            { q: "In the hit series 'Money Heist' (La Casa de Papel), what city name does the mastermind go by?", o: ["Berlin", "The Professor", "Tokyo", "Madrid"], c: 1 },
+            { q: "Which record-breaking Korean survival drama features children's games with deadly twists?", o: ["Alice in Borderland", "All of Us Are Dead", "Squid Game", "Sweet Home"], c: 2 },
+            { q: "Thomas Shelby is the leader of which street gang in Birmingham?", o: ["Peaky Blinders", "The Clinkers", "Birmingham Boys", "The Sabinis"], c: 0 },
+            { q: "In 'The Office' (US), what is the name of the paper company where the characters work?", o: ["Initech", "Dunder Mifflin", "Reynholm Industries", "Wernham Hogg"], c: 1 },
+            { q: "Who plays the titular brilliant detective in the BBC series 'Sherlock'?", o: ["Robert Downey Jr.", "Martin Freeman", "Benedict Cumberbatch", "Henry Cavill"], c: 2 },
+            { q: "Which Addams Family character gets her own spin-off series directed by Tim Burton in 2022?", o: ["Morticia", "Wednesday", "Enid", "Bianca"], c: 1 }
+        ],
+        2: [ // Round 2: Plot Deep Dives & Character Lore
+            { q: "What subject did Walter White teach at school before turning to crime in 'Breaking Bad'?", o: ["Physics", "Mathematics", "Chemistry", "Biology"], c: 2 },
+            { q: "What is the name of Daenerys Targaryen's largest and most aggressive dragon?", o: ["Rhaegal", "Viserion", "Drogon", "Balerion"], c: 2 },
+            { q: "In the spin-off 'Better Call Saul', what is the smooth-talking lawyer's real birth name?", o: ["Jimmy McGill", "Kim Wexler", "Howard Hamlin", "Chuck McGill"], c: 0 },
+            { q: "In the German sci-fi series 'Dark', what is the name of the small town where everything takes place?", o: ["Hawkins", "Winden", "Farkas", "Riverdale"], c: 1 },
+            { q: "How many times was Ross Geller legally divorced throughout the 10 seasons of 'Friends'?", o: ["1 time", "2 times", "3 times", "4 times"], c: 2 },
+            { q: "What is Sheldon Cooper's signature catchphrase whenever he plays a prank in 'The Big Bang Theory'?", o: ["Bazinga!", "Wubba Lubba Dub Dub", "Geller!", "Bingo!"], c: 0 },
+            { q: "What are the names of the two monster-hunting brothers in the long-running series 'Supernatural'?", o: ["Damon and Stefan", "Sam and Dean", "Klaus and Elijah", "Rick and Morty"], c: 1 },
+            { q: "In 'Prison Break', what did Michael Scofield hide inside his elaborate body tattoo?", o: ["A map of the city", "The blueprints of Fox River Prison", "Bank account numbers", "A hit list"], c: 1 },
+            { q: "In Marvel's series 'Loki', what is the full name of the organization that controls the timeline?", o: ["S.H.I.E.L.D.", "H.Y.D.R.A.", "TVA (Time Variance Authority)", "S.W.O.R.D."], c: 2 },
+            { q: "Which historical British monarch's reign is depicted across the drama series 'The Crown'?", o: ["Queen Victoria", "Queen Elizabeth I", "Queen Elizabeth II", "Queen Mary"], c: 2 }
+        ],
+        3: [ // Round 3: Premium Trivia & Masterpieces
+            { q: "What is the name of the giant media and entertainment conglomerate owned by the Roy family in 'Succession'?", o: ["Waystar Royco", "Ecorp", "Sterling Cooper", "Massive Dynamic"], c: 0 },
+            { q: "In 'Game of Thrones', which character delivers the final fatal blow to the Night King?", o: ["Jon Snow", "Daenerys Targaryen", "Arya Stark", "Bran Stark"], c: 2 },
+            { q: "In the dystopian sci-fi series 'Westworld', what term is used to describe the lifelike androids?", o: ["Replicants", "Cylons", "Hosts", "Synths"], c: 2 },
+            { q: "In the mystery series 'Lost', what is the exact sequence of numbers that appears repeatedly?", o: ["1, 2, 3, 4, 5, 6", "4, 8, 15, 16, 23, 42", "7, 14, 21, 28, 35, 42", "9, 11, 22, 33, 44, 55"], c: 1 },
+            { q: "Which actor starred as Detective Rust Cohle alongside Woody Harrelson in 'True Detective' Season 1?", o: ["Colin Farrell", "Matthew McConaughey", "Mahershala Ali", "Christian Bale"], c: 1 },
+            { q: "Don Draper works as a high-level executive in which industry in the critically acclaimed series 'Mad Men'?", o: ["Wall Street Finance", "Corporate Law", "Advertising", "Journalism"], c: 2 },
+            { q: "What was the name of the interactive, choose-your-own-adventure standalone movie for 'Black Mirror'?", o: ["San Junipero", "Bandersnatch", "White Christmas", "USS Callister"], c: 1 },
+            { q: "In 'The Boys', who is the psychotic, flag-wearing leader of the corporate superhero team 'The Seven'?", o: ["A-Train", "Black Noir", "The Deep", "Homelander"], c: 3 },
+            { q: "In the comedy-drama 'Fleabag', what theatrical convention does the main character frequently break to talk to the audience?", o: ["The Third Wall", "The Fourth Wall", "The Golden Rule", "The Proscenium Arch"], c: 1 },
+            { q: "In the crime drama 'Mindhunter', what is the name of the special FBI unit that profiles imprisoned serial killers?", o: ["BAU (Behavioral Analysis Unit)", "BSU (Behavioral Science Unit)", "CBI", "NCIS"], c: 1 }
+        ]
+    };
     const [gameState, setGameState] = useState('card');
     const [currentLevel, setCurrentLevel] = useState(1);
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
@@ -421,6 +497,8 @@ const QuizPage = ({ navigate }) => {
     if (quizType === 'psychology') activeQuizData = psychologyQuizData;
     if (quizType === 'science') activeQuizData = scienceQuizData;
     if (quizType === 'biology') activeQuizData = biologyQuizData;
+    if (quizType === 'hollywood') activeQuizData = hollywoodQuizData;
+    if (quizType === 'series') activeQuizData = seriesQuizData;
 
     const startQuiz = (type) => {
         setQuizType(type); // 'teachers' ya 'coder' set ho jayega
@@ -691,6 +769,46 @@ const QuizPage = ({ navigate }) => {
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
                         '30 In-depth MCQs testing cell structures, advanced human physiology, plant kingdoms, and genetic mutations.'),
                     e('div', { className: 'calc-action', style: { color: '#84cc16' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 11: Hollywood Movies Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('hollywood') // Hollywood quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '🎬'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Hollywood Movies'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(239, 68, 68, 0.2)'
+                        }
+                    }, '🍿 Cinema & Pop Culture'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Cinematic MCQs testing your knowledge on blockbusters, MCU lore, Oscar-winning directors, and legendary dialogues.'),
+                    e('div', { className: 'calc-action', style: { color: '#ef4444' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 12: Hollywood Series Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('series') // Series quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '📺'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Hollywood Series'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(249, 115, 22, 0.1)', color: '#f97316',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(249, 115, 22, 0.2)'
+                        }
+                    }, '🍿 Binge & Stream'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Ultimate MCQs testing your memory on trending web series, sitcoms, premium Emmy winners, and shocking plot twists.'),
+                    e('div', { className: 'calc-action', style: { color: '#f97316' } }, 'Start Assessment →')
                 )
             )
         );
