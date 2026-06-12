@@ -479,6 +479,82 @@ const QuizPage = ({ navigate }) => {
             { q: "In the crime drama 'Mindhunter', what is the name of the special FBI unit that profiles imprisoned serial killers?", o: ["BAU (Behavioral Analysis Unit)", "BSU (Behavioral Science Unit)", "CBI", "NCIS"], c: 1 }
         ]
     };
+    const preEngineeringQuizData = {
+        1: [ // Round 1: Core Mathematics & Calculus
+            { q: "What is the derivative of sin(x) with respect to x?", o: ["cos(x)", "-cos(x)", "tan(x)", "sec(x)"], c: 0 },
+            { q: "What is the value of log(1) to any positive base?", o: ["1", "0", "10", "Undefined"], c: 1 },
+            { q: "If a matrix A is equal to its transpose (A^T = A), it is called a:", o: ["Skew-symmetric matrix", "Identity matrix", "Symmetric matrix", "Diagonal matrix"], c: 2 },
+            { q: "In calculus, what does the definite integral of a function geometrically represent?", o: ["Slope of the tangent", "Area under the curve", "Length of the arc", "Volume of a sphere"], c: 1 },
+            { q: "What is the value of i^2 (where i is the imaginary unit)?", o: ["1", "0", "-1", "i"], c: 2 },
+            { q: "If two straight lines are perpendicular, the product of their slopes (m1 * m2) is:", o: ["0", "1", "-1", "Infinity"], c: 2 },
+            { q: "A polynomial equation of degree 2 is universally known as a:", o: ["Linear equation", "Cubic equation", "Quadratic equation", "Bi-quadratic equation"], c: 2 },
+            { q: "What is the value of sin(90 degrees)?", o: ["0", "0.5", "0.866", "1"], c: 3 },
+            { q: "What is the sum of the interior angles of a standard triangle?", o: ["90°", "180°", "270°", "360°"], c: 1 },
+            { q: "Solve for x if 2x + 5 = 15:", o: ["5", "10", "15", "20"], c: 0 }
+        ],
+        2: [ // Round 2: Applied Physics & Mechanics
+            { q: "Which formula represents Newton's Second Law of Motion?", o: ["F = mv", "F = ma", "W = mg", "P = mv"], c: 1 },
+            { q: "What is the standard SI unit of electrical resistance?", o: ["Volt", "Ampere", "Ohm", "Watt"], c: 2 },
+            { q: "What type of energy is stored inside a compressed mechanical spring?", o: ["Kinetic Energy", "Elastic Potential Energy", "Chemical Energy", "Thermal Energy"], c: 1 },
+            { q: "The rate of change of displacement over time is defined as:", o: ["Speed", "Acceleration", "Velocity", "Momentum"], c: 2 },
+            { q: "What is the approximate value of acceleration due to gravity (g) on Earth's surface?", o: ["8.9 m/s²", "9.8 m/s²", "10.8 m/s²", "11.2 m/s²"], c: 1 },
+            { q: "Which law states that stress is directly proportional to strain within the elastic limit?", o: ["Pascal's Law", "Hooke's Law", "Newton's Law", "Coulomb's Law"], c: 1 },
+            { q: "Which electronic component is primarily designed to store electrical energy in an electric field?", o: ["Resistor", "Inductor", "Capacitor", "Diode"], c: 2 },
+            { q: "The rotational or turning effect of a force around a fixed pivot point is called:", o: ["Torque", "Inertia", "Work", "Impulse"], c: 0 },
+            { q: "According to the First Law of Thermodynamics, energy cannot be created nor:", o: ["Transferred", "Transformed", "Destroyed", "Measured"], c: 2 },
+            { q: "What is the standard unit used to measure mechanical or electrical Power?", o: ["Joule", "Pascal", "Newton", "Watt"], c: 3 }
+        ],
+        3: [ // Round 3: Engineering Fundamentals & Logic
+            { q: "What is the decimal equivalent of the binary number 1010?", o: ["5", "8", "10", "12"], c: 2 },
+            { q: "Which chemical element is most widely used as the base semiconductor in electronic microchips?", o: ["Copper", "Silicon", "Germanium", "Carbon"], c: 1 },
+            { q: "What does the engineering acronym CAD stand for?", o: ["Computer-Aided Design", "Calculated Advanced Drafting", "Control Automation Device", "Complex Analysis Diagram"], c: 0 },
+            { q: "In structural engineering, concrete is excellent in compression but very weak in:", o: ["Density", "Tension", "Hardness", "Weight"], c: 1 },
+            { q: "Which electrical instrument is connected in series to measure the current flowing through a circuit?", o: ["Voltmeter", "Ammeter", "Galvanometer", "Ohmmeter"], c: 1 },
+            { q: "Which digital logic gate gives a HIGH output (1) only when ALL of its inputs are HIGH (1)?", o: ["OR Gate", "AND Gate", "NOT Gate", "NAND Gate"], c: 1 },
+            { q: "Brass is a widely used engineering alloy consisting primarily of which two metals?", o: ["Iron and Carbon", "Copper and Zinc", "Aluminum and Tin", "Copper and Nickel"], c: 1 },
+            { q: "The precise stress point at which a material transitions from elastic behavior to permanent plastic deformation is the:", o: ["Breaking Point", "Ultimate Tensile Point", "Yield Point", "Proportional Limit"], c: 2 },
+            { q: "Which fundamental law describes the electrostatic force of attraction or repulsion between two point charges?", o: ["Ohm's Law", "Ampere's Law", "Coulomb's Law", "Faraday's Law"], c: 2 },
+            { q: "Which thermodynamic cycle represents the maximum theoretical efficiency possible for a heat engine?", o: ["Otto Cycle", "Diesel Cycle", "Rankine Cycle", "Carnot Cycle"], c: 3 }
+        ]
+    };
+    const commerceQuizData = {
+        1: [ // Round 1: Accounting Basics & Principles
+            { q: "What is the basic Accounting Equation?", o: ["Assets = Liabilities - Equity", "Assets = Liabilities + Equity", "Liabilities = Assets + Equity", "Equity = Assets + Liabilities"], c: 1 },
+            { q: "Who is universally recognized as the Father of Modern Accounting?", o: ["Adam Smith", "Luca Pacioli", "John Maynard Keynes", "Karl Marx"], c: 1 },
+            { q: "Which financial statement shows a company's financial position at a specific point in time?", o: ["Income Statement", "Cash Flow Statement", "Balance Sheet", "Trial Balance"], c: 2 },
+            { q: "The process of recording financial transactions chronologically in the first book of entry is:", o: ["Ledger Posting", "Journalizing", "Balancing", "Auditing"], c: 1 },
+            { q: "An intangible asset that represents a company's brand reputation and customer loyalty is:", o: ["Machinery", "Goodwill", "Inventory", "Patents"], c: 1 },
+            { q: "What is the golden rule of accounting for a Real Account?", o: ["Debit the receiver, credit the giver", "Debit all expenses, credit all incomes", "Debit what comes in, credit what goes out", "Debit the asset, credit the liability"], c: 2 },
+            { q: "The net profit of a business is calculated by deducting operating expenses from:", o: ["Gross Profit", "Total Revenue", "Net Sales", "Capital"], c: 0 },
+            { q: "What does ROI stand for in finance and business?", o: ["Risk on Insurance", "Return on Investment", "Rate of Inflation", "Revenue of Industry"], c: 1 },
+            { q: "A systematic checking of financial books and records by an independent expert is called:", o: ["Bookkeeping", "Accountancy", "Auditing", "Budgeting"], c: 2 },
+            { q: "Which of the following is considered a current liability for a business?", o: ["Land and Building", "Accounts Payable (Creditors)", "Long-term Bank Loan", "Goodwill"], c: 1 }
+        ],
+        2: [ // Round 2: Economics, Banking & Finance
+            { q: "According to the Law of Demand, when the price of a commodity rises, its demand generally ___?", o: ["Increases", "Decreases", "Remains Constant", "Becomes Zero"], c: 1 },
+            { q: "A market structure dominated by a single seller controlling the entire market supply is a:", o: ["Monopoly", "Oligopoly", "Perfect Competition", "Monopolistic Competition"], c: 0 },
+            { q: "What does GDP stand for in macroeconomics?", o: ["Gross Domestic Product", "General Demand Process", "Global Deposit Policy", "Government Development Plan"], c: 0 },
+            { q: "Which central banking institution regulates the monetary policy and currency in Pakistan?", o: ["National Bank of Pakistan", "State Bank of Pakistan", "Federal Bank", "Habib Bank Limited"], c: 1 },
+            { q: "A persistent and general rise in the prices of goods and services over time is known as:", o: ["Deflation", "Stagflation", "Inflation", "Devaluation"], c: 2 },
+            { q: "What type of check features two parallel lines and can only be deposited directly into a bank account?", o: ["Bearer Check", "Open Check", "Crossed Check", "Stale Check"], c: 2 },
+            { q: "Which financial market deals with short-term funds and liquid assets maturing within one year?", o: ["Capital Market", "Money Market", "Stock Market", "Foreign Exchange Market"], c: 1 },
+            { q: "In stock exchange terminology, a 'Bear Market' indicates that stock prices are:", o: ["Rising rapidly", "Falling or expected to fall", "Completely stable", "Crashing within seconds"], c: 1 },
+            { q: "The practice of selling goods in a foreign country at a price lower than the domestic market price is:", o: ["Dumping", "Exporting", "Smuggling", "Tariffing"], c: 0 },
+            { q: "A partner who contributes capital to a business but does not take part in its active management is a:", o: ["Secret Partner", "Sleeping or Silent Partner", "Nominal Partner", "Active Partner"], c: 1 }
+        ],
+        3: [ // Round 3: Business Management, Marketing & Trade
+            { q: "What are the traditional 4 Ps of the Marketing Mix?", o: ["People, Process, Profit, Price", "Product, Price, Place, Promotion", "Planning, Power, Performance, Position", "Policy, Patent, Package, Public"], c: 1 },
+            { q: "A formal written document outlining a new business's goals, strategies, and financial forecasts is a:", o: ["Partnership Deed", "Business Plan", "Article of Association", "Prospectus"], c: 1 },
+            { q: "Which form of business organization offers limited liability protection to all its shareholders?", o: ["Sole Proprietorship", "General Partnership", "Joint Stock Company / Corporation", "Joint Hindu Family"], c: 2 },
+            { q: "A situation where a country's total economic imports exceed its total economic exports is a:", o: ["Trade Surplus", "Trade Deficit", "Balanced Trade", "Fiscal Surplus"], c: 1 },
+            { q: "What does WTO stand for in global international trade?", o: ["World Tariff Organization", "World Trade Organization", "Western Trade Order", "Wealth Tax Office"], c: 1 },
+            { q: "The basic economic problem that arises because human wants are unlimited but resources are limited is:", o: ["Inflation", "Scarcity", "Unemployment", "Poverty"], c: 1 },
+            { q: "The legal right granted to an inventor to protect an invention from being copied or sold is a:", o: ["Trademark", "Copyright", "Patent", "Quotas"], c: 2 },
+            { q: "Which management function involves setting organizational goals and choosing the best course of action?", o: ["Planning", "Organizing", "Leading", "Controlling"], c: 0 },
+            { q: "The minimum price legally fixed by the government below which a product cannot be sold is called:", o: ["Price Ceiling", "Price Floor", "Equilibrium Price", "Subsidy Point"], c: 1 },
+            { q: "The visual design, sign, or symbol that uniquely distinguishes a company's products from others is a:", o: ["Patent", "Slogan", "Brand / Trademark", "Label"], c: 2 }
+        ]
+    };
     const [gameState, setGameState] = useState('card');
     const [currentLevel, setCurrentLevel] = useState(1);
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
@@ -499,6 +575,8 @@ const QuizPage = ({ navigate }) => {
     if (quizType === 'biology') activeQuizData = biologyQuizData;
     if (quizType === 'hollywood') activeQuizData = hollywoodQuizData;
     if (quizType === 'series') activeQuizData = seriesQuizData;
+    if (quizType === 'preengineering') activeQuizData = preEngineeringQuizData;
+    if (quizType === 'commerce') activeQuizData = commerceQuizData;
 
     const startQuiz = (type) => {
         setQuizType(type); // 'teachers' ya 'coder' set ho jayega
@@ -809,6 +887,46 @@ const QuizPage = ({ navigate }) => {
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
                         '30 Ultimate MCQs testing your memory on trending web series, sitcoms, premium Emmy winners, and shocking plot twists.'),
                     e('div', { className: 'calc-action', style: { color: '#f97316' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 13: Pre-Engineering Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('preengineering') // Pre-Engineering quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '📐'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Pre-Engineering'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(37, 99, 235, 0.1)', color: '#2563eb',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(37, 99, 235, 0.2)'
+                        }
+                    }, '⚙️ Math & Mechanics'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Conceptual MCQs evaluating advanced calculus, analytical physics, circuit elements, and fundamental engineering logic.'),
+                    e('div', { className: 'calc-action', style: { color: '#2563eb' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 14: Commerce Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('commerce') // Commerce quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '💼'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Commerce Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(245, 158, 11, 0.2)'
+                        }
+                    }, '📊 Finance & Trade'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Specialized MCQs covering financial accounting principles, macro/microeconomics laws, corporate banking, and modern marketing strategies.'),
+                    e('div', { className: 'calc-action', style: { color: '#f59e0b' } }, 'Start Assessment →')
                 )
             )
         );
