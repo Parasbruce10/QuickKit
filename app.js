@@ -137,7 +137,44 @@ const QuizPage = ({ navigate }) => {
             { q: "Complete the proverb: 'A stitch in time saves ___.'", o: ["mine", "nine", "dime", "fine"], c: 1 }
         ]
     };
-
+const mathQuizData = {
+        1: [ // Round 1: Basic Arithmetic & Sequences
+            { q: "What is 15 + 28?", o: ["33", "43", "53", "63"], c: 1 },
+            { q: "What is 8 x 7?", o: ["54", "56", "62", "64"], c: 1 },
+            { q: "What is 100 ÷ 4?", o: ["20", "25", "30", "50"], c: 1 },
+            { q: "What is the next number in the series: 2, 4, 6, 8, ...?", o: ["9", "10", "11", "12"], c: 1 },
+            { q: "How many sides does a hexagon have?", o: ["5", "6", "7", "8"], c: 1 },
+            { q: "What is 50 - 19?", o: ["29", "31", "39", "41"], c: 1 },
+            { q: "Which is the largest number?", o: ["0.5", "0.05", "0.55", "0.055"], c: 2 },
+            { q: "What is 3 squared (3²)?", o: ["6", "9", "12", "27"], c: 1 },
+            { q: "What is half of 250?", o: ["100", "125", "150", "175"], c: 1 },
+            { q: "Using BODMAS, solve: 12 + 5 x 2 =", o: ["34", "22", "19", "17"], c: 1 }
+        ],
+        2: [ // Round 2: Intermediate Algebra, Percentages & Geometry
+            { q: "Solve for x: 2x - 4 = 10", o: ["3", "5", "7", "9"], c: 2 },
+            { q: "What is 20% of 150?", o: ["20", "25", "30", "35"], c: 2 },
+            { q: "What is the square root of 144?", o: ["10", "12", "14", "16"], c: 1 },
+            { q: "If the radius of a circle is 7, what is its diameter?", o: ["14", "21", "49", "3.5"], c: 0 },
+            { q: "Calculate: 5³ (5 cubed)", o: ["15", "25", "75", "125"], c: 3 },
+            { q: "What is the perimeter of a rectangle with length 5 and width 3?", o: ["8", "15", "16", "20"], c: 2 },
+            { q: "Convert 3/4 to a decimal.", o: ["0.25", "0.50", "0.75", "0.80"], c: 2 },
+            { q: "Solve: -5 + 8 - (-3)", o: ["0", "6", "-10", "16"], c: 1 },
+            { q: "The internal angles of a triangle always add up to?", o: ["90°", "180°", "270°", "360°"], c: 1 },
+            { q: "What is 15% of 200?", o: ["15", "30", "45", "60"], c: 1 }
+        ],
+        3: [ // Round 3: Advanced Concepts, Trigonometry & Equations
+            { q: "What is the value of Pi (π) up to two decimal places?", o: ["3.12", "3.14", "3.16", "3.18"], c: 1 },
+            { q: "Solve for y: 3(y + 2) = 21", o: ["4", "5", "6", "7"], c: 1 },
+            { q: "If x = 3 and y = 4, what is x² + y²?", o: ["14", "21", "25", "49"], c: 2 },
+            { q: "What is the probability of rolling a 4 on a standard 6-sided die?", o: ["1/2", "1/4", "1/6", "1/8"], c: 2 },
+            { q: "Solve: 2² x 2³ = ?", o: ["2⁵", "2⁶", "4⁵", "4⁶"], c: 0 },
+            { q: "What is the sine of 90 degrees?", o: ["0", "0.5", "1", "-1"], c: 2 },
+            { q: "Find the hypotenuse of a right triangle with sides 6 and 8.", o: ["10", "12", "14", "100"], c: 0 },
+            { q: "What is the base 10 logarithm of 100? log₁₀(100)", o: ["1", "2", "10", "100"], c: 1 },
+            { q: "Which of these is a prime number?", o: ["27", "39", "51", "53"], c: 3 },
+            { q: "What is the formula for the area of a circle?", o: ["2πr", "πr²", "πd", "2πr²"], c: 1 }
+        ]
+    };
     const [gameState, setGameState] = useState('card');
     const [currentLevel, setCurrentLevel] = useState(1);
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
@@ -149,6 +186,7 @@ const QuizPage = ({ navigate }) => {
     let activeQuizData = quizData;
     if (quizType === 'coder') activeQuizData = coderQuizData;
     if (quizType === 'english') activeQuizData = englishQuizData;
+    if (quizType === 'math') activeQuizData = mathQuizData;
     const startQuiz = (type) => {
         setQuizType(type); // 'teachers' ya 'coder' set ho jayega
         setGameState('playing');
@@ -278,6 +316,26 @@ const QuizPage = ({ navigate }) => {
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
                         '30 Software Engineering & Full-Stack Development MCQs divided into 3 specialized progressive architecture rounds.'),
                     e('div', { className: 'calc-action', style: { color: '#bd00ff' } }, 'Initialize Sandbox →')
+                ), // Ye comma picchle card ke baad lagana zaroori hai
+                // CARD 4: Math Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('math') // Math quiz call kiya
+                },
+                    e('div', { className: 'calc-icon' }, '🧮'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Math Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(234, 179, 8, 0.1)', color: '#eab308',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(234, 179, 8, 0.2)'
+                        }
+                    }, '📐 Numerical Logic'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Mathematics MCQs ranging from basic arithmetic to advanced algebra and geometry.'),
+                    e('div', { className: 'calc-action', style: { color: '#eab308' } }, 'Start Assessment →')
                 )
             )
         );
