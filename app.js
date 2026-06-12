@@ -327,6 +327,82 @@ const QuizPage = ({ navigate }) => {
             { q: "In split-brain research, doctors surgically cut which major pathway connecting the two brain hemispheres?", o: ["Brainstem", "Cerebral Cortex", "Corpus Callosum", "Meninges"], c: 2 }
         ]
     };
+    const scienceQuizData = {
+        1: [ // Round 1: Biology & Life Sciences
+            { q: "Which organ is known as the 'Powerhouse of the cell'?", o: ["Nucleus", "Ribosome", "Mitochondria", "Chloroplast"], c: 2 },
+            { q: "What gas do plants absorb from the atmosphere during photosynthesis?", o: ["Oxygen", "Nitrogen", "Hydrogen", "Carbon Dioxide"], c: 3 },
+            { q: "What is the green pigment in plants called?", o: ["Chlorophyll", "Carotene", "Hemoglobin", "Melanin"], c: 0 },
+            { q: "How many chambers does a human heart have?", o: ["2", "3", "4", "5"], c: 2 },
+            { q: "Which is the only mammal that is capable of true flight?", o: ["Flying Squirrel", "Bat", "Eagle", "Owl"], c: 1 },
+            { q: "Which blood type is known as the Universal Donor?", o: ["A+", "B-", "AB+", "O-"], c: 3 },
+            { q: "What is the primary function of White Blood Cells?", o: ["Transport oxygen", "Clot blood", "Fight infections", "Produce energy"], c: 2 },
+            { q: "Which vitamin is heavily present in citrus fruits like oranges?", o: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"], c: 2 },
+            { q: "Animals that eat both plants and meat are called ___?", o: ["Herbivores", "Carnivores", "Omnivores", "Decomposers"], c: 2 },
+            { q: "What is the largest organ of the human body?", o: ["Liver", "Skin", "Brain", "Lungs"], c: 1 }
+        ],
+        2: [ // Round 2: Earth Science & Astronomy
+            { q: "Which planet is closest to the Sun?", o: ["Venus", "Earth", "Mercury", "Mars"], c: 2 },
+            { q: "Which layer of Earth's atmosphere protects us from harmful UV rays?", o: ["Troposphere", "Stratosphere (Ozone Layer)", "Mesosphere", "Thermosphere"], c: 1 },
+            { q: "What instrument is used to detect and measure earthquakes?", o: ["Barometer", "Seismograph", "Thermometer", "Anemometer"], c: 1 },
+            { q: "What type of rock is formed from cooled and solidified lava?", o: ["Igneous", "Sedimentary", "Metamorphic", "Fossil"], c: 0 },
+            { q: "How long does it take for Earth to complete one full orbit around the Sun?", o: ["24 hours", "30 days", "365 days", "100 days"], c: 2 },
+            { q: "Which is the brightest planet in our night sky?", o: ["Mars", "Jupiter", "Venus", "Saturn"], c: 2 },
+            { q: "The process of water vapor turning back into liquid water is called:", o: ["Evaporation", "Condensation", "Precipitation", "Transpiration"], c: 1 },
+            { q: "What is the name of our home galaxy?", o: ["Andromeda", "Milky Way", "Sombrero", "Triangulum"], c: 1 },
+            { q: "Ocean tides are primarily caused by the gravitational pull of the ___?", o: ["Sun", "Moon", "Mars", "Earth's core"], c: 1 },
+            { q: "Which layer of the Earth is the hottest?", o: ["Crust", "Mantle", "Outer Core", "Inner Core"], c: 3 }
+        ],
+        3: [ // Round 3: Genetics, Discoveries & Ecosystems
+            { q: "What is the structural shape of a DNA molecule?", o: ["Single strand", "Double Helix", "Sphere", "Triple Helix"], c: 1 },
+            { q: "Who discovered the first modern antibiotic, Penicillin?", o: ["Louis Pasteur", "Alexander Fleming", "Gregor Mendel", "Robert Hooke"], c: 1 },
+            { q: "What is the basic unit of heredity in living organisms?", o: ["Cell", "Gene", "Chromosome", "Protein"], c: 1 },
+            { q: "Who proposed the Theory of Evolution by Natural Selection?", o: ["Charles Darwin", "Jean-Baptiste Lamarck", "Gregor Mendel", "Isaac Newton"], c: 0 },
+            { q: "Which vitamin is produced naturally by the human skin when exposed to sunlight?", o: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"], c: 2 },
+            { q: "Approximately what percentage of the Earth's surface is covered by water?", o: ["50%", "60%", "71%", "85 Roj"], c: 2 },
+            { q: "What is the main source of energy for almost all ecosystems on Earth?", o: ["The Moon", "The Sun", "Volcanoes", "Geothermal vents"], c: 1 },
+            { q: "Acid rain is primarily caused by emissions of which gases?", o: ["Oxygen & Nitrogen", "Sulfur dioxide & Nitrogen oxides", "Carbon dioxide & Methane", "Helium & Argon"], c: 1 },
+            { q: "The scientific study of fossils is called ___?", o: ["Archaeology", "Geology", "Paleontology", "Anthropology"], c: 2 },
+            { q: "What is the name of the process by which cells divide to form identical daughter cells?", o: ["Mitosis", "Meiosis", "Photosynthesis", "Osmosis"], c: 0 }
+        ]
+    };
+    const biologyQuizData = {
+        1: [ // Round 1: Cell Biology & Microorganisms
+            { q: "What is the primary function of the cell's Nucleus?", o: ["Produce energy", "Store genetic material (DNA)", "Synthesize proteins", "Filter waste"], c: 1 },
+            { q: "Which of the following organisms lacks a defined nucleus (Prokaryote)?", o: ["Amoeba", "Bacteria", "Mushroom", "Yeast"], c: 1 },
+            { q: "Which cell organelle is known as the 'Suicide Bag' of the cell?", o: ["Lysosome", "Golgi body", "Ribosome", "Vacuole"], c: 0 },
+            { q: "What is the main function of Ribosomes?", o: ["Lipid synthesis", "Photosynthesis", "Protein synthesis", "Cell division"], c: 2 },
+            { q: "Animal cells do NOT have which of the following structures?", o: ["Cell membrane", "Cytoplasm", "Cell wall", "Mitochondria"], c: 2 },
+            { q: "What does ATP stand for in cellular energy?", o: ["Adenosine Triphosphate", "Ammonium Total Phosphate", "Adenine Amino Protein", "Advanced Thermal Power"], c: 0 },
+            { q: "Which of these is considered the largest single cell in the world?", o: ["Human egg cell", "Nerve cell", "Ostrich egg", "Amoeba"], c: 2 },
+            { q: "The jelly-like fluid that fills a cell is called ___?", o: ["Plasma", "Sap", "Cytoplasm", "Nucleoplasm"], c: 2 },
+            { q: "A virus is biologically classified as:", o: ["A living bacterium", "A non-living particle outside a host", "A single-celled fungus", "A plant parasite"], c: 1 },
+            { q: "Which process do cells use to consume large particles by engulfing them?", o: ["Osmosis", "Phagocytosis", "Exocytosis", "Diffusion"], c: 1 }
+        ],
+        2: [ // Round 2: Advanced Human Anatomy & Physiology
+            { q: "What is the average lifespan of a human Red Blood Cell (RBC)?", o: ["30 days", "60 days", "90 days", "120 days"], c: 3 },
+            { q: "Which organ in the human body produces 'Bile' juice?", o: ["Stomach", "Pancreas", "Liver", "Gallbladder"], c: 2 },
+            { q: "Where is insulin produced in the human body?", o: ["Liver", "Pancreas", "Spleen", "Kidneys"], c: 1 },
+            { q: "What is the smallest bone in the human body?", o: ["Femur", "Stapes (Ear bone)", "Phalanges", "Sternum"], c: 1 },
+            { q: "What is the functional and structural unit of the human Kidney?", o: ["Nephron", "Neuron", "Alveoli", "Nephridia"], c: 0 },
+            { q: "Which chemical element gives human blood its red color inside hemoglobin?", o: ["Magnesium", "Copper", "Iron", "Calcium"], c: 2 },
+            { q: "The tiny air sacs in human lungs where gas exchange takes place are called:", o: ["Bronchi", "Alveoli", "Trachea", "Capillaries"], c: 1 },
+            { q: "What is the normal core temperature of a healthy human body?", o: ["35°C", "37°C", "39°C", "41°C"], c: 1 },
+            { q: "Which system is responsible for producing hormones in the human body?", o: ["Nervous system", "Digestive system", "Endocrine system", "Excretory system"], c: 2 },
+            { q: "Which blood vessel carries oxygenated blood away from the heart to the body?", o: ["Vein", "Artery", "Capillary", "Vena Cava"], c: 1 }
+        ],
+        3: [ // Round 3: Genetics, Plant Physiology & Kingdoms
+            { q: "Who is recognized worldwide as the Father of Genetics?", o: ["Charles Darwin", "Gregor Mendel", "Louis Pasteur", "James Watson"], c: 1 },
+            { q: "How many chromosomes are present in a normal human somatic cell?", o: ["23", "44", "46", "48"], c: 2 },
+            { q: "Which plant tissue is responsible for transporting water from roots to leaves?", o: ["Phloem", "Xylem", "Cortex", "Pith"], c: 1 },
+            { q: "Which plant tissue transports prepared food/sugar from leaves to other parts?", o: ["Xylem", "Phloem", "Epidermis", "Cambium"], c: 1 },
+            { q: "The microscopic pores on leaves used for gas exchange are called ___?", o: ["Stomata", "Pores", "Trichomes", "Hydathodes"], c: 0 },
+            { q: "Loss of water vapor from the aerial parts of a plant is known as:", o: ["Photosynthesis", "Respiration", "Transpiration", "Osmosis"], c: 2 },
+            { q: "A sudden, permanent change in the DNA sequence of an organism is called a:", o: ["Adaptation", "Mutation", "Selection", "Evolution"], c: 1 },
+            { q: "The observable physical characteristics or traits of an organism are its ___?", o: ["Genotype", "Phenotype", "Allele", "Pedigree"], c: 1 },
+            { q: "Mushrooms, molds, and yeasts belong to which biological kingdom?", o: ["Plantae", "Animalia", "Fungi", "Protista"], c: 2 },
+            { q: "What type of relationship exists when both interacting biological species benefit?", o: ["Parasitism", "Commensalism", "Mutualism", "Predation"], c: 2 }
+        ]
+    };
     const [gameState, setGameState] = useState('card');
     const [currentLevel, setCurrentLevel] = useState(1);
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
@@ -343,6 +419,8 @@ const QuizPage = ({ navigate }) => {
     if (quizType === 'chemistry') activeQuizData = chemistryQuizData;
     if (quizType === 'gk') activeQuizData = gkQuizData;
     if (quizType === 'psychology') activeQuizData = psychologyQuizData;
+    if (quizType === 'science') activeQuizData = scienceQuizData;
+    if (quizType === 'biology') activeQuizData = biologyQuizData;
 
     const startQuiz = (type) => {
         setQuizType(type); // 'teachers' ya 'coder' set ho jayega
@@ -573,6 +651,46 @@ const QuizPage = ({ navigate }) => {
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
                         '30 Fascinating MCQs exploring human memory, behavioral conditioning, mental health, and cognitive theories.'),
                     e('div', { className: 'calc-action', style: { color: '#6366f1' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 9: General Science Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('science') // Science quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '🔬'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'General Science'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(16, 185, 129, 0.2)'
+                        }
+                    }, '🧬 Nature & Cosmos'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Comprehensive MCQs covering human biology, ecosystem dynamics, geology, and atmospheric sciences.'),
+                    e('div', { className: 'calc-action', style: { color: '#10b981' } }, 'Start Assessment →')
+                ), // Pichle card ke baad ye comma lagana mat bhooliyega
+                // CARD 10: Biology Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('biology') // Biology quiz trigger karega
+                },
+                    e('div', { className: 'calc-icon' }, '🌿'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Biology Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(132, 204, 22, 0.1)', color: '#84cc16',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(132, 204, 22, 0.2)'
+                        }
+                    }, '🧬 Cells & Genetics'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 In-depth MCQs testing cell structures, advanced human physiology, plant kingdoms, and genetic mutations.'),
+                    e('div', { className: 'calc-action', style: { color: '#84cc16' } }, 'Start Assessment →')
                 )
             )
         );
