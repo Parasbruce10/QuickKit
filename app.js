@@ -59,8 +59,45 @@ const QuizPage = ({ navigate }) => {
             { q: "Which civilian award is lower in ranking hierarchy than Tamgha-e-Imtiaz?", o: ["Nishan-e-Imtiaz", "Sitara-e-Imtiaz", "Tamgha-e-Khidmat", "None of these"], c: 2 },
             { q: "The princely state of Bahawalpur acceded to Pakistan in which year?", o: ["1947", "1948", "1951", "1954"], c: 0 },
             { q: "Who served as the longest-running Chief Justice in Pakistan's history?", o: ["Justice Mohammad Haleem", "Justice A.R. Cornelius", "Justice Iftikhar Chaudhry", "Justice Anwarul Haq"], c: 0 }
+        ]  
+    };
+    const coderQuizData = {
+        1: [ // Round 1: Basic Web & Frontend Syntax
+            { q: "What does HTML stand for?", o: ["Hyper Text Markup Language", "High Text Machine Language", "Hyperlink and Text Marking Language", "Home Tool Markup Language"], c: 0 },
+            { q: "Which HTML element is used to embed JavaScript code?", o: ["<javascript>", "<scripting>", "<js>", "<script>"], c: 3 },
+            { q: "Which CSS property controls the text size?", o: ["font-style", "text-size", "font-size", "text-style"], c: 2 },
+            { q: "What is the correct syntax for a JavaScript single line comment?", o: ["", "// Comment", "/* Comment */", "' Comment"], c: 1 },
+            { q: "What does CSS stand for?", o: ["Creative Style Sheets", "Computer Style Sheets", "Cascading Style Sheets", "Colorful Style Sheets"], c: 2 },
+            { q: "Which HTML attribute is used to define inline styles?", o: ["class", "styles", "font", "style"], c: 3 },
+            { q: "How do you declare a JavaScript variable that cannot be reassigned?", o: ["var", "let", "const", "int"], c: 2 },
+            { q: "Which HTML tag is used to create an unordered list?", o: ["<ul>", "<ol>", "<li>", "<list>"], c: 0 },
+            { q: "What is the purpose of the 'alt' attribute in an image tag?", o: ["Alternative text if image fails to load", "To change image alignment", "To apply high contrast background", "To link to another source"], c: 0 },
+            { q: "Which JavaScript method is used to write text into the browser console?", o: ["console.print()", "console.log()", "window.alert()", "document.write()"], c: 1 }
+        ],
+        2: [ // Round 2: Intermediate JS, React & Git Basics
+            { q: "In React, what hook mechanism is used to manage local component state?", o: ["useEffect", "useState", "useContext", "useReducer"], c: 1 },
+            { q: "Which command updates local project code changes to a remote Git repository?", o: ["git pull", "git clone", "git push", "git commit"], c: 2 },
+            { q: "In JavaScript, which symbol is strictly used for the assignment operator?", o: ["=", "==", "===", "=>"], c: 0 },
+            { q: "What is the default port number for standard React applications created via Vite?", o: ["80", "443", "3000", "5173"], c: 3 },
+            { q: "Which framework is officially designed by Vercel for production React applications?", o: ["React", "Next.js", "Vue.js", "Angular"], c: 1 },
+            { q: "How do you add a new element to the end of a JavaScript array?", o: ["array.pop()", "array.push()", "array.shift()", "array.unshift()"], c: 1 },
+            { q: "What does JSON stand for?", o: ["JavaScript Object Notation", "Java Server Object Network", "JavaScript Output Name", "Just Super Object Notation"], c: 0 },
+            { q: "In React, which hook is used to perform side effects in functional components?", o: ["useState", "useRef", "useMemo", "useEffect"], c: 3 },
+            { q: "What does the 'git init' command do?", o: ["Downloads a repository from GitHub", "Initializes a brand new local Git repository", "Commits changes", "Creates a new branch"], c: 1 },
+            { q: "Which operator is used to check both the value and type equality in JavaScript?", o: ["==", "=", "===", "!="], c: 2 }
+        ],
+        3: [ // Round 3: Advanced Concepts, Deployment & Backend Basics
+            { q: "Which HTTP status code represents a successful resource creation?", o: ["200 OK", "201 Created", "404 Not Found", "500 Internal Server Error"], c: 1 },
+            { q: "In Node.js, how do you import a core module using CommonJS?", o: ["import fs from 'fs'", "require('fs')", "include('fs')", "load('fs')"], c: 1 },
+            { q: "What is the purpose of the package.json file in a Node/React project?", o: ["To store CSS variables", "To track project dependencies, metadata and scripts", "To configure server firewalls", "To encrypt user passwords"], c: 1 },
+            { q: "Which of the following is a NoSQL non-relational database?", o: ["MySQL", "PostgreSQL", "MongoDB", "SQLite"], c: 2 },
+            { q: "What is the primary role of middleware functions in Express.js?", o: ["To style HTML templates", "To execute code between receiving a request and sending a response", "To compile JavaScript into binary code", "To optimize asset size on Vercel"], c: 1 },
+            { q: "What does the array method array.map() return in JavaScript?", o: ["A brand new modified array", "The original array unmodified", "A single string value", "A true/false boolean state"], c: 0 },
+            { q: "Which configuration file is used to manage deployments specifically on Vercel?", o: ["vercel.json", "config.vercel", "next.config.js", "deployment.yaml"], c: 0 },
+            { q: "What does the term 'Asynchronous' mean in JavaScript operations?", o: ["Code executes line by line synchronously blocking next steps", "Tasks run independently in the background without blocking the main thread", "Code is compiled before runtime", "Functions cannot return values"], c: 1 },
+            { q: "Which lifecycle concept allows functional components to store a mutable value that persists across renders?", o: ["useState", "useContext", "useRef", "useReducer"], c: 2 },
+            { q: "What does REST stand for in API design architecture?", o: ["Representational State Transfer", "Remote External Server Tech", "Responsive Element State Type", "Resource Encoding System Tool"], c: 0 }
         ]
-        
     };
 
     const [gameState, setGameState] = useState('card');
@@ -68,14 +105,16 @@ const QuizPage = ({ navigate }) => {
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [levelScores, setLevelScores] = useState({ 1: 0, 2: 0, 3: 0 });
+    const [quizType, setQuizType] = useState('teachers'); // Default 'teachers' rahega, ya phir 'coder' hoga
 
-    const startQuiz = () => {
-        setGameState('playing');
-        setCurrentLevel(1);
-        setCurrentQuestionIdx(0);
-        setSelectedAnswers({});
-        setLevelScores({ 1: 0, 2: 0, 3: 0 });
-    };
+const startQuiz = (type) => {
+    setQuizType(type); // 'teachers' ya 'coder' set ho jayega
+    setGameState('playing');
+    setCurrentLevel(1); // Dono quiz Round 1 se shuru honge
+    setCurrentQuestionIdx(0);
+    setSelectedAnswers({});
+    setLevelScores({ 1: 0, 2: 0, 3: 0 });
+};
 
     const handleOptionSelect = (optionIdx) => {
         const key = `${currentLevel}_${currentQuestionIdx}`;
@@ -92,8 +131,13 @@ const QuizPage = ({ navigate }) => {
     const handleLevelSummaryAction = () => {
         const passed = levelScores[currentLevel] >= 8;
         if (passed) {
-            if (currentLevel < 3) { setCurrentLevel(currentLevel + 1); setCurrentQuestionIdx(0); setGameState('playing'); }
-            else { setGameState('final_results'); }
+            if (currentLevel < 3) {
+    setCurrentLevel(currentLevel + 1); // Agle round (level) pr bheje
+    setCurrentQuestionIdx(0);
+    setGameState('playing');
+} else {
+    setGameState('finalSummary'); // Agar 3 rounds khatam ho jayein to final report screen
+}
         } else {
             setCurrentQuestionIdx(0);
             setLevelScores(prev => ({ ...prev, [currentLevel]: 0 }));
@@ -122,19 +166,22 @@ const QuizPage = ({ navigate }) => {
     }, `← ${label}`);
 
     // ── SCREEN 1: CARD ──
-    // ── SCREEN 1: CARD ──
     if (gameState === 'card') {
         return e('div', { className: 'container-section calculator-hub-wrapper' },
             e('div', { style: { textAlign: 'center', marginBottom: '50px' } },
                 e('h1', { className: 'brand-title', style: { marginBottom: '15px' } }, '🧠 Quiz Hub'),
                 e('p', { style: { color: '#94a3b8', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: '1.6' } },
-                    'Test your Pakistan GK knowledge across 3 difficulty levels. Score 8/10 to unlock the next level.')
+                    'Select your assessment matrix field. Score at least 8/10 to unlock consecutive rounds successfully.')
             ),
-            e('div', { style: { display: 'flex', justifyContent: 'center' } },
+            
+            // Flex Grid Wrapper for Both Cards
+            e('div', { style: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '30px', maxWidth: '900px', margin: '0 auto' } },
+                
+                // CARD 1: Teachers Quiz
                 e('div', {
                     className: 'glass-calc-card',
-                    style: { maxWidth: '420px', width: '100%', cursor: 'pointer', textAlign: 'center' },
-                    onClick: startQuiz
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('teachers') // Teachers quiz call kiya
                 },
                     e('div', { className: 'calc-icon' }, '🍎'),
                     e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Teachers Quiz'),
@@ -147,21 +194,48 @@ const QuizPage = ({ navigate }) => {
                         }
                     }, '🎓 Academic Assessment'),
                     e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
-                        '30 Pakistan Government Job MCQs across 3 progressive difficulty levels. Score at least 8/10 to unlock the next level!'),
+                        '30 Pakistan General Knowledge & Pedagogy MCQs mapped across 3 progressive difficulty rounds. Achieve threshold matrices.'),
                     e('div', { className: 'calc-action' }, 'Start Assessment →')
+                ),
+
+                // CARD 2: Coader Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('coder') // Coder quiz call kiya
+                },
+                    e('div', { className: 'calc-icon' }, '💻'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Coader Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(189,0,255,0.1)', color: '#bd00ff',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(189,0,255,0.2)'
+                        }
+                    }, '⚡ Tech & Syntax Vector'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 Software Engineering & Full-Stack Development MCQs divided into 3 specialized progressive architecture rounds.'),
+                    e('div', { className: 'calc-action', style: { color: '#bd00ff' } }, 'Initialize Sandbox →')
                 )
             )
         );
     }
 
     // ── SCREEN 2: PLAYING ──
+    // ── SCREEN 2: PLAYING ──
     if (gameState === 'playing') {
-        const currentQuestion = quizData[currentLevel][currentQuestionIdx];
+        const currentQuestions = quizType === 'coder' ? coderQuizData[currentLevel] : quizData[currentLevel];
+        
+        // Yahan par yeh 1 line add karni hai:
+        const currentQuestion = currentQuestions[currentQuestionIdx]; 
+        
         const difficultyText = currentLevel === 1 ? '🟢 Basic/Easy' : currentLevel === 2 ? '🟡 Intermediate/Medium' : '🔴 Advanced/Hard';
+        
         return e('div', { className: 'container-section calculator-hub-wrapper' },
             cgpaBackBtn(() => setGameState('card'), 'Back To Card'),
            e('div', { className: 'glass-calc-form', style: { maxWidth: '680px', margin: '0 auto', padding: '40px' } },
-                e('h2', { style: { textAlign: 'center', fontSize: '62px', fontWeight: '700', background: 'linear-gradient(90deg, #00f5ff, #bd00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '20px' } }, '🍎 Teachers Quiz'),
+                e('h2', { style: { textAlign: 'center', fontSize: '62px', fontWeight: '700', background: 'linear-gradient(90deg, #00f5ff, #bd00ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '20px' } }, ' Lets Start The Quiz'),
                 e('div', { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '15px' } },
                     e('span', { style: { color: '#00f5ff', fontWeight: 'bold', fontSize: '15px' } }, `Level ${currentLevel}/3 — ${difficultyText}`),
                     e('span', { style: { color: '#94a3b8', fontSize: '13px' } }, `Question ${currentQuestionIdx + 1} of 10`)
