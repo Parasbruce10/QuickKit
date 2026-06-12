@@ -99,6 +99,44 @@ const QuizPage = ({ navigate }) => {
             { q: "What does REST stand for in API design architecture?", o: ["Representational State Transfer", "Remote External Server Tech", "Responsive Element State Type", "Resource Encoding System Tool"], c: 0 }
         ]
     };
+    const englishQuizData = {
+        1: [ // Round 1: Basic Grammar & Vocab
+            { q: "Choose the correct synonym for 'Happy'", o: ["Sad", "Joyful", "Angry", "Bored"], c: 1 },
+            { q: "Which of the following is a noun?", o: ["Run", "Beautiful", "Quickly", "Mountain"], c: 3 },
+            { q: "Identify the correct spelling:", o: ["Recieve", "Receive", "Receeve", "Receve"], c: 1 },
+            { q: "What is the antonym of 'Brave'?", o: ["Cowardly", "Strong", "Heroic", "Fearless"], c: 0 },
+            { q: "Complete the sentence: 'She ___ to the store yesterday.'", o: ["go", "goes", "went", "going"], c: 2 },
+            { q: "Which article fits best? 'I saw ___ eagle in the sky.'", o: ["a", "an", "the", "none"], c: 1 },
+            { q: "What is the plural of 'Child'?", o: ["Childs", "Children", "Childrens", "Childes"], c: 1 },
+            { q: "Identify the verb in this sentence: 'The cat sleeps on the sofa.'", o: ["cat", "sleeps", "on", "sofa"], c: 1 },
+            { q: "Choose the correct preposition: 'He is good ___ math.'", o: ["in", "at", "with", "for"], c: 1 },
+            { q: "What does 'ASAP' stand for?", o: ["As Soon As Possible", "Always Smile And Play", "As Slow As Possible", "Any Size Any Price"], c: 0 }
+        ],
+        2: [ // Round 2: Intermediate Tenses & Structure
+            { q: "Which sentence is in the Present Perfect tense?", o: ["I am eating.", "I ate an apple.", "I have eaten.", "I will eat."], c: 2 },
+            { q: "Choose the correct passive form: 'They built the house.'", o: ["The house is built by them.", "The house was built by them.", "The house will be built.", "The house has been built."], c: 1 },
+            { q: "What is the meaning of the idiom 'Bite the bullet'?", o: ["To chew on metal", "To avoid a problem", "To face a difficult situation bravely", "To get angry"], c: 2 },
+            { q: "Identify the adjective: 'The quick brown fox jumps.'", o: ["fox", "jumps", "quick", "The"], c: 2 },
+            { q: "Complete the sentence: 'If I ___ a bird, I would fly.'", o: ["am", "was", "were", "be"], c: 2 },
+            { q: "Find the synonym for 'Abundant'", o: ["Scarce", "Plentiful", "Rare", "Empty"], c: 1 },
+            { q: "Which word is an adverb?", o: ["Beautiful", "Quickly", "Strong", "Tall"], c: 1 },
+            { q: "Choose the correct conjunction: 'I wanted to go, ___ it started raining.'", o: ["and", "because", "but", "so"], c: 2 },
+            { q: "What is the comparative form of 'Good'?", o: ["Gooder", "Better", "Best", "More good"], c: 1 },
+            { q: "Identify the pronoun: 'John gave it to her.'", o: ["John", "gave", "to", "her"], c: 3 }
+        ],
+        3: [ // Round 3: Advanced Comprehension & Vocabulary
+            { q: "What is the meaning of 'Ubiquitous'?", o: ["Rare", "Found everywhere", "Expensive", "Harmful"], c: 1 },
+            { q: "Identify the oxymoron:", o: ["Deafening silence", "Bright light", "Cold ice", "Tall mountain"], c: 0 },
+            { q: "Choose the correctly punctuated sentence:", o: ["Let's eat Grandma.", "Lets eat Grandma.", "Let's eat, Grandma.", "Lets, eat Grandma."], c: 2 },
+            { q: "What does the prefix 'Omni-' mean?", o: ["Nothing", "All", "Half", "Against"], c: 1 },
+            { q: "Which sentence uses the subjunctive mood correctly?", o: ["I suggest that he goes now.", "I suggest that he go now.", "I suggest that he going now.", "I suggest that he went now."], c: 1 },
+            { q: "Find the antonym for 'Ephemeral'", o: ["Short-lived", "Permanent", "Beautiful", "Fast"], c: 1 },
+            { q: "Identify the figure of speech: 'Time is a thief.'", o: ["Simile", "Metaphor", "Personification", "Hyperbole"], c: 1 },
+            { q: "Choose the correct word: 'The ___ of the new policy were disastrous.'", o: ["affects", "effects", "effect", "affect"], c: 1 },
+            { q: "What is a 'Palindrome'?", o: ["A word that rhymes", "A word spelled the same forwards and backwards", "A synonym", "An old proverb"], c: 1 },
+            { q: "Complete the proverb: 'A stitch in time saves ___.'", o: ["mine", "nine", "dime", "fine"], c: 1 }
+        ]
+    };
 
     const [gameState, setGameState] = useState('card');
     const [currentLevel, setCurrentLevel] = useState(1);
@@ -107,6 +145,10 @@ const QuizPage = ({ navigate }) => {
     const [levelScores, setLevelScores] = useState({ 1: 0, 2: 0, 3: 0 });
     const [quizType, setQuizType] = useState('teachers'); // Default 'teachers' rahega, ya phir 'coder' hoga
 
+    // Dynamic data selector taake har screen sahi data uthaye
+    let activeQuizData = quizData;
+    if (quizType === 'coder') activeQuizData = coderQuizData;
+    if (quizType === 'english') activeQuizData = englishQuizData;
     const startQuiz = (type) => {
         setQuizType(type); // 'teachers' ya 'coder' set ho jayega
         setGameState('playing');
@@ -197,8 +239,27 @@ const QuizPage = ({ navigate }) => {
                         '30 Pakistan General Knowledge & Pedagogy MCQs mapped across 3 progressive difficulty rounds. Achieve threshold matrices.'),
                     e('div', { className: 'calc-action' }, 'Start Assessment →')
                 ),
-
-                // CARD 2: Coader Quiz
+// CARD 2: English Quiz
+                e('div', {
+                    className: 'glass-calc-card',
+                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                    onClick: () => startQuiz('english') // Naya english quiz call kiya
+                },
+                    e('div', { className: 'calc-icon' }, '📖'),
+                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'English Quiz'),
+                    e('span', {
+                        style: {
+                            display: 'inline-block', background: 'rgba(34,197,94,0.1)', color: '#22c55e',
+                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                            border: '1px solid rgba(34,197,94,0.2)'
+                        }
+                    }, '📝 Grammar & Vocab'),
+                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                        '30 English Grammar, Vocabulary & Comprehension MCQs mapped across 3 progressive difficulty rounds.'),
+                    e('div', { className: 'calc-action', style: { color: '#22c55e' } }, 'Start Assessment →')
+                ),
+                // CARD 3: Coader Quiz
                 e('div', {
                     className: 'glass-calc-card',
                     style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
@@ -225,8 +286,7 @@ const QuizPage = ({ navigate }) => {
     // ── SCREEN 2: PLAYING ──
     // ── SCREEN 2: PLAYING ──
     if (gameState === 'playing') {
-        const currentQuestions = quizType === 'coder' ? coderQuizData[currentLevel] : quizData[currentLevel];
-
+       const currentQuestions = activeQuizData[currentLevel];
         // Yahan par yeh 1 line add karni hai:
         const currentQuestion = currentQuestions[currentQuestionIdx];
 
@@ -324,7 +384,7 @@ const QuizPage = ({ navigate }) => {
                 e('h3', { style: { color: '#ffffff', fontSize: '17px', marginBottom: '18px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '10px' } }, '📝 Answer Key Logs'),
                 e('div', { style: { maxHeight: '280px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', paddingRight: '8px', marginBottom: '30px' } },
                     [1, 2, 3].flatMap(lvl =>
-                        quizData[lvl].map((item, qIdx) => {
+                        activeQuizData[lvl].map((item, qIdx) => {
                             const userAnsIdx = selectedAnswers[`${lvl}_${qIdx}`];
                             const isCorrect = userAnsIdx === item.c;
                             return e('div', { key: `${lvl}_${qIdx}`, style: { background: 'rgba(0,0,0,0.15)', padding: '14px', borderRadius: '8px', borderLeft: `3px solid ${isCorrect ? '#22c55e' : '#ef4444'}` } },
@@ -2307,7 +2367,7 @@ const Footer = ({ company, navigate }) => {
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('passwordchecker') }, 'Password Strength Checker')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('calculator') }, 'All in One Calculator')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('sentencechecker') }, 'Sentence Checker')),
-                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('quiz') }, 'Quiz'))
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('quiz') }, 'Quiz Hub'))
 
                 )
             ),
