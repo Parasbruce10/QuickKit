@@ -2710,7 +2710,8 @@ const Home = ({ navigate }) => {
         "Evaluate password strength and generate bios.",
         "Calculate exact age and daily calorie metrics.",
         "Fix grammar and check tenses instantly.",
-        "Challenge your knowledge with interactive quizzes."
+        "Challenge your knowledge with interactive quizzes.",
+        "Convert, Zip, and extract files securely."
     ];
 
     useEffect(() => {
@@ -2812,6 +2813,14 @@ const Home = ({ navigate }) => {
                                 ),
                                 e('span', { className: 'tool-card-status status-purple' }, 'Secure')
                             ),
+                            e('div', { className: 'tool-motion-card t-converter' },
+    e('div', { className: 'tool-card-icon' }, '🔄'), // Ya phir 🗂️ / 📄 use kar sakte hain
+    e('div', { className: 'tool-card-info' },
+        e('span', { className: 'tool-card-name' }, 'File Converter'),
+        e('span', { className: 'file-extension-stream' }, 'PDF ⇄ DOCX') // Password ki jagah file extensions
+    ),
+    e('span', { className: 'tool-card-status status-cyan' }, 'Ready') // Secure ki jagah Ready aur naya color class
+),
                             e('div', { className: 'tool-motion-card t-quiz' },
                                 e('div', { className: 'tool-card-icon' }, '🧠'), // Password key ki jagah Brain emoji
                                 e('div', { className: 'tool-card-info' },
@@ -2971,6 +2980,34 @@ const Home = ({ navigate }) => {
                         e('p', { className: 'card-secondary-desc' }, 'Test your knowledge across Academic and Coding domains with our multi-level progressive MCQs.')
                     ),
                     e('div', { className: 'card-action-link-footer' }, 'Start Assessment', e('span', { className: 'arrow-vector' }, '→'))
+                ),
+                // Card 7: Converter Hub Tool
+                e('div', {
+                    className: 'premium-tool-card premium-card-delay-7',
+                    style: {
+                        transition: 'all 0.3s ease',
+                    },
+                    // Mouse upar aane par cyan/blue glow karega ✨
+                    onMouseEnter: (e) => {
+                        e.currentTarget.style.borderColor = '#00d2ff'; // Cyan color ka border
+                        e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 210, 255, 0.6)'; // Cyan glow effect
+                        e.currentTarget.style.transform = 'translateY(-5px)'; // Thoda upar uthega
+                    },
+                    // Mouse hatne par wapis normal ho jayega
+                    onMouseLeave: (e) => {
+                        e.currentTarget.style.borderColor = '';
+                        e.currentTarget.style.boxShadow = '';
+                        e.currentTarget.style.transform = '';
+                    },
+                    onClick: () => navigate('converterhub') // <-- Click karne par Converter Hub par le jayega
+                },
+                    e('div', null,
+                        e('div', { className: 'premium-badge', style: { color: '#00d2ff', background: 'rgba(0, 210, 255, 0.1)', border: '1px solid rgba(0, 210, 255, 0.2)' } }, '🔄 File Utilities'),
+                        e('div', { className: 'card-icon-container' }, '🗂️'),
+                        e('h3', { className: 'card-main-title' }, 'Converter Hub'),
+                        e('p', { className: 'card-secondary-desc' }, 'Transform Word to PDF, smoothly generate Image to PDF documents, and Zip/Unzip your files instantly running locally.')
+                    ),
+                    e('div', { className: 'card-action-link-footer' }, 'Open Converters', e('span', { className: 'arrow-vector' }, '→'))
                 ),
                 e('div', {
                     className: 'premium-tool-card premium-card-delay-5', // Normal class rakhi hy taake background baqi cards jaisa rahe
