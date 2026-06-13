@@ -3035,7 +3035,21 @@ const Home = ({ navigate }) => {
                         e('p', { className: 'card-secondary-desc' }, 'Verify your sentence structures, evaluate strict tense rules, and fix grammatical mistakes instantly.')
                     ),
                     e('div', { className: 'card-action-link-footer' }, 'Analyze Tense Structure', e('span', { className: 'arrow-vector' }, '→'))
-                )
+                ),
+                // ==================== PREMIUM WEBSITE GUIDE CARD ====================
+e('div', {
+    className: 'premium-tool-card bio-card premium-card-delay-4', // Smooth page entrance transition delay
+    onClick: () => navigate('guide'),
+    style: { cursor: 'pointer' }
+},
+    e('div', null,
+        e('div', { className: 'premium-badge' }, '✨ Documentation'), // Clean emoji encoding string
+        e('div', { className: 'card-icon-container' }, '📖'),
+        e('h3', { className: 'card-main-title' }, 'Website User Guide'),
+        e('p', { className: 'card-secondary-desc' }, 'Read the complete, comprehensive step-by-step documentation and operational manual for all our digital tools.')
+    ),
+    e('div', { className: 'card-action-link-footer' }, 'Open System Manual ', e('span', { className: 'arrow-vector' }, '→'))
+)
             ),
 
 
