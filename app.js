@@ -1054,7 +1054,7 @@ const QuizPage = ({ navigate }) => {
 };
 
 // 2. The Engine (Main Body)
-const Content = () => {
+const Content = ({ navigate }) => {
     // Har level ke liye alag text setup (Easy, Medium, Hard)
     const levelParagraphs = {
         1: "The quick brown fox jumps over the lazy dog every single day. Programming is a very fun activity that can help you build wonderful web utilities easily. You should practice typing regularly to improve your overall speed and accuracy metrics.",
@@ -1221,6 +1221,7 @@ const Content = () => {
     });
 
     return e('main', { className: 'main-content' },
+        
         e('div', { className: 'tester-section-wrapper' },
 
             // SCREEN 1: IS RUNNING / IDLE WORKSPACE
@@ -1310,7 +1311,21 @@ const Content = () => {
                         e('div', { className: 'res-label' }, 'Wrong Keys')
                     )
                 ),
-
+e('div', { style: { textAlign: 'center', marginTop: '70px' } },
+            e('button', {
+                onClick: () => navigate('home'),
+                style: {
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    color: '#00f5ff',
+                    padding: '12px 32px',
+                    borderRadius: '30px',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer'
+                }
+            }, '← Back to Home')
+        ),
                 // Conditional Buttons Level ke mutabiq
                 e('div', { style: { display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '20px' } },
                     (!isPassed) && e('button', { className: 'action-btn', onClick: handleRetry }, '🔄 Retry Level'),
@@ -1318,14 +1333,16 @@ const Content = () => {
                     (isGameWon) && e('button', { className: 'action-btn', onClick: handleRestartGame }, '🔄 Play Again')
                 )
             )
-        )
+        ),
+        
     );
+
 };
 
 // --- NEW: Bio Writer Component ---
 // --- NEW: Bio Writer Component ---
 // --- UPDATED: Bio Writer Component with 10+ Templates & Non-Repeating Logic ---
-const BioWriter = () => {
+const BioWriter = ({ navigate }) => {
     // Name aur Field dono ke liye states
     const [userName, setUserName] = useState('');
     const [field, setField] = useState('');
@@ -1690,7 +1707,7 @@ const BioWriter = () => {
 };
 // --- NEW: Password Strength Checker Component ---
 // --- NEW: Password Strength Checker Component (Strict Version with Suggestion) ---
-const PasswordChecker = () => {
+const PasswordChecker = ({ navigate }) => {
     const [password, setPassword] = useState('');
     const [suggestedPassword, setSuggestedPassword] = useState('');
 
@@ -1811,7 +1828,7 @@ const PasswordChecker = () => {
     );
 };
 // --- About Component with English text ---
-const About = () => {
+const About = ({ navigate }) => {
     return e('main', { className: 'main-content' },
         e('div', { className: 'tester-section-wrapper', style: { textAlign: 'center', maxWidth: '800px', margin: '0 auto' } },
             e('h2', { className: 'tester-main-title' }, 'About QuickKit'),
@@ -1844,7 +1861,7 @@ const About = () => {
     );
 };
 // --- NEW: Terms & Conditions Component ---
-const TermsConditions = () => {
+const TermsConditions = ({ navigate }) => {
     return e('main', { className: 'main-content' },
         e('div', { className: 'tester-section-wrapper', style: { maxWidth: '800px', margin: '0 auto', paddingBottom: '40px' } },
             e('h2', { className: 'tester-main-title', style: { textAlign: 'center' } }, 'Terms & Conditions'),
@@ -1928,7 +1945,7 @@ const TermsConditions = () => {
     );
 };
 // --- NEW: Privacy Policy Component ---
-const PrivacyPolicy = () => {
+const PrivacyPolicy = ({ navigate }) => {
     return e('main', { className: 'main-content' },
         e('div', { className: 'tester-section-wrapper', style: { maxWidth: '800px', margin: '0 auto', paddingBottom: '40px' } },
             e('h2', { className: 'tester-main-title', style: { textAlign: 'center' } }, 'Privacy Policy'),
@@ -1996,7 +2013,7 @@ const PrivacyPolicy = () => {
     );
 };
 // --- NEW: Contact Us Component ---
-const ContactUs = () => {
+const ContactUs = ({ navigate }) => {
     // Formspree ka endpoint link aapke email ke sath connected hai
     const formspreeUrl = "https://formspree.io/f/mykvpdbb";
 
@@ -2078,10 +2095,7 @@ const ContactUs = () => {
     );
 };
 // --- NEW: English Sentence Checker Component ---
-// --- STRICT TENSE & GRAMMAR CHECKER COMPONENT ---
-// --- FIXED: Sentence Checker with Premium Card Design (Matching Calculator Hub) ---
-// --- SENTENCE CHECKER - Card pe click karein to tool khule ---
-const SentenceChecker = () => {
+const SentenceChecker = ({ navigate }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [sentence, setSentence] = useState('');
@@ -3186,15 +3200,15 @@ const App = () => {
     if (currentPage === 'home') {
         currentView = e(Home, { navigate: navigate });
     } else if (currentPage === 'typingtester') {
-        currentView = e(Content);
+        currentView = e(Content, { navigate: navigate });
     } else if (currentPage === 'biowriter') {
-        currentView = e(BioWriter);
+        currentView = e(BioWriter, { navigate: navigate });
     } else if (currentPage === 'passwordchecker') {
-        currentView = e(PasswordChecker);
+        currentView = e(PasswordChecker, { navigate: navigate });
     } else if (currentPage === 'calculator') {
         currentView = e(AllInOneCalculator, { navigate: navigate });
     } else if (currentPage === 'sentencechecker') { // <-- YEH NAVI CONDITION ADD KI HY
-        currentView = e(SentenceChecker);
+        currentView = e(SentenceChecker, { navigate: navigate });
     } else if (currentPage === 'quiz') {
         currentView = e(QuizPage, { navigate: navigate });
     } else if (currentPage === 'converterhub') {
@@ -3202,13 +3216,13 @@ const App = () => {
 }  else if (currentPage === 'wordtopdf') {
     currentView = e(WordToPDF, { navigate });
 }else if (currentPage === 'about') {
-        currentView = e(About);
+        currentView = e(About, { navigate: navigate });
     } else if (currentPage === 'terms') {
-        currentView = e(TermsConditions);
+        currentView = e(TermsConditions, { navigate: navigate });
     } else if (currentPage === 'privacy') {
-        currentView = e(PrivacyPolicy);
+       currentView = e(PrivacyPolicy, { navigate: navigate });
     } else if (currentPage === 'contact') {
-        currentView = e(ContactUs);
+        currentView = e(ContactUs, { navigate: navigate });
     } else {
         currentView = e(Home, { navigate: navigate });
     }
@@ -3216,6 +3230,38 @@ const App = () => {
     return e('div', { className: `app-container ${theme}-theme` },
         e(Header, { title: siteName, theme, toggleTheme }),
         currentView,
+        currentPage !== 'home' && e('div', {
+            style: {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '30px 20px',
+                width: '100%'
+            }
+        },
+            e('button', {
+                className: 'back-to-home-btn',
+                onClick: () => navigate('home'),
+                style: {
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
+            border: '1px solid rgba(255,255,255,0.15)',
+            color: '#00f5ff',
+            padding: '12px 32px',
+            borderRadius: '30px',
+            fontSize: '1rem',
+            fontWeight: '600',
+            cursor: 'pointer'
+                },
+                onMouseEnter: (ev) => {
+                    ev.currentTarget.style.transform = 'translateY(-2px)';
+                    ev.currentTarget.style.boxShadow = '0 10px 25px rgba(99, 102, 241, 0.5)';
+                },
+                onMouseLeave: (ev) => {
+                    ev.currentTarget.style.transform = 'translateY(0)';
+                    ev.currentTarget.style.boxShadow = '0 6px 20px rgba(99, 102, 241, 0.35)';
+                }
+            }, 'Back to Home')
+        ),
         e(Footer, { company: siteName, navigate: navigate })
     );
 };
@@ -4549,21 +4595,7 @@ const ConverterHub = ({ navigate }) => {
         ),
 
         // Back Button
-        e('div', { style: { textAlign: 'center', marginTop: '70px' } },
-            e('button', {
-                onClick: () => navigate('home'),
-                style: {
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                    color: '#00f5ff',
-                    padding: '12px 32px',
-                    borderRadius: '30px',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    cursor: 'pointer'
-                }
-            }, '← Back to Home')
-        )
+        
     );
 };
 
