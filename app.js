@@ -2884,7 +2884,7 @@ const Home = ({ navigate }) => {
                 // ROW 2: "4+ Tools" wala section jo split row ke bilkul NEECHAY hai (Animation se strictly niche)
                 e('div', { className: 'hero-stats-row' },
                     e('div', { className: 'stat-item stat-delay-1' },
-                        e('div', { className: 'stat-number' }, '5+'),
+                        e('div', { className: 'stat-number' }, '7+'),
                         e('div', { className: 'stat-label' }, 'Tools')
                     ),
                     e('div', { className: 'stat-item stat-delay-2' },
