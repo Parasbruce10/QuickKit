@@ -3200,6 +3200,7 @@ e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigat
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('contact') }, 'Contact Us')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('privacy') }, 'Privacy Policy')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('terms') }, 'Terms & Conditions')),
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('guide') }, 'Website Guide')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('about') }, 'About'))
                 )
             )
@@ -3266,7 +3267,10 @@ const App = () => {
         currentView = e(TermsConditions, { navigate: navigate });
     } else if (currentPage === 'privacy') {
        currentView = e(PrivacyPolicy, { navigate: navigate });
-    } else if (currentPage === 'contact') {
+    } else if (currentPage === 'guide') {
+        currentView = e(WebsiteGuide, { navigate: navigate });
+        
+    }else if (currentPage === 'contact') {
         currentView = e(ContactUs, { navigate: navigate });
     } else {
         currentView = e(Home, { navigate: navigate });
@@ -5356,6 +5360,80 @@ const ZipUnzipper = ({ navigate }) => {
                     ))
                 )
             )
+        )
+    );
+};
+// ====================== WEBSITE GUIDE COMPONENT ======================
+const WebsiteGuide = ({ navigate }) => {
+    
+    // Helper function to create stylish sections
+    const GuideSection = (icon, title, description, steps) => {
+        return e('div', { className: 'result-card', style: { padding: '30px', marginBottom: '25px', textAlign: 'left', borderLeft: '4px solid #00f5ff' } },
+            e('h3', { style: { color: '#00f5ff', fontSize: '1.4rem', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' } }, 
+                e('span', { style: { fontSize: '1.8rem' } }, icon), title
+            ),
+            e('p', { style: { color: '#94a3b8', lineHeight: '1.6', fontSize: '1rem', marginBottom: '15px' } }, description),
+            e('ul', { style: { color: '#e2e8f0', paddingLeft: '20px', lineHeight: '1.8', fontSize: '0.95rem' } },
+                steps.map((step, idx) => e('li', { key: idx, style: { marginBottom: '8px' } }, step))
+            )
+        );
+    };
+
+    return e('main', { className: 'main-content' },
+        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '850px', margin: '0 auto', paddingBottom: '50px' } },
+            
+          
+
+            // Header
+            e('h2', { className: 'tester-main-title', style: { textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' } }, '📖 QuickKit User Guide'),
+            e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '40px', fontSize: '1.1rem' } }, 'Master every tool on our platform with this comprehensive step-by-step manual.'),
+
+            // Guides
+            GuideSection('⌨️', 'Typing Tester', 'Test your typing speed and accuracy in real-time with our advanced metrics system.', [
+                'Click "Start Typing Test" from the home page.',
+                'Start typing the paragraph you see on the screen into the input box.',
+                'The timer will automatically begin upon your first keystroke.',
+                'Once the timer ends, review your Words Per Minute (WPM), Accuracy, and Errors.'
+            ]),
+
+            GuideSection('✍️', 'Bio Writer', 'Generate highly attractive, non-repeating professional biographies tailored to your career.', [
+                'Navigate to the "Bio Writer" tool.',
+                'Enter your Full Name and your specific Profession (e.g., Doctor, Developer, Youtuber).',
+                'Click "Generate Stylish Bio".',
+                'If you want a different style, simply click generate again for a fresh template!'
+            ]),
+
+            GuideSection('🧮', 'Calculator Hub', 'An all-in-one suite for Age, Calories, Percentages, CGPA, and Scientific calculations.', [
+                'Open the "All in One Calculator" from the hub.',
+                'Select your desired calculator card (e.g., Age Calculator).',
+                'Input your data (like your Date of Birth in DD-MM-YYYY format) and hit Calculate.',
+                'To switch tools, click the "← Back to Hub" button at the top.'
+            ]),
+
+            GuideSection('📝', 'Sentence Checker & Language Hub', 'Fix grammatical errors, correct tenses, translate languages, and count words.', [
+                'Select the specific language tool you need from the hub menu.',
+                'Grammar Checker: Type an English sentence and click "Check" to find and fix errors.',
+                'Translator: Choose your source and target languages (Urdu, Hindi, English, etc.) and hit translate.',
+                'Word Counter: Paste large text blocks to instantly see word, character, and sentence counts.'
+            ]),
+
+            GuideSection('🗂️', 'Converter Hub', 'Manage your files smoothly running entirely in your browser without server uploads.', [
+                'Word to PDF / Image to PDF: Upload your files and click convert to generate a downloadable PDF.',
+                'Zip Creator: Select multiple files or folders and click "Generate ZIP" to compress them.',
+                'Zip Unzipper: Upload an existing .zip file to instantly extract and download its contents.'
+            ]),
+
+            GuideSection('🛡️', 'Password Strength Checker', 'Evaluate your password entropy and get highly secure auto-generated suggestions.', [
+                'Type your current password into the input field to see a live security audit.',
+                'Check the matrix to ensure it contains upper/lowercase, numbers, and symbols.',
+                'Click "Suggest a Strong Password" to instantly generate an ultra-secure alternative.'
+            ]),
+
+            GuideSection('🧠', 'Interactive Quiz Hub', 'Test your knowledge across multiple categories including Coding, Science, and General Knowledge.', [
+                'Select a category from the Quiz Hub menu.',
+                'Answer the multiple-choice questions. You need at least 8/10 correct to pass a level.',
+                'Clear all 3 difficulty levels to receive your ultimate efficiency report!'
+            ])
         )
     );
 };
