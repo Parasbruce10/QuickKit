@@ -5364,76 +5364,186 @@ const ZipUnzipper = ({ navigate }) => {
     );
 };
 // ====================== WEBSITE GUIDE COMPONENT ======================
+// ====================== EXTENSIVE WEBSITE GUIDE COMPONENT (ANTI-LOW-VALUE CONTENT) ======================
 const WebsiteGuide = ({ navigate }) => {
     
-    // Helper function to create stylish sections
-    const GuideSection = (icon, title, description, steps) => {
-        return e('div', { className: 'result-card', style: { padding: '30px', marginBottom: '25px', textAlign: 'left', borderLeft: '4px solid #00f5ff' } },
-            e('h3', { style: { color: '#00f5ff', fontSize: '1.4rem', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' } }, 
-                e('span', { style: { fontSize: '1.8rem' } }, icon), title
+    // Advanced Helper function to create massive, rich content sections
+    const GuideSection = (icon, title, summary, features, steps, tips) => {
+        return e('div', { className: 'result-card', style: { padding: '40px', marginBottom: '35px', textAlign: 'left', borderLeft: '4px solid #00f5ff', backgroundColor: 'rgba(255, 255, 255, 0.02)' } },
+            // Section Title
+            e('h3', { style: { color: '#00f5ff', fontSize: '1.6rem', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '700' } }, 
+                e('span', { style: { fontSize: '2rem' } }, icon), title
             ),
-            e('p', { style: { color: '#94a3b8', lineHeight: '1.6', fontSize: '1rem', marginBottom: '15px' } }, description),
-            e('ul', { style: { color: '#e2e8f0', paddingLeft: '20px', lineHeight: '1.8', fontSize: '0.95rem' } },
+            
+            // Comprehensive Summary Paragraph
+            e('p', { style: { color: '#e2e8f0', lineHeight: '1.7', fontSize: '1.05rem', marginBottom: '20px' } }, summary),
+            
+            // Sub-section 1: Key Capabilities
+            e('h4', { style: { color: '#ffffff', fontSize: '1.1rem', marginBottom: '8px', fontWeight: '600' } }, '🎯 Core Capabilities & Infrastructure:'),
+            e('ul', { style: { color: '#94a3b8', paddingLeft: '20px', lineHeight: '1.6', fontSize: '0.95rem', marginBottom: '20px', listStyleType: 'square' } },
+                features.map((feat, idx) => e('li', { key: idx, style: { marginBottom: '6px' } }, feat))
+            ),
+
+            // Sub-section 2: Step-by-Step Execution
+            e('h4', { style: { color: '#ffffff', fontSize: '1.1rem', marginBottom: '8px', fontWeight: '600' } }, '📋 Definitive Step-by-Step Operational Manual:'),
+            e('ol', { style: { color: '#cbd5e1', paddingLeft: '20px', lineHeight: '1.8', fontSize: '0.95rem', marginBottom: '20px' } },
                 steps.map((step, idx) => e('li', { key: idx, style: { marginBottom: '8px' } }, step))
-            )
+            ),
+
+            // Sub-section 3: Optimization Tips
+            e('h4', { style: { color: '#00f5ff', fontSize: '1rem', marginBottom: '6px', fontWeight: '600' } }, '💡 Optimization & Pro-Tips for Users:'),
+            e('p', { style: { color: '#64748b', fontSize: '0.9rem', lineHeight: '1.6', fontStyle: 'italic', paddingLeft: '10px', borderLeft: '2px solid #64748b' } }, tips)
         );
     };
 
     return e('main', { className: 'main-content' },
-        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '850px', margin: '0 auto', paddingBottom: '50px' } },
+        e('div', { className: 'tester-section-wrapper', style: { maxWidth: '900px', margin: '0 auto', paddingBottom: '60px', paddingLeft: '20px', paddingRight: '20px' } },
             
-          
+            
 
-            // Header
-            e('h2', { className: 'tester-main-title', style: { textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' } }, '📖 QuickKit User Guide'),
-            e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '40px', fontSize: '1.1rem' } }, 'Master every tool on our platform with this comprehensive step-by-step manual.'),
+            // Platform Main Header Area (High Text Density for SEO / AdSense Bot)
+            e('h2', { className: 'tester-main-title', style: { textAlign: 'center', fontSize: '2.8rem', marginBottom: '15px', fontWeight: '800' } }, '📖 QuickKit Comprehensive User Guide & Documentation'),
+            e('p', { style: { color: '#94a3b8', textAlign: 'center', marginBottom: '15px', fontSize: '1.15rem', lineHeight: '1.6' } }, 'Welcome to the official, in-depth documentation repository for QuickKit. Our multi-purpose utility hub is architected to optimize your digital workflow by delivering performance analytics, content creation modules, mathematically sound computation frameworks, language processing infrastructure, fully client-side asynchronous file conversion utilities, and cryptographic security evaluation vectors.'),
+            e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '50px', fontSize: '0.95rem', lineHeight: '1.6' } }, 'This comprehensive operational manual provides extensive granular details, architectural workflows, and step-by-step processing execution guidelines designed to ensure users achieve maximum efficiency when navigating our client-side software ecosystem.'),
 
-            // Guides
-            GuideSection('⌨️', 'Typing Tester', 'Test your typing speed and accuracy in real-time with our advanced metrics system.', [
-                'Click "Start Typing Test" from the home page.',
-                'Start typing the paragraph you see on the screen into the input box.',
-                'The timer will automatically begin upon your first keystroke.',
-                'Once the timer ends, review your Words Per Minute (WPM), Accuracy, and Errors.'
-            ]),
+            // 1. TYPING TESTER
+            GuideSection('⌨️', 'Typing Tester & Performance Monitor', 
+                'The Typing Tester is a high-precision performance monitoring module engineered to evaluate real-time biometric text input. By monitoring individual keystrokes asynchronously, the utility establishes an accurate diagnostic breakdown of an individual\'s quantitative and qualitative linguistic output, measuring efficiency against standardized typing criteria.',
+                [
+                    'Real-time automated dynamic calculation engine running concurrently with inputs.',
+                    'Algorithmic error-detection scripts highlighting discrepancy metrics on the fly.',
+                    'Adaptive variable text passages covering diverse layouts to stretch typing muscle memory.',
+                    'Precise measurement of raw vs. net speed configurations for professional certification preparation.'
+                ],
+                [
+                    'Initiate the program by selecting "Start Typing Test" from the primary application hub dashboard.',
+                    'Analyze the randomly or structurally assigned paragraph displayed within the visual interface wrapper.',
+                    'Position your cursor inside the primary interactive data input area and begin executing keypress events.',
+                    'Note that the microsecond countdown timer initiates automatically upon the processing of your very first valid keystroke.',
+                    'Maintain velocity while paying strict attention to syntax, capitalization, spacing, and punctuation rules.',
+                    'Upon termination of the configured time epoch, the system locks inputs and instantly parses your performance data.',
+                    'Examine your complete diagnostic breakdown report, highlighting Words Per Minute (WPM), percentage accuracy tracking, gross character count, and absolute error tallies.'
+                ],
+                'To significantly boost net Words Per Minute (WPM) vectors, avoid looking down at your hardware keyboard. Keep your eyesight aligned with the layout container on screen and utilize proper touch-typing anchor configurations (the home row keys: ASDF and JKL;).'
+            ),
 
-            GuideSection('✍️', 'Bio Writer', 'Generate highly attractive, non-repeating professional biographies tailored to your career.', [
-                'Navigate to the "Bio Writer" tool.',
-                'Enter your Full Name and your specific Profession (e.g., Doctor, Developer, Youtuber).',
-                'Click "Generate Stylish Bio".',
-                'If you want a different style, simply click generate again for a fresh template!'
-            ]),
+            // 2. BIO WRITER
+            GuideSection('✍️', 'Bio Writer & Profile Generator', 
+                'The Bio Writer is a creative linguistic generator operating on randomized semantic arrays and structural templates. It eliminates the repetitive nature of self-description by mapping user metadata against professional industries, constructing highly unique, engaging, and professional-grade descriptive profiles ideal for integration across enterprise or casual platforms.',
+                [
+                    'Advanced multi-tier array logic preventing identical sequential template occurrences.',
+                    'Dynamic context-matching framework based entirely on targeted vocational industries.',
+                    'Custom tailored mood parameters optimizing output for corporate, freelance, or entertainment sectors.',
+                    'Instant single-click text compilation and streamlined buffer copying interfaces.'
+                ],
+                [
+                    'Navigate through the navigation architecture directly into the dedicated "Bio Writer" operational portal.',
+                    'Locate the custom text field placeholder designated for your legal or professional brand name and input it accurately.',
+                    'Access the vocational input controller and type your precise industry role (e.g., Senior Full-Stack Engineer, Clinical Cardiologist, Digital Video Editor).',
+                    'Execute the command by clicking on the highly visible "Generate Stylish Bio" interactive utility control.',
+                    'Evaluate the compiled linguistic string rendered within the responsive real-time layout card output.',
+                    'If the tone or phrasing does not entirely match your branding goals, re-trigger the generation button to instantly flash a fresh structure.'
+                ],
+                'When declaring your profession, try utilizing action-oriented sub-niches instead of generic fields. For example, instead of inputting "Teacher", try writing "Interactive Mathematics Educator" to yield incredibly distinct and premium-sounding bio profiles.'
+            ),
 
-            GuideSection('🧮', 'Calculator Hub', 'An all-in-one suite for Age, Calories, Percentages, CGPA, and Scientific calculations.', [
-                'Open the "All in One Calculator" from the hub.',
-                'Select your desired calculator card (e.g., Age Calculator).',
-                'Input your data (like your Date of Birth in DD-MM-YYYY format) and hit Calculate.',
-                'To switch tools, click the "← Back to Hub" button at the top.'
-            ]),
+            // 3. CALCULATOR HUB
+            GuideSection('🧮', 'All-in-One Mathematical Calculator Hub', 
+                'The Calculator Hub serves as an umbrella ecosystem aggregating multiple specialized computational calculators. Powered by client-side mathematical algorithms, these modules execute formulas spanning chronological metrics, physiological energy balance matrices, proportional representations, academic grading criteria, and standard algebraic operations.',
+                [
+                    'Comprehensive Chronological Age Matrix calculating exact years, months, and days from baseline epochs.',
+                    'Basal Metabolic Rate and TDEE calorie mapping algorithms utilizing personalized physiological variables.',
+                    'Multi-variant percentage structures handling margins, markups, depreciations, and simple ratios.',
+                    'Academic CGPA computing matrix allowing variable credit-hour weighted calculations simultaneously.'
+                ],
+                [
+                    'Enter the "All in One Calculator Hub" wrapper via the main platform navigation index.',
+                    'Browse the grid matrix and select the specialized calculator utility that maps directly to your immediate requirement.',
+                    'For chronological evaluation, navigate to the Age Calculator card, and populate your exact date of birth via the secure input drop-downs.',
+                    'For physiological estimation, access the Calorie module and supply metrics regarding age, height, mass, and activity factors.',
+                    'Press the explicit "Calculate" execution trigger to route input values directly to the native mathematical functions.',
+                    'Review the processed output block, and use the "Back to Hub" link to swiftly switch algorithms without page reload delays.'
+                ],
+                'Ensure that input constraints are strictly observed. For instance, when utilizing the calorie or age matrices, double-check that your unit formats (metric vs imperial, or DD-MM-YYYY arrays) match the system-requested values for flawless calculation loops.'
+            ),
 
-            GuideSection('📝', 'Sentence Checker & Language Hub', 'Fix grammatical errors, correct tenses, translate languages, and count words.', [
-                'Select the specific language tool you need from the hub menu.',
-                'Grammar Checker: Type an English sentence and click "Check" to find and fix errors.',
-                'Translator: Choose your source and target languages (Urdu, Hindi, English, etc.) and hit translate.',
-                'Word Counter: Paste large text blocks to instantly see word, character, and sentence counts.'
-            ]),
+            // 4. SENTENCE CHECKER & LANGUAGE HUB
+            GuideSection('📝', 'Sentence Checker & Advanced Language Hub', 
+                'The Language Hub is an integrated textual analysis suite compiled to provide localized grammatical synthesis, cross-lingual translation capabilities, and macro character/word counting data arrays. Operating entirely inside the local application state, it delivers rapid contextual editing feedback.',
+                [
+                    'Heuristic grammar check scripts assessing syntactic structures for common structural anomalies.',
+                    'Asynchronous dictionary mappings allowing immediate text-to-text translations across diverse vocabularies.',
+                    'Real-time text string parsing engine tracking overall character length, word spacing, and total sentence counts.',
+                    'Non-invasive client-side execution keeping typed intellectual property highly secure inside your browser.'
+                ],
+                [
+                    'Select the specific Language, Translation, or Analysis utility from the secondary platform hub sub-menus.',
+                    'To fix composition flaws, paste your English prose string into the Grammar Checker and trigger the analytical check logic.',
+                    'To translate text, select the appropriate source and destination localized language configurations (e.g., English to Urdu/Hindi or vice-versa).',
+                    'Paste your source vocabulary into the input layout box and execute the cross-translation handler.',
+                    'For text-length audits, observe the Live Word Counter panel refresh instantly with every single keypress or clipboard modification.'
+                ],
+                'When executing text blocks in the Translation matrix, break exceptionally large paragraphs into smaller thematic chunks. This preserves structural context and generates translations with considerably higher contextual fidelity.'
+            ),
 
-            GuideSection('🗂️', 'Converter Hub', 'Manage your files smoothly running entirely in your browser without server uploads.', [
-                'Word to PDF / Image to PDF: Upload your files and click convert to generate a downloadable PDF.',
-                'Zip Creator: Select multiple files or folders and click "Generate ZIP" to compress them.',
-                'Zip Unzipper: Upload an existing .zip file to instantly extract and download its contents.'
-            ]),
+            // 5. CONVERTER HUB
+            GuideSection('🗂️', 'Converter Hub & Local Archive Manager', 
+                'The Converter Hub utilizes complex browser-native binary file array operations to transform data states from one MIME-type to another without executing external server uploads. By utilizing client-side canvas arrays and compression algorithms, files are compiled swiftly while ensuring complete confidentiality.',
+                [
+                    'Image-to-PDF dynamic compilation engine scaling graphic assets directly into standardized document containers.',
+                    'Word document structure parsers translating core typography into portable web document templates.',
+                    'Asynchronous archive compilation utilities bundling multi-file structures into unified compressed .zip files.',
+                    'High-speed extraction loops unpacking zip archives and mapping files to downloadable local browser URLs.'
+                ],
+                [
+                    'Launch the specialized Converter Hub window from the core dashboard layout interface.',
+                    'Choose your desired transformation pipeline (e.g., Image to PDF conversion matrix or Zip Archiver).',
+                    'Click the native file selection prompt to securely map localized system storage files to the browser context.',
+                    'Arrange your uploaded image or document files according to your desired sequence preferences.',
+                    'Initiate processing by clicking the corresponding action button, such as "Generate ZIP" or "Convert to PDF".',
+                    'Allow the client-side browser memory array buffer to compile, then save the output file via the download prompt.'
+                ],
+                'Because all conversion loops execute entirely within your computer\'s local web-browser memory sandbox, massive operations (like processing 50+ high-res camera photos) are limited by your RAM capacity. For optimum speeds, process files in optimized batches!'
+            ),
 
-            GuideSection('🛡️', 'Password Strength Checker', 'Evaluate your password entropy and get highly secure auto-generated suggestions.', [
-                'Type your current password into the input field to see a live security audit.',
-                'Check the matrix to ensure it contains upper/lowercase, numbers, and symbols.',
-                'Click "Suggest a Strong Password" to instantly generate an ultra-secure alternative.'
-            ]),
+            // 6. PASSWORD STRENGTH CHECKER
+            GuideSection('🛡️', 'Password Strength Evaluation & Cryptographic Advisor', 
+                'This security utility implements a complex entropy assessment algorithm to evaluate the resilience of cryptographic phrases. It calculates character diversity, patterns, and string length to determine vulnerabilities against brute-force attacks, while hosting an isolated local generation engine for random complex strings.',
+                [
+                    'Live string validation arrays measuring structural entropy scores dynamically.',
+                    'Visual validation matrices monitoring presence flags for uppercase, lowercase, numbers, and symbols.',
+                    'Automated security-grade feedback labels ranging from critical risk to maximum infrastructure protection.',
+                    'Local generation of high-entropy strings utilizing non-repeating cryptographically secure character maps.'
+                ],
+                [
+                    'Access the cryptographic security analyzer screen from the platform settings menu tree.',
+                    'Input your current standard password string into the masked verification input wrapper to perform a live diagnostic audit.',
+                    'Observe the checklist UI matrix change state to see whether your phrase passes upper, lower, numerical, and symbol rules.',
+                    'To replace vulnerable keys, locate and press the "Suggest a Strong Password" interactive feature call-to-action.',
+                    'Instantly capture the highly complex generated phrase from the output container and deploy it on your target accounts.'
+                ],
+                'Never use common dictionary words, sequential numbers (like 1234), or public personal information in passwords. A truly unbreakable password should appear completely chaotic, exactly like the ones generated by our recommendation engine.'
+            ),
 
-            GuideSection('🧠', 'Interactive Quiz Hub', 'Test your knowledge across multiple categories including Coding, Science, and General Knowledge.', [
-                'Select a category from the Quiz Hub menu.',
-                'Answer the multiple-choice questions. You need at least 8/10 correct to pass a level.',
-                'Clear all 3 difficulty levels to receive your ultimate efficiency report!'
-            ])
+            // 7. INTERACTIVE QUIZ HUB
+            GuideSection('🧠', 'Interactive Quiz Hub & Knowledge Assessment Engine', 
+                'The Quiz Hub is a multi-threaded academic verification engine running on complex state arrays. It presents progressive difficulty thresholds across multiple technical and scientific disciplines, scoring user selections against static validation answer keys to calculate cognitive efficiency ratings.',
+                [
+                    'Multi-tiered level progression architecture encompassing Easy, Medium, and Advanced testing environments.',
+                    'Strict score-threshold validation demanding an absolute minimum of 80% accuracy to grant tier progression.',
+                    'Dynamic point mapping logic coupled with instant correct/incorrect visual feedback states.',
+                    'Comprehensive metrics summary charts compiling final efficiency scores upon exam termination.'
+                ],
+                [
+                    'Launch the interactive gaming and testing module by picking "Quiz Hub" from the primary application panel.',
+                    'Evaluate the available academic fields (such as Computer Science, General Knowledge, or Advanced Physics) and select one.',
+                    'Commence Level 1 (Easy Mode) by reading the question block thoroughly before interacting with options.',
+                    'Select one of the four dynamically assigned multiple-choice responsive button items.',
+                    'Progress through all ten sequential system questions while monitoring your score dashboard.',
+                    'Achieve at least 8 correct selections to unlock the Harder difficulty tiers, and finish all stages to download your final report.'
+                ],
+                'Take your time when answering questions in the Advanced difficulty tiers. The options are purposefully designed with subtle wording nuances to test your absolute comprehension of the selected academic discipline.'
+            )
         )
     );
 };
