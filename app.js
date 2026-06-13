@@ -1221,7 +1221,7 @@ const Content = ({ navigate }) => {
     });
 
     return e('main', { className: 'main-content' },
-        
+
         e('div', { className: 'tester-section-wrapper' },
 
             // SCREEN 1: IS RUNNING / IDLE WORKSPACE
@@ -1311,21 +1311,21 @@ const Content = ({ navigate }) => {
                         e('div', { className: 'res-label' }, 'Wrong Keys')
                     )
                 ),
-e('div', { style: { textAlign: 'center', marginTop: '70px' } },
-            e('button', {
-                onClick: () => navigate('home'),
-                style: {
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                    color: '#00f5ff',
-                    padding: '12px 32px',
-                    borderRadius: '30px',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    cursor: 'pointer'
-                }
-            }, '← Back to Home')
-        ),
+                e('div', { style: { textAlign: 'center', marginTop: '70px' } },
+                    e('button', {
+                        onClick: () => navigate('home'),
+                        style: {
+                            background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
+                            border: '1px solid rgba(255,255,255,0.15)',
+                            color: '#00f5ff',
+                            padding: '12px 32px',
+                            borderRadius: '30px',
+                            fontSize: '1rem',
+                            fontWeight: '600',
+                            cursor: 'pointer'
+                        }
+                    }, '← Back to Home')
+                ),
                 // Conditional Buttons Level ke mutabiq
                 e('div', { style: { display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '20px' } },
                     (!isPassed) && e('button', { className: 'action-btn', onClick: handleRetry }, '🔄 Retry Level'),
@@ -1334,7 +1334,7 @@ e('div', { style: { textAlign: 'center', marginTop: '70px' } },
                 )
             )
         ),
-        
+
     );
 
 };
@@ -2397,7 +2397,7 @@ const SentenceChecker = ({ navigate }) => {
                         onChange: (e) => setTargetLang(e.target.value),
                         style: { padding: '10px 15px', borderRadius: '10px', background: '#1e293b', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', cursor: 'pointer' }
                     },
-                       e('option', { value: 'ur' }, 'Urdu (اردو)'),
+                        e('option', { value: 'ur' }, 'Urdu (اردو)'),
                         e('option', { value: 'hi' }, 'Hindi (हिन्दी)'),
                         e('option', { value: 'en' }, 'English'),
                         e('option', { value: 'ar' }, 'Arabic (عربي)'),
@@ -2814,13 +2814,13 @@ const Home = ({ navigate }) => {
                                 e('span', { className: 'tool-card-status status-purple' }, 'Secure')
                             ),
                             e('div', { className: 'tool-motion-card t-converter' },
-    e('div', { className: 'tool-card-icon' }, '🔄'), // Ya phir 🗂️ / 📄 use kar sakte hain
-    e('div', { className: 'tool-card-info' },
-        e('span', { className: 'tool-card-name' }, 'File Converter'),
-        e('span', { className: 'file-extension-stream' }, 'PDF ⇄ DOCX') // Password ki jagah file extensions
-    ),
-    e('span', { className: 'tool-card-status status-cyan' }, 'Ready') // Secure ki jagah Ready aur naya color class
-),
+                                e('div', { className: 'tool-card-icon' }, '🔄'), // Ya phir 🗂️ / 📄 use kar sakte hain
+                                e('div', { className: 'tool-card-info' },
+                                    e('span', { className: 'tool-card-name' }, 'File Converter'),
+                                    e('span', { className: 'file-extension-stream' }, 'PDF ⇄ DOCX') // Password ki jagah file extensions
+                                ),
+                                e('span', { className: 'tool-card-status status-cyan' }, 'Ready') // Secure ki jagah Ready aur naya color class
+                            ),
                             e('div', { className: 'tool-motion-card t-quiz' },
                                 e('div', { className: 'tool-card-icon' }, '🧠'), // Password key ki jagah Brain emoji
                                 e('div', { className: 'tool-card-info' },
@@ -3037,19 +3037,19 @@ const Home = ({ navigate }) => {
                     e('div', { className: 'card-action-link-footer' }, 'Analyze Tense Structure', e('span', { className: 'arrow-vector' }, '→'))
                 ),
                 // ==================== PREMIUM WEBSITE GUIDE CARD ====================
-e('div', {
-    className: 'premium-tool-card bio-card premium-card-delay-4', // Smooth page entrance transition delay
-    onClick: () => navigate('guide'),
-    style: { cursor: 'pointer' }
-},
-    e('div', null,
-        e('div', { className: 'premium-badge' }, '✨ Documentation'), // Clean emoji encoding string
-        e('div', { className: 'card-icon-container' }, '📖'),
-        e('h3', { className: 'card-main-title' }, 'Website User Guide'),
-        e('p', { className: 'card-secondary-desc' }, 'Read the complete, comprehensive step-by-step documentation and operational manual for all our digital tools.')
-    ),
-    e('div', { className: 'card-action-link-footer' }, 'Open System Manual ', e('span', { className: 'arrow-vector' }, '→'))
-)
+                e('div', {
+                    className: 'premium-tool-card bio-card premium-card-delay-4', // Smooth page entrance transition delay
+                    onClick: () => navigate('guide'),
+                    style: { cursor: 'pointer' }
+                },
+                    e('div', null,
+                        e('div', { className: 'premium-badge' }, '✨ Documentation'), // Clean emoji encoding string
+                        e('div', { className: 'card-icon-container' }, '📖'),
+                        e('h3', { className: 'card-main-title' }, 'Website User Guide'),
+                        e('p', { className: 'card-secondary-desc' }, 'Read the complete, comprehensive step-by-step documentation and operational manual for all our digital tools.')
+                    ),
+                    e('div', { className: 'card-action-link-footer' }, 'Open System Manual ', e('span', { className: 'arrow-vector' }, '→'))
+                )
             ),
 
 
@@ -3202,7 +3202,7 @@ const Footer = ({ company, navigate }) => {
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('calculator') }, 'All in One Calculator')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('sentencechecker') }, 'Sentence Checker')),
                     e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('quiz') }, 'Quiz Hub')),
-e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('converterhub') }, 'Converter Hub'))
+                    e('li', null, e('button', { className: 'footer-nav-link', onClick: () => navigate('converterhub') }, 'Converter Hub'))
                 )
             ),
             /* ... (Baqi legal wala hissa waise hi rahega) ... */
@@ -3259,32 +3259,32 @@ const App = () => {
         currentView = e(PasswordChecker, { navigate: navigate });
     } else if (currentPage === 'calculator') {
         currentView = e(AllInOneCalculator, { navigate: navigate });
-    }  else if (currentPage === 'pdftoword') {
+    } else if (currentPage === 'pdftoword') {
         currentView = e(PDFToWord, { navigate });
     } else if (currentPage === 'zipunzipper') {
         currentView = e(ZipUnzipper, { navigate });
-    }else if (currentPage === 'sentencechecker') { // <-- YEH NAVI CONDITION ADD KI HY
+    } else if (currentPage === 'sentencechecker') { // <-- YEH NAVI CONDITION ADD KI HY
         currentView = e(SentenceChecker, { navigate: navigate });
-    }  else if (currentPage === 'zipcreator') {
+    } else if (currentPage === 'zipcreator') {
         currentView = e(ZipCreator, { navigate });
-    }else if (currentPage === 'quiz') {
+    } else if (currentPage === 'quiz') {
         currentView = e(QuizPage, { navigate: navigate });
     } else if (currentPage === 'converterhub') {
-    currentView = e(ConverterHub, { navigate: navigate });
-}  else if (currentPage === 'wordtopdf') {
-    currentView = e(WordToPDF, { navigate });
-}else if (currentPage === 'about') {
+        currentView = e(ConverterHub, { navigate: navigate });
+    } else if (currentPage === 'wordtopdf') {
+        currentView = e(WordToPDF, { navigate });
+    } else if (currentPage === 'about') {
         currentView = e(About, { navigate: navigate });
-    }else if (currentPage === 'imagetopdf') {
-    currentView = e(ImageToPDF, { navigate });
-} else if (currentPage === 'terms') {
+    } else if (currentPage === 'imagetopdf') {
+        currentView = e(ImageToPDF, { navigate });
+    } else if (currentPage === 'terms') {
         currentView = e(TermsConditions, { navigate: navigate });
     } else if (currentPage === 'privacy') {
-       currentView = e(PrivacyPolicy, { navigate: navigate });
+        currentView = e(PrivacyPolicy, { navigate: navigate });
     } else if (currentPage === 'guide') {
         currentView = e(WebsiteGuide, { navigate: navigate });
-        
-    }else if (currentPage === 'contact') {
+
+    } else if (currentPage === 'contact') {
         currentView = e(ContactUs, { navigate: navigate });
     } else {
         currentView = e(Home, { navigate: navigate });
@@ -3307,13 +3307,13 @@ const App = () => {
                 onClick: () => navigate('home'),
                 style: {
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
-            border: '1px solid rgba(255,255,255,0.15)',
-            color: '#00f5ff',
-            padding: '12px 32px',
-            borderRadius: '30px',
-            fontSize: '1rem',
-            fontWeight: '600',
-            cursor: 'pointer'
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    color: '#00f5ff',
+                    padding: '12px 32px',
+                    borderRadius: '30px',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer'
                 },
                 onMouseEnter: (ev) => {
                     ev.currentTarget.style.transform = 'translateY(-2px)';
@@ -3340,45 +3340,45 @@ const handleWordToPdfConversion = (event) => {
     console.log("File mil gayi: " + file.name);
 
     const reader = new FileReader();
-    
+
     // File ko ArrayBuffer ki tarah read karna zaroori hai mammoth ke liye
-    reader.onload = function(loadEvent) {
+    reader.onload = function (loadEvent) {
         const arrayBuffer = loadEvent.target.result;
 
         // 1. Word file ko HTML mein convert karein
         window.mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
-        .then(function(result) {
-            const htmlResult = result.value; // Yeh aapka converted HTML text hai
+            .then(function (result) {
+                const htmlResult = result.value; // Yeh aapka converted HTML text hai
 
-            // Ek temporary div element banayein jo background mein render hoga
-            const element = document.createElement('div');
-            element.innerHTML = htmlResult;
-            
-            // PDF formatting sahi karne ke liye thoda style lagayein
-            element.style.padding = '40px';
-            element.style.color = '#000000'; // Text hamesha black hona chahiye PDF mein
-            element.style.fontFamily = 'Arial, sans-serif';
-            element.style.backgroundColor = '#ffffff';
+                // Ek temporary div element banayein jo background mein render hoga
+                const element = document.createElement('div');
+                element.innerHTML = htmlResult;
 
-            // 2. PDF ki settings configuration
-            const options = {
-                margin:       0.5,
-                filename:     file.name.replace('.docx', '.pdf'), // Name auto change ho jaye
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true }, // High quality print ke liye
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
+                // PDF formatting sahi karne ke liye thoda style lagayein
+                element.style.padding = '40px';
+                element.style.color = '#000000'; // Text hamesha black hona chahiye PDF mein
+                element.style.fontFamily = 'Arial, sans-serif';
+                element.style.backgroundColor = '#ffffff';
 
-            // 3. HTML se PDF banayein aur automatic download karwein
-            window.html2pdf().set(options).from(element).save()
-            .then(() => {
-                alert("PDF kamyabi se download ho gayi hy!");
+                // 2. PDF ki settings configuration
+                const options = {
+                    margin: 0.5,
+                    filename: file.name.replace('.docx', '.pdf'), // Name auto change ho jaye
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true }, // High quality print ke liye
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                // 3. HTML se PDF banayein aur automatic download karwein
+                window.html2pdf().set(options).from(element).save()
+                    .then(() => {
+                        alert("PDF kamyabi se download ho gayi hy!");
+                    });
+            })
+            .catch(function (err) {
+                console.error(err);
+                alert("File convert karne mein masla aaya hy. Koshish karein ke file simple ho.");
             });
-        })
-        .catch(function(err) {
-            console.error(err);
-            alert("File convert karne mein masla aaya hy. Koshish karein ke file simple ho.");
-        });
     };
 
     reader.readAsArrayBuffer(file);
@@ -4453,7 +4453,7 @@ const WordToPDF = ({ navigate }) => {
     const statusColors = {
         loading: { bg: 'rgba(0,245,255,0.08)', border: 'rgba(0,245,255,0.15)', color: '#00f5ff' },
         success: { bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.2)', color: '#22c55e' },
-        error:   { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' },
+        error: { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' },
     };
     const sc = statusColors[statusType] || {};
 
@@ -4615,7 +4615,7 @@ const ImageToPDF = ({ navigate }) => {
                 imgEl.src = img.url;
                 imgEl.style.maxWidth = '100%';
                 // Letter page dimensions ke hisaab se max height taake image cut na ho
-                imgEl.style.maxHeight = '9.5in'; 
+                imgEl.style.maxHeight = '9.5in';
                 imgEl.style.objectFit = 'contain';
                 imgEl.style.margin = '0 auto';
 
@@ -4647,7 +4647,7 @@ const ImageToPDF = ({ navigate }) => {
     const statusColors = {
         loading: { bg: 'rgba(0,191,255,0.08)', border: 'rgba(0,191,255,0.15)', color: '#00bfff' },
         success: { bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.2)', color: '#22c55e' },
-        error:   { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' },
+        error: { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' },
     };
     const sc = statusColors[statusType] || {};
 
@@ -4655,38 +4655,38 @@ const ImageToPDF = ({ navigate }) => {
         e('div', { style: { maxWidth: '750px', margin: '40px auto' } },
 
             e('div', { style: { textAlign: 'center', marginBottom: '40px' } },
-    // 1. Simple Heading jiska color khud badalta rahega
-    e('h1', {
-        style: { 
-            fontSize: '38px', 
-            fontWeight: '800', 
-            marginBottom: '15px', 
-            letterSpacing: '-0.5px', 
-            display: 'inline-block',
-            
-            // Neon Blue/Cyan/Purple ka mix gradient jo transform hoga
-            background: 'linear-gradient(90deg, #00f5ff, #0066ff, #a855f7, #00f5ff)',
-            backgroundSize: '300% auto', // Gradient ko bada kiya taake color shift ho sake
-            WebkitBackgroundClip: 'text', 
-            WebkitTextFillColor: 'transparent',
-            
-            // Animation inject karne ke liye inline style workaround
-            animation: 'glowShift 4s linear infinite',
-        }
-    }, '🖼️ Image to PDF Converter'),
-    
-    // Global CSS inject karne ke liye takay animation background shift smoothly chale
-    e('style', null, `
+                // 1. Simple Heading jiska color khud badalta rahega
+                e('h1', {
+                    style: {
+                        fontSize: '38px',
+                        fontWeight: '800',
+                        marginBottom: '15px',
+                        letterSpacing: '-0.5px',
+                        display: 'inline-block',
+
+                        // Neon Blue/Cyan/Purple ka mix gradient jo transform hoga
+                        background: 'linear-gradient(90deg, #00f5ff, #0066ff, #a855f7, #00f5ff)',
+                        backgroundSize: '300% auto', // Gradient ko bada kiya taake color shift ho sake
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+
+                        // Animation inject karne ke liye inline style workaround
+                        animation: 'glowShift 4s linear infinite',
+                    }
+                }, '🖼️ Image to PDF Converter'),
+
+                // Global CSS inject karne ke liye takay animation background shift smoothly chale
+                e('style', null, `
         @keyframes glowShift {
             0% { background-position: 0% center; }
             100% { background-position: 300% center; }
         }
     `),
 
-    // 2. Subtitle Description
-    e('p', { style: { color: '#94a3b8', fontSize: '15px', maxWidth: '480px', margin: '0 auto', lineHeight: '1.6' } },
-        'Upload multiple images (JPG, PNG) and combine them into a single PDF instantly.')
-),
+                // 2. Subtitle Description
+                e('p', { style: { color: '#94a3b8', fontSize: '15px', maxWidth: '480px', margin: '0 auto', lineHeight: '1.6' } },
+                    'Upload multiple images (JPG, PNG) and combine them into a single PDF instantly.')
+            ),
 
             e('button', {
                 onClick: () => navigate('converterhub'),
@@ -4724,16 +4724,16 @@ const ImageToPDF = ({ navigate }) => {
                 ),
 
                 // Images Preview Grid
-                images.length > 0 && e('div', { 
-                    style: { 
-                        display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', 
+                images.length > 0 && e('div', {
+                    style: {
+                        display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
                         gap: '15px', marginBottom: '30px', maxHeight: '300px', overflowY: 'auto',
                         padding: '10px', background: 'rgba(0,0,0,0.2)', borderRadius: '12px'
-                    } 
+                    }
                 },
-                    images.map((img, idx) => e('div', { 
-                        key: idx, 
-                        style: { position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' } 
+                    images.map((img, idx) => e('div', {
+                        key: idx,
+                        style: { position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }
                     },
                         e('img', { src: img.url, style: { width: '100%', height: '120px', objectFit: 'cover', display: 'block' } }),
                         e('button', {
@@ -4834,7 +4834,7 @@ const PDFToWord = ({ navigate }) => {
     const statusColors = {
         loading: { bg: 'rgba(0,191,255,0.08)', border: 'rgba(0,191,255,0.15)', color: '#00bfff' },
         success: { bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.2)', color: '#22c55e' },
-        error:   { bg: 'rgba(234,179,8,0.1)', border: 'rgba(234,179,8,0.2)', color: '#eab308' }, // Yellow for API note
+        error: { bg: 'rgba(234,179,8,0.1)', border: 'rgba(234,179,8,0.2)', color: '#eab308' }, // Yellow for API note
     };
     const sc = statusColors[statusType] || {};
 
@@ -4844,21 +4844,21 @@ const PDFToWord = ({ navigate }) => {
             e('div', { style: { textAlign: 'center', marginBottom: '40px' } },
                 // 1. Heading jo smoothly color badalti rahegi (Simple & Sharp)
                 e('h1', {
-                    style: { 
-                        fontSize: '38px', 
-                        fontWeight: '800', 
-                        marginBottom: '15px', 
-                        letterSpacing: '-0.5px', 
+                    style: {
+                        fontSize: '38px',
+                        fontWeight: '800',
+                        marginBottom: '15px',
+                        letterSpacing: '-0.5px',
                         display: 'inline-block',
                         // Neon Blue, Cyan aur Purple ka shifting gradient
                         background: 'linear-gradient(90deg, #00f5ff, #0066ff, #a855f7, #00f5ff)',
                         backgroundSize: '300% auto',
-                        WebkitBackgroundClip: 'text', 
+                        WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         animation: 'pdfWordGlowShift 4s linear infinite',
                     }
                 }, '📄 PDF to Word Converter'),
-                
+
                 // Keyframes Style Injection (Taake color shift unique chale aur crash na kare)
                 e('style', null, `
                     @keyframes pdfWordGlowShift {
@@ -4866,7 +4866,7 @@ const PDFToWord = ({ navigate }) => {
                         100% { background-position: 300% center; }
                     }
                 `),
-                
+
                 e('p', { style: { color: '#94a3b8', fontSize: '15px', maxWidth: '480px', margin: '0 auto', lineHeight: '1.6' } },
                     'Extract text and layouts from your PDF files and convert them into editable Word documents.')
             ),
@@ -5012,7 +5012,7 @@ const ZipCreator = ({ navigate }) => {
             a.download = `ConverterHub_${Date.now()}.zip`; // Custom clean name
             document.body.appendChild(a);
             a.click();
-            
+
             // Cleanup
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
@@ -5031,7 +5031,7 @@ const ZipCreator = ({ navigate }) => {
     const statusColors = {
         loading: { bg: 'rgba(0,191,255,0.08)', border: 'rgba(0,191,255,0.15)', color: '#00bfff' },
         success: { bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.2)', color: '#22c55e' },
-        error:   { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' }
+        error: { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' }
     };
     const sc = statusColors[statusType] || {};
 
@@ -5040,27 +5040,27 @@ const ZipCreator = ({ navigate }) => {
 
             e('div', { style: { textAlign: 'center', marginBottom: '40px' } },
                 e('h1', {
-                    style: { 
-                        fontSize: '38px', 
-                        fontWeight: '800', 
-                        marginBottom: '15px', 
-                        letterSpacing: '-0.5px', 
+                    style: {
+                        fontSize: '38px',
+                        fontWeight: '800',
+                        marginBottom: '15px',
+                        letterSpacing: '-0.5px',
                         display: 'inline-block',
                         background: 'linear-gradient(90deg, #00f5ff, #0066ff, #a855f7, #00f5ff)',
                         backgroundSize: '300% auto',
-                        WebkitBackgroundClip: 'text', 
+                        WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         animation: 'zipGlowShift 4s linear infinite',
                     }
                 }, '📦 Zip File Creator'),
-                
+
                 e('style', null, `
                     @keyframes zipGlowShift {
                         0% { background-position: 0% center; }
                         100% { background-position: 300% center; }
                     }
                 `),
-                
+
                 e('p', { style: { color: '#94a3b8', fontSize: '15px', maxWidth: '480px', margin: '0 auto', lineHeight: '1.6' } },
                     'Select multiple files or folders to compress them instantly into a single downloadable .zip archive.')
             ),
@@ -5192,7 +5192,7 @@ const ZipUnzipper = ({ navigate }) => {
             // Browser ki native DecompressionStream API use kar rahe hain
             const ds = new DecompressionStream('gzip');
             const decompressedStream = zipFile.stream().pipeThrough(ds);
-            
+
             const response = new Response(decompressedStream);
             const blob = await response.blob();
 
@@ -5215,7 +5215,7 @@ const ZipUnzipper = ({ navigate }) => {
             // Gzip fallback stream validation logic note
             setStatus('⚠️ Standard raw stream decompressed! Note: Multi-file zip parsing natively requires structure mapping. Basic structure is ready.');
             setStatusType('success');
-            
+
             // UI validation listing setup safely
             setExtractedFiles([{
                 name: zipFile.name.replace(/\.[^/.]+$/, "") + '_extracted.bin',
@@ -5237,7 +5237,7 @@ const ZipUnzipper = ({ navigate }) => {
     const statusColors = {
         loading: { bg: 'rgba(0,191,255,0.08)', border: 'rgba(0,191,255,0.15)', color: '#00bfff' },
         success: { bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.2)', color: '#22c55e' },
-        error:   { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' }
+        error: { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.2)', color: '#ef4444' }
     };
     const sc = statusColors[statusType] || {};
 
@@ -5247,27 +5247,27 @@ const ZipUnzipper = ({ navigate }) => {
             e('div', { style: { textAlign: 'center', marginBottom: '40px' } },
                 // Simple Sharp Shifting Title (No borders)
                 e('h1', {
-                    style: { 
-                        fontSize: '38px', 
-                        fontWeight: '800', 
-                        marginBottom: '15px', 
-                        letterSpacing: '-0.5px', 
+                    style: {
+                        fontSize: '38px',
+                        fontWeight: '800',
+                        marginBottom: '15px',
+                        letterSpacing: '-0.5px',
                         display: 'inline-block',
                         background: 'linear-gradient(90deg, #00f5ff, #0066ff, #a855f7, #00f5ff)',
                         backgroundSize: '300% auto',
-                        WebkitBackgroundClip: 'text', 
+                        WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         animation: 'unzipGlowShift 4s linear infinite',
                     }
                 }, '🔓 Zip File Unzipper'),
-                
+
                 e('style', null, `
                     @keyframes unzipGlowShift {
                         0% { background-position: 0% center; }
                         100% { background-position: 300% center; }
                     }
                 `),
-                
+
                 e('p', { style: { color: '#94a3b8', fontSize: '15px', maxWidth: '480px', margin: '0 auto', lineHeight: '1.6' } },
                     'Upload your compressed .zip or .gz archives to instantly extract and open their packed contents inside the client.')
             ),
@@ -5380,18 +5380,18 @@ const ZipUnzipper = ({ navigate }) => {
 // ====================== WEBSITE GUIDE COMPONENT ======================
 // ====================== EXTENSIVE WEBSITE GUIDE COMPONENT (ANTI-LOW-VALUE CONTENT) ======================
 const WebsiteGuide = ({ navigate }) => {
-    
+
     // Advanced Helper function to create massive, rich content sections
     const GuideSection = (icon, title, summary, features, steps, tips) => {
         return e('div', { className: 'result-card', style: { padding: '40px', marginBottom: '35px', textAlign: 'left', borderLeft: '4px solid #00f5ff', backgroundColor: 'rgba(255, 255, 255, 0.02)' } },
             // Section Title
-            e('h3', { style: { color: '#00f5ff', fontSize: '1.6rem', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '700' } }, 
+            e('h3', { style: { color: '#00f5ff', fontSize: '1.6rem', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '700' } },
                 e('span', { style: { fontSize: '2rem' } }, icon), title
             ),
-            
+
             // Comprehensive Summary Paragraph
             e('p', { style: { color: '#e2e8f0', lineHeight: '1.7', fontSize: '1.05rem', marginBottom: '20px' } }, summary),
-            
+
             // Sub-section 1: Key Capabilities
             e('h4', { style: { color: '#ffffff', fontSize: '1.1rem', marginBottom: '8px', fontWeight: '600' } }, '🎯 Core Capabilities & Infrastructure:'),
             e('ul', { style: { color: '#94a3b8', paddingLeft: '20px', lineHeight: '1.6', fontSize: '0.95rem', marginBottom: '20px', listStyleType: 'square' } },
@@ -5412,8 +5412,8 @@ const WebsiteGuide = ({ navigate }) => {
 
     return e('main', { className: 'main-content' },
         e('div', { className: 'tester-section-wrapper', style: { maxWidth: '900px', margin: '0 auto', paddingBottom: '60px', paddingLeft: '20px', paddingRight: '20px' } },
-            
-            
+
+
 
             // Platform Main Header Area (High Text Density for SEO / AdSense Bot)
             e('h2', { className: 'tester-main-title', style: { textAlign: 'center', fontSize: '2.8rem', marginBottom: '15px', fontWeight: '800' } }, '📖 QuickKit Comprehensive User Guide & Documentation'),
@@ -5421,7 +5421,7 @@ const WebsiteGuide = ({ navigate }) => {
             e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '50px', fontSize: '0.95rem', lineHeight: '1.6' } }, 'This comprehensive operational manual provides extensive granular details, architectural workflows, and step-by-step processing execution guidelines designed to ensure users achieve maximum efficiency when navigating our client-side software ecosystem.'),
 
             // 1. TYPING TESTER
-            GuideSection('⌨️', 'Typing Tester & Performance Monitor', 
+            GuideSection('⌨️', 'Typing Tester & Performance Monitor',
                 'The Typing Tester is a high-precision performance monitoring module engineered to evaluate real-time biometric text input. By monitoring individual keystrokes asynchronously, the utility establishes an accurate diagnostic breakdown of an individual\'s quantitative and qualitative linguistic output, measuring efficiency against standardized typing criteria.',
                 [
                     'Real-time automated dynamic calculation engine running concurrently with inputs.',
@@ -5442,7 +5442,7 @@ const WebsiteGuide = ({ navigate }) => {
             ),
 
             // 2. BIO WRITER
-            GuideSection('✍️', 'Bio Writer & Profile Generator', 
+            GuideSection('✍️', 'Bio Writer & Profile Generator',
                 'The Bio Writer is a creative linguistic generator operating on randomized semantic arrays and structural templates. It eliminates the repetitive nature of self-description by mapping user metadata against professional industries, constructing highly unique, engaging, and professional-grade descriptive profiles ideal for integration across enterprise or casual platforms.',
                 [
                     'Advanced multi-tier array logic preventing identical sequential template occurrences.',
@@ -5462,7 +5462,7 @@ const WebsiteGuide = ({ navigate }) => {
             ),
 
             // 3. CALCULATOR HUB
-            GuideSection('🧮', 'All-in-One Mathematical Calculator Hub', 
+            GuideSection('🧮', 'All-in-One Mathematical Calculator Hub',
                 'The Calculator Hub serves as an umbrella ecosystem aggregating multiple specialized computational calculators. Powered by client-side mathematical algorithms, these modules execute formulas spanning chronological metrics, physiological energy balance matrices, proportional representations, academic grading criteria, and standard algebraic operations.',
                 [
                     'Comprehensive Chronological Age Matrix calculating exact years, months, and days from baseline epochs.',
@@ -5482,7 +5482,7 @@ const WebsiteGuide = ({ navigate }) => {
             ),
 
             // 4. SENTENCE CHECKER & LANGUAGE HUB
-            GuideSection('📝', 'Sentence Checker & Advanced Language Hub', 
+            GuideSection('📝', 'Sentence Checker & Advanced Language Hub',
                 'The Language Hub is an integrated textual analysis suite compiled to provide localized grammatical synthesis, cross-lingual translation capabilities, and macro character/word counting data arrays. Operating entirely inside the local application state, it delivers rapid contextual editing feedback.',
                 [
                     'Heuristic grammar check scripts assessing syntactic structures for common structural anomalies.',
@@ -5501,7 +5501,7 @@ const WebsiteGuide = ({ navigate }) => {
             ),
 
             // 5. CONVERTER HUB
-            GuideSection('🗂️', 'Converter Hub & Local Archive Manager', 
+            GuideSection('🗂️', 'Converter Hub & Local Archive Manager',
                 'The Converter Hub utilizes complex browser-native binary file array operations to transform data states from one MIME-type to another without executing external server uploads. By utilizing client-side canvas arrays and compression algorithms, files are compiled swiftly while ensuring complete confidentiality.',
                 [
                     'Image-to-PDF dynamic compilation engine scaling graphic assets directly into standardized document containers.',
@@ -5521,7 +5521,7 @@ const WebsiteGuide = ({ navigate }) => {
             ),
 
             // 6. PASSWORD STRENGTH CHECKER
-            GuideSection('🛡️', 'Password Strength Evaluation & Cryptographic Advisor', 
+            GuideSection('🛡️', 'Password Strength Evaluation & Cryptographic Advisor',
                 'This security utility implements a complex entropy assessment algorithm to evaluate the resilience of cryptographic phrases. It calculates character diversity, patterns, and string length to determine vulnerabilities against brute-force attacks, while hosting an isolated local generation engine for random complex strings.',
                 [
                     'Live string validation arrays measuring structural entropy scores dynamically.',
@@ -5540,7 +5540,7 @@ const WebsiteGuide = ({ navigate }) => {
             ),
 
             // 7. INTERACTIVE QUIZ HUB
-            GuideSection('🧠', 'Interactive Quiz Hub & Knowledge Assessment Engine', 
+            GuideSection('🧠', 'Interactive Quiz Hub & Knowledge Assessment Engine',
                 'The Quiz Hub is a multi-threaded academic verification engine running on complex state arrays. It presents progressive difficulty thresholds across multiple technical and scientific disciplines, scoring user selections against static validation answer keys to calculate cognitive efficiency ratings.',
                 [
                     'Multi-tiered level progression architecture encompassing Easy, Medium, and Advanced testing environments.',
@@ -5566,7 +5566,7 @@ const ConverterHub = ({ navigate }) => {
     return e('div', { className: 'container-section calculator-hub-wrapper' },
         e('div', { style: { textAlign: 'center', marginBottom: '60px' } },
             e('h1', { className: 'brand-title' }, '🔄 Converter Hub'),
-            e('p', { style: { color: '#94a3b8', fontSize: '16.5px', maxWidth: '520px', margin: '0 auto' } }, 
+            e('p', { style: { color: '#94a3b8', fontSize: '16.5px', maxWidth: '520px', margin: '0 auto' } },
                 'Fast & Secure document converters — All running locally in your browser')
         ),
 
@@ -5575,9 +5575,9 @@ const ConverterHub = ({ navigate }) => {
             // === STYLISH WORD TO PDF CARD ===
             e('div', {
                 className: 'glass-calc-card',
-                style: { 
-                    width: '380px', 
-                    cursor: 'pointer', 
+                style: {
+                    width: '380px',
+                    cursor: 'pointer',
                     textAlign: 'center',
                     transition: 'all 0.4s ease',
                     position: 'relative',
@@ -5594,62 +5594,62 @@ const ConverterHub = ({ navigate }) => {
                 }
             },
                 // Gradient Top Bar
-                e('div', { 
-                    style: { 
-                        height: '6px', 
+                e('div', {
+                    style: {
+                        height: '6px',
                         background: 'linear-gradient(90deg, #22c55e, #86efac)',
                         borderTopLeftRadius: '16px',
                         borderTopRightRadius: '16px'
-                    } 
+                    }
                 }),
 
                 e('div', { className: 'calc-icon', style: { fontSize: '52px', margin: '25px 0 15px' } }, '📄➜📕'),
 
-                e('h3', { 
-                    style: { 
-                        fontSize: '24px', 
-                        fontWeight: '700', 
+                e('h3', {
+                    style: {
+                        fontSize: '24px',
+                        fontWeight: '700',
                         marginBottom: '8px',
                         background: 'linear-gradient(90deg, #22c55e, #86efac)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent'
-                    } 
+                    }
                 }, 'Word to PDF'),
-                
+
 
                 e('span', {
-                    style: { 
-                        display: 'inline-block', 
-                        background: 'rgba(34,197,94,0.15)', 
+                    style: {
+                        display: 'inline-block',
+                        background: 'rgba(34,197,94,0.15)',
                         color: '#22c55e',
-                        padding: '5px 16px', 
-                        borderRadius: '30px', 
-                        fontSize: '13px', 
+                        padding: '5px 16px',
+                        borderRadius: '30px',
+                        fontSize: '13px',
                         fontWeight: '700',
                         marginBottom: '18px',
                         border: '1px solid rgba(34,197,94,0.3)'
                     }
                 }, 'DOCX → PDF'),
 
-                e('p', { 
-                    style: { 
-                        fontSize: '14.5px', 
-                        lineHeight: '1.6', 
+                e('p', {
+                    style: {
+                        fontSize: '14.5px',
+                        lineHeight: '1.6',
                         color: '#cbd5e1',
                         padding: '0 25px',
                         marginBottom: '30px'
-                    } 
-                }, 
+                    }
+                },
                     'Convert your Microsoft Word documents to clean, professional PDFs instantly — 100% private & fast.'
                 ),
 
-                e('div', { 
-                    className: 'calc-action', 
-                    style: { 
-                        color: '#22c55e', 
+                e('div', {
+                    className: 'calc-action',
+                    style: {
+                        color: '#22c55e',
                         fontWeight: '700',
                         fontSize: '1.05rem'
-                    } 
+                    }
                 }, 'Convert Now →')
             ),
             // === NAYA CARD: ZIP FILE UNZIPPER ===
@@ -5693,7 +5693,7 @@ const ConverterHub = ({ navigate }) => {
                 e('div', { className: 'calc-action', style: { color: '#00d2ff' } }, 'Create Archive →')
             ),
             // === NAYA CARD: PDF TO WORD ===
-             e('div', {
+            e('div', {
                 className: 'glass-calc-card',
                 style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
                 onClick: () => navigate('pdftoword')
@@ -5713,30 +5713,30 @@ const ConverterHub = ({ navigate }) => {
                 e('div', { className: 'calc-action', style: { color: '#ef4444' } }, 'Start Extraction →')
             ),
             e('div', {
-                    className: 'glass-calc-card',
-                    style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
-                    onClick: () => navigate('imagetopdf')
-                },
-                    e('div', { className: 'calc-icon' }, '🖼️'),
-                    e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Image to PDF'),
-                    e('span', {
-                        style: {
-                            display: 'inline-block', background: 'rgba(236, 72, 153, 0.1)', color: '#ec4899', // Pink theme
-                            padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
-                            textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
-                            border: '1px solid rgba(236, 72, 153, 0.2)'
-                        }
-                    }, '🔄 File Converter'),
-                    e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
-                        'Seamlessly convert your JPG, PNG, or WEBP images directly into high-quality PDF documents.'),
-                    e('div', { className: 'calc-action', style: { color: '#ec4899' } }, 'Start Conversion →')
-                )
-                
+                className: 'glass-calc-card',
+                style: { width: '380px', cursor: 'pointer', textAlign: 'center' },
+                onClick: () => navigate('imagetopdf')
+            },
+                e('div', { className: 'calc-icon' }, '🖼️'),
+                e('h3', { style: { fontSize: '20px', fontWeight: '600', marginBottom: '8px' } }, 'Image to PDF'),
+                e('span', {
+                    style: {
+                        display: 'inline-block', background: 'rgba(236, 72, 153, 0.1)', color: '#ec4899', // Pink theme
+                        padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '600',
+                        textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px',
+                        border: '1px solid rgba(236, 72, 153, 0.2)'
+                    }
+                }, '🔄 File Converter'),
+                e('p', { style: { fontSize: '14px', lineHeight: '1.6', color: '#94a3b8' } },
+                    'Seamlessly convert your JPG, PNG, or WEBP images directly into high-quality PDF documents.'),
+                e('div', { className: 'calc-action', style: { color: '#ec4899' } }, 'Start Conversion →')
+            )
+
         ),
-        
+
 
         // Back Button
-        
+
     );
 };
 
