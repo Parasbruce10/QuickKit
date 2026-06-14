@@ -5279,9 +5279,9 @@ const WebsiteGuide = ({ navigate }) => {
 
     // Advanced Helper function to create massive, rich content sections
     const GuideSection = (icon, title, summary, features, steps, tips) => {
-        return e('div', { className: 'result-card', style: { padding: '40px', marginBottom: '35px', textAlign: 'left', borderLeft: '4px solid #00f5ff', backgroundColor: 'rgba(255, 255, 255, 0.02)' } },
+        return e('div', { className: 'result-card', style: { padding: 'clamp(16px, 4vw, 40px)', marginBottom: '25px', textAlign: 'left', borderLeft: '4px solid #00f5ff', backgroundColor: 'rgba(255, 255, 255, 0.02)' } },
             // Section Title
-            e('h3', { style: { color: '#00f5ff', fontSize: '1.6rem', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '12px', fontWeight: '700' } },
+            e('h3', { style: { color: '#00f5ff', fontSize: 'clamp(1.1rem, 4vw, 1.6rem)', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: '700', flexWrap: 'wrap' } },
                 e('span', { style: { fontSize: '2rem' } }, icon), title
             ),
 
@@ -5312,7 +5312,7 @@ const WebsiteGuide = ({ navigate }) => {
 
 
             // Platform Main Header Area (High Text Density for SEO / AdSense Bot)
-            e('h2', { className: 'tester-main-title', style: { textAlign: 'center', fontSize: '2.8rem', marginBottom: '15px', fontWeight: '800' } }, '📖 QuickKit Comprehensive User Guide & Documentation'),
+            e('h2', { className: 'tester-main-title', style: { textAlign: 'center', fontSize: 'clamp(1.4rem, 5vw, 2.8rem)', marginBottom: '15px', fontWeight: '800' } }, '📖 QuickKit Comprehensive User Guide & Documentation'),
             e('p', { style: { color: '#94a3b8', textAlign: 'center', marginBottom: '15px', fontSize: '1.15rem', lineHeight: '1.6' } }, 'Welcome to the official, in-depth documentation repository for QuickKit. Our multi-purpose utility hub is architected to optimize your digital workflow by delivering performance analytics, content creation modules, mathematically sound computation frameworks, language processing infrastructure, fully client-side asynchronous file conversion utilities, and cryptographic security evaluation vectors.'),
             e('p', { style: { color: '#64748b', textAlign: 'center', marginBottom: '50px', fontSize: '0.95rem', lineHeight: '1.6' } }, 'This comprehensive operational manual provides extensive granular details, architectural workflows, and step-by-step processing execution guidelines designed to ensure users achieve maximum efficiency when navigating our client-side software ecosystem.'),
 
