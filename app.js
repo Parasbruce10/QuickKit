@@ -4423,6 +4423,15 @@ const WordToPDF = ({ navigate }) => {
         for (let i = 0; i < images.length; i++) {
             const img = images[i];
 
+            // Pehle image preload karo
+            await new Promise((resolve, reject) => {
+                const tempImg = new Image();
+                tempImg.crossOrigin = 'anonymous';
+                tempImg.onload = resolve;
+                tempImg.onerror = reject;
+                tempImg.src = img.url;
+            });
+
             const imgContainer = document.createElement('div');
             imgContainer.style.width = '1200px';
             imgContainer.style.height = '1600px';
@@ -4438,6 +4447,7 @@ const WordToPDF = ({ navigate }) => {
             imgContainer.style.left = '-9999px';
 
             const imgEl = document.createElement('img');
+            imgEl.crossOrigin = 'anonymous';
             imgEl.src = img.url;
             imgEl.style.maxWidth = '100%';
             imgEl.style.maxHeight = '100%';
@@ -4447,9 +4457,13 @@ const WordToPDF = ({ navigate }) => {
             imgContainer.appendChild(imgEl);
             document.body.appendChild(imgContainer);
 
+            // 500ms wait karo taake browser render kar le
+            await new Promise(resolve => setTimeout(resolve, 500));
+
             const canvas = await window.html2canvas(imgContainer, {
                 scale: 2,
                 useCORS: true,
+                allowTaint: true,
                 logging: false,
                 width: 1200,
                 height: 1600
