@@ -4428,8 +4428,8 @@ const WordToPDF = ({ navigate }) => {
             imgContainer.className = 'pdf-page'; 
             
             // 🔥 Height ko 11in se thoda sa kam (10.6in) rakha hai taake rounding error se 1px bhi leak na ho
-            imgContainer.style.width = '8.5in';
-            imgContainer.style.height = '10.6in'; 
+            imgContainer.style.width = '816px';
+imgContainer.style.height = '1056px';
             imgContainer.style.boxSizing = 'border-box';
             
             // Flexbox taake image center mein rahe
@@ -4437,7 +4437,8 @@ const WordToPDF = ({ navigate }) => {
             imgContainer.style.alignItems = 'center';
             imgContainer.style.justifyContent = 'center';
             imgContainer.style.backgroundColor = '#ffffff';
-            imgContainer.style.padding = '15px'; // Choti-bari har image ke liye safe boundary
+            imgContainer.style.padding = '20px';
+imgContainer.style.overflow = 'hidden'; // Choti-bari har image ke liye safe boundary
             
             const imgEl = document.createElement('img');
             imgEl.src = img.url;
@@ -4457,9 +4458,9 @@ const WordToPDF = ({ navigate }) => {
             filename: 'converted-images.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true, logging: false },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+            jsPDF: { unit: 'px', format: [816, 1056], orientation: 'portrait' },
             // 🔥 Yeh sab se important change hy: mode 'specify' har '.pdf-page' ko alag page pr break karega
-            pagebreak: { mode: 'specify', selector: '.pdf-page' }
+            pagebreak: { mode: 'avoid-all', after: '.pdf-page' }
         };
 
         await window.html2pdf().set(options).from(element).save();
@@ -4652,7 +4653,7 @@ const ImageToPDF = ({ navigate }) => {
     filename: 'converted-images.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    jsPDF: { unit: 'px', format: [816, 1056], orientation: 'portrait' },
     pagebreak: { mode: 'css' } // 🔥 Yeh line yahan add karein taake CSS page-break kaam kare!
 };
 
