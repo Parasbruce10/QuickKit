@@ -2262,3 +2262,99 @@ body {
     100% { background-position: 0% 50%; }
 }
 
+/* ==========================================================================
+   ONLY WEBSITE GUIDE PAGE RESPONSIVE FIXES
+   ========================================================================== */
+
+/* 1. Main Wrapper Specific to Website Guide Page */
+.website-guide-page {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Kisi bhi qism ki horizontal scrolling ko rokne ke liye */
+}
+
+/* 2. Title & Subtitle for Guide Page Only */
+.website-guide-page h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.website-guide-page p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* 3. Cards Specific to Website Guide */
+.website-guide-page .result-card {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    /* Default padding for desktop */
+    padding: 30px; 
+}
+
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVE BREAKPOINTS (ONLY FOR GUIDE PAGE)
+   ========================================================================== */
+
+/* Tablets (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .website-guide-page {
+        padding: 15px;
+    }
+
+    .website-guide-page h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Mobile Devices (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .website-guide-page {
+        padding: 10px;
+    }
+
+    /* Heading text handling so it doesn't break layout */
+    .website-guide-page h1 {
+        font-size: 1.6rem;
+        word-wrap: break-word;
+    }
+
+    .website-guide-page p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    /* Fixing padding inside the guide cards so they don't stretch outward */
+    .website-guide-page .result-card {
+        padding: 15px !important; /* Mobile standard compact padding */
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+
+    /* Inside the card content elements styling */
+    .website-guide-page .result-card h3 {
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap; /* Long text safely wraps inside the mobile card boundary */
+    }
+
+    /* Lists structure optimization inside the cards */
+    .website-guide-page .result-card ul,
+    .website-guide-page .result-card ol {
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+
+    .website-guide-page .result-card li {
+        font-size: 0.88rem;
+        line-height: 1.5;
+        margin-bottom: 8px;
+    }
+}
