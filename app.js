@@ -4411,59 +4411,63 @@ const WordToPDF = ({ navigate }) => {
         }
     };
 
-    const convertToPDF = async () => {
+  const convertToPDF = async () => {
     if (images.length === 0) return;
     setIsConverting(true);
     setStatus('Generating PDF... please wait ⏳');
     setStatusType('loading');
     try {
-        // Background container banayen images ke liye
-        const element = document.createElement('div');
-        element.style.background = '#ffffff';
-        element.style.padding = '0';
-        
-        images.forEach((img) => {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ unit: 'px', format: [816, 1056], orientation: 'portrait' });
+
+        for (let i = 0; i < images.length; i++) {
+            const img = images[i];
+
+            // Har image ke liye alag container
             const imgContainer = document.createElement('div');
-            // 🔥 '.pdf-page' class di hai taake html2pdf isko pehchan sakay
-            imgContainer.className = 'pdf-page'; 
-            
-            // 🔥 Height ko 11in se thoda sa kam (10.6in) rakha hai taake rounding error se 1px bhi leak na ho
             imgContainer.style.width = '816px';
-imgContainer.style.height = '1056px';
-            imgContainer.style.boxSizing = 'border-box';
-            
-            // Flexbox taake image center mein rahe
+            imgContainer.style.height = '1056px';
             imgContainer.style.display = 'flex';
             imgContainer.style.alignItems = 'center';
             imgContainer.style.justifyContent = 'center';
             imgContainer.style.backgroundColor = '#ffffff';
             imgContainer.style.padding = '20px';
-imgContainer.style.overflow = 'hidden'; // Choti-bari har image ke liye safe boundary
-            
+            imgContainer.style.boxSizing = 'border-box';
+            imgContainer.style.overflow = 'hidden';
+            imgContainer.style.position = 'fixed';
+            imgContainer.style.top = '-9999px';
+            imgContainer.style.left = '-9999px';
+
             const imgEl = document.createElement('img');
             imgEl.src = img.url;
-            
-            // 🔥 Image ko container ke andar restrict rakhne ke liye maximum width/height
             imgEl.style.maxWidth = '100%';
             imgEl.style.maxHeight = '100%';
-            imgEl.style.objectFit = 'contain'; // Aspect ratio kharab nahi hoga
+            imgEl.style.objectFit = 'contain';
             imgEl.style.display = 'block';
-            
+
             imgContainer.appendChild(imgEl);
-            element.appendChild(imgContainer);
-        });
+            document.body.appendChild(imgContainer);
 
-        const options = {
-            margin: 0, 
-            filename: 'converted-images.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, logging: false },
-            jsPDF: { unit: 'px', format: [816, 1056], orientation: 'portrait' },
-            // 🔥 Yeh sab se important change hy: mode 'specify' har '.pdf-page' ko alag page pr break karega
-            pagebreak: { mode: 'avoid-all', after: '.pdf-page' }
-        };
+            // Canvas banao
+            const canvas = await window.html2canvas(imgContainer, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                width: 816,
+                height: 1056
+            });
 
-        await window.html2pdf().set(options).from(element).save();
+            document.body.removeChild(imgContainer);
+
+            const imgData = canvas.toDataURL('image/jpeg', 0.98);
+
+            if (i > 0) pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, 0, 816, 1056);
+
+            setStatus(`Processing image ${i + 1} of ${images.length}... ⏳`);
+        }
+
+        pdf.save('converted-images.pdf');
         setStatus('✅ PDF downloaded successfully!');
         setStatusType('success');
     } catch (error) {
