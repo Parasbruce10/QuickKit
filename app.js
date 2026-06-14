@@ -4417,69 +4417,49 @@ const WordToPDF = ({ navigate }) => {
     setStatus('Generating PDF... please wait ⏳');
     setStatusType('loading');
     try {
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ unit: 'px', format: [1200, 1600], orientation: 'portrait' });
-
-        for (let i = 0; i < images.length; i++) {
-            const img = images[i];
-
-            // Pehle image preload karo
-            await new Promise((resolve, reject) => {
-                const tempImg = new Image();
-                tempImg.crossOrigin = 'anonymous';
-                tempImg.onload = resolve;
-                tempImg.onerror = reject;
-                tempImg.src = img.url;
-            });
-
+        // Background container banayen images ke liye
+        const element = document.createElement('div');
+        element.style.background = '#ffffff';
+        element.style.padding = '0';
+        
+        images.forEach((img, idx) => {
             const imgContainer = document.createElement('div');
-            imgContainer.style.width = '1200px';
-            imgContainer.style.height = '1600px';
+            // 🔥 Letter size ke mutabiq exact dimensions specify karein
+            imgContainer.style.width = '8.5in';
+            imgContainer.style.height = '11in';
+            // 🔥 Flexbox use karein taake image perfect center ho aur layout kharab na ho
             imgContainer.style.display = 'flex';
-            imgContainer.style.alignItems = 'flex-start';
+            imgContainer.style.alignItems = 'center';
             imgContainer.style.justifyContent = 'center';
             imgContainer.style.backgroundColor = '#ffffff';
-            imgContainer.style.padding = '30px 20px 20px 20px';
-            imgContainer.style.boxSizing = 'border-box';
-            imgContainer.style.overflow = 'hidden';
-            imgContainer.style.position = 'fixed';
-            imgContainer.style.top = '-9999px';
-            imgContainer.style.left = '-9999px';
-
+            
+            // Har image ke baad naya page banega, siwaye aakhri image ke
+            if (idx < images.length - 1) {
+                imgContainer.style.pageBreakAfter = 'always';
+            }
+            
             const imgEl = document.createElement('img');
-            imgEl.crossOrigin = 'anonymous';
             imgEl.src = img.url;
+            // 🔥 Container ke andar image ko adjust rakhne ke liye 100% height/width
             imgEl.style.maxWidth = '100%';
             imgEl.style.maxHeight = '100%';
             imgEl.style.objectFit = 'contain';
-            imgEl.style.display = 'block';
-
+            imgEl.style.display = 'block'; // 🔥 Image ka bottom extra white space khatam karne ke liye
+            
             imgContainer.appendChild(imgEl);
-            document.body.appendChild(imgContainer);
+            element.appendChild(imgContainer);
+        });
 
-            // 500ms wait karo taake browser render kar le
-            await new Promise(resolve => setTimeout(resolve, 500));
+        const options = {
+            margin: 0, // 🔥 Margin ko 0 karein kyunki humne container ka size khud fix kar diya hai
+            filename: 'converted-images.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css'] } // 🔥 Kisi bhi element ko beech se cut hone se rokne ke liye
+        };
 
-            const canvas = await window.html2canvas(imgContainer, {
-                scale: 2,
-                useCORS: true,
-                allowTaint: true,
-                logging: false,
-                width: 1200,
-                height: 1600
-            });
-
-            document.body.removeChild(imgContainer);
-
-            const imgData = canvas.toDataURL('image/jpeg', 0.98);
-
-            if (i > 0) pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 0, 0, 1200, 1600);
-
-            setStatus(`Processing image ${i + 1} of ${images.length}... ⏳`);
-        }
-
-        pdf.save('converted-images.pdf');
+        await window.html2pdf().set(options).from(element).save();
         setStatus('✅ PDF downloaded successfully!');
         setStatusType('success');
     } catch (error) {
