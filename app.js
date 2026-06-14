@@ -4422,41 +4422,44 @@ const WordToPDF = ({ navigate }) => {
         element.style.background = '#ffffff';
         element.style.padding = '0';
         
-        images.forEach((img, idx) => {
+        images.forEach((img) => {
             const imgContainer = document.createElement('div');
-            // 🔥 Letter size ke mutabiq exact dimensions specify karein
+            // 🔥 '.pdf-page' class di hai taake html2pdf isko pehchan sakay
+            imgContainer.className = 'pdf-page'; 
+            
+            // 🔥 Height ko 11in se thoda sa kam (10.6in) rakha hai taake rounding error se 1px bhi leak na ho
             imgContainer.style.width = '8.5in';
-            imgContainer.style.height = '11in';
-            // 🔥 Flexbox use karein taake image perfect center ho aur layout kharab na ho
+            imgContainer.style.height = '10.6in'; 
+            imgContainer.style.boxSizing = 'border-box';
+            
+            // Flexbox taake image center mein rahe
             imgContainer.style.display = 'flex';
             imgContainer.style.alignItems = 'center';
             imgContainer.style.justifyContent = 'center';
             imgContainer.style.backgroundColor = '#ffffff';
-            
-            // Har image ke baad naya page banega, siwaye aakhri image ke
-            if (idx < images.length - 1) {
-                imgContainer.style.pageBreakAfter = 'always';
-            }
+            imgContainer.style.padding = '15px'; // Choti-bari har image ke liye safe boundary
             
             const imgEl = document.createElement('img');
             imgEl.src = img.url;
-            // 🔥 Container ke andar image ko adjust rakhne ke liye 100% height/width
+            
+            // 🔥 Image ko container ke andar restrict rakhne ke liye maximum width/height
             imgEl.style.maxWidth = '100%';
             imgEl.style.maxHeight = '100%';
-            imgEl.style.objectFit = 'contain';
-            imgEl.style.display = 'block'; // 🔥 Image ka bottom extra white space khatam karne ke liye
+            imgEl.style.objectFit = 'contain'; // Aspect ratio kharab nahi hoga
+            imgEl.style.display = 'block';
             
             imgContainer.appendChild(imgEl);
             element.appendChild(imgContainer);
         });
 
         const options = {
-            margin: 0, // 🔥 Margin ko 0 karein kyunki humne container ka size khud fix kar diya hai
+            margin: 0, 
             filename: 'converted-images.pdf',
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-            pagebreak: { mode: ['avoid-all', 'css'] } // 🔥 Kisi bhi element ko beech se cut hone se rokne ke liye
+            // 🔥 Yeh sab se important change hy: mode 'specify' har '.pdf-page' ko alag page pr break karega
+            pagebreak: { mode: 'specify', selector: '.pdf-page' }
         };
 
         await window.html2pdf().set(options).from(element).save();
