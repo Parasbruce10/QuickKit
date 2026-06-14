@@ -1057,9 +1057,9 @@ const QuizPage = ({ navigate }) => {
 const Content = ({ navigate }) => {
     // Har level ke liye alag text setup (Easy, Medium, Hard)
     const levelParagraphs = {
-        1: "The quick brown fox jumps over the lazy dog every single day. Programming is a very fun activity that can help you build wonderful web utilities easily. You should practice typing regularly to improve your overall speed and accuracy metrics.",
-        2: "Modern web development frameworks construct beautiful pixel perfect user experiences with high performance execution. Optimizing local state propagation schemes across client applications worldwide guarantees zero network latency. Developers must engineer clean component architectures to scale their digital applications smoothly over time.",
-        3: "The swift dynamics of asynchronous JavaScript runtime engines enable highly scalable web architectures. Compiling pure client-side interactivity layers on top of modular frameworks completely bypasses standard handshake intervals. This enforces cryptographic cross-origin isolation pipelines, securing sensitive user workspace configurations efficiently."
+        1: "The quick brown fox jumps over the lazy dog every single day without fail, proving that consistent daily practice is the ultimate secret weapon for anyone looking to master keyboard layouts. Programming is a very fun and deeply rewarding activity that can help you build wonderful web utilities easily, transforming complex logical concepts into beautiful digital realities while simultaneously boosting your problem-solving skills and technical ingenuity. You should practice typing regularly to improve your overall speed and accuracy metrics, ensuring that your hands can seamlessly keep up with the fast pace of your creative thoughts.",
+        2: "Modern web development frameworks construct beautiful pixel perfect user experiences with high performance execution by leveraging advanced rendering engines and optimized client-side caching strategies. Optimizing local state propagation schemes across client applications worldwide guarantees zero perceived network latency, delivering instantaneous interface updates that keep users engaged. Developers must engineer clean component architectures to scale their digital applications smoothly over time, reducing technical debt and allowing multidisciplinary teams to collaborate efficiently on massive codebases.",
+        3: "The swift dynamics of asynchronous JavaScript runtime engines enable highly scalable web architectures that can handle millions of concurrent operations without blocking the main execution thread. Compiling pure client-side interactivity layers on top of modular frameworks completely bypasses standard network handshake intervals, resulting in a buttery-smooth desktop-class user experience inside the browser. This strictly enforces cryptographic cross-origin isolation pipelines, securing sensitive user workspace configurations efficiently against modern web vulnerabilities and malicious script injections."
     };
 
     // Core Engine States
@@ -4624,12 +4624,13 @@ const ImageToPDF = ({ navigate }) => {
             });
 
             const options = {
-                margin: 0.5,
-                filename: 'converted-images.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
+    margin: 0.5,
+    filename: 'converted-images.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    pagebreak: { mode: 'css' } // 🔥 Yeh line yahan add karein taake CSS page-break kaam kare!
+};
 
             await window.html2pdf().set(options).from(element).save();
 
