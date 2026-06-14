@@ -4418,20 +4418,19 @@ const WordToPDF = ({ navigate }) => {
     setStatusType('loading');
     try {
         const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ unit: 'px', format: [816, 1056], orientation: 'portrait' });
+        const pdf = new jsPDF({ unit: 'px', format: [1200, 1600], orientation: 'portrait' });
 
         for (let i = 0; i < images.length; i++) {
             const img = images[i];
 
-            // Har image ke liye alag container
             const imgContainer = document.createElement('div');
-            imgContainer.style.width = '816px';
-            imgContainer.style.height = '1056px';
+            imgContainer.style.width = '1200px';
+            imgContainer.style.height = '1600px';
             imgContainer.style.display = 'flex';
-            imgContainer.style.alignItems = 'center';
+            imgContainer.style.alignItems = 'flex-start';
             imgContainer.style.justifyContent = 'center';
             imgContainer.style.backgroundColor = '#ffffff';
-            imgContainer.style.padding = '20px';
+            imgContainer.style.padding = '30px 20px 20px 20px';
             imgContainer.style.boxSizing = 'border-box';
             imgContainer.style.overflow = 'hidden';
             imgContainer.style.position = 'fixed';
@@ -4448,13 +4447,12 @@ const WordToPDF = ({ navigate }) => {
             imgContainer.appendChild(imgEl);
             document.body.appendChild(imgContainer);
 
-            // Canvas banao
             const canvas = await window.html2canvas(imgContainer, {
                 scale: 2,
                 useCORS: true,
                 logging: false,
-                width: 816,
-                height: 1056
+                width: 1200,
+                height: 1600
             });
 
             document.body.removeChild(imgContainer);
@@ -4462,7 +4460,7 @@ const WordToPDF = ({ navigate }) => {
             const imgData = canvas.toDataURL('image/jpeg', 0.98);
 
             if (i > 0) pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 0, 0, 816, 1056);
+            pdf.addImage(imgData, 'JPEG', 0, 0, 1200, 1600);
 
             setStatus(`Processing image ${i + 1} of ${images.length}... ⏳`);
         }
