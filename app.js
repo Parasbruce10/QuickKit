@@ -4412,43 +4412,64 @@ const WordToPDF = ({ navigate }) => {
     };
 
     const convertToPDF = async () => {
-        if (!file) return;
-        setIsConverting(true);
-        setStatus('Converting... please wait ⏳');
-        setStatusType('loading');
+    if (images.length === 0) return;
+    setIsConverting(true);
+    setStatus('Generating PDF... please wait ⏳');
+    setStatusType('loading');
+    try {
+        // Background container banayen images ke liye
+        const element = document.createElement('div');
+        element.style.background = '#ffffff';
+        element.style.padding = '0';
+        
+        images.forEach((img, idx) => {
+            const imgContainer = document.createElement('div');
+            // 🔥 Letter size ke mutabiq exact dimensions specify karein
+            imgContainer.style.width = '8.5in';
+            imgContainer.style.height = '11in';
+            // 🔥 Flexbox use karein taake image perfect center ho aur layout kharab na ho
+            imgContainer.style.display = 'flex';
+            imgContainer.style.alignItems = 'center';
+            imgContainer.style.justifyContent = 'center';
+            imgContainer.style.backgroundColor = '#ffffff';
+            
+            // Har image ke baad naya page banega, siwaye aakhri image ke
+            if (idx < images.length - 1) {
+                imgContainer.style.pageBreakAfter = 'always';
+            }
+            
+            const imgEl = document.createElement('img');
+            imgEl.src = img.url;
+            // 🔥 Container ke andar image ko adjust rakhne ke liye 100% height/width
+            imgEl.style.maxWidth = '100%';
+            imgEl.style.maxHeight = '100%';
+            imgEl.style.objectFit = 'contain';
+            imgEl.style.display = 'block'; // 🔥 Image ka bottom extra white space khatam karne ke liye
+            
+            imgContainer.appendChild(imgEl);
+            element.appendChild(imgContainer);
+        });
 
-        try {
-            const arrayBuffer = await file.arrayBuffer();
-            const result = await mammoth.convertToHtml({ arrayBuffer });
+        const options = {
+            margin: 0, // 🔥 Margin ko 0 karein kyunki humne container ka size khud fix kar diya hai
+            filename: 'converted-images.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css'] } // 🔥 Kisi bhi element ko beech se cut hone se rokne ke liye
+        };
 
-            const element = document.createElement('div');
-            element.innerHTML = result.value;
-            element.style.padding = '40px';
-            element.style.color = '#000000';
-            element.style.fontFamily = 'Arial, sans-serif';
-            element.style.backgroundColor = '#ffffff';
-            element.style.fontSize = '13px';
-            element.style.lineHeight = '1.6';
-
-            const options = {
-                margin: 0.5,
-                filename: fileName.replace('.docx', '.pdf'),
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
-            await window.html2pdf().set(options).from(element).save();
-
-            setStatus('✅ PDF downloaded successfully!');
-            setStatusType('success');
-        } catch (error) {
-            setStatus('❌ Error: ' + (error.message || 'Conversion failed. Try again.'));
-            setStatusType('error');
-        } finally {
-            setIsConverting(false);
-        }
-    };
+        await window.html2pdf().set(options).from(element).save();
+        setStatus('✅ PDF downloaded successfully!');
+        setStatusType('success');
+    } catch (error) {
+        console.error(error);
+        setStatus('❌ Error: Conversion failed. Try again.');
+        setStatusType('error');
+    } finally {
+        setIsConverting(false);
+    }
+};
 
     const statusColors = {
         loading: { bg: 'rgba(0,245,255,0.08)', border: 'rgba(0,245,255,0.15)', color: '#00f5ff' },
