@@ -3304,12 +3304,15 @@ e('div', {
 e('div', { 
     style: { 
         display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-        gap: '24px', 
+        // Mobile par 1 column aur 280px tak ke mobile ko support karega, baray screens par auto-fit
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
+        // Mobile par gap 16px hoga, bari screens par 24px (responsive gap)
+        gap: 'clamp(16px, 4vw, 24px)', 
         width: '100%', 
         maxWidth: '1200px', 
-        margin: '40px auto 60px auto', 
-        padding: '0 20px'
+        // Mobile par top/bottom margin thora kam (20px), bari screens par 40px/60px
+        margin: 'clamp(20px, 5vw, 40px) auto clamp(30px, 8vw, 60px) auto', 
+        padding: '0 16px' // Side padding 16px kr di taake choti screen par text chipke nahi
     } 
 },
     // NODE-01: Engineering
