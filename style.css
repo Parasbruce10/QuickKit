@@ -2262,3 +2262,419 @@ body {
     100% { background-position: 0% 50%; }
 }
 
+/* ===== HOME CARDS AUTO-SLIDER ===== */
+.premium-tools-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    gap: 24px;
+    padding-bottom: 10px;
+}
+.premium-tools-grid::-webkit-scrollbar { height: 6px; }
+.premium-tools-grid::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+.premium-tools-grid > div {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    width: 320px;
+}
+@media (max-width: 768px) {
+    .premium-tools-grid > div {
+        width: 85%;
+    }
+}
+.premium-slider-wrapper {
+    position: relative;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(20,20,30,0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.slider-arrow:hover {
+    background: rgba(0,245,255,0.15);
+    border-color: #00f5ff;
+    box-shadow: 0 0 15px rgba(0,245,255,0.4);
+    transform: translateY(-50%) scale(1.12);
+}
+.slider-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+.slider-arrow-left { left: -6px; }
+.slider-arrow-right { right: -6px; }
+
+@media (max-width: 768px) {
+    .slider-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        top: 40%;
+    }
+    .slider-arrow-left { left: 2px; }
+    .slider-arrow-right { right: 2px; }
+}
+.tools-section-heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+}
+.tools-heading-badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #00f5ff;
+    background: rgba(0, 245, 255, 0.1);
+    border: 1px solid rgba(0, 245, 255, 0.25);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+}
+.tools-heading-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+}
+.tools-heading-subtitle {
+    font-size: 1rem;
+    color: #94a3b8;
+    margin: 0;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .tools-heading-title {
+        font-size: 1.6rem;
+    }
+    .tools-heading-subtitle {
+        font-size: 0.9rem;
+    }
+}
+.stats-row-heading {
+    text-align: center;
+    margin: 0 0 16px 0;
+}
+.stats-heading-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .stats-heading-text {
+        font-size: 0.85rem;
+    }
+}
+/* Premium Glassmorphic Layout with Custom Neon Border Glow */
+.premium-glow-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+}
+
+/* Hover karne par premium glowing reflections */
+.premium-glow-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 245, 255, 0.25);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 
+                0 0 20px rgba(0, 245, 255, 0.08); /* Glow effect color */
+}
+
+/* Inside Card elements styling */
+.premium-glow-card .glow-icon {
+    font-size: 26px;
+    margin-bottom: 14px;
+    display: inline-block;
+    filter: drop-shadow(0 0 8px currentColor); /* Icon glow */
+}
+
+.premium-glow-card h4 {
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.3px;
+}
+
+.premium-glow-card p {
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+}
+/* Breathing Glow Animation Keyframes */
+@keyframes glowBreathing {
+    0% {
+        border-color: rgba(0, 245, 255, 0.06);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 
+                    0 0 15px rgba(0, 245, 255, 0.02);
+    }
+    50% {
+        border-color: rgba(0, 245, 255, 0.22); /* Breath In - Bright Glow */
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+                    0 0 25px rgba(0, 245, 255, 0.09);
+    }
+    100% {
+        border-color: rgba(0, 245, 255, 0.06); /* Breath Out - Soft Glow */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 
+                    0 0 15px rgba(0, 245, 255, 0.02);
+    }
+}
+
+/* Premium Breathing Container Styling */
+.premium-breathing-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(0, 245, 255, 0.06);
+    border-radius: 12px;
+    padding: 30px 35px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    
+    /* Breathing effect application: 6s smooth loop infinitely */
+    animation: glowBreathing 6s ease-in-out infinite;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease;
+}
+
+/* Manual mouse hover overrides the breathing animation for interactive control */
+.premium-breathing-card:hover {
+    transform: translateX(4px); /* Slick micro shift to the right */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+    border-color: rgba(0, 245, 255, 0.4) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+                0 0 30px rgba(0, 245, 255, 0.15) !important;
+    animation-play-state: paused; /* Hover karne par temporary pause dynamic feeling ke liye */
+}
+
+/* Text elements styles within breathing container */
+.premium-breathing-card h4 {
+    color: #00f5ff; /* Cyan accent coding theme */
+    font-family: 'Fira Code', 'Courier New', monospace; /* Dev native code font vibe */
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    letter-spacing: 0.5px;
+}
+
+.premium-breathing-card p {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.7; /* Long readable line spacing */
+    margin: 0;
+    text-align: justify;
+}
+/* Breathing Keyframes for Dark Tech Cards */
+@keyframes techCardBreath {
+    0% {
+        border-color: rgba(255, 255, 255, 0.04);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    }
+    50% {
+        border-color: rgba(255, 255, 255, 0.12); /* Slowly brightens border */
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 
+                    0 0 15px rgba(255, 255, 255, 0.02),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    100% {
+        border-color: rgba(255, 255, 255, 0.04);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    }
+}
+
+/* Image Aligned Code Card Body */
+.node-premium-card {
+    background: #0b0f17; /* Precise deep background match */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px; /* Rounded corners as shown in image */
+    padding: 35px 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    
+    /* 7 seconds soft breath loop */
+    animation: techCardBreath 7s ease-in-out infinite;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+/* Hover style overrides breathing temporarily for click focus feel */
+.node-premium-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9) !important;
+    animation-play-state: paused; /* Hover par pulse ruk jayega */
+}
+
+/* Terminal Node Tag Style (Top Line) */
+.node-premium-card .node-tag {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+/* Node Title Style */
+.node-premium-card .node-title {
+    color: #ffffff;
+    font-size: 24px; /* Bold prominent headings like the image */
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 20px 0;
+    letter-spacing: -0.4px;
+}
+
+/* Long English Text Description Style */
+.node-premium-card .node-desc {
+    color: #64748b; /* Clean grayish text color match */
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0;
+    text-align: justify;
+}
+@keyframes heroBgSwap {
+  0%, 30% {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)),
+      url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80');
+  }
+
+  33%, 63% {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)),
+      url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80');
+  }
+
+  66%, 100% {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)),
+      url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80');
+  }
+}
+
+
+/* Hero background ko full-screen edge-to-edge banane ke liye (sirf ROW 1 tak) */
+.hero-top-split {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: -100px;
+    padding-top: 100px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .hero-top-split {
+        margin-top: -90px;
+        padding-top: 90px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+.hero-image-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.hero-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    animation: dotActiveSwap 9s infinite;
+}
+
+.hero-dot:nth-child(1) { animation-delay: 0s; }
+.hero-dot:nth-child(2) { animation-delay: -6s; }
+.hero-dot:nth-child(3) { animation-delay: -3s; }
+
+@keyframes dotActiveSwap {
+    0%, 30% {
+        background: #00f5ff;
+        box-shadow: 0 0 8px rgba(0, 245, 255, 0.6);
+        transform: scale(1.3);
+    }
+    33%, 100% {
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: none;
+        transform: scale(1);
+    }
+}
+.hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: heroBgFade 9s infinite;
+    animation-timing-function: ease-in-out;
+    will-change: transform, opacity;
+    z-index: 0;
+}
+.hero-bg-layer-1 {
+    background-image: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80');
+    animation-delay: 0s;
+}
+.hero-bg-layer-2 {
+    background-image: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80');
+    animation-delay: 3s;
+}
+.hero-bg-layer-3 {
+    background-image: linear-gradient(rgba(0,0,0,0.62), rgba(0,0,0,0.62)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80');
+    animation-delay: 6s;
+}
+
+@keyframes heroBgFade {
+    0%   { opacity: 0; transform: scale(1); }
+    5%   { opacity: 1; transform: scale(1.03); }
+    28%  { opacity: 1; transform: scale(1.1); }
+    33%  { opacity: 0; transform: scale(1.12); }
+    100% { opacity: 0; transform: scale(1.15); }
+}
+
+/* Text/cards ko background layers ke upar rakhne ke liye */
+.hero-content-left,
+.hero-visual-right {
+    position: relative;
+    z-index: 1;
+}

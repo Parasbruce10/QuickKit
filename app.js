@@ -557,6 +557,7 @@ const QuizPage = ({ navigate }) => {
     };
     const [gameState, setGameState] = useState('card');
     const [currentLevel, setCurrentLevel] = useState(1);
+    
     const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [levelScores, setLevelScores] = useState({ 1: 0, 2: 0, 3: 0 });
@@ -2702,7 +2703,7 @@ const SentenceChecker = ({ navigate }) => {
 // --- NEW: Premium Home Component with Typewriter ---
 const Home = ({ navigate }) => {
     const [typedText, setTypedText] = useState('');
-
+    const cardsSliderRef = useRef(null);
     // Aapki website se related 3 professional lines jo loop mein chalengi
     const typewriterLines = [
         "Premium digital utilities for your workflow.",
@@ -2713,7 +2714,24 @@ const Home = ({ navigate }) => {
         "Challenge your knowledge with interactive quizzes.",
         "Convert, Zip, and extract files securely."
     ];
+// ── CARDS AUTO-SLIDER (har 4 second baad agla card) ──
+    useEffect(() => {
+        const autoSlide = setInterval(() => {
+            const slider = cardsSliderRef.current;
+            if (!slider) return;
+            const card = slider.querySelector('.premium-tool-card, .bio-card, .calc-card, .crypto-card, .typing-card');
+            const cardWidth = card ? card.offsetWidth + 24 : 320;
+            const maxScroll = slider.scrollWidth - slider.clientWidth;
 
+            if (slider.scrollLeft >= maxScroll - 10) {
+                slider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            }
+        }, 4000);
+
+        return () => clearInterval(autoSlide);
+    }, []);
     useEffect(() => {
         let lineIndex = 0;
         let charIndex = 0;
@@ -2760,16 +2778,32 @@ const Home = ({ navigate }) => {
         // Cleanup mechanism
         return () => clearTimeout(timerId);
     }, []);
-
+const scrollSlider = (direction) => {
+        const slider = cardsSliderRef.current;
+        if (!slider) return;
+        const card = slider.querySelector('.premium-tool-card, .bio-card, .calc-card, .crypto-card, .typing-card');
+        const cardWidth = card ? card.offsetWidth + 24 : 320;
+        slider.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+    };
     return e('main', { className: 'main-content home-page-bg' }, // Yahan humne class add ki hy
         e('div', { className: 'tester-section-wrapper', style: { gap: '0' } },
 
             // ── HERO ──
-            // ── HERO ──
-            e('div', { className: 'home-hero' },
+              e('div', { className: 'home-hero' },
+
 
                 // ROW 1: Is row mein Text (Left) aur Animation (Right) bilkul aamne-saamne (paros mein) hain
-                e('div', { className: 'hero-top-split' },
+                e('div', {
+                    className: 'hero-top-split',
+                    style: {
+                        position: 'relative',
+                        borderRadius: '16px',
+                        overflow: 'hidden'
+                    }
+                },
+                    e('div', { className: 'hero-bg-layer hero-bg-layer-1' }),
+                    e('div', { className: 'hero-bg-layer hero-bg-layer-2' }),
+                    e('div', { className: 'hero-bg-layer hero-bg-layer-3' }),
 
                     // Left Side: Text, Subtitle aur Dono Buttons
                     e('div', { className: 'hero-content-left' },
@@ -2881,6 +2915,13 @@ const Home = ({ navigate }) => {
                     )
                 ),
 
+                // Image change hone ka indicator (3 dots)
+                e('div', { className: 'hero-image-dots' },
+                    e('span', { className: 'hero-dot' }),
+                    e('span', { className: 'hero-dot' }),
+                    e('span', { className: 'hero-dot' })
+                ),
+
                 // ROW 2: "4+ Tools" wala section jo split row ke bilkul NEECHAY hai (Animation se strictly niche)
                 e('div', { className: 'hero-stats-row' },
                     e('div', { className: 'stat-item stat-delay-1' },
@@ -2899,9 +2940,19 @@ const Home = ({ navigate }) => {
             ),
 
             // ── FEATURE CARDS ──
-            // --- CODES TO REPLACE IN HOME COMPONENT (RIGHT UNDER THE 3+ TOOLS ROW) ---
-            e('div', { className: 'premium-tools-grid' },
-                // Card 1: Typing Tester Tool
+            // --- CODES TO REPLACE IN HOME COMPONE
+             e('div', { className: 'tools-section-heading' },
+                e('span', { className: 'tools-heading-badge' }, '✦ What We Offer'),
+                e('h2', { className: 'tools-heading-title' }, 'Everything Available On This Website'),
+                e('p', { className: 'tools-heading-subtitle' }, 'Explore all the free tools and utilities built for you.')
+            ),
+
+            e('div', { className: 'premium-slider-wrapper' },
+                e('button', { className: 'slider-arrow slider-arrow-left', onClick: () => scrollSlider(-1), 'aria-label': 'Previous' }, '‹'),
+                e('button', { className: 'slider-arrow slider-arrow-right', onClick: () => scrollSlider(1), 'aria-label': 'Next' }, '›'),
+                e('div', { className: 'premium-tools-grid', ref: cardsSliderRef },
+                // Card 1: Typing Tester Too
+
                 e('div', {
                     className: 'premium-tool-card typing-card premium-card-delay-1',
                     onClick: () => navigate('typingtester')
@@ -3048,8 +3099,9 @@ const Home = ({ navigate }) => {
                         e('h3', { className: 'card-main-title' }, 'Website User Guide'),
                         e('p', { className: 'card-secondary-desc' }, 'Read the complete, comprehensive step-by-step documentation and operational manual for all our digital tools.')
                     ),
-                    e('div', { className: 'card-action-link-footer' }, 'Open System Manual ', e('span', { className: 'arrow-vector' }, '→'))
+             e('div', { className: 'card-action-link-footer' }, 'Open System Manual ', e('span', { className: 'arrow-vector' }, '→'))
                 )
+            )
             ),
 
 
@@ -3169,7 +3221,139 @@ const Home = ({ navigate }) => {
                     'Engineered for developers who live in their code editors. With a workspace that feels as fluid and responsive as VS Code, QuickKit provides advanced local utilities—like real-time file extraction and text editing workflows—without ever breaking your focus.'
                 )
             ),
+// =========================================================
+// YAHAN PASTE KAREIN: WEBSITE DETAILS PREMIUM GLOW CARDS
+// =========================================================
+e('div', { 
+    style: { 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+        gap: '20px', 
+        width: '100%', 
+        maxWidth: '1200px', 
+        margin: '0 auto 50px auto', // niche wale utility cards se 50px ka gap rakhega
+        padding: '0 20px'
+    } 
+},
+    // Premium Card 1: Global Edge Analytics
+    e('div', { className: 'premium-glow-card' },
+        e('div', { className: 'glow-icon', style: { color: '#00f5ff' } }, '⚡'),
+        e('h4', null, 'Ultra-Fluid Engine'),
+        e('p', null, 'Engineered with reactive components ensuring sub-millisecond thread execution and zero layout shifting.')
+    ),
+    // Premium Card 2: Security & Isolation
+    e('div', { className: 'premium-glow-card' },
+        e('div', { className: 'glow-icon', style: { color: '#bd00ff' } }, '🛡️'),
+        e('h4', null, 'Zero-Server Sandbox'),
+        e('p', null, 'Your data never leaves your machine. All file extractions and processing are compiled 100% locally.')
+    ),
+    // Premium Card 3: Developer Aesthetics
+    e('div', { className: 'premium-glow-card' },
+        e('div', { className: 'glow-icon', style: { color: '#3b82f6' } }, '💎'),
+        e('h4', null, 'Premium Vapor Glass'),
+        e('p', null, 'Immersive micro-blur effects with hardware-accelerated layouts optimized for long coding sessions.')
+    )
+),
+// =========================================================
+// START: EXTENDED PREMIUM DETAILS SECTION (5 LONG PARAGRAPHS)
+// =========================================================
+e('div', { 
+    style: { 
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px', 
+        width: '100%', 
+        maxWidth: '900px', 
+        margin: '20px auto 60px auto', 
+        padding: '0 20px'
+    } 
+},
+    // Paragraph 1: Core Architecture
+    e('div', { className: 'premium-breathing-card' },
+        e('h4', null, '01 // Architectural Pipeline & Sub-Millisecond Execution'),
+        e('p', null, 'At the absolute core of the QuickKit ecosystem lies a highly optimized, single-thread reactive pipeline architecture designed specifically to parallel the execution environments of modern compilation suites. Traditional web utilities often suffer from severe layout shifts and rendering performance degradation due to unoptimized main-thread blockages. QuickKit circumvents these computational bottlenecks by implementing sophisticated low-overhead parsing matrices that handle asynchronous operations fluidly, providing real-time data transformations instantly.')
+    ),
 
+    // Paragraph 2: Privacy & Sandbox Isolation
+    e('div', { className: 'premium-breathing-card' },
+        e('h4', null, '02 // Local Sandbox Protocols & Client-Side Privacy Isolation'),
+        e('p', null, 'Data integrity and intellectual compliance represent fundamental cornerstones of our developmental ideology. Unlike modern cloud-dependent ecosystems that necessitate the transmission of sensitive script blocks, cryptographic keys, or proprietary data to remote infrastructure, the entire processing suite executes natively inside an isolated local browser sandbox. Advanced cryptographic calculation routines, structural password validation arrays, and dynamic file conversion mechanics occur entirely within client-side memory spaces.')
+    ),
+
+    // Paragraph 3: Interface Design Philosophy
+    e('div', { className: 'premium-breathing-card' },
+        e('h4', null, '03 // Immersive Vapor Glass Aesthetics & Sensory Focus Management'),
+        e('p', null, 'Visual fatigue poses an immense operational hazard for engineers engaged in prolonged operational sessions inside deep terminal hierarchies. To deliberately counteract cognitive exhaustion, the system deploys a customized hardware-accelerated Vapor Glass user interface that utilizes high-performance multi-layered canvas blending models. By leveraging optimized backdrop filters alongside dynamic chromatic refraction indexes, the interface establishes a soothing spatial hierarchy that emphasizes core productivity metrics.')
+    ),
+
+    // Paragraph 4: Utility Integration Mechanics
+    e('div', { className: 'premium-breathing-card' },
+        e('h4', null, '04 // Unified Utility Mesh & Continuous Context Retention'),
+        e('p', null, 'The true efficacy of an engineering workspace lies within its capacity to sustain a fluid developmental state without forcing the operator to jump between fragmented external web apps. QuickKit resolves this by implementing a tightly integrated utility mesh where data models communicate cohesively without state loss. Whether you are generating structured data representations, testing algorithmic string densities, or evaluating regular expressions, the environment maintains strict state boundaries.')
+    ),
+
+    // Paragraph 5: Future Proof Extensibility
+    e('div', { className: 'premium-breathing-card' },
+        e('h4', null, '05 // High-Throughput I/O Matrices & Next-Gen Compilation Layers'),
+        e('p', null, 'Looking towards the next evolutionary iteration of developer productivity infrastructure, the underlying structural foundation of this system is intentionally engineered with high-throughput micro-engines. By maintaining strict compliance with modern modern WebAssembly (Wasm) processing protocols and optimizing native V8 memory allocation lifecycles, the environment remains completely future-proofed to scale dynamically alongside increasingly complex string operations, real-time telemetry rendering, and direct file system interactions.')
+    )
+),
+// =========================================================
+// NEW SECTION: 6 PREMIUM DEV-NODE CARDS (IMAGE STYLE)
+// =========================================================
+e('div', { 
+    style: { 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+        gap: '24px', 
+        width: '100%', 
+        maxWidth: '1200px', 
+        margin: '40px auto 60px auto', 
+        padding: '0 20px'
+    } 
+},
+    // NODE-01: Engineering
+    e('div', { className: 'node-premium-card' },
+        e('div', { className: 'node-tag', style: { color: '#00f5ff' } }, '[ NODE-01 // ENGINEERING ]'),
+        e('h3', { className: 'node-title' }, 'Next-Gen Structural Frameworks & Full-Stack Core Buildups'),
+        e('p', { className: 'node-desc' }, 'We specialize in building cutting-edge web environments using raw custom architectures like React and highly scalable Next.js servers, alongside traditional rapid-deployment WordPress ecosystems. Every digital pipeline is mapped out to prevent server-side blockages, ensuring that codebase clusters remain incredibly maintainable while execution pathways perform at theoretical limits.')
+    ),
+
+    // NODE-02: Optimization
+    e('div', { className: 'node-premium-card' },
+        e('div', { className: 'node-tag', style: { color: '#22c55e' } }, '[ NODE-02 // OPTIMIZATION ]'),
+        e('h3', { className: 'node-title' }, 'Programmatic SEO Frameworks & Deep Technical Visibility'),
+        e('p', { className: 'node-desc' }, 'Visibility is a structural science, not a guessing game. Our systems look beyond simple keyword insertion to focus deeply on programmatic layouts, data structures, and the refinement of Core Web Vitals. We construct dense topical clusters and advanced index hierarchies that map directly to search engines parsing patterns, securing elite organic placement dynamically.')
+    ),
+
+    // NODE-03: Monetization
+    e('div', { className: 'node-premium-card' },
+        e('div', { className: 'node-tag', style: { color: '#eab308' } }, '[ NODE-03 // MONETIZATION ]'),
+        e('h3', { className: 'node-title' }, 'Algorithmic Yield Optimization & Revenue Scaling Architectures'),
+        e('p', { className: 'node-desc' }, 'Maximizing platform revenue requires sophisticated script engineering. We implement advanced ad placement strategies tailored to retain maximum user engagement while generating high CPM returns across active ad networks. By deploying lightweight, non-blocking delivery workflows and asynchronous payload handling, monetization channels thrive without sacrificing frontend speed.')
+    ),
+
+    // NODE-04: Security
+    e('div', { className: 'node-premium-card' },
+        e('div', { className: 'node-tag', style: { color: '#ef4444' } }, '[ NODE-04 // SECURITY PROTOCOLS ]'),
+        e('h3', { className: 'node-title' }, 'Hardened Sandbox Isolation & Client-Side Cryptography'),
+        e('p', { className: 'node-desc' }, 'Security is non-negotiable within advanced modern developer environments. Our workspace architecture utilizes strictly isolated client-side memory matrices that prevent local environment cross-contamination. Data extraction pipelines run through localized parsing scripts that intercept potential injections, ensuring proprietary script payloads remain fully confidential and verified.')
+    ),
+
+    // NODE-05: Performance
+    e('div', { className: 'node-premium-card' },
+        e('div', { className: 'node-tag', style: { color: '#a855f7' } }, '[ NODE-05 // RUNTIME TELEMETRY ]'),
+        e('h3', { className: 'node-title' }, 'Sub-Millisecond Threading & Zero-Layout-Shift Compositing'),
+        e('p', { className: 'node-desc' }, 'By offloading heavy calculations to optimized micro-tasks, the application achieves incredible real-time responsiveness. The interface leverages GPU acceleration layers to manage heavy blurring matrices and dynamic background adjustments. This keeps interactions exceptionally smooth, even during complex multiline file extractions and regex compilations.')
+    ),
+
+    // NODE-06: Infrastructure
+    e('div', { className: 'node-premium-card' },
+        e('div', { className: 'node-tag', style: { color: '#3b82f6' } }, '[ NODE-06 // CORE CORE CORE ]'),
+        e('h3', { className: 'node-title' }, 'High-Throughput IO Systems & Distributed State Control'),
+        e('p', { className: 'node-desc' }, 'The foundation of this utility setup uses high-throughput architectural links built for complex transformations. State preservation occurs instantly across separate features without requiring massive memory reallocations. This setup creates a unified grid ecosystem where each workspace module runs independently but stays connected for a smooth user workflow.')
+    )
+), // Baki code chalne dein...
             // ── CTA BANNER ──
             e('div', { className: 'cta-banner' },
                 e('h2', { className: 'cta-title' }, 'Ready to level up?'),
@@ -3179,6 +3363,10 @@ const Home = ({ navigate }) => {
         )
     );
 };
+    // 🔁 Hero background image rotator (3 sec)
+        // 🔁 Hero background image rotator (3 sec)
+    
+
 
 // Footer ke parameter mein `Maps` add karein
 const Footer = ({ company, navigate }) => {
