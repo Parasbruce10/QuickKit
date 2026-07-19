@@ -3107,7 +3107,35 @@ const scrollSlider = (direction) => {
 
             // ── HOW IT WORKS ──
             e('div', { className: 'how-it-works' },
-                e('p', { className: 'section-label' }, 'How it works'),
+                e('div', { 
+  style: { 
+    display: 'flex', 
+    justifyContent: 'center', 
+    width: '100%', 
+    margin: '20px 0' // Upar neeche thodi space ke liye (optional)
+  } 
+},
+  e('div', { 
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '8px',
+      border: '1px solid rgba(0, 243, 255, 0.3)',
+      borderRadius: '50px',
+      padding: '6px 18px',
+      backgroundColor: 'rgba(0, 243, 255, 0.05)',
+      color: '#00f3ff',
+      fontFamily: 'sans-serif',
+      fontSize: '14px',
+      fontWeight: '600',
+      letterSpacing: '0.5px',
+      boxShadow: '0 0 10px rgba(0, 243, 255, 0.1)'
+    } 
+  },
+    e('span', { style: { fontSize: '16px', lineHeight: '1' } }, '✦'),
+    e('span', null, 'How it works')
+  )
+),
                 e('h2', { className: 'section-title' }, 'Three Steps. Zero Friction.'),
                 e('div', { className: 'steps-row' },
                     e('div', { className: 'step-card' },
@@ -3224,137 +3252,207 @@ const scrollSlider = (direction) => {
 // =========================================================
 // YAHAN PASTE KAREIN: WEBSITE DETAILS PREMIUM GLOW CARDS
 // =========================================================
-e('div', { 
-    style: { 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-        gap: '20px', 
-        width: '100%', 
-        maxWidth: '1200px', 
-        margin: '0 auto 50px auto', // niche wale utility cards se 50px ka gap rakhega
-        padding: '0 20px'
-    } 
-},
-    // Premium Card 1: Global Edge Analytics
-    e('div', { className: 'premium-glow-card' },
-        e('div', { className: 'glow-icon', style: { color: '#00f5ff' } }, '⚡'),
-        e('h4', null, 'Ultra-Fluid Engine'),
-        e('p', null, 'Engineered with reactive components ensuring sub-millisecond thread execution and zero layout shifting.')
+e('div', { style: { width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' } },
+    
+    // ==========================================
+    // UTILITY CARDS HEADER (Label + Description)
+    // ==========================================
+    e('div', { 
+        style: { 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            textAlign: 'center',
+            gap: '12px',
+            margin: '40px 0 20px 0',
+            padding: '0 20px'
+        } 
+    },
+        // Wahi capsule style label jo baki sections par hai
+        e('div', { 
+            style: {
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                border: '1px solid rgba(0, 243, 255, 0.3)',
+                borderRadius: '50px',
+                padding: '6px 18px',
+                backgroundColor: 'rgba(0, 243, 255, 0.05)',
+                color: '#00f3ff',
+                fontFamily: 'sans-serif',
+                fontSize: '13px',
+                fontWeight: '600',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                boxShadow: '0 0 10px rgba(0, 243, 255, 0.1)'
+            } 
+        },
+            e('span', { style: { fontSize: '15px', lineHeight: '1' } }, '✦'),
+            e('span', null, 'System Capabilities')
+        ),
+        
+        // Related English Line (Sub-heading) jo is grid ke utilities se match karegi
+        e('p', { 
+            style: { 
+                color: '#94a3b8', 
+                fontSize: 'clamp(14px, 2vw, 16px)', 
+                maxWidth: '600px', 
+                lineHeight: '1.6',
+                margin: '0',
+                fontFamily: 'sans-serif'
+            } 
+        }, 
+            'Experience localized compilation matrices designed for high-performance threading and client-side computational safety.'
+        )
     ),
-    // Premium Card 2: Security & Isolation
-    e('div', { className: 'premium-glow-card' },
-        e('div', { className: 'glow-icon', style: { color: '#bd00ff' } }, '🛡️'),
-        e('h4', null, 'Zero-Server Sandbox'),
-        e('p', null, 'Your data never leaves your machine. All file extractions and processing are compiled 100% locally.')
-    ),
-    // Premium Card 3: Developer Aesthetics
-    e('div', { className: 'premium-glow-card' },
-        e('div', { className: 'glow-icon', style: { color: '#3b82f6' } }, '💎'),
-        e('h4', null, 'Premium Vapor Glass'),
-        e('p', null, 'Immersive micro-blur effects with hardware-accelerated layouts optimized for long coding sessions.')
+
+    // ==========================================
+    // YOUR ORIGINAL UTILITY GRID CONTAINER
+    // ==========================================
+    e('div', { 
+        style: { 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+            gap: '20px', 
+            width: '100%', 
+            maxWidth: '1200px', 
+            margin: '0 auto 50px auto', 
+            padding: '0 20px'
+        } 
+    },
+        // Premium Card 1: Global Edge Analytics
+        e('div', { className: 'premium-glow-card' },
+            e('div', { className: 'glow-icon', style: { color: '#00f5ff' } }, '⚡'), // Cleaned icon
+            e('h4', null, 'Ultra-Fluid Engine'),
+            e('p', null, 'Engineered with reactive components ensuring sub-millisecond thread execution and zero layout shifting.')
+        ),
+        // Premium Card 2: Security & Isolation
+        e('div', { className: 'premium-glow-card' },
+            e('div', { className: 'glow-icon', style: { color: '#bd00ff' } }, '🛡️'), // Cleaned icon
+            e('h4', null, 'Zero-Server Sandbox'),
+            e('p', null, 'Your data never leaves your machine. All file extractions and processing are compiled 100% locally.')
+        ),
+        // Premium Card 3: Developer Aesthetics
+        e('div', { className: 'premium-glow-card' },
+            e('div', { className: 'glow-icon', style: { color: '#3b82f6' } }, '💎'), // Cleaned icon
+            e('h4', null, 'Premium Vapor Glass'),
+            e('p', null, 'Immersive micro-blur effects with hardware-accelerated layouts optimized for long coding sessions.')
+        )
     )
 ),
-// =========================================================
-// START: EXTENDED PREMIUM DETAILS SECTION (5 LONG PARAGRAPHS)
-// =========================================================
-e('div', { 
-    style: { 
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px', 
-        width: '100%', 
-        maxWidth: '900px', 
-        margin: '20px auto 60px auto', 
-        padding: '0 20px'
-    } 
-},
-    // Paragraph 1: Core Architecture
-    e('div', { className: 'premium-breathing-card' },
-        e('h4', null, '01 // Architectural Pipeline & Sub-Millisecond Execution'),
-        e('p', null, 'At the absolute core of the QuickKit ecosystem lies a highly optimized, single-thread reactive pipeline architecture designed specifically to parallel the execution environments of modern compilation suites. Traditional web utilities often suffer from severe layout shifts and rendering performance degradation due to unoptimized main-thread blockages. QuickKit circumvents these computational bottlenecks by implementing sophisticated low-overhead parsing matrices that handle asynchronous operations fluidly, providing real-time data transformations instantly.')
-    ),
 
-    // Paragraph 2: Privacy & Sandbox Isolation
-    e('div', { className: 'premium-breathing-card' },
-        e('h4', null, '02 // Local Sandbox Protocols & Client-Side Privacy Isolation'),
-        e('p', null, 'Data integrity and intellectual compliance represent fundamental cornerstones of our developmental ideology. Unlike modern cloud-dependent ecosystems that necessitate the transmission of sensitive script blocks, cryptographic keys, or proprietary data to remote infrastructure, the entire processing suite executes natively inside an isolated local browser sandbox. Advanced cryptographic calculation routines, structural password validation arrays, and dynamic file conversion mechanics occur entirely within client-side memory spaces.')
-    ),
-
-    // Paragraph 3: Interface Design Philosophy
-    e('div', { className: 'premium-breathing-card' },
-        e('h4', null, '03 // Immersive Vapor Glass Aesthetics & Sensory Focus Management'),
-        e('p', null, 'Visual fatigue poses an immense operational hazard for engineers engaged in prolonged operational sessions inside deep terminal hierarchies. To deliberately counteract cognitive exhaustion, the system deploys a customized hardware-accelerated Vapor Glass user interface that utilizes high-performance multi-layered canvas blending models. By leveraging optimized backdrop filters alongside dynamic chromatic refraction indexes, the interface establishes a soothing spatial hierarchy that emphasizes core productivity metrics.')
-    ),
-
-    // Paragraph 4: Utility Integration Mechanics
-    e('div', { className: 'premium-breathing-card' },
-        e('h4', null, '04 // Unified Utility Mesh & Continuous Context Retention'),
-        e('p', null, 'The true efficacy of an engineering workspace lies within its capacity to sustain a fluid developmental state without forcing the operator to jump between fragmented external web apps. QuickKit resolves this by implementing a tightly integrated utility mesh where data models communicate cohesively without state loss. Whether you are generating structured data representations, testing algorithmic string densities, or evaluating regular expressions, the environment maintains strict state boundaries.')
-    ),
-
-    // Paragraph 5: Future Proof Extensibility
-    e('div', { className: 'premium-breathing-card' },
-        e('h4', null, '05 // High-Throughput I/O Matrices & Next-Gen Compilation Layers'),
-        e('p', null, 'Looking towards the next evolutionary iteration of developer productivity infrastructure, the underlying structural foundation of this system is intentionally engineered with high-throughput micro-engines. By maintaining strict compliance with modern modern WebAssembly (Wasm) processing protocols and optimizing native V8 memory allocation lifecycles, the environment remains completely future-proofed to scale dynamically alongside increasingly complex string operations, real-time telemetry rendering, and direct file system interactions.')
-    )
-),
 // =========================================================
 // NEW SECTION: 6 PREMIUM DEV-NODE CARDS (IMAGE STYLE)
 // =========================================================
-e('div', { 
-    style: { 
-        display: 'grid', 
-        // Mobile par 1 column aur 280px tak ke mobile ko support karega, baray screens par auto-fit
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
-        // Mobile par gap 16px hoga, bari screens par 24px (responsive gap)
-        gap: 'clamp(16px, 4vw, 24px)', 
-        width: '100%', 
-        maxWidth: '1200px', 
-        // Mobile par top/bottom margin thora kam (20px), bari screens par 40px/60px
-        margin: 'clamp(20px, 5vw, 40px) auto clamp(30px, 8vw, 60px) auto', 
-        padding: '0 16px' // Side padding 16px kr di taake choti screen par text chipke nahi
-    } 
-},
-    // NODE-01: Engineering
-    e('div', { className: 'node-premium-card' },
-        e('div', { className: 'node-tag', style: { color: '#00f5ff' } }, '[ NODE-01 // ENGINEERING ]'),
-        e('h3', { className: 'node-title' }, 'Next-Gen Structural Frameworks & Full-Stack Core Buildups'),
-        e('p', { className: 'node-desc' }, 'We specialize in building cutting-edge web environments using raw custom architectures like React and highly scalable Next.js servers, alongside traditional rapid-deployment WordPress ecosystems. Every digital pipeline is mapped out to prevent server-side blockages, ensuring that codebase clusters remain incredibly maintainable while execution pathways perform at theoretical limits.')
+e('div', { style: { width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' } },
+    
+    // ==========================================
+    // NEW HEADER SECTION (Label + Description)
+    // ==========================================
+    e('div', { 
+        style: { 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            textAlign: 'center',
+            gap: '12px',
+            margin: '40px 0 10px 0',
+            padding: '0 16px'
+        } 
+    },
+        // Wahi capsule style label jo pehle banaya tha
+        e('div', { 
+            style: {
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                border: '1px solid rgba(0, 243, 255, 0.3)',
+                borderRadius: '50px',
+                padding: '6px 18px',
+                backgroundColor: 'rgba(0, 243, 255, 0.05)',
+                color: '#00f3ff',
+                fontFamily: 'sans-serif',
+                fontSize: '13px',
+                fontWeight: '600',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                boxShadow: '0 0 10px rgba(0, 243, 255, 0.1)'
+            } 
+        },
+            e('span', { style: { fontSize: '15px', lineHeight: '1' } }, '✦'),
+            e('span', null, 'Core Architecture')
+        ),
+        
+        // Related English Line (Sub-heading) jo aapke technical theme se match karegi
+        e('p', { 
+            style: { 
+                color: '#94a3b8', // Slate grey color premium look ke liye
+                fontSize: 'clamp(14px, 2vw, 16px)', 
+                maxWidth: '600px', 
+                lineHeight: '1.6',
+                margin: '0',
+                fontFamily: 'sans-serif'
+            } 
+        }, 
+            'Explore the interconnected operational units driving our next-generation web ecosystems and secure framework execution.'
+        )
     ),
 
-    // NODE-02: Optimization
-    e('div', { className: 'node-premium-card' },
-        e('div', { className: 'node-tag', style: { color: '#22c55e' } }, '[ NODE-02 // OPTIMIZATION ]'),
-        e('h3', { className: 'node-title' }, 'Programmatic SEO Frameworks & Deep Technical Visibility'),
-        e('p', { className: 'node-desc' }, 'Visibility is a structural science, not a guessing game. Our systems look beyond simple keyword insertion to focus deeply on programmatic layouts, data structures, and the refinement of Core Web Vitals. We construct dense topical clusters and advanced index hierarchies that map directly to search engines parsing patterns, securing elite organic placement dynamically.')
-    ),
+    // ==========================================
+    // YOUR ORIGINAL GRID CONTAINER (Unchanged)
+    // ==========================================
+    e('div', { 
+        style: { 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
+            gap: 'clamp(16px, 4vw, 24px)', 
+            width: '100%', 
+            maxWidth: '1200px', 
+            margin: 'clamp(20px, 5vw, 40px) auto clamp(30px, 8vw, 60px) auto', 
+            padding: '0 16px' 
+        } 
+    },
+        // NODE-01: Engineering
+        e('div', { className: 'node-premium-card' },
+            e('div', { className: 'node-tag', style: { color: '#00f5ff' } }, '[ NODE-01 // ENGINEERING ]'),
+            e('h3', { className: 'node-title' }, 'Next-Gen Structural Frameworks & Full-Stack Core Buildups'),
+            e('p', { className: 'node-desc' }, 'We specialize in building cutting-edge web environments using raw custom architectures like React and highly scalable Next.js servers, alongside traditional rapid-deployment WordPress ecosystems. Every digital pipeline is mapped out to prevent server-side blockages, ensuring that codebase clusters remain incredibly maintainable while execution pathways perform at theoretical limits.')
+        ),
 
-    // NODE-03: Monetization
-    e('div', { className: 'node-premium-card' },
-        e('div', { className: 'node-tag', style: { color: '#eab308' } }, '[ NODE-03 // MONETIZATION ]'),
-        e('h3', { className: 'node-title' }, 'Algorithmic Yield Optimization & Revenue Scaling Architectures'),
-        e('p', { className: 'node-desc' }, 'Maximizing platform revenue requires sophisticated script engineering. We implement advanced ad placement strategies tailored to retain maximum user engagement while generating high CPM returns across active ad networks. By deploying lightweight, non-blocking delivery workflows and asynchronous payload handling, monetization channels thrive without sacrificing frontend speed.')
-    ),
+        // NODE-02: Optimization
+        e('div', { className: 'node-premium-card' },
+            e('div', { className: 'node-tag', style: { color: '#22c55e' } }, '[ NODE-02 // OPTIMIZATION ]'),
+            e('h3', { className: 'node-title' }, 'Programmatic SEO Frameworks & Deep Technical Visibility'),
+            e('p', { className: 'node-desc' }, 'Visibility is a structural science, not a guessing game. Our systems look beyond simple keyword insertion to focus deeply on programmatic layouts, data structures, and the refinement of Core Web Vitals. We construct dense topical clusters and advanced index hierarchies that map directly to search engines parsing patterns, securing elite organic placement dynamically.')
+        ),
 
-    // NODE-04: Security
-    e('div', { className: 'node-premium-card' },
-        e('div', { className: 'node-tag', style: { color: '#ef4444' } }, '[ NODE-04 // SECURITY PROTOCOLS ]'),
-        e('h3', { className: 'node-title' }, 'Hardened Sandbox Isolation & Client-Side Cryptography'),
-        e('p', { className: 'node-desc' }, 'Security is non-negotiable within advanced modern developer environments. Our workspace architecture utilizes strictly isolated client-side memory matrices that prevent local environment cross-contamination. Data extraction pipelines run through localized parsing scripts that intercept potential injections, ensuring proprietary script payloads remain fully confidential and verified.')
-    ),
+        // NODE-03: Monetization
+        e('div', { className: 'node-premium-card' },
+            e('div', { className: 'node-tag', style: { color: '#eab308' } }, '[ NODE-03 // MONETIZATION ]'),
+            e('h3', { className: 'node-title' }, 'Algorithmic Yield Optimization & Revenue Scaling Architectures'),
+            e('p', { className: 'node-desc' }, 'Maximizing platform revenue requires sophisticated script engineering. We implement advanced ad placement strategies tailored to retain maximum user engagement while generating high CPM returns across active ad networks. By deploying lightweight, non-blocking delivery workflows and asynchronous payload handling, monetization channels thrive without sacrificing frontend speed.')
+        ),
 
-    // NODE-05: Performance
-    e('div', { className: 'node-premium-card' },
-        e('div', { className: 'node-tag', style: { color: '#a855f7' } }, '[ NODE-05 // RUNTIME TELEMETRY ]'),
-        e('h3', { className: 'node-title' }, 'Sub-Millisecond Threading & Zero-Layout-Shift Compositing'),
-        e('p', { className: 'node-desc' }, 'By offloading heavy calculations to optimized micro-tasks, the application achieves incredible real-time responsiveness. The interface leverages GPU acceleration layers to manage heavy blurring matrices and dynamic background adjustments. This keeps interactions exceptionally smooth, even during complex multiline file extractions and regex compilations.')
-    ),
+        // NODE-04: Security
+        e('div', { className: 'node-premium-card' },
+            e('div', { className: 'node-tag', style: { color: '#ef4444' } }, '[ NODE-04 // SECURITY PROTOCOLS ]'),
+            e('h3', { className: 'node-title' }, 'Hardened Sandbox Isolation & Client-Side Cryptography'),
+            e('p', { className: 'node-desc' }, 'Security is non-negotiable within advanced modern developer environments. Our workspace architecture utilizes strictly isolated client-side memory matrices that prevent local environment cross-contamination. Data extraction pipelines run through localized parsing scripts that intercept potential injections, ensuring proprietary script payloads remain fully confidential and verified.')
+        ),
 
-    // NODE-06: Infrastructure
-    e('div', { className: 'node-premium-card' },
-        e('div', { className: 'node-tag', style: { color: '#3b82f6' } }, '[ NODE-06 // CORE CORE CORE ]'),
-        e('h3', { className: 'node-title' }, 'High-Throughput IO Systems & Distributed State Control'),
-        e('p', { className: 'node-desc' }, 'The foundation of this utility setup uses high-throughput architectural links built for complex transformations. State preservation occurs instantly across separate features without requiring massive memory reallocations. This setup creates a unified grid ecosystem where each workspace module runs independently but stays connected for a smooth user workflow.')
+        // NODE-05: Performance
+        e('div', { className: 'node-premium-card' },
+            e('div', { className: 'node-tag', style: { color: '#a855f7' } }, '[ NODE-05 // RUNTIME TELEMETRY ]'),
+            e('h3', { className: 'node-title' }, 'Sub-Millisecond Threading & Zero-Layout-Shift Compositing'),
+            e('p', { className: 'node-desc' }, 'By offloading heavy calculations to optimized micro-tasks, the application achieves incredible real-time responsiveness. The interface leverages GPU acceleration layers to manage heavy blurring matrices and dynamic background adjustments. This keeps interactions exceptionally smooth, even during complex multiline file extractions and regex compilations.')
+        ),
+
+        // NODE-06: Infrastructure
+        e('div', { className: 'node-premium-card' },
+            e('div', { className: 'node-tag', style: { color: '#3b82f6' } }, '[ NODE-06 // CORE CORE CORE ]'),
+            e('h3', { className: 'node-title' }, 'High-Throughput IO Systems & Distributed State Control'),
+            e('p', { className: 'node-desc' }, 'The foundation of this utility setup uses high-throughput architectural links built for complex transformations. State preservation occurs instantly across separate features without requiring massive memory reallocations. This setup creates a unified grid ecosystem where each workspace module runs independently but stays connected for a smooth user workflow.')
+        )
     )
 ), // Baki code chalne dein...
             // ── CTA BANNER ──
